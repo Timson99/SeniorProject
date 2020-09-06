@@ -1,4 +1,4 @@
-# SeniorProject_DevTest
+# SeniorProject Test Environment
 
 ## This is an auxiliary environment for the yet unnamed Godot 2020-2021 project. 
 
