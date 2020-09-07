@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="SeniorProject_DevTest"
+config/name="SeniorProject_Test"
 run/main_scene="res://Node2D.tscn"
 config/icon="res://Assets/icon.png"
 
