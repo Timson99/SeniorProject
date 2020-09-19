@@ -23,6 +23,7 @@ config/icon="res://Assets/Test_Art/icon.png"
 
 SceneManager="*res://Scripts/Singletons/SceneManager.gd"
 SaveManager="*res://Scripts/Singletons/SaveManager.gd"
+InputEngine="*res://Scripts/Singletons/InputEngine.gd"
 PersistantData="*res://Scripts/Singletons/PersistantData.gd"
 GlobalEnums="*res://Scripts/Singletons/GlobalEnums.gd"
 
