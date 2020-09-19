@@ -24,3 +24,6 @@ func load_pdata(id : String, actor : Object):
 func update_entry(node_data : Dictionary): 
 		if("id" in node_data):
 			PersistantData.data[node_data.id] = node_data; 
+			
+func _process(delta):
+	print("PData")

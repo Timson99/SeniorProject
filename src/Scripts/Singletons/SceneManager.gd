@@ -8,7 +8,7 @@ signal scene_fully_loaded()
 
 
 func _ready():
-	fade_screen = preload("res://Scenes/Test_Scenes/FadeScreen.tscn")
+	fade_screen = preload("res://Scenes/Tim_Test_Scenes/FadeScreen.tscn")
 	var root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
 	
@@ -23,7 +23,10 @@ func goto_scene(path, warp_destination_id):
 	call_deferred("_deferred_goto_scene", path, warp_destination_id)
 
 # Switches Scenes only when it is safe to do so
-func _deferred_goto_scene(path, warp_destination_id): 
+func _deferred_goto_scene(path, warp_destination_id):
+	
+	print(path)
+	 
 	var fade = fade_screen.instance()
 	get_tree().get_root().add_child(fade)
 	var fade_animation = fade.get_node("TextureRect/AnimationPlayer")
