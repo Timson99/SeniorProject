@@ -4,6 +4,7 @@ var current_scene = null
 var fade_screen
 signal goto_called()
 signal scene_loaded()
+signal scene_fully_loaded()
 
 
 func _ready():
@@ -32,8 +33,6 @@ func _deferred_goto_scene(path, warp_destination_id):
 	
 	current_scene.free() #Remove current scene when safe
 	var s = ResourceLoader.load(path) # Load the new scene.
-	print(path)
-	print(s)
 	current_scene = s.instance() # Instance the new scene.
 	get_tree().get_root().add_child(current_scene) # Add as child of root
 	##########
@@ -49,6 +48,7 @@ func _deferred_goto_scene(path, warp_destination_id):
 	yield(fade_animation, "animation_finished")
 	
 	get_tree().get_root().remove_child(fade)
+	emit_signal("scene_fully_loaded")
 	
 	
 
