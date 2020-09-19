@@ -39,7 +39,6 @@ func enable_input():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print("InputEngine")
 	var input_recievers = get_tree().get_nodes_in_group("Persistent") if !input_disabled else []
 	if input_recievers.size() == 0: 
 		return
