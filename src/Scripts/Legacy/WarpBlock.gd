@@ -3,7 +3,7 @@ extends Area2D
 export(String) var warp_id = "None"
 export(String) var warp_destination_id = "None"
 export(String, FILE, "*.tscn") var warp_scene = "res://"
-export(GlobalTypes.Direction) var entrance_direction
+export(GlobalEnums.Direction) var entrance_direction
 export(Vector2) var entrance_point
 export(bool) var one_way
 
