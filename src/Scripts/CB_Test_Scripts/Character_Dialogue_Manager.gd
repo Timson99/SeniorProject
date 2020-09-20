@@ -2,6 +2,7 @@ extends Node
 
 # member variables
 export var speakerID = "setMe!"
+export var queuedMsg = "none"
 onready var interactable = get_node("Button")
 
 # Called when the node enters the scene tree for the first time.

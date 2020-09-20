@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scenes/CB_Test_Scene/Dialogue_Management.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/CB_Test_Scripts/Dialogue_Management.gd" type="Script" id=1]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
