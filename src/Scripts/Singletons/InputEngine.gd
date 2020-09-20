@@ -39,11 +39,11 @@ func enable_input():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var input_recievers = get_tree().get_nodes_in_group("Persistent") if !input_disabled else []
+	var input_recievers = get_tree().get_nodes_in_group("Input_Reciever") if !input_disabled else []
 	if input_recievers.size() == 0: 
 		return
 		
-	if input_recievers[0] is Sprite:
+	if input_recievers[0] is Sprite or input_recievers[0] is KinematicBody2D:
 		input_translator = to_player_commands
 		
 	var commands = []

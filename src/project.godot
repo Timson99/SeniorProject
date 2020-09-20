@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "PriorityQueue",
+"language": "GDScript",
+"path": "res://Scripts/Joe_Test_Scripts/PriorityQueue.gd"
+}, {
+"base": "Node",
+"class": "TestPQ",
+"language": "GDScript",
+"path": "res://Scripts/Joe_Test_Scripts/test_PriorityQueue.gd"
+} ]
 _global_script_class_icons={
-
+"PriorityQueue": "",
+"TestPQ": ""
 }
 
 [application]
