@@ -16,7 +16,7 @@ func _ready():
 # Example: SceneManager.goto_scene(path_string) 
 func goto_scene(path, warp_destination_id): 
 	#############
-	emit_signal("goto_called")
+	emit_signal("goto_called", path)
 	#GameManager.input_paused = true
 	#SaveManager.update_persistant_data() #Call Update Data
 	#############
@@ -51,7 +51,8 @@ func _deferred_goto_scene(path, warp_destination_id):
 	yield(fade_animation, "animation_finished")
 	
 	get_tree().get_root().remove_child(fade)
-	emit_signal("scene_fully_loaded")
+	emit_signal("scene_fully_loaded", path)
+	
 	
 	
 
