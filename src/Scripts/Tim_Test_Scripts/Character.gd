@@ -26,12 +26,7 @@ func _ready():
 func _physics_process(delta : float):
 	#Input Runs in regular process, may cause glitches
 	
-	
 	velocity = velocity.normalized() * speed
-	#position += velocity * delta
-	#position.x = clamp(position.x, 0, screen_size.x)
-	#position.y = clamp(position.y, 0, screen_size.y)
-	
 	if velocity.length() != 0:
 		$AnimatedSprite.animation = dir_anims[current_dir][1]
 		velocity = velocity.normalized() * speed
@@ -79,11 +74,9 @@ func up_just_pressed():
 
 func save_game():
 	SaveManager.save_game()
-	#set_process(false) # Replace with a Game Manager that disables handling
 
 func change_scene():
 	SceneManager.goto_scene(destination, -1)
-	#set_process(false) # Replace with a Game Manager that disables handling
 
 #Persistant Object Method
 func save():
