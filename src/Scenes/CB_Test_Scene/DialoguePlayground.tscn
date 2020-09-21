@@ -11,6 +11,7 @@ position = Vector2( 113.951, 44.9053 )
 scale = Vector2( 0.34449, 0.34449 )
 texture = ExtResource( 1 )
 script = ExtResource( 3 )
+speakerID = "liqmu"
 
 [node name="Button" type="Button" parent="Character1"]
 show_behind_parent = true
@@ -27,6 +28,7 @@ position = Vector2( 219.502, 44.9492 )
 scale = Vector2( 0.34449, 0.34449 )
 texture = ExtResource( 1 )
 script = ExtResource( 3 )
+speakerID = "5f1kn"
 
 [node name="Button" type="Button" parent="Character2"]
 show_behind_parent = true
