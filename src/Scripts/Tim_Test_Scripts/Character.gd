@@ -2,7 +2,8 @@ extends KinematicBody2D
 
 export var speed := 300
 onready var screen_size := get_viewport_rect().size
-var persistance_id := "this_id" #Can't be a number or mistakeable for a non string type
+export var persistance_id := "C1" #Can't be a number or mistakeable for a non string type
+export var input_id := "C1"
 var velocity := Vector2()
 var anim_string = "Idle_Down"
 var destination = "res://Scenes/Tim_Test_Scenes/Opening2.tscn"
@@ -24,7 +25,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
-	#Input Runs in regular process, may cause glitches
 	
 	velocity = velocity.normalized() * speed
 	if velocity.length() != 0:

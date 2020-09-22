@@ -2,7 +2,8 @@ extends Sprite
 
 export var speed := 300
 onready var screen_size := get_viewport_rect().size
-var persistance_id := "this_id" #Can't be a number or mistakeable for a non string type
+export var persistance_id := "this_id" #Can't be a number or mistakeable for a non string type
+export var input_id := "Test_Item"
 var velocity := Vector2()
 var destination = "res://Scenes/Tim_Test_Scenes/Opening2.tscn"
 
