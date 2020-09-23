@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
-export var speed := 300
-onready var screen_size := get_viewport_rect().size
+export var speed := 80
 export var persistance_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "C1"
 var velocity := Vector2()
@@ -39,10 +38,21 @@ func _physics_process(delta : float):
 		isMoving = false
 		
 	$AnimatedSprite.flip_h = (current_dir == Dir.Right)
-	
 	move_and_collide(velocity * delta)
 	$Camera2D.align()
 	velocity = Vector2()
+	
+# When leader, player input is activate, 
+func activate_player():
+	add_to_group("Input_Reciever")
+	#Replace with call to camera manager
+	$Camera2D.current = true
+	
+# When followed or incapacitated, player is an AI follower
+func deactivate_player():
+	remove_from_group("Input_Reciever")
+	#Replace with call to camera manager
+	$Camera2D.current = false
 	
 	
 #Input Reciever Methods

@@ -68,7 +68,7 @@ shape = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="AreaBox" type="CollisionShape2D" parent="Area2D"]
+[node name="InteractableArea" type="CollisionShape2D" parent="Area2D"]
 light_mask = -2147483648
 shape = SubResource( 2 )
 
