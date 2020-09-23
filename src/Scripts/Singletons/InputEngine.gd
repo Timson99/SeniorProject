@@ -46,11 +46,11 @@ func enable_input():
 
 	
 func _process(delta):
-	process_input("_physics_process")
+	process_input("_process")
 		
 
 func _physics_process(delta):
-	process_input("_process")
+	process_input("_physics_process")
 		
 		
 func process_input(loop):
@@ -59,7 +59,7 @@ func process_input(loop):
 		return
 	input_target = get_input_target(input_recievers)
 	if input_target == null: 
-		return
+		return	
 	
 	if valid_recievers[input_target.input_id]["loop"] == loop:
 		translate_and_execute(valid_recievers[input_target.input_id]["translator"])
