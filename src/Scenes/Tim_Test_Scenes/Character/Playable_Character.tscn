@@ -1,16 +1,15 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://Assets/Character_Art/C1/C1_14.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Character_Art/C1/C1_03.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Character_Art/C1/C1_07.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Character_Art/C1/C1_16.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Tim_Test_Scripts/ZSorted.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Character_Art/C1/C1_06.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Character_Art/C1/C1_12.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Character_Art/C1/C1_11.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Character_Art/C1/C1_13.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Character_Art/C1/C1_10.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Character_Art/C1/C1_04.png" type="Texture" id=9]
-[ext_resource path="res://Scripts/Tim_Test_Scripts/ZSorted.gd" type="Script" id=10]
-[ext_resource path="res://Assets/Character_Art/C1/C1_15.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Character_Art/C1/C1_02.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Character_Art/C1/C1_01.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Character_Art/C1/C1_09.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Character_Art/C1/C1_05.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Character_Art/C1/C1_08.png" type="Texture" id=15]
@@ -24,32 +23,32 @@ extents = Vector2( 8, 16 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 10 ) ],
 "loop": true,
 "name": "Idle_Down",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "Idle_Up",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "Idle_Left",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 15 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "Walk_Down",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 14 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "Walk_Up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "Walk_Left",
 "speed": 5.0
@@ -60,7 +59,6 @@ animations = [ {
 "Persistent",
 ]]
 script = ExtResource( 16 )
-speed = 150
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 12 )
@@ -82,4 +80,4 @@ playing = true
 current = true
 
 [node name="Node2D" type="Node2D" parent="."]
-script = ExtResource( 10 )
+script = ExtResource( 3 )

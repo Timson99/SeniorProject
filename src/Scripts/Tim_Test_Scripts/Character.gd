@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed := 80
+export var speed := 50
 export var persistance_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "C1"
 var velocity := Vector2()
@@ -38,7 +38,9 @@ func _physics_process(delta : float):
 		isMoving = false
 		
 	$AnimatedSprite.flip_h = (current_dir == Dir.Right)
-	move_and_collide(velocity * delta)
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		$AnimatedSprite.animation = dir_anims[current_dir][0]
 	$Camera2D.align()
 	velocity = Vector2()
 	
