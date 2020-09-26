@@ -26,14 +26,14 @@ animations = [ {
 "name": "Idle_Up",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Idle_Left",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "Walk_Down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "Walk_Left",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 13 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 12 ) ],
@@ -41,10 +41,10 @@ animations = [ {
 "name": "Walk_Up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "Walk_Left",
-"speed": 5.0
+"name": "Idle_Left",
+"speed": 0.0
 } ]
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
@@ -53,6 +53,3 @@ input_id = "C2"
 
 [node name="AnimatedSprite" parent="." index="2"]
 frames = SubResource( 1 )
-
-[node name="Camera2D" parent="." index="3"]
-current = false

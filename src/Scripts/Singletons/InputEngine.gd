@@ -21,9 +21,7 @@ var valid_recievers = {
 	"Battle Menu" : {"priority": 2, "loop": "_process", "translator" : to_player_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_player_commands},
 	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_player_commands},
-	"C1" : {"priority": 5.1, "loop": "_physics_process", "translator" : to_player_commands},
-	"C2" : {"priority": 5.2, "loop": "_physics_process", "translator" : to_player_commands},
-	"C3" : {"priority": 5.3, "loop": "_physics_process", "translator" : to_player_commands},	
+	"Player" : {"priority": 5, "loop": "_physics_process", "translator" : to_player_commands},
 	"Test_Item" : {"priority": 6, "loop": "_process", "translator" : to_player_commands},
 }
 

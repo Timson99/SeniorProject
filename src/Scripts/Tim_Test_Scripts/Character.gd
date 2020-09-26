@@ -2,7 +2,11 @@ extends KinematicBody2D
 
 export var speed := 50
 export var persistance_id := "C1" #Can't be a number or mistakeable for a non string type
-export var input_id := "C1"
+export var input_id := "Player"
+export var alive = true
+
+var party_data = null
+
 var velocity := Vector2()
 var anim_string = "Idle_Down"
 var destination = "res://Scenes/Tim_Test_Scenes/Opening2.tscn"
@@ -21,9 +25,50 @@ var dir_anims = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
+	
+	
+func follow(delta): 
+	var to_leader = party_data["active"].position - position
+	var distance = abs(to_leader.x) + abs(to_leader.y)
+	
+	var leader_dir = party_data["active"].current_dir
+	
+	
+	if(distance > 16 * party_data["num"]):
+		if (leader_dir in [Dir.Left, Dir.Right] &&
+		!(to_leader.normalized() in [Vector2.RIGHT, Vector2.LEFT])):
+			var vertical_diff = position.y - party_data["active"].position.y
+			
+			if vertical_diff > 0 && abs(vertical_diff) > (speed * delta):
+				move_up()
+			elif vertical_diff < 0 && abs(vertical_diff) > (speed * delta):
+				move_down()
+			else:
+				position.y = party_data["active"].position.y
+		elif (leader_dir in [Dir.Up, Dir.Down] &&
+		!(to_leader.normalized() in [Vector2.UP, Vector2.DOWN])):
+			var horizontal_diff = position.x - party_data["active"].position.x
+			if horizontal_diff > 0 and abs(horizontal_diff) > (speed * delta):
+				move_left()
+			elif horizontal_diff < 0 and abs(horizontal_diff) > (speed * delta):
+				move_right()
+			else:
+				position.x = party_data["active"].position.x
+		else:
+			if(to_leader.angle() < PI/4 && to_leader.angle() > -PI/4):
+				move_right()
+			if(to_leader.angle() < (3*PI)/4 && to_leader.angle() > PI/4):
+				move_down()
+			if(to_leader.angle() < (-3*PI)/4 || to_leader.angle() > (3*PI)/4):
+				move_left()
+			if(to_leader.angle() < -PI/4 && to_leader.angle() > (-3*PI)/4):
+				move_up()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
+	if party_data != null and party_data["active"] != self:
+		follow(delta)
+	
 	
 	velocity = velocity.normalized() * speed
 	if velocity.length() != 0:
@@ -47,14 +92,16 @@ func _physics_process(delta : float):
 # When leader, player input is activate, 
 func activate_player():
 	add_to_group("Input_Reciever")
-	#Replace with call to camera manager
 	$Camera2D.current = true
+	$CollisionBox.disabled = false
+	$Area2D/InteractableArea.disabled = false
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
 	remove_from_group("Input_Reciever")
-	#Replace with call to camera manager
 	$Camera2D.current = false
+	$CollisionBox.disabled = true
+	$Area2D/InteractableArea.disabled = true
 	
 	
 #Input Reciever Methods
@@ -89,6 +136,7 @@ func save_game():
 
 func change_scene():
 	SceneManager.goto_scene(destination, -1)
+	
 
 #Persistant Object Method
 func save():
