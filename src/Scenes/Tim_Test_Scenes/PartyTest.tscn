@@ -14,6 +14,10 @@ current = true
 
 [node name="C2" parent="YSort" instance=ExtResource( 1 )]
 position = Vector2( 16, 0 )
-input_id = "Player"
+persistance_id = "C2"
 
 [node name="C1" parent="YSort" instance=ExtResource( 2 )]
+
+[node name="C3" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 32, 0 )
+persistance_id = "C3"

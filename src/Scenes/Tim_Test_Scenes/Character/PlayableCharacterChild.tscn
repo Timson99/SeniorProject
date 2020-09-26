@@ -48,8 +48,6 @@ animations = [ {
 } ]
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
-persistance_id = "C2"
-input_id = "C2"
 
 [node name="AnimatedSprite" parent="." index="2"]
 frames = SubResource( 1 )

@@ -25,44 +25,7 @@ var dir_anims = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-	
-	
-func follow(delta): 
-	var to_leader = party_data["active"].position - position
-	var distance = abs(to_leader.x) + abs(to_leader.y)
-	
-	var leader_dir = party_data["active"].current_dir
-	
-	
-	if(distance > 16 * party_data["num"]):
-		if (leader_dir in [Dir.Left, Dir.Right] &&
-		!(to_leader.normalized() in [Vector2.RIGHT, Vector2.LEFT])):
-			var vertical_diff = position.y - party_data["active"].position.y
-			
-			if vertical_diff > 0 && abs(vertical_diff) > (speed * delta):
-				move_up()
-			elif vertical_diff < 0 && abs(vertical_diff) > (speed * delta):
-				move_down()
-			else:
-				position.y = party_data["active"].position.y
-		elif (leader_dir in [Dir.Up, Dir.Down] &&
-		!(to_leader.normalized() in [Vector2.UP, Vector2.DOWN])):
-			var horizontal_diff = position.x - party_data["active"].position.x
-			if horizontal_diff > 0 and abs(horizontal_diff) > (speed * delta):
-				move_left()
-			elif horizontal_diff < 0 and abs(horizontal_diff) > (speed * delta):
-				move_right()
-			else:
-				position.x = party_data["active"].position.x
-		else:
-			if(to_leader.angle() < PI/4 && to_leader.angle() > -PI/4):
-				move_right()
-			if(to_leader.angle() < (3*PI)/4 && to_leader.angle() > PI/4):
-				move_down()
-			if(to_leader.angle() < (-3*PI)/4 || to_leader.angle() > (3*PI)/4):
-				move_left()
-			if(to_leader.angle() < -PI/4 && to_leader.angle() > (-3*PI)/4):
-				move_up()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
@@ -152,3 +115,41 @@ func save():
 		2. A persistance id (Must have at least one letter).
 		3. Have a save function with an an id attribute and all other attributes to save.
 	"""
+	
+func follow(delta): 
+	var line_position = party_data["num"]
+	var leader = party_data["party"][line_position - 1]
+	var to_leader = leader.position - position
+	var distance = abs(to_leader.x) + abs(to_leader.y)
+	var leader_dir = leader.current_dir
+	var party_spacing = 16
+	
+	if(distance > party_spacing):
+		if (leader_dir in [Dir.Left, Dir.Right] &&
+		!(to_leader.normalized() in [Vector2.RIGHT, Vector2.LEFT])):
+			var vertical_diff = position.y - leader.position.y
+			if vertical_diff > 0 && abs(vertical_diff) > (speed * delta):
+				move_up()
+			elif vertical_diff < 0 && abs(vertical_diff) > (speed * delta):
+				move_down()
+			else:
+				position.y = leader.position.y
+		elif (leader_dir in [Dir.Up, Dir.Down] &&
+		!(to_leader.normalized() in [Vector2.UP, Vector2.DOWN])):
+			var horizontal_diff = position.x - leader.position.x
+			if horizontal_diff > 0 and abs(horizontal_diff) > (speed * delta):
+				move_left()
+			elif horizontal_diff < 0 and abs(horizontal_diff) > (speed * delta):
+				move_right()
+			else:
+				position.x = leader.position.x
+		else:
+			if(to_leader.angle() < PI/4 && to_leader.angle() > -PI/4):
+				move_right()
+			if(to_leader.angle() < (3*PI)/4 && to_leader.angle() > PI/4):
+				move_down()
+			if(to_leader.angle() < (-3*PI)/4 || to_leader.angle() > (3*PI)/4):
+				move_left()
+			if(to_leader.angle() < -PI/4 && to_leader.angle() > (-3*PI)/4):
+				move_up()
+	$AnimatedSprite.frame = party_data["active"].get_node("AnimatedSprite").frame
