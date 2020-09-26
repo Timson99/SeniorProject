@@ -29,7 +29,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
-	print(speed)
 	if party_data != null and party_data["active"] != self:
 		follow(delta)
 	

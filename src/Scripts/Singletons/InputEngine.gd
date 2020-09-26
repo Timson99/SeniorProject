@@ -30,34 +30,41 @@ var input_target = null
 var group_name = "Input_Reciever"
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SceneManager.connect("goto_called", self, "disable_input")
 	SceneManager.connect("scene_fully_loaded", self, "enable_input")
 
+
 func disable_input():
 	input_disabled = true
 	
+	
 func enable_input():
 	input_disabled = false
-
+	
 	
 func _process(delta):
 	process_input("_process")
-		
+
 
 func _physics_process(delta):
 	process_input("_physics_process")
-		
-		
+	
+	
+func sort_input_recievers(a,b):
+	if (valid_recievers[a.input_id]["priority"] < valid_recievers[b.input_id]["priority"]):
+		return true
+	return false
+	
+	
 func process_input(loop):
 	var input_recievers = get_tree().get_nodes_in_group(group_name) if !input_disabled else []
 	if input_recievers.size() == 0: 
 		return
-	input_target = get_input_target(input_recievers)
-	if input_target == null: 
-		return	
+		
+	input_recievers.sort_custom(self, "sort_input_recievers")
+	input_target = input_recievers[0]
 	
 	if valid_recievers[input_target.input_id]["loop"] == loop:
 		translate_and_execute(valid_recievers[input_target.input_id]["translator"])
@@ -80,18 +87,4 @@ func translate_and_execute(input_translator):
 			
 	for command in commands:
 			input_target.call_deferred(command)
-			
-			
-# Returns Input Reciever that gets priority, null if one does not exist
-func get_input_target(input_recievers):
-	var temp_input_target = null
-	var current_priority = 100000
-	for reciever in input_recievers:
-		if not "input_id" in reciever:
-			print("INPUT ENGINE ERROR: Input Reciever has no input_id")
-		elif valid_recievers[reciever.input_id]["priority"] < current_priority:
-			temp_input_target = reciever
-			current_priority = valid_recievers[reciever.input_id]["priority"]
-	return temp_input_target
-	
 
