@@ -29,6 +29,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
+	print(speed)
 	if party_data != null and party_data["active"] != self:
 		follow(delta)
 	
@@ -121,11 +122,11 @@ func follow(delta):
 	var leader = party_data["party"][line_position - 1]
 	var to_leader = leader.position - position
 	var distance = abs(to_leader.x) + abs(to_leader.y)
-	var leader_dir = leader.current_dir
 	var party_spacing = 16
 	
 	if(distance > party_spacing):
-		if (leader_dir in [Dir.Left, Dir.Right] &&
+		
+		if (leader.current_dir in [Dir.Left, Dir.Right] &&
 		!(to_leader.normalized() in [Vector2.RIGHT, Vector2.LEFT])):
 			var vertical_diff = position.y - leader.position.y
 			if vertical_diff > 0 && abs(vertical_diff) > (speed * delta):
@@ -134,7 +135,7 @@ func follow(delta):
 				move_down()
 			else:
 				position.y = leader.position.y
-		elif (leader_dir in [Dir.Up, Dir.Down] &&
+		elif (leader.current_dir in [Dir.Up, Dir.Down] &&
 		!(to_leader.normalized() in [Vector2.UP, Vector2.DOWN])):
 			var horizontal_diff = position.x - leader.position.x
 			if horizontal_diff > 0 and abs(horizontal_diff) > (speed * delta):
@@ -144,12 +145,9 @@ func follow(delta):
 			else:
 				position.x = leader.position.x
 		else:
-			if(to_leader.angle() < PI/4 && to_leader.angle() > -PI/4):
-				move_right()
-			if(to_leader.angle() < (3*PI)/4 && to_leader.angle() > PI/4):
-				move_down()
-			if(to_leader.angle() < (-3*PI)/4 || to_leader.angle() > (3*PI)/4):
-				move_left()
-			if(to_leader.angle() < -PI/4 && to_leader.angle() > (-3*PI)/4):
-				move_up()
+			if(to_leader.normalized() == Vector2.RIGHT): move_right()
+			elif(to_leader.normalized() == Vector2.DOWN): move_down()
+			elif(to_leader.normalized() == Vector2.LEFT): move_left()
+			elif(to_leader.normalized() == Vector2.UP): move_up()
+			
 	$AnimatedSprite.frame = party_data["active"].get_node("AnimatedSprite").frame
