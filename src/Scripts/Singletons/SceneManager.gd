@@ -18,15 +18,12 @@ func goto_scene(path, warp_destination_id):
 	#############
 	emit_signal("goto_called")
 	#GameManager.input_paused = true
-	#SaveManager.update_persistant_data() #Call Update Data
+	#SaveManager.update_persistent_data() #Call Update Data
 	#############
 	call_deferred("_deferred_goto_scene", path, warp_destination_id)
 
 # Switches Scenes only when it is safe to do so
 func _deferred_goto_scene(path, warp_destination_id):
-	
-	print(path)
-	 
 	var fade = fade_screen.instance()
 	get_tree().get_root().add_child(fade)
 	var fade_animation = fade.get_node("TextureRect/AnimationPlayer")
@@ -40,7 +37,7 @@ func _deferred_goto_scene(path, warp_destination_id):
 	get_tree().get_root().add_child(current_scene) # Add as child of root
 	##########
 	emit_signal("scene_loaded")
-	#PersistantData.restore_data() #Call Restore Data to Nodes
+	#PersistentData.restore_data() #Call Restore Data to Nodes
 	##########
 	if warp_destination_id < 0 && current_scene.get_node("Map/%s" % warp_destination_id) && current_scene.get_node("Map/Player"):
 		print("Id Exists")

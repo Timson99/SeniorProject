@@ -1,17 +1,16 @@
 extends KinematicBody2D
 
-export var speed := 50
-export var persistance_id := "C1" #Can't be a number or mistakeable for a non string type
-export var input_id := "Player"
+export var speed := 60
+export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
+export var input_id := "Player" #Don't overwrite in UI
 export var alive = true
 
+#Party Vars, set by party
 var party_data = null
 
+#Movement Vars
 var velocity := Vector2()
-var anim_string = "Idle_Down"
-var destination = "res://Scenes/Tim_Test_Scenes/Opening2.tscn"
 var isMoving : bool = false
-
 enum Dir {Up, Down, Left, Right}
 var current_dir = Dir.Down
 var dir_anims = {
@@ -21,17 +20,22 @@ var dir_anims = {
 	Dir.Right: ["Idle_Left", "Walk_Left"]
 }
 
+# Test Vars
+var destination = "res://Scenes/Tim_Test_Scenes/TestTileMap.tscn"
 
-# Called when the node enters the scene tree for the first time.
+
+
 func _ready():
 	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
+	explore(delta)
+	
+
+func explore(delta):
 	if party_data != null and party_data["active"] != self:
 		follow(delta)
-	
 	
 	velocity = velocity.normalized() * speed
 	if velocity.length() != 0:
@@ -51,6 +55,7 @@ func _physics_process(delta : float):
 		$AnimatedSprite.animation = dir_anims[current_dir][0]
 	$Camera2D.align()
 	velocity = Vector2()
+	
 	
 # When leader, player input is activate, 
 func activate_player():
@@ -89,10 +94,12 @@ func move_left():
 	current_dir = Dir.Left
 	
 func down_just_released():
-	print("Down Just Released")
+	#print("Down Just Released")
+	pass
 	
 func up_just_pressed():
-	print("Up Just Pressed")
+	#print("Up Just Pressed")
+	pass
 
 func save_game():
 	SaveManager.save_game()
@@ -101,20 +108,21 @@ func change_scene():
 	SceneManager.goto_scene(destination, -1)
 	
 
-#Persistant Object Method
+#Persistent Object Method
 func save():
 	var save_dict = {
-		"id" : persistance_id,
-		"position" : var2str(position) #Vectors must be pre-converted for json
+		"persistence_id" : persistence_id,
+		"position" : position, 
+		"current_dir" : current_dir
 	}	
 	return save_dict
 	
-	"""
-	Persistant Objects need three things:
-		1. Add to the 'Persistent' group
-		2. A persistance id (Must have at least one letter).
-		3. Have a save function with an an id attribute and all other attributes to save.
-	"""
+"""
+Persistent Objects need three things:
+	1. Add to the 'Persistent' group
+	2. A persistence id (Must have at least one letter).
+	3. Have a save function with an an id attribute and all other attributes to save.
+"""
 	
 func follow(delta): 
 	var line_position = party_data["num"]

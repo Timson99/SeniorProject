@@ -2,16 +2,19 @@ extends Node
 
 var to_player_commands : Dictionary = {
 	"pressed": 
-		{"ui_accept" : "save_game",
-		"ui_cancel" : "change_scene",
-		"ui_up" : "move_up",
+		{"ui_up" : "move_up",
 		"ui_down" : "move_down",
 		"ui_left" : "move_left",
-		"ui_right" : "move_right"},
+		"ui_right" : "move_right"
+		},
 	"just_pressed": 
-		{"ui_up" : "up_just_pressed"},
+		{"ui_up" : "up_just_pressed",
+		 "ui_accept" : "save_game",
+		 "ui_cancel" : "change_scene",
+		},
 	"just_released": 
-		{"ui_down" : "down_just_released"},
+		{"ui_down" : "down_just_released",
+		},
 }
 
 var to_dialogue_commands : Dictionary = {}

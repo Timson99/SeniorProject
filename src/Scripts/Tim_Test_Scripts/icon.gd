@@ -2,7 +2,7 @@ extends Sprite
 
 export var speed := 300
 onready var screen_size := get_viewport_rect().size
-export var persistance_id := "this_id" #Can't be a number or mistakeable for a non string type
+export var persistence_id := "this_id" #Can't be a number or mistakeable for a non string type
 export var input_id := "Test_Item"
 var velocity := Vector2()
 var destination = "res://Scenes/Tim_Test_Scenes/Opening2.tscn"
@@ -50,17 +50,17 @@ func change_scene():
 	SceneManager.goto_scene(destination, -1)
 	#set_process(false) # Replace with a Game Manager that disables handling
 
-#Persistant Object Method
+#Persistent Object Method
 func save():
 	var save_dict = {
-		"id" : persistance_id,
+		"persistence_id" : persistence_id,
 		"position" : var2str(position) #Vectors must be pre-converted for json
 	}	
 	return save_dict
 	
 	"""
-	Persistant Objects need three things:
+	Persistent Objects need three things:
 		1. Add to the 'Persistent' group
-		2. A persistance id (Must have at least one letter).
+		2. A persistence id (Must have at least one letter).
 		3. Have a save function with an an id attribute and all other attributes to save.
 	"""

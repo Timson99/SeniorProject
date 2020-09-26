@@ -1,10 +1,6 @@
 extends Node2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 var active_player = null
 var party = []
 var incapacitated = []
@@ -12,11 +8,10 @@ var items = null
 
 
 func sort_characters(a,b):
-	if !a.alive:
-		return false
 	if int(a.name.substr(1,1)) < int(b.name.substr(1,1)):
 		return true
 	return false
+	
 	
 func sort_alive(a,b):
 	if !a.alive:
@@ -39,6 +34,10 @@ func _ready():
 		for i in range(party.size()):
 			if(party[i].alive):
 				party[i].set("party_data", {"active": active_player, "num": i, "party": party})
+				
+func reposition(new_position, new_direction):
+	position.x = new_position.x
+	position.y = new_position.y
 	
 
 
