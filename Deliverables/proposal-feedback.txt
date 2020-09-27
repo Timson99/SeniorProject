@@ -1,0 +1,28 @@
+
+
+Evaluation and Feedback
+CMSI 401 project ~~ Fall 2020
+Luis Garcia, Timothy Herrmann, Joe Maiocco
+Cosmonarium game project
+=================================
+Presentation:
+   well-done presentation, professional yet fun and engaging.  the graphics
+   are great and add a nice dimension to the slides.  good idea specifying a
+   year-long project for something of this magnitude with only a three-person
+   development team.  also nice that you are using a technology that is in
+   the research and design phase, so that you are cutting-edge.  however, be
+   aware that with such a situation comes the risk that something will change
+   with that tech during your project implementation that may not be entirely
+   compatible with what you have developed, essentially breaking everything
+   [it has happened during 401 projects more than once!].  Be sure to allow
+   some schedule "slippage" time!
+
+Proposal Document:
+   great work on the document, too.  you have captured everything quite nicely
+   and have given a good rationale for the project, the use of your knowledge,
+   and the top-level goals of the development.  very nice!
+
+=============================================================================
+Excellent work on this presentation and proposal!
+
+your score:  5% out of 5% which is an A-plus

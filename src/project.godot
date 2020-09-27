@@ -10,6 +10,16 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "Debugger",
+"language": "GDScript",
+"path": "res://Scripts/Classes/Global_Debug.gd"
+}, {
+"base": "Node",
+"class": "Enums",
+"language": "GDScript",
+"path": "res://Scripts/Classes/Global_Enums.gd"
+}, {
+"base": "Node",
 "class": "PriorityQueue",
 "language": "GDScript",
 "path": "res://Scripts/Joe_Test_Scripts/PriorityQueue.gd"
@@ -20,6 +30,8 @@ _global_script_classes=[ {
 "path": "res://Scripts/Joe_Test_Scripts/test_PriorityQueue.gd"
 } ]
 _global_script_class_icons={
+"Debugger": "",
+"Enums": "",
 "PriorityQueue": "",
 "TestPQ": ""
 }
@@ -35,9 +47,10 @@ config/icon="res://Assets/Test_Art/icon.png"
 SceneManager="*res://Scripts/Singletons/SceneManager.gd"
 SaveManager="*res://Scripts/Singletons/SaveManager.gd"
 InputEngine="*res://Scripts/Singletons/InputEngine.gd"
-PersistantData="*res://Scripts/Singletons/PersistantData.gd"
-GlobalEnums="*res://Scripts/Singletons/GlobalEnums.gd"
 BgEngine="*res://Scenes/Joe_Test_Scenes/BGEngine.tscn"
+CameraManager="*res://Scripts/Singletons/CameraManager.gd"
+Sequencer="*res://Scripts/Singletons/Sequencer.gd"
+PersistentData="*res://Scripts/Singletons/PersistentData.gd"
 
 [display]
 
@@ -46,7 +59,7 @@ window/size/height=240
 window/size/test_width=1280
 window/size/test_height=960
 window/dpi/allow_hidpi=true
-window/stretch/mode="2d"
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [input]
@@ -89,4 +102,5 @@ ui_down={
 
 [rendering]
 
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"
