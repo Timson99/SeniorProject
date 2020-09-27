@@ -43,4 +43,4 @@ __meta__ = {
 }
 [connection signal="pressed" from="SceneChanger" to="." method="change_to_new_scene"]
 [connection signal="pressed" from="SameSceneSongChanger" to="." method="change_to_same_scene"]
-[connection signal="pressed" from="MidSceneSongChanger" to="." method="signal_for_song_change"]
+[connection signal="pressed" from="MidSceneSongChanger" to="." method="change_song_midscene"]

@@ -51,7 +51,7 @@ func _deferred_goto_scene(path, warp_destination_id):
 	yield(fade_animation, "animation_finished")
 	
 	get_tree().get_root().remove_child(fade)
-	emit_signal("scene_fully_loaded", path)
+	emit_signal("scene_fully_loaded")
 	
 	
 	
