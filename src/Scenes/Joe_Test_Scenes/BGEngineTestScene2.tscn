@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Joe_Test_Scenes/BGEngineTestScene2.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 189.0
+margin_bottom = 111.0
+text = "THIS IS SCENE 2"
+
+[node name="SceneChanger" type="Button" parent="."]
+margin_left = 58.0
+margin_top = 76.0
+margin_right = 224.0
+margin_bottom = 96.0
+text = "GO TO SCENE 1"
+
+[node name="SameSceneSongChanger" type="Button" parent="."]
+margin_left = 45.7554
+margin_top = 121.572
+margin_right = 249.755
+margin_bottom = 141.572
+text = "SAME SCENE, SAME SONG"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MidSceneSongChanger" type="Button" parent="."]
+margin_left = 46.2753
+margin_top = 171.205
+margin_right = 246.275
+margin_bottom = 191.205
+text = "CHANGE SONG MIDSCENE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="SceneChanger" to="." method="change_to_new_scene"]
+[connection signal="pressed" from="SameSceneSongChanger" to="." method="change_to_same_scene"]
+[connection signal="pressed" from="MidSceneSongChanger" to="." method="change_song_midscene"]

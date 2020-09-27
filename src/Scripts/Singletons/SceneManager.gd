@@ -49,5 +49,3 @@ func _deferred_goto_scene(path, warp_destination_id):
 	emit_signal("scene_fully_loaded")
 	
 	
-
-
