@@ -1,7 +1,7 @@
 extends Node
 
 
-class_name Debug
+class_name Debugger
 	
 static func dprint(text):
 	var frame = get_stack()[1]

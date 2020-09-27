@@ -47,11 +47,11 @@ func enable_input():
 	input_disabled = false
 	
 	
-func _process(delta):
+func _process(_delta):
 	process_input("_process")
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	process_input("_physics_process")
 	
 	

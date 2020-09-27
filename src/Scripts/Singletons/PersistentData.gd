@@ -28,7 +28,7 @@ func update_entry(node_data : Dictionary):
 					node_data[prop] = var2str(node_data[prop])
 			data[node_data.persistence_id] = node_data; 
 		else: 
-			Debug.dprint("No id in persistent node")
+			Debugger.dprint("No id in persistent node")
 
 func get_data():
 	return data

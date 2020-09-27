@@ -11,13 +11,13 @@ var party_data = null
 #Movement Vars
 var velocity := Vector2()
 var isMoving : bool = false
-enum Dir {Up, Down, Left, Right}
-var current_dir = Dir.Down
+
+var current_dir = Enums.Dir.Down
 var dir_anims = {
-	Dir.Up: ["Idle_Up", "Walk_Up"],
-	Dir.Down: ["Idle_Down", "Walk_Down"],
-	Dir.Left: ["Idle_Left", "Walk_Left"],
-	Dir.Right: ["Idle_Left", "Walk_Left"]
+	Enums.Dir.Up: ["Idle_Up", "Walk_Up"],
+	Enums.Dir.Down: ["Idle_Down", "Walk_Down"],
+	Enums.Dir.Left: ["Idle_Left", "Walk_Left"],
+	Enums.Dir.Right: ["Idle_Left", "Walk_Left"]
 }
 
 # Test Vars
@@ -49,7 +49,7 @@ func explore(delta):
 		$AnimatedSprite.animation = dir_anims[current_dir][0]
 		isMoving = false
 		
-	$AnimatedSprite.flip_h = (current_dir == Dir.Right)
+	$AnimatedSprite.flip_h = (current_dir == Enums.Dir.Right)
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		$AnimatedSprite.animation = dir_anims[current_dir][0]
@@ -62,36 +62,32 @@ func activate_player():
 	add_to_group("Input_Reciever")
 	$Camera2D.current = true
 	$CollisionBox.disabled = false
-	$Area2D/InteractableArea.disabled = false
+	#$Area2D/InteractableArea.disabled = false
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
 	remove_from_group("Input_Reciever")
 	$Camera2D.current = false
 	$CollisionBox.disabled = true
-	$Area2D/InteractableArea.disabled = true
+	#$Area2D/InteractableArea.disabled = true
 	
 	
 #Input Reciever Methods
 func move_up():
-	velocity = Vector2()
 	velocity.y -= 1
-	current_dir = Dir.Up
+	current_dir = Enums.Dir.Up
 	
 func move_down():
-	velocity = Vector2()
 	velocity.y += 1
-	current_dir = Dir.Down
+	current_dir = Enums.Dir.Down
 	
 func move_right():
-	velocity = Vector2()
 	velocity.x += 1
-	current_dir = Dir.Right
+	current_dir = Enums.Dir.Right
 	
 func move_left():
-	velocity = Vector2()
 	velocity.x -= 1
-	current_dir = Dir.Left
+	current_dir = Enums.Dir.Left
 	
 func down_just_released():
 	#print("Down Just Released")
@@ -105,15 +101,15 @@ func save_game():
 	SaveManager.save_game()
 
 func change_scene():
-	SceneManager.goto_scene(destination, -1)
+	SceneManager.goto_scene(destination)
 	
 
 #Persistent Object Method
 func save():
 	var save_dict = {
 		"persistence_id" : persistence_id,
-		"position" : position, 
-		"current_dir" : current_dir
+		#"position" : position, 
+		#"current_dir" : current_dir
 	}	
 	return save_dict
 	
@@ -133,7 +129,7 @@ func follow(delta):
 	
 	if(distance > party_spacing):
 		
-		if (leader.current_dir in [Dir.Left, Dir.Right] &&
+		if (leader.current_dir in [Enums.Dir.Left, Enums.Dir.Right] &&
 		!(to_leader.normalized() in [Vector2.RIGHT, Vector2.LEFT])):
 			var vertical_diff = position.y - leader.position.y
 			if vertical_diff > 0 && abs(vertical_diff) > (speed * delta):
@@ -142,7 +138,7 @@ func follow(delta):
 				move_down()
 			else:
 				position.y = leader.position.y
-		elif (leader.current_dir in [Dir.Up, Dir.Down] &&
+		elif (leader.current_dir in [Enums.Dir.Up, Enums.Dir.Down] &&
 		!(to_leader.normalized() in [Vector2.UP, Vector2.DOWN])):
 			var horizontal_diff = position.x - leader.position.x
 			if horizontal_diff > 0 and abs(horizontal_diff) > (speed * delta):

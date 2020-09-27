@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/Character_Art/C1/C1_03.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Character_Art/C1/C1_07.png" type="Texture" id=2]
@@ -16,9 +16,6 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 16 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -62,13 +59,6 @@ script = ExtResource( 16 )
 position = Vector2( 0, 12 )
 scale = Vector2( 1, 0.5 )
 shape = SubResource( 1 )
-disabled = true
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="InteractableArea" type="CollisionShape2D" parent="Area2D"]
-light_mask = -2147483648
-shape = SubResource( 2 )
 disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

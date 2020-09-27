@@ -13,14 +13,14 @@ func sort_characters(a,b):
 	return false
 	
 	
-func sort_alive(a,b):
+func sort_alive(a,_b):
 	if !a.alive:
 		return false
 	return true
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var party = $YSort.get_children()
+	party = $YSort.get_children()
 	party.sort_custom(self, "sort_alive")
 	party.sort_custom(self, "sort_characters")
 	if(party[0].alive == false):
@@ -38,6 +38,7 @@ func _ready():
 func reposition(new_position, new_direction):
 	position.x = new_position.x
 	position.y = new_position.y
+	active_player.current_dir = new_direction
 	
 
 

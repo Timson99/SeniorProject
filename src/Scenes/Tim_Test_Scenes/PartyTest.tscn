@@ -4,7 +4,9 @@
 [ext_resource path="res://Scenes/Tim_Test_Scenes/Character/Playable_Character.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Tim_Test_Scripts/PartyTest.gd" type="Script" id=3]
 
-[node name="Party" type="Node2D"]
+[node name="Party" type="Node2D" groups=[
+"Party",
+]]
 script = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]

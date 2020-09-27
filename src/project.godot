@@ -10,9 +10,14 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "Debug",
+"class": "Debugger",
 "language": "GDScript",
-"path": "res://Scripts/Tim_Test_Scripts/Debug.gd"
+"path": "res://Scripts/Classes/Global_Debug.gd"
+}, {
+"base": "Node",
+"class": "Enums",
+"language": "GDScript",
+"path": "res://Scripts/Classes/Global_Enums.gd"
 }, {
 "base": "Node",
 "class": "PriorityQueue",
@@ -25,7 +30,8 @@ _global_script_classes=[ {
 "path": "res://Scripts/Joe_Test_Scripts/test_PriorityQueue.gd"
 } ]
 _global_script_class_icons={
-"Debug": "",
+"Debugger": "",
+"Enums": "",
 "PriorityQueue": "",
 "TestPQ": ""
 }
