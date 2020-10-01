@@ -20,7 +20,7 @@ var to_player_commands : Dictionary = {
 
 var to_dialogue_commands : Dictionary = {}
 var to_menu_commands: Dictionary = {
-	"pressed": 
+	"just_pressed": 
 		{
 		"ui_menu": "overlay_ui",
 		},
@@ -95,7 +95,8 @@ func translate_and_execute(input_translator):
 		if(Input.is_action_pressed(action)):
 			commands.append(input_translator["pressed"][action])
 			break
-			
+	print(commands)
+	print(input_target)
 	for command in commands:
 			input_target.call_deferred(command)
 

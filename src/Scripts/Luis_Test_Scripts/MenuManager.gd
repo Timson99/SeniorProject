@@ -43,6 +43,7 @@ func _ready():
 	submenus = get_tree().get_root()
 	print(submenus)
 	activate_menu() if active else deactivate_menu()
-
-
+#func _process(delta):
+#	if(active):
+#		active = active
 
