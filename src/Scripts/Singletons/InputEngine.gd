@@ -5,7 +5,8 @@ var to_player_commands : Dictionary = {
 		{"ui_up" : "move_up",
 		"ui_down" : "move_down",
 		"ui_left" : "move_left",
-		"ui_right" : "move_right"
+		"ui_right" : "move_right",
+#		"ui_menu": "overlay_ui",#SHOULD NOT GO HERE
 		},
 	"just_pressed": 
 		{"ui_up" : "up_just_pressed",
@@ -18,12 +19,19 @@ var to_player_commands : Dictionary = {
 }
 
 var to_dialogue_commands : Dictionary = {}
+var to_menu_commands: Dictionary = {
+	"pressed": 
+		{
+		"ui_menu": "overlay_ui",
+		},
+	
+}
 
 var valid_recievers = {
 	"Debug_Menu" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
 	"Battle Menu" : {"priority": 2, "loop": "_process", "translator" : to_player_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_player_commands},
-	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_player_commands},
+	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_menu_commands},
 	"Player" : {"priority": 5, "loop": "_physics_process", "translator" : to_player_commands},
 	"Test_Item" : {"priority": 6, "loop": "_process", "translator" : to_player_commands},
 }
