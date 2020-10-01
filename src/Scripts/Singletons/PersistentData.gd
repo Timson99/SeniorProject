@@ -9,9 +9,6 @@ func _ready():
 
 # Loads persistent data back into all persistent nodes
 func restore_data():
-	
-	print(PersistentData.data)
-	
 	var save_nodes : Array = get_tree().get_nodes_in_group("Persistent")
 	for node in save_nodes:
 		if("persistence_id" in node):
@@ -38,4 +35,8 @@ func update_entry(node_data : Dictionary):
 
 func get_data():
 	return data
+	
+func print_data():
+	for key in data:
+		print(key + " -> " + str(data[key]))
 			

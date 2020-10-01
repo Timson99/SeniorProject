@@ -19,7 +19,7 @@ var to_player_commands := {
 
 var to_dialogue_commands : Dictionary = {}
 
-var valid_recievers := {
+var valid_receivers := {
 	"Debug_Menu" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
 	"Battle Menu" : {"priority": 2, "loop": "_process", "translator" : to_player_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_player_commands},
@@ -30,7 +30,7 @@ var valid_recievers := {
 
 var input_disabled := false
 var input_target = null
-const group_name := "Input_Reciever"
+const group_name := "Input_Receiver"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -55,22 +55,22 @@ func _physics_process(_delta):
 	process_input("_physics_process")
 	
 	
-func sort_input_recievers(a,b):
-	if (valid_recievers[a.input_id]["priority"] < valid_recievers[b.input_id]["priority"]):
+func sort_input_receivers(a,b):
+	if (valid_receivers[a.input_id]["priority"] < valid_receivers[b.input_id]["priority"]):
 		return true
 	return false
 	
 	
 func process_input(loop):
-	var input_recievers = get_tree().get_nodes_in_group(group_name) if !input_disabled else []
-	if input_recievers.size() == 0: 
+	var input_receivers = get_tree().get_nodes_in_group(group_name) if !input_disabled else []
+	if input_receivers.size() == 0: 
 		return
 		
-	input_recievers.sort_custom(self, "sort_input_recievers")
-	input_target = input_recievers[0]
+	input_receivers.sort_custom(self, "sort_input_receivers")
+	input_target = input_receivers[0]
 	
-	if valid_recievers[input_target.input_id]["loop"] == loop:
-		translate_and_execute(valid_recievers[input_target.input_id]["translator"])
+	if valid_receivers[input_target.input_id]["loop"] == loop:
+		translate_and_execute(valid_receivers[input_target.input_id]["translator"])
 	
 			
 func translate_and_execute(input_translator):

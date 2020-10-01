@@ -59,20 +59,20 @@ func explore(delta : float):
 	
 # When leader, player input is activate, 
 func activate_player():
-	add_to_group("Input_Reciever")
+	add_to_group("Input_Receiver")
 	$Camera2D.current = true
 	$CollisionBox.disabled = false
 	#$Area2D/InteractableArea.disabled = false
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
-	remove_from_group("Input_Reciever")
+	remove_from_group("Input_Receiver")
 	$Camera2D.current = false
 	$CollisionBox.disabled = true
 	#$Area2D/InteractableArea.disabled = true
 	
 	
-#Input Reciever Methods
+#Input Receiver Methods
 func move_up():
 	velocity.y -= 1
 	current_dir = Enums.Dir.Up
