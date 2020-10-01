@@ -17,6 +17,7 @@ current = true
 [node name="YSort" type="YSort" parent="."]
 
 [node name="C3" parent="YSort" instance=ExtResource( 4 )]
+persistence_id = "C3"
 
 [node name="C2" parent="YSort" instance=ExtResource( 1 )]
 persistence_id = "C2"

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Test_Art/TestTileMap.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Tim_Test_Scenes/Warp.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Tim_Test_Scripts/TestSceneRoot.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Tim_Test_Scenes/PartyTest.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Tim_Test_Scripts/TestBeginBattle.gd" type="Script" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -69,6 +70,9 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 2/shapes = [  ]
 2/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 8 )
+
 [node name="Explore_Scene" type="Node"]
 script = ExtResource( 3 )
 
@@ -106,3 +110,21 @@ entrance_direction = 1
 
 [node name="Party" parent="TileMap/YSort" instance=ExtResource( 4 )]
 position = Vector2( 232, 144 )
+
+[node name="EnemyStandIn" type="Area2D" parent="." groups=[
+"Persistent",
+]]
+position = Vector2( 48, 176 )
+script = ExtResource( 5 )
+scene_id = "TestBattle1"
+
+[node name="BattleStarter" type="CollisionShape2D" parent="EnemyStandIn"]
+position = Vector2( 8, 8 )
+shape = SubResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="EnemyStandIn"]
+margin_right = 16.0
+margin_bottom = 16.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -11,6 +11,7 @@ var explore_scenes := {
 
 var battle_scenes := {
 	
-	
+	#Tim Test Articles
+	"TestBattle1" : "res://Scenes/Tim_Test_Scenes/WinButton.tscn",
 	
 }
