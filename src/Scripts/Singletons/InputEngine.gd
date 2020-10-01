@@ -1,6 +1,6 @@
 extends Node
 
-var to_player_commands : Dictionary = {
+var to_player_commands := {
 	"pressed": 
 		{"ui_up" : "move_up",
 		"ui_down" : "move_down",
@@ -19,7 +19,7 @@ var to_player_commands : Dictionary = {
 
 var to_dialogue_commands : Dictionary = {}
 
-var valid_recievers = {
+var valid_recievers := {
 	"Debug_Menu" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
 	"Battle Menu" : {"priority": 2, "loop": "_process", "translator" : to_player_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_player_commands},
@@ -28,9 +28,9 @@ var valid_recievers = {
 	"Test_Item" : {"priority": 6, "loop": "_process", "translator" : to_player_commands},
 }
 
-var input_disabled : bool = false
+var input_disabled := false
 var input_target = null
-var group_name = "Input_Reciever"
+const group_name := "Input_Reciever"
 
 
 # Called when the node enters the scene tree for the first time.
