@@ -12,6 +12,7 @@ var to_player_commands : Dictionary = {
 		{"ui_up" : "up_just_pressed",
 		 "ui_accept" : "save_game",
 		 "ui_cancel" : "change_scene",
+		 "ui_menu": "open_menu",
 		},
 	"just_released": 
 		{"ui_down" : "down_just_released",
@@ -20,11 +21,15 @@ var to_player_commands : Dictionary = {
 
 var to_dialogue_commands : Dictionary = {}
 var to_menu_commands: Dictionary = {
+	"pressed":{},
 	"just_pressed": 
 		{
 		"ui_menu": "overlay_ui",
 		},
-	
+	"just_released":
+		{
+			
+		},
 }
 
 var valid_recievers = {
