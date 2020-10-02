@@ -1,12 +1,11 @@
 extends Node
-
+#to_X_commands must have "pressed", "just_pressed" and "just_released" items
 var to_player_commands : Dictionary = {
 	"pressed": 
 		{"ui_up" : "move_up",
 		"ui_down" : "move_down",
 		"ui_left" : "move_left",
 		"ui_right" : "move_right",
-#		"ui_menu": "overlay_ui",#SHOULD NOT GO HERE
 		},
 	"just_pressed": 
 		{"ui_up" : "up_just_pressed",
@@ -26,10 +25,7 @@ var to_menu_commands: Dictionary = {
 		{
 		"ui_menu": "overlay_ui",
 		},
-	"just_released":
-		{
-			
-		},
+	"just_released": {},
 }
 
 var valid_recievers = {
@@ -91,6 +87,8 @@ func translate_and_execute(input_translator):
 	for action in input_translator["just_pressed"].keys():
 		if(Input.is_action_just_pressed(action)):
 			commands.append(input_translator["just_pressed"][action])
+			print(commands)
+			print(input_target)
 			break
 	for action in input_translator["just_released"].keys():
 		if(Input.is_action_just_released(action)):
@@ -100,8 +98,8 @@ func translate_and_execute(input_translator):
 		if(Input.is_action_pressed(action)):
 			commands.append(input_translator["pressed"][action])
 			break
-	print(commands)
-	print(input_target)
+#	print(commands)
+#	print(input_target)
 	for command in commands:
 			input_target.call_deferred(command)
 

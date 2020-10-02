@@ -102,8 +102,9 @@ func save_game():
 
 func change_scene():
 	SceneManager.goto_scene(destination)
-	
 
+func open_menu():
+	MenuManager.overlay_ui()
 #Persistent Object Method
 func save():
 	var save_dict = {

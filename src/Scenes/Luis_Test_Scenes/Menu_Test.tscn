@@ -18,3 +18,4 @@ current = true
 persistence_id = "C2"
 
 [node name="C1" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 1.05112, 0.840897 )

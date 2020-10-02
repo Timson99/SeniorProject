@@ -21,9 +21,6 @@ func sort_alive(a,_b):
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	menu = $GameMenu
-#	menu.activate_menu()
-#	print(menu.visible)
 	party = $YSort.get_children()
 	party.sort_custom(self, "sort_alive")
 	party.sort_custom(self, "sort_characters")

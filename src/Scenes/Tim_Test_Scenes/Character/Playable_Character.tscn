@@ -17,11 +17,11 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 10 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "Idle_Down",
+"name": "Idle_Left",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -29,9 +29,9 @@ animations = [ {
 "name": "Idle_Up",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 14 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 15 ) ],
 "loop": true,
-"name": "Walk_Down",
+"name": "Walk_Up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 5 ) ],
@@ -39,15 +39,15 @@ animations = [ {
 "name": "Walk_Left",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 15 ) ],
+"frames": [ ExtResource( 10 ) ],
 "loop": true,
-"name": "Walk_Up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "Idle_Left",
+"name": "Idle_Down",
 "speed": 0.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Walk_Down",
+"speed": 5.0
 } ]
 
 [node name="KinematicBody2D" type="KinematicBody2D" groups=[
@@ -62,7 +62,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 animation = "Idle_Down"
 playing = true
 
