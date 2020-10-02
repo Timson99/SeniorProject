@@ -19,8 +19,7 @@ func _on_WarpBlock_body_entered(body):
 func save():
 	var save_dict = {
 		"persistence_id" : persistence_id,
-		"active" : active,	
-		
+		"active" : active
 	}
 	return save_dict
 	

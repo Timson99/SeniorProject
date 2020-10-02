@@ -9,8 +9,10 @@ var to_player_commands := {
 		},
 	"just_pressed": 
 		{"ui_up" : "up_just_pressed",
-		 "ui_accept" : "save_game",
-		 "ui_cancel" : "change_scene",
+		 "ui_accept" : "change_scene",
+		 "ui_cancel" : "save_game",
+		 #Test Command
+		"ui_test" : "test_command"
 		},
 	"just_released": 
 		{"ui_down" : "down_just_released",
@@ -89,5 +91,6 @@ func translate_and_execute(input_translator):
 			break
 			
 	for command in commands:
-			input_target.call_deferred(command)
+			if input_target.has_method(command):
+				input_target.call_deferred(command)
 

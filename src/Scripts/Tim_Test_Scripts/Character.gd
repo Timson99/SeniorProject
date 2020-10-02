@@ -96,6 +96,9 @@ func down_just_released():
 func up_just_pressed():
 	#print("Up Just Pressed")
 	pass
+	
+func test_command():
+	Sequencer.execute_event("test_seq1")
 
 func save_game():
 	SaveManager.save_game()
