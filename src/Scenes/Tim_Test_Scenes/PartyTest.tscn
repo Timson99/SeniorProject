@@ -11,9 +11,6 @@
 ]]
 script = ExtResource( 3 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-
 [node name="YSort" type="YSort" parent="."]
 
 [node name="C3" parent="YSort" instance=ExtResource( 4 )]

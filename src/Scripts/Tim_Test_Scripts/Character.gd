@@ -53,21 +53,18 @@ func explore(delta : float):
 	var collision = move_and_collide(velocity * delta)
 	if collision:
 		$AnimatedSprite.animation = dir_anims[current_dir][0]
-	$Camera2D.align()
 	velocity = Vector2()
 	
 	
 # When leader, player input is activate, 
 func activate_player():
 	add_to_group("Input_Receiver")
-	$Camera2D.current = true
 	$CollisionBox.disabled = false
 	#$Area2D/InteractableArea.disabled = false
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
 	remove_from_group("Input_Receiver")
-	$Camera2D.current = false
 	$CollisionBox.disabled = true
 	#$Area2D/InteractableArea.disabled = true
 	

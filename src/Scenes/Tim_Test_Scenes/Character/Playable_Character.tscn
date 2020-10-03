@@ -65,5 +65,3 @@ disabled = true
 frames = SubResource( 2 )
 animation = "Idle_Down"
 playing = true
-
-[node name="Camera2D" type="Camera2D" parent="."]

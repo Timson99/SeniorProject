@@ -52,8 +52,8 @@ func _process(delta):
 			event["current_instruction"] = camera_instruction(instruction[1], instruction[2])
 		elif instruction.size() == 2 && instruction[0] == "Delay":
 			event["current_instruction"] = delay_instruction(instruction[1])
-		elif instruction.size() == 3 && instruction[0] == "Yield":
-			event["current_instruction"] = yield_instruction(instruction[1], instruction[2])
+		elif instruction.size() == 3 && instruction[0] == "Signal":
+			event["current_instruction"] = signal_instruction(instruction[1], instruction[2])
 		else:
 			Debugger.dprint("Error: Instruction Not Valid")
 			
@@ -102,7 +102,7 @@ func delay_instruction(time : float):
 	yield(get_tree().create_timer(time, false), "timeout")
 	return
 
-func yield_instruction(obj_id : String, signal_name):
+func signal_instruction(obj_id : String, signal_name):
 	var observed_objects = {
 		#"Dialogue" : DialogueManager,
 		"Scene" : SceneManager,

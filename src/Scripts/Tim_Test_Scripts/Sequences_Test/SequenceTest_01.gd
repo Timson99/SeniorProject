@@ -18,6 +18,6 @@ static func instructions():
 		#Delay, time in seconds
 		["Delay", 2],
 		#Signal
-		["Yield", "Scene", "goto_called"],
+		["Signal", "Scene", "goto_called"],
 		
 	]
