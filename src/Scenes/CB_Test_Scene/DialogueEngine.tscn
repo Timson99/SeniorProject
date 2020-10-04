@@ -24,6 +24,7 @@ __meta__ = {
 }
 
 [node name="Options Popup" type="Panel" parent="."]
+visible = false
 margin_left = 137.0
 margin_top = 122.0
 margin_right = 312.0

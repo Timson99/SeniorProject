@@ -12,4 +12,4 @@ func _ready():
 # Call the Dialogue Manager using the SpeakerID
 func _interacts():
 	print("SpeakerID: " + speakerID)
-	get_node("../DialogueEngine")._beginTransmit(speakerID)
+	get_node("../DialogueEngine")._beginTransmit(speakerID, queuedMsg)
