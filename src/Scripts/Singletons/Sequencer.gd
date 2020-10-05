@@ -15,10 +15,12 @@ func _ready():
 	
 func assume_control():
 	in_control = true
+	InputEngine.disable_player_input()
 	print("Control Begun")
 	
 func end_control():
 	in_control = false
+	InputEngine.enable_all()
 	print("Control Ended")
 	
 	

@@ -34,6 +34,8 @@ var input_disabled := false
 var input_target = null
 const group_name := "Input_Receiver"
 
+var disabled = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,6 +49,12 @@ func disable_input():
 	
 func enable_input():
 	input_disabled = false
+	
+func disable_player_input():
+	disabled.append("Player")
+	
+func enable_all():
+	disabled = []
 	
 	
 func _process(_delta):
@@ -70,6 +78,9 @@ func process_input(loop):
 		
 	input_receivers.sort_custom(self, "sort_input_receivers")
 	input_target = input_receivers[0]
+	
+	if input_target.input_id in disabled:
+		return
 	
 	if valid_receivers[input_target.input_id]["loop"] == loop:
 		translate_and_execute(valid_receivers[input_target.input_id]["translator"])
