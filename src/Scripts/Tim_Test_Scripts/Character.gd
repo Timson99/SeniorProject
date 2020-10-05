@@ -51,6 +51,7 @@ func explore(delta : float):
 		
 	$AnimatedSprite.flip_h = (current_dir == Enums.Dir.Right)
 	var collision = move_and_collide(velocity * delta)
+	position = Vector2(round(position.x), round(position.y))
 	if collision:
 		$AnimatedSprite.animation = dir_anims[current_dir][0]
 	velocity = Vector2()
@@ -95,7 +96,7 @@ func up_just_pressed():
 	pass
 	
 func test_command():
-	Sequencer.execute_event("test_seq1")
+	Sequencer.execute_event("test_seq2")
 
 func save_game():
 	SaveManager.save_game()

@@ -48,8 +48,9 @@ func _process(delta):
 			event["current_instruction"] = scene_instruction(instruction[1], instruction[2])
 		elif instruction.size() == 2 && instruction[0] == "Battle":
 			event["current_instruction"] = battle_instruction(instruction[1])
-		elif instruction.size() == 3 && instruction[0] == "Camera":
-			event["current_instruction"] = camera_instruction(instruction[1], instruction[2])
+		elif instruction.size() >= 2 && instruction[0] == "Camera":
+			instruction.pop_front()
+			event["current_instruction"] = camera_instruction(instruction)
 		elif instruction.size() == 2 && instruction[0] == "Delay":
 			event["current_instruction"] = delay_instruction(instruction[1])
 		elif instruction.size() == 3 && instruction[0] == "Signal":
@@ -94,9 +95,22 @@ func scene_instruction(scene_id : String, warp_id : String):
 	print(scene_id + " " + warp_id)
 	return
 	
-func camera_instruction(command : String, time : float):
-	print((command + " %d") % time)
-	return
+func camera_instruction(params : Array):
+	if params[0] == "move_to_party":
+		if params.size() == 2: 
+			 var camera_move = CameraManager.move_to_party(params[1])
+			 yield(CameraManager.tween, "tween_completed")	
+			 CameraManager.release_camera() 
+			 return
+	if params[0] == "move_to_position":
+		if params.size() == 3: 
+			if CameraManager.grab_camera():
+				CameraManager.move_to_position(params[1], params[2])
+				yield(CameraManager.tween, "tween_completed")
+			return
+	else:
+		Debugger.dprint("Sequencer Error: Wrong Number of ARGS for " + params[0])
+		
 
 func delay_instruction(time : float):
 	yield(get_tree().create_timer(time, false), "timeout")

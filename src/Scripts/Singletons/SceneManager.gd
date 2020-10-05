@@ -63,7 +63,7 @@ func _deferred_goto_scene(path, warp_destination_id):
 	fade_animation.play_backwards("Fade")
 	yield(fade_animation, "animation_finished")
 	
-	fade.free()
+	fade.queue_free()
 	emit_signal("scene_fully_loaded")
 	
 	

@@ -109,7 +109,7 @@ entrance_direction = 1
 [node name="YSort" type="YSort" parent="TileMap"]
 
 [node name="Party" parent="TileMap/YSort" instance=ExtResource( 4 )]
-position = Vector2( 232, 136 )
+position = Vector2( 264, 136 )
 
 [node name="EnemyStandIn" type="Area2D" parent="." groups=[
 "Persistent",
