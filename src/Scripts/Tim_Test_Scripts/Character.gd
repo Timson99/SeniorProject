@@ -3,17 +3,17 @@ extends KinematicBody2D
 export var speed := 60
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
-export var alive = true
+export var alive := true
 
 #Party Vars, set by party
-var party_data = null
+var party_data : Dictionary = {}
 
 #Movement Vars
 var velocity := Vector2()
-var isMoving : bool = false
+var isMoving := false
 
 var current_dir = Enums.Dir.Down
-var dir_anims = {
+var dir_anims := {
 	Enums.Dir.Up: ["Idle_Up", "Walk_Up"],
 	Enums.Dir.Down: ["Idle_Down", "Walk_Down"],
 	Enums.Dir.Left: ["Idle_Left", "Walk_Left"],
@@ -33,8 +33,8 @@ func _physics_process(delta : float):
 	explore(delta)
 	
 
-func explore(delta):
-	if party_data != null and party_data["active"] != self:
+func explore(delta : float):
+	if party_data != null and "active" in party_data and party_data["active"] != self:
 		follow(delta)
 	
 	velocity = velocity.normalized() * speed
@@ -51,28 +51,26 @@ func explore(delta):
 		
 	$AnimatedSprite.flip_h = (current_dir == Enums.Dir.Right)
 	var collision = move_and_collide(velocity * delta)
+	position = Vector2(round(position.x), round(position.y))
 	if collision:
 		$AnimatedSprite.animation = dir_anims[current_dir][0]
-	$Camera2D.align()
 	velocity = Vector2()
 	
 	
 # When leader, player input is activate, 
 func activate_player():
-	add_to_group("Input_Reciever")
-	$Camera2D.current = true
+	add_to_group("Input_Receiver")
 	$CollisionBox.disabled = false
 	#$Area2D/InteractableArea.disabled = false
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
-	remove_from_group("Input_Reciever")
-	$Camera2D.current = false
+	remove_from_group("Input_Receiver")
 	$CollisionBox.disabled = true
 	#$Area2D/InteractableArea.disabled = true
 	
 	
-#Input Reciever Methods
+#Input Receiver Methods
 func move_up():
 	velocity.y -= 1
 	current_dir = Enums.Dir.Up
@@ -96,6 +94,9 @@ func down_just_released():
 func up_just_pressed():
 	#print("Up Just Pressed")
 	pass
+	
+func test_command():
+	Sequencer.execute_event("test_seq2")
 
 func save_game():
 	SaveManager.save_game()
@@ -108,8 +109,8 @@ func change_scene():
 func save():
 	var save_dict = {
 		"persistence_id" : persistence_id,
-		#"position" : position, 
-		#"current_dir" : current_dir
+		"position" : position, 
+		"current_dir" : current_dir
 	}	
 	return save_dict
 	
@@ -120,15 +121,14 @@ Persistent Objects need three things:
 	3. Have a save function with an an id attribute and all other attributes to save.
 """
 	
-func follow(delta): 
-	var line_position = party_data["num"]
+func follow(delta : float): 
+	var line_position : int = party_data["num"]
 	var leader = party_data["party"][line_position - 1]
-	var to_leader = leader.position - position
-	var distance = abs(to_leader.x) + abs(to_leader.y)
-	var party_spacing = 16
+	var to_leader : Vector2 = leader.position - position
+	var distance : float = abs(to_leader.x) + abs(to_leader.y)
+	var party_spacing : float = party_data["spacing"]
 	
 	if(distance > party_spacing):
-		
 		if (leader.current_dir in [Enums.Dir.Left, Enums.Dir.Right] &&
 		!(to_leader.normalized() in [Vector2.RIGHT, Vector2.LEFT])):
 			var vertical_diff = position.y - leader.position.y
@@ -141,9 +141,9 @@ func follow(delta):
 		elif (leader.current_dir in [Enums.Dir.Up, Enums.Dir.Down] &&
 		!(to_leader.normalized() in [Vector2.UP, Vector2.DOWN])):
 			var horizontal_diff = position.x - leader.position.x
-			if horizontal_diff > 0 and abs(horizontal_diff) > (speed * delta):
+			if horizontal_diff > 0 && abs(horizontal_diff) > (speed * delta):
 				move_left()
-			elif horizontal_diff < 0 and abs(horizontal_diff) > (speed * delta):
+			elif horizontal_diff < 0 && abs(horizontal_diff) > (speed * delta):
 				move_right()
 			else:
 				position.x = leader.position.x

@@ -1,6 +1,6 @@
 extends Node
 
-var to_player_commands : Dictionary = {
+var to_player_commands := {
 	"pressed": 
 		{"ui_up" : "move_up",
 		"ui_down" : "move_down",
@@ -9,8 +9,10 @@ var to_player_commands : Dictionary = {
 		},
 	"just_pressed": 
 		{"ui_up" : "up_just_pressed",
-		 "ui_accept" : "save_game",
-		 "ui_cancel" : "change_scene",
+		 "ui_accept" : "change_scene",
+		 "ui_cancel" : "save_game",
+		 #Test Command
+		"ui_test" : "test_command"
 		},
 	"just_released": 
 		{"ui_down" : "down_just_released",
@@ -19,7 +21,7 @@ var to_player_commands : Dictionary = {
 
 var to_dialogue_commands : Dictionary = {}
 
-var valid_recievers = {
+var valid_receivers := {
 	"Debug_Menu" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
 	"Battle Menu" : {"priority": 2, "loop": "_process", "translator" : to_player_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_player_commands},
@@ -28,9 +30,11 @@ var valid_recievers = {
 	"Test_Item" : {"priority": 6, "loop": "_process", "translator" : to_player_commands},
 }
 
-var input_disabled : bool = false
+var input_disabled := false
 var input_target = null
-var group_name = "Input_Reciever"
+const group_name := "Input_Receiver"
+
+var disabled = []
 
 
 # Called when the node enters the scene tree for the first time.
@@ -46,6 +50,12 @@ func disable_input():
 func enable_input():
 	input_disabled = false
 	
+func disable_player_input():
+	disabled.append("Player")
+	
+func enable_all():
+	disabled = []
+	
 	
 func _process(_delta):
 	process_input("_process")
@@ -55,22 +65,25 @@ func _physics_process(_delta):
 	process_input("_physics_process")
 	
 	
-func sort_input_recievers(a,b):
-	if (valid_recievers[a.input_id]["priority"] < valid_recievers[b.input_id]["priority"]):
+func sort_input_receivers(a,b):
+	if (valid_receivers[a.input_id]["priority"] < valid_receivers[b.input_id]["priority"]):
 		return true
 	return false
 	
 	
 func process_input(loop):
-	var input_recievers = get_tree().get_nodes_in_group(group_name) if !input_disabled else []
-	if input_recievers.size() == 0: 
+	var input_receivers = get_tree().get_nodes_in_group(group_name) if !input_disabled else []
+	if input_receivers.size() == 0: 
 		return
 		
-	input_recievers.sort_custom(self, "sort_input_recievers")
-	input_target = input_recievers[0]
+	input_receivers.sort_custom(self, "sort_input_receivers")
+	input_target = input_receivers[0]
 	
-	if valid_recievers[input_target.input_id]["loop"] == loop:
-		translate_and_execute(valid_recievers[input_target.input_id]["translator"])
+	if input_target.input_id in disabled:
+		return
+	
+	if valid_receivers[input_target.input_id]["loop"] == loop:
+		translate_and_execute(valid_receivers[input_target.input_id]["translator"])
 	
 			
 func translate_and_execute(input_translator):
@@ -89,5 +102,6 @@ func translate_and_execute(input_translator):
 			break
 			
 	for command in commands:
-			input_target.call_deferred(command)
+			if input_target.has_method(command):
+				input_target.call_deferred(command)
 

@@ -1,10 +1,11 @@
 extends Node2D
 
-
 var active_player = null
-var party = []
-var incapacitated = []
+var party : Array = []
+var incapacitated : Array = []
 var items = null
+var spacing : float = 16
+var persistence_id = "main_party"
 
 
 func sort_characters(a,b):
@@ -33,12 +34,26 @@ func _ready():
 		
 		for i in range(party.size()):
 			if(party[i].alive):
-				party[i].set("party_data", {"active": active_player, "num": i, "party": party})
+				party[i].set("party_data", {"active": active_player, 
+											"num": i, 
+											"party": party, 
+											"spacing" : spacing,
+											})
 				
-func reposition(new_position, new_direction):
+func reposition(new_position : Vector2, new_direction):
 	position.x = new_position.x
 	position.y = new_position.y
 	active_player.current_dir = new_direction
+	for i in range(party.size()):
+		party[i].position = Vector2(0,0)
+		party[i].current_dir = new_direction
+	
+func save():
+	var save_dict = {
+		"persistence_id" : persistence_id,
+		"position" : position, 
+	}	
+	return save_dict
 	
 
 
