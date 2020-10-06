@@ -40,8 +40,8 @@ func _process(delta):
 			indices_to_remove.append(i)
 			break
 		var instruction = event["instructions"].pop_front()
-		if instruction.size() == 4 && instruction[0] == "AI":
-			event["current_instruction"] = ai_instruction(instruction[1], instruction[2], instruction[3])
+		if instruction.size() == 5 && instruction[0] == "AI":								
+			event["current_instruction"] = ai_instruction(instruction[1], instruction[2], instruction[3], instruction[4])
 		elif instruction.size() == 2 && instruction[0] == "BG_Audio":
 			event["current_instruction"] = bg_audio_instruction(instruction[1])
 		elif instruction.size() == 2 && instruction[0] == "Dialogue":
@@ -77,8 +77,9 @@ func execute_event(event_id : String):
 	
 		
 		
-func ai_instruction(ai_id : String, command : String, time : float):
+func ai_instruction(ai_id : String, command : String, destination: Vector2, time : float):
 	print((ai_id + " " + command + " %d") % time)
+	AiEngine.process_command(ai_id, command, destination, time)
 	return
 	
 func bg_audio_instruction(audio_id : String):

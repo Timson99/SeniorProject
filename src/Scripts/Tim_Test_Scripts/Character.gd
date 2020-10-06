@@ -3,6 +3,7 @@ extends KinematicBody2D
 export var speed := 60
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
+export var ai_movement_id := "PChar1"
 export var alive := true
 
 #Party Vars, set by party
