@@ -16,7 +16,33 @@ static func instructions():
 		
 		["Actor-async", "PChar3", "move_right", 0.5, "split"], 
 		
-		["Actor-async", "PChar1", "move_right", 0.8, "following"], 
+		#["Actor-async", "PChar1", "move_right", 0.8, "following"], 
+		
+		#["Actor", "PChar1", "move_left", 0.7, "split"],
+		
+		["Actor", "PChar2", "move_up", 0.7, "split"],
+				
+		["Actor", "PChar3", "move_right", 0.7, "split"],
+		
+		["Actor-async", "PChar1", "move_right", 2.0, "split"],
+		
+		#["Actor-async", "PChar1", "move_right", 2.0, "following"], 
+		
+		["Actor-async", "PChar1", "move_up", 1.0, "following"], 
+		
+		["Actor-async", "PChar1", "move_left", 0.3, "following"], 
+		
+		["Actor-async", "PChar1", "move_down", 0.3, "following"], 
+		
+		["Actor-async", "PChar1", "move_left", 0.3, "following"], 
+		
+		["Actor-async", "PChar1", "move_down", 0.3, "following"], 
+		
+		["Actor-async", "PChar1", "move_left", 0.3, "following"], 
+		
+		["Actor-async", "PChar1", "move_down", 0.3, "following"], 
+		
+		["Actor-async", "PChar1", "move_left", 0.3, "following"], 
 		
 		#["Actor-async", "Party1", "move_down", 3],
 		

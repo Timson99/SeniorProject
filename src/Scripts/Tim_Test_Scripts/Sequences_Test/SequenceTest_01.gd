@@ -4,7 +4,7 @@ extends Resource
 static func instructions():
 	return [
 		#AI AI_ID Command, time in seconds, Party State Enum, optional speed, optional animation
-		["AI", "PChar1", "move_up", 2, AiEngine.PartyState.Following],
+
 		#Dialogue, D_ID
 		["Dialogue", "d_id"],
 		#BG_Audio, Audio_id
