@@ -38,7 +38,7 @@ func _ready():
 											"num": i, 
 											"party": party, 
 											"spacing" : spacing,
-											"sequence_formation": AiEngine.PartyState.Following
+											"sequence_formation": "following"
 											})
 				
 func reposition(new_position : Vector2, new_direction):
@@ -56,6 +56,5 @@ func save():
 	}	
 	return save_dict
 	
-
 
 

@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var speed := 60
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
-export var ai_movement_id := "PChar1"
+export var actor_id := "PChar"
 export var alive := true
 
 #Party Vars, set by party
@@ -36,9 +36,9 @@ func _physics_process(delta : float):
 
 func explore(delta : float):
 	if party_data != null and "active" in party_data and party_data["active"] != self:
-		if party_data["sequence_formation"] == AiEngine.PartyState.Following:
+		if party_data["sequence_formation"] == "following":
 			follow(delta)	
-		elif party_data["sequence_formation"] == AiEngine.PartyState.Split:
+		elif party_data["sequence_formation"] == "split":
 			pass
 
 	velocity = velocity.normalized() * speed
@@ -108,6 +108,9 @@ func save_game():
 func change_scene():
 	SceneManager.goto_scene(destination)
 	
+
+func change_sequenced_follow_formation(formation: String):
+	self.party_data["sequence_formation"] = formation
 
 #Persistent Object Method
 func save():

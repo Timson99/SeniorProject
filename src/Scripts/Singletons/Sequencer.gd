@@ -40,8 +40,10 @@ func _process(delta):
 			indices_to_remove.append(i)
 			break
 		var instruction = event["instructions"].pop_front()
-		if instruction.size() == 5 && instruction[0] == "AI":								
-			event["current_instruction"] = ai_instruction(instruction[1], instruction[2], instruction[3], instruction[4])
+		if instruction.size() >= 4 && instruction[0] == "Actor":	
+			event["current_instruction"] = actor_instruction(instruction)
+		elif instruction.size() >= 4 && instruction[0] == "Actor-async":
+			event["current_instruction"] = actor_async_instruction(instruction)
 		elif instruction.size() == 2 && instruction[0] == "BG_Audio":
 			event["current_instruction"] = bg_audio_instruction(instruction[1])
 		elif instruction.size() == 2 && instruction[0] == "Dialogue":
@@ -77,16 +79,16 @@ func execute_event(event_id : String):
 	
 		
 		
-func ai_instruction(ai_id : String, command : String, time: float, party_state_enum: int):
-	print((ai_id + " " + command + " %d") % time)
-	var player_id_regex = RegEx.new()
-	player_id_regex.compile("^PChar\\d+")
-	var player_result = player_id_regex.search(ai_id)
-	#print(player_result)
-	if player_result && :
-		AiEngine.process_party_command(ai_id, command, time, party_state_enum)
-	yield(AiEngine, "ai_command_complete")
+func actor_instruction(params: Array):
+	ActorEngine.process_command("sync", params[1], params[2], params[3], params[4])
 	return
+	
+	
+func actor_async_instruction(params: Array):
+	ActorEngine.process_command("async", params[1], params[2], params[3], params[4])
+	yield(ActorEngine, "async_actor_command_complete")
+	return
+	
 	
 func bg_audio_instruction(audio_id : String):
 	print(audio_id)

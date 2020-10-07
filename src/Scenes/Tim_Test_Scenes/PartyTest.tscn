@@ -14,17 +14,18 @@ script = ExtResource( 3 )
 [node name="YSort" type="YSort" parent="."]
 
 [node name="C3" parent="YSort" groups=[
-"AI_Movable",
+"Actor",
 ] instance=ExtResource( 4 )]
 persistence_id = "C3"
-ai_movement_id = "PChar3"
+actor_id = "PChar3"
 
 [node name="C2" parent="YSort" groups=[
-"AI_Movable",
+"Actor",
 ] instance=ExtResource( 1 )]
 persistence_id = "C2"
-ai_movement_id = "PChar2"
+actor_id = "PChar2"
 
 [node name="C1" parent="YSort" groups=[
-"AI_Movable",
+"Actor",
 ] instance=ExtResource( 2 )]
+actor_id = "PChar1"
