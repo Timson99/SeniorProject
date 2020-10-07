@@ -36,8 +36,11 @@ func _physics_process(delta : float):
 
 func explore(delta : float):
 	if party_data != null and "active" in party_data and party_data["active"] != self:
-		follow(delta)
-	
+		if party_data["sequence_formation"] == AiEngine.PartyState.Following:
+			follow(delta)	
+		elif party_data["sequence_formation"] == AiEngine.PartyState.Split:
+			pass
+
 	velocity = velocity.normalized() * speed
 	if velocity.length() != 0:
 		$AnimatedSprite.animation = dir_anims[current_dir][1]
@@ -97,7 +100,7 @@ func up_just_pressed():
 	pass
 	
 func test_command():
-	Sequencer.execute_event("test_seq2")
+	Sequencer.execute_event("test_seq3")
 
 func save_game():
 	SaveManager.save_game()

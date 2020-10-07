@@ -38,6 +38,7 @@ func _ready():
 											"num": i, 
 											"party": party, 
 											"spacing" : spacing,
+											"sequence_formation": AiEngine.PartyState.Following
 											})
 				
 func reposition(new_position : Vector2, new_direction):

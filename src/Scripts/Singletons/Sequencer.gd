@@ -77,9 +77,15 @@ func execute_event(event_id : String):
 	
 		
 		
-func ai_instruction(ai_id : String, command : String, destination: Vector2, time : float):
+func ai_instruction(ai_id : String, command : String, time: float, party_state_enum: int):
 	print((ai_id + " " + command + " %d") % time)
-	AiEngine.process_command(ai_id, command, destination, time)
+	var player_id_regex = RegEx.new()
+	player_id_regex.compile("^PChar\\d+")
+	var player_result = player_id_regex.search(ai_id)
+	#print(player_result)
+	if player_result && :
+		AiEngine.process_party_command(ai_id, command, time, party_state_enum)
+	yield(AiEngine, "ai_command_complete")
 	return
 	
 func bg_audio_instruction(audio_id : String):
