@@ -80,13 +80,16 @@ func execute_event(event_id : String):
 		
 		
 func actor_instruction(params: Array):
-	ActorEngine.process_command("sync", params[1], params[2], params[3], params[4])
+	print(params)
+	ActorEngine.process_command("sync", params[1], params[2], params[3])
 	return
 	
 	
 func actor_async_instruction(params: Array):
-	ActorEngine.process_command("async", params[1], params[2], params[3], params[4])
-	yield(ActorEngine, "async_actor_command_complete")
+	print(params)
+	ActorEngine.process_command("async", params[1], params[2], params[3])
+	yield(ActorEngine.async_command_timer, "timeout")
+	print("ASYNC SUCESSFULLY COMPLETED")
 	return
 	
 	

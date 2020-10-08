@@ -108,7 +108,6 @@ func save_game():
 func change_scene():
 	SceneManager.goto_scene(destination)
 	
-
 func change_sequenced_follow_formation(formation: String):
 	self.party_data["sequence_formation"] = formation
 
