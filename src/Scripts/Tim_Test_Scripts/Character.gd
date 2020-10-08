@@ -100,7 +100,7 @@ func up_just_pressed():
 	pass
 	
 func test_command():
-	Sequencer.execute_event("test_seq3")
+	Sequencer.execute_event("test_seq4")
 
 func save_game():
 	SaveManager.save_game()
@@ -110,6 +110,23 @@ func change_scene():
 	
 func change_sequenced_follow_formation(formation: String):
 	self.party_data["sequence_formation"] = formation
+
+func move_to_position(new_position: Vector2):
+	var current_position = self.position
+	current_position = Vector2(round(position.x), round(position.y))
+	var x_delta = new_position.x - current_position.x
+	var y_delta = new_position.y - current_position.y
+	if x_delta != 0:
+		if x_delta > 0:
+			move_right()
+		else:
+			move_left()
+	if x_delta == 0 && y_delta != 0:
+		if y_delta > 0:
+			move_up()
+		else:
+			move_down()
+	
 
 #Persistent Object Method
 func save():

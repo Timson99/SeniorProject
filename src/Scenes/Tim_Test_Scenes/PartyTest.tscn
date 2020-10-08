@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/Tim_Test_Scenes/Character/PlayableCharacterChildTwo.tscn" type="PackedScene" id=4]
 
 [node name="Party" type="Node2D" groups=[
+"Actor",
 "Party",
 "Persistent",
 ]]

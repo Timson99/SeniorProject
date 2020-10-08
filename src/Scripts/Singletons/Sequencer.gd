@@ -7,7 +7,7 @@ var Events = preload("res://Scripts/Resource_Scripts/EventSequences.gd").new()
 
 var active_events = []
 var current_instruction = null
-
+var last_actor_instruction_type = null
 
 
 func _ready():
@@ -40,10 +40,8 @@ func _process(delta):
 			indices_to_remove.append(i)
 			break
 		var instruction = event["instructions"].pop_front()
-		if instruction.size() >= 4 && instruction[0] == "Actor":	
+		if instruction.size() >= 4 && (instruction[0] == "Actor" || instruction[0] == "Actor-async"):	
 			event["current_instruction"] = actor_instruction(instruction)
-		elif instruction.size() >= 4 && instruction[0] == "Actor-async":
-			event["current_instruction"] = actor_async_instruction(instruction)
 		elif instruction.size() == 2 && instruction[0] == "BG_Audio":
 			event["current_instruction"] = bg_audio_instruction(instruction[1])
 		elif instruction.size() == 2 && instruction[0] == "Dialogue":
@@ -80,16 +78,21 @@ func execute_event(event_id : String):
 		
 		
 func actor_instruction(params: Array):
-	print(params)
-	ActorEngine.process_command("sync", params[1], params[2], params[3])
+	if params.size() == 4:
+		ActorEngine.process_command(params[0], params[1], params[2], params[3])
+	if params.size() == 5:
+		ActorEngine.process_command(params[0], params[1], params[2], params[3], params[4])
+	if params[0] == "Actor-async":
+		yield(ActorEngine.async_command_timer, "timeout")
 	return
 	
 	
 func actor_async_instruction(params: Array):
-	print(params)
-	ActorEngine.process_command("async", params[1], params[2], params[3])
+	if params.size() == 3:
+		ActorEngine.process_command("sync", params[0], params[1], params[2])
+	if params.size() == 4:
+		ActorEngine.process_command("sync", params[0], params[1], params[2], params[3])
 	yield(ActorEngine.async_command_timer, "timeout")
-	print("ASYNC SUCESSFULLY COMPLETED")
 	return
 	
 	

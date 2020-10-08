@@ -3,8 +3,9 @@ extends Resource
 
 static func instructions():
 	return [
-		#AI AI_ID Command, time in seconds, Party State Enum, optional speed, optional animation
-
+		#Actor-type Actor_ID Command, time in seconds or other paramter
+		["Actor-async", "PChar1", "move_up", 5],
+		["Actor", "PChar2", "change_sequenced_follow_formation", "split"],
 		#Dialogue, D_ID
 		["Dialogue", "d_id"],
 		#BG_Audio, Audio_id
