@@ -23,7 +23,8 @@ var to_menu_commands: Dictionary = {
 	"pressed":{},
 	"just_pressed": 
 		{
-		"ui_menu": "overlay_ui",
+		"ui_menu_out": "remove_ui",
+		
 		},
 	"just_released": {},
 }
@@ -88,7 +89,7 @@ func translate_and_execute(input_translator):
 		if(Input.is_action_just_pressed(action)):
 			commands.append(input_translator["just_pressed"][action])
 			print(commands)
-			print(input_target)
+			print("input_targs: {in}".format({"in":input_target}))
 			break
 	for action in input_translator["just_released"].keys():
 		if(Input.is_action_just_released(action)):

@@ -1,16 +1,22 @@
-extends Control
+extends GridContainer
 
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var input_id = "Menu"
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	for item in ImportData.item_data:
+		_add_item_entry(item)
+		
+func _add_item_entry(item):
+#	print(item)
+	var button = Button.new()
+	button.text = item
+	add_child(button)
+	 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

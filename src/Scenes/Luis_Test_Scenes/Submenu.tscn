@@ -77,8 +77,8 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="consumables" parent="Categories" instance=ExtResource( 2 )]
-visible = true
 items = [ "Item 1", null, false ]
 
 [node name="weapons" parent="Categories" instance=ExtResource( 2 )]
+visible = false
 items = [ "Item 1", null, false ]

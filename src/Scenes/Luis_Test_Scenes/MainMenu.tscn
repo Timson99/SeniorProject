@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Luis_Test_Scenes/MenuButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Luis_Test_Scenes/Inventory.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Luis_Test_Scenes/ExitButton.tscn" type="PackedScene" id=2]
 
 [node name="MainMenu" type="Control"]
-margin_right = 300.0
-margin_bottom = 220.0
+margin_right = 320.0
+margin_bottom = 240.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -22,8 +22,8 @@ __meta__ = {
 }
 
 [node name="Background" type="TextureRect" parent="Margin"]
-margin_right = 280.0
-margin_bottom = 200.0
+margin_right = 300.0
+margin_bottom = 220.0
 
 [node name="Sections" type="GridContainer" parent="Margin/Background"]
 margin_right = 300.0
@@ -34,37 +34,33 @@ __meta__ = {
 }
 
 [node name="MenuOptions" type="VBoxContainer" parent="Margin/Background/Sections"]
-margin_right = 73.0
+margin_right = 65.0
 margin_bottom = 220.0
 size_flags_vertical = 3
 
 [node name="Inventory" parent="Margin/Background/Sections/MenuOptions" instance=ExtResource( 1 )]
+margin_right = 65.0
+margin_bottom = 18.0
+focus_neighbour_bottom = NodePath("../Skills")
+text = "Inventory"
+reference_path = "res://Scenes/Luis_Test_Scenes/Inventory.tscn"
+start_focused = true
 
-[node name="Skills" type="Button" parent="Margin/Background/Sections/MenuOptions"]
-margin_top = 24.0
-margin_right = 73.0
-margin_bottom = 44.0
+[node name="Skills" parent="Margin/Background/Sections/MenuOptions" instance=ExtResource( 1 )]
+margin_top = 22.0
+margin_right = 65.0
+margin_bottom = 40.0
+focus_neighbour_top = NodePath("../Inventory")
 text = "Skills"
 
-[node name="Misc" type="Button" parent="Margin/Background/Sections/MenuOptions"]
-margin_top = 48.0
-margin_right = 73.0
-margin_bottom = 68.0
-text = "Misc."
+[node name="ExitButton" parent="Margin/Background/Sections/MenuOptions" instance=ExtResource( 2 )]
+margin_top = 44.0
+margin_right = 65.0
+margin_bottom = 62.0
+top_level = true
 
-[node name="Button4" type="Button" parent="Margin/Background/Sections/MenuOptions"]
-margin_top = 72.0
-margin_right = 73.0
-margin_bottom = 92.0
-text = "Settings"
-
-[node name="Inventory" parent="Margin/Background/Sections" groups=[
-"Submenus",
-] instance=ExtResource( 2 )]
-visible = false
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 77.0
+[node name="Submenu" type="MarginContainer" parent="Margin/Background/Sections"]
+margin_left = 69.0
 margin_right = 300.0
 margin_bottom = 220.0
 size_flags_horizontal = 3
