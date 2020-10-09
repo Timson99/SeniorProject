@@ -87,15 +87,6 @@ func actor_instruction(params: Array):
 	return
 	
 	
-func actor_async_instruction(params: Array):
-	if params.size() == 3:
-		ActorEngine.process_command("sync", params[0], params[1], params[2])
-	if params.size() == 4:
-		ActorEngine.process_command("sync", params[0], params[1], params[2], params[3])
-	yield(ActorEngine.async_command_timer, "timeout")
-	return
-	
-	
 func bg_audio_instruction(audio_id : String):
 	print(audio_id)
 	return

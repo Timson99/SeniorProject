@@ -112,20 +112,21 @@ func change_sequenced_follow_formation(formation: String):
 	self.party_data["sequence_formation"] = formation
 
 func move_to_position(new_position: Vector2):
-	var current_position = self.position
+	var current_position = self.get_global_position()
 	current_position = Vector2(round(position.x), round(position.y))
 	var x_delta = new_position.x - current_position.x
 	var y_delta = new_position.y - current_position.y
-	if x_delta != 0:
-		if x_delta > 0:
-			move_right()
-		else:
-			move_left()
-	if x_delta == 0 && y_delta != 0:
-		if y_delta > 0:
+	#print(current_position)
+	if y_delta != 0:
+		if current_position.y > new_position.y:
 			move_up()
 		else:
 			move_down()
+	elif y_delta <= 0 && x_delta != 0:
+		if current_position.x > new_position.x:
+			move_left()
+		else:
+			move_right()
 	
 
 #Persistent Object Method
