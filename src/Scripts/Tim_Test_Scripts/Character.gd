@@ -100,7 +100,7 @@ func up_just_pressed():
 	pass
 	
 func test_command():
-	Sequencer.execute_event("test_seq4")
+	Sequencer.execute_event("test_seq5")
 
 func save_game():
 	SaveManager.save_game()

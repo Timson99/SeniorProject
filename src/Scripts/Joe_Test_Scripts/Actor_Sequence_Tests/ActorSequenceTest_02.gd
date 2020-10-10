@@ -4,15 +4,13 @@ extends Resource
 static func instructions():
 	return [
 		
-		#["Actor-async", "PChar1", "move_up", 3],
-		#["Actor-async", "Party", "party_follow_formation", false]
-		#["Actor-async", "Party", "party_follow_formation", true],
+				# Actor (async or sync), Actor ID, command, time in seconds, optional paramter (either a flag or Vector2 position) 
 		
-		["Actor", "PChar1", "change_sequenced_follow_formation", 0, "split"],
+		["Actor-sync", "PChar1", "change_sequenced_follow_formation", 0, "split"],
 		
-		["Actor", "PChar2", "change_sequenced_follow_formation", 0, "split"],
+		["Actor-sync", "PChar2", "change_sequenced_follow_formation", 0, "split"],
 				
-		["Actor", "PChar3", "change_sequenced_follow_formation", 0, "split"],
+		["Actor-sync", "PChar3", "change_sequenced_follow_formation", 0, "split"],
 		
 		["Actor-async", "PChar1", "move_to_position", 3, Vector2(-127, -15)],
 		
@@ -26,12 +24,12 @@ static func instructions():
 		
 		["Actor-async", "PChar3", "move_to_position", 3, Vector2(0, 25)],
 		
-		["Actor", "PChar1", "change_sequenced_follow_formation", 0, "following"],
+		["Actor-sync", "PChar1", "change_sequenced_follow_formation", 0, "following"],
 		
-		["Actor", "PChar2", "change_sequenced_follow_formation", 0, "following"],
+		["Actor-sync", "PChar2", "change_sequenced_follow_formation", 0, "following"],
 		
-		["Actor", "PChar3", "change_sequenced_follow_formation", 0, "following"],
+		["Actor-sync", "PChar3", "change_sequenced_follow_formation", 0, "following"],
 		
-		["Actor", "PChar1", "move_to_position", 3, Vector2(-127, 30)],
+		["Actor-async", "PChar1", "move_to_position", 3, Vector2(-127, 30)],
 		
 	]
