@@ -63,6 +63,7 @@ InputEngine="*res://Scripts/Singletons/InputEngine.gd"
 CameraManager="*res://Scripts/Singletons/CameraManager.gd"
 Sequencer="*res://Scripts/Singletons/Sequencer.gd"
 PersistentData="*res://Scripts/Singletons/PersistentData.gd"
+ActorEngine="*res://Scripts/Singletons/ActorEngine.gd"
 
 [display]
 
