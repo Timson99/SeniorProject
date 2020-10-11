@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "BattleBehaviors",
+"language": "GDScript",
+"path": "res://Scripts/Resource_Scripts/BattleBehaviors.gd"
+}, {
 "base": "Object",
 "class": "Debugger",
 "language": "GDScript",
@@ -40,6 +45,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/Joe_Test_Scripts/test_PriorityQueue.gd"
 } ]
 _global_script_class_icons={
+"BattleBehaviors": "",
 "Debugger": "",
 "Enums": "",
 "Explore_Root": "",
@@ -63,6 +69,7 @@ InputEngine="*res://Scripts/Singletons/InputEngine.gd"
 CameraManager="*res://Scripts/Singletons/CameraManager.gd"
 Sequencer="*res://Scripts/Singletons/Sequencer.gd"
 PersistentData="*res://Scripts/Singletons/PersistentData.gd"
+ActorEngine="*res://Scripts/Singletons/ActorEngine.gd"
 
 [display]
 

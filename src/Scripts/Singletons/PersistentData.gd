@@ -6,6 +6,8 @@ var data : Dictionary = {} setget , get_data
 func _ready():
 	SaveManager.connect("node_data_extracted", self, "update_entry")
 	SceneManager.connect("scene_loaded", self, "restore_data")
+	
+	restore_data()
 
 # Loads persistent data back into all persistent nodes
 func restore_data():

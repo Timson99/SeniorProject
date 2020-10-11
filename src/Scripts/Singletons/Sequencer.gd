@@ -103,12 +103,14 @@ func dialogue_instruction(dialogue_id : String):
 
 #Begin Battle, No Coroutine, Last Instruction
 func battle_instruction(scene_id : String):
-	print(scene_id)
+	SceneManager.goto_scene(scene_id, "", true)
+	yield(SceneManager, "scene_fully_loaded")
 	return
 
 #Change Scene, No Coroutine, Last Instruction
 func scene_instruction(scene_id : String, warp_id : String):
-	print(scene_id + " " + warp_id)
+	SceneManager.goto_scene(scene_id, warp_id)
+	yield(SceneManager, "scene_fully_loaded")
 	return
 	
 func camera_instruction(params : Array):

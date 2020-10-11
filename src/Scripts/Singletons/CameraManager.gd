@@ -6,7 +6,7 @@ onready var screen_size = get_viewport_rect().size
 onready var static_pos = Vector2(screen_size.x/2,screen_size.y/2)
 
 enum State {OnParty, Sequenced, Static}
-var state = State.Static
+var state = null
 
 
 
@@ -26,6 +26,9 @@ func _ready():
 #Run camera movement in physics process?
 # Use signals for state changes rather than process constant checks
 func _physics_process(delta):	
+	print(state)
+	
+	
 	var party = get_tree().get_nodes_in_group("Party")
 	if party.size() != 1:
 		if state != State.Static and state != State.Sequenced: state_to_static()
@@ -38,7 +41,11 @@ func _physics_process(delta):
 	elif state == State.OnParty:
 		var party_pos = party[0].active_player.get_global_position()
 		position = Vector2(party_pos.x, party_pos.y)
-		position = Vector2(round(position.x), round(position.y))
+		if "camera_bounds" in SceneManager.current_scene:
+			var bounds = SceneManager.current_scene.camera_bounds
+			position.x = clamp(position.x, bounds["min_x"], bounds["max_x"])
+			position.y = clamp(position.y, bounds["min_y"], bounds["max_y"])
+		#position = Vector2(round(position.x), round(position.y))
 		camera.align()
 	elif state == State.Sequenced:
 		position = Vector2(round(position.x), round(position.y))

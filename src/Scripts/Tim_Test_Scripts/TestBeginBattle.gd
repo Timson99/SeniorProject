@@ -6,7 +6,7 @@ export var persistence_id = "test_enemy"
 export var active = true
 
 func _ready():
-	on_load()
+	pass
 		
 
 
