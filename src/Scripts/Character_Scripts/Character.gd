@@ -26,8 +26,8 @@ var destination = "res://Scenes/Tim_Test_Scenes/TestTileMap.tscn"
 
 
 
-func _ready():
-	pass
+func on_load():
+	position = Vector2(round(position.x), round(position.y))
 
 
 func _physics_process(delta : float):

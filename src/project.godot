@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Custom_YSort",
+"language": "GDScript",
+"path": "res://Scripts/Custom_Nodes/Custom_YSort.gd"
+}, {
 "base": "Object",
 "class": "Debugger",
 "language": "GDScript",
@@ -40,6 +45,7 @@ _global_script_classes=[ {
 "path": "res://Scripts/Joe_Test_Scripts/test_PriorityQueue.gd"
 } ]
 _global_script_class_icons={
+"Custom_YSort": "",
 "Debugger": "",
 "Enums": "",
 "Explore_Root": "",

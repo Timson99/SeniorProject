@@ -51,17 +51,19 @@ animations = [ {
 } ]
 
 [node name="KinematicBody2D" type="KinematicBody2D" groups=[
+"Actor",
 "Persistent",
 ]]
 script = ExtResource( 3 )
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 12 )
+position = Vector2( 0, -4 )
 scale = Vector2( 1, 0.5 )
 shape = SubResource( 1 )
 disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -16 )
 frames = SubResource( 2 )
 animation = "Idle_Down"
 playing = true

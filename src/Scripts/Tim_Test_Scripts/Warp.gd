@@ -12,10 +12,10 @@ export(bool) var one_way
 var entrance_point := Vector2()
 const square_size = Vector2(16,16)
 const player_relative_box = {
-	Enums.Dir.Up: Vector2(0, -16),
-	Enums.Dir.Down: Vector2(0, -8),
-	Enums.Dir.Left: Vector2(-8, -8),
-	Enums.Dir.Right: Vector2(8, -8),
+	Enums.Dir.Up: Vector2(0, 0),
+	Enums.Dir.Down: Vector2(0, 8),
+	Enums.Dir.Left: Vector2(-12, 4),
+	Enums.Dir.Right: Vector2(12, 4),
 }
 
 func _ready():

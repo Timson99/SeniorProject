@@ -5,17 +5,12 @@ export var actor_id: String = "Party"
 export var C2_in_party = true
 export var C3_in_party = true
 
-
 var active_player = null
 var party : Array = []
 var incapacitated : Array = []
 var items = null
 var spacing : float = 16
 var persistence_id = "main_party"
-
-#const C1 = preload("res://Scenes/Character_Scenes/C1.tscn")
-const C2 = preload("res://Scenes/Character_Scenes/C2.tscn")
-const C3 = preload("res://Scenes/Character_Scenes/C3.tscn")
 
 
 func sort_characters(a,b):
@@ -36,14 +31,15 @@ func init_in_party(condition, character_scene, name):
 		party_member.name = name
 		$YSort.add_child(party_member)
 		
-		
-
+	
 
 # Called when the node enters the scene tree for the first time.
 func on_load():
-	init_in_party(C3_in_party, C3, "C3")
-	init_in_party(C2_in_party, C2, "C2")
-	#init_in_party(C1_in_party, C1, "C1")
+	
+	if(!C2_in_party):
+		$YSort.remove_child($YSort/C2)
+	if(!C3_in_party):
+		$YSort.remove_child($YSort/C3)	
 	
 	party = $YSort.get_children()
 	$YSort.move_child($YSort/C1, party.size() - 1)
@@ -74,6 +70,7 @@ func reposition(new_position : Vector2, new_direction):
 	for i in range(party.size()):
 		party[i].position = Vector2(0,0)
 		party[i].current_dir = new_direction
+		
 	
 func save():
 	var save_dict = {
