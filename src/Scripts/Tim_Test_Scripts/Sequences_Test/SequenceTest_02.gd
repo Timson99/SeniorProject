@@ -6,8 +6,6 @@ static func instructions():
 		# Component, Method, Vector, Time
 		["Camera", "move_to_position", Vector2(0,136), 5],
 		#Camera, Method, Optional Time
-		["Camera", "move_to_party", 3]
+		["Camera", "move_to_party", 3],
 
-
-		
 	]
