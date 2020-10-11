@@ -76,8 +76,12 @@ func _ready():
 #Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#testing purposes as substitute for input engine
+	#either skips scroll or advances to next line
 	if Input.is_action_just_released("ui_focus_next"):
-		_advance()
+		if textNode.get_visible_characters() < textNode.get_text().length():
+			textNode.set_visible_characters(textNode.get_text().length() - 1)
+		else:
+			_advance()
 
 func _beginTransmit(var spID, var manualID):
 	finalWaltz = false
