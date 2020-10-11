@@ -7,7 +7,7 @@ var Events = preload("res://Scripts/Resource_Scripts/EventSequences.gd").new()
 
 var active_events = []
 var current_instruction = null
-
+var last_actor_instruction_type = null
 
 
 func _ready():
@@ -38,8 +38,8 @@ func _process(delta):
 			indices_to_remove.append(i)
 			break
 		var instruction = event["instructions"].pop_front()
-		if instruction.size() == 4 && instruction[0] == "AI":
-			event["current_instruction"] = ai_instruction(instruction[1], instruction[2], instruction[3])
+		if instruction.size() >= 4 && (instruction[0] == "Actor-sync" || instruction[0] == "Actor-async"):	
+			event["current_instruction"] = actor_instruction(instruction)
 		elif instruction.size() == 2 && instruction[0] == "BG_Audio":
 			event["current_instruction"] = bg_audio_instruction(instruction[1])
 		elif instruction.size() == 2 && instruction[0] == "Dialogue":
@@ -73,13 +73,24 @@ func execute_event(event_id : String):
 						  "instructions" : instructions,
 						  "current_instruction" : null })
 	
+	
 		
-# Coroutine, Wait for Animation to finish, character to move, etc
-func ai_instruction(ai_id : String, command : String, time : float):
-	print((ai_id + " " + command + " %d") % time)
+func actor_instruction(params: Array):
+	if ActorEngine.actors_dict[params[1]] in ActorEngine.synchronous_actors_dict:
+		if ActorEngine.synchronous_delay_time > 0:
+			#print("DELAYED for %f seconds" % ActorEngine.synchronous_delay_time)
+			yield(get_tree().create_timer(ActorEngine.synchronous_delay_time, false), "timeout")
+			ActorEngine.synchronous_delay_time = 0.0
+	#print(params)
+	if params.size() == 4:
+		ActorEngine.process_command(params[0], params[1], params[2], params[3])
+	if params.size() == 5:
+		ActorEngine.process_command(params[0], params[1], params[2], params[3], params[4])
+	if params[0] == "Actor-async":
+		yield(ActorEngine, "async_actor_command_complete")
 	return
 	
-#Change Audio, no coroutine
+
 func bg_audio_instruction(audio_id : String):
 	print(audio_id)
 	return

@@ -3,6 +3,7 @@ extends KinematicBody2D
 export var speed := 60
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
+export var actor_id := "PChar"
 export var alive := true
 
 #Party Vars, set by party
@@ -35,8 +36,11 @@ func _physics_process(delta : float):
 
 func explore(delta : float):
 	if party_data != null and "active" in party_data and party_data["active"] != self:
-		follow(delta)
-	
+		if party_data["sequence_formation"] == "following":
+			follow(delta)	
+		elif party_data["sequence_formation"] == "split":
+			pass
+
 	velocity = velocity.normalized() * speed
 	if velocity.length() != 0:
 		$AnimatedSprite.animation = dir_anims[current_dir][1]
@@ -96,13 +100,33 @@ func up_just_pressed():
 	pass
 	
 func test_command():
-	Sequencer.execute_event("test_seq2")
+	Sequencer.execute_event("test_seq5")
 
 func save_game():
 	SaveManager.save_game()
 
 func change_scene():
 	SceneManager.goto_scene(destination)
+	
+func change_sequenced_follow_formation(formation: String):
+	self.party_data["sequence_formation"] = formation
+
+func move_to_position(new_position: Vector2):
+	var current_position = self.get_global_position()
+	current_position = Vector2(round(position.x), round(position.y))
+	var x_delta = new_position.x - current_position.x
+	var y_delta = new_position.y - current_position.y
+	#print(current_position)
+	if y_delta != 0:
+		if current_position.y > new_position.y:
+			move_up()
+		else:
+			move_down()
+	elif y_delta <= 0 && x_delta != 0:
+		if current_position.x > new_position.x:
+			move_left()
+		else:
+			move_right()
 	
 
 #Persistent Object Method

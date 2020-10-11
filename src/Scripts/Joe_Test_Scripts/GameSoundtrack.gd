@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 
 const tracks: Dictionary = {
 	"res://Scenes/Joe_Test_Scenes/BGEngineTestScene1.tscn": "res://Assets/Music/End_of_Days.ogg",

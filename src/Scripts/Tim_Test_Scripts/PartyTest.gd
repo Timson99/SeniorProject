@@ -1,5 +1,7 @@
 extends Node2D
 
+export var actor_id: String = "Party"
+
 var active_player = null
 var party : Array = []
 var incapacitated : Array = []
@@ -38,6 +40,7 @@ func _ready():
 											"num": i, 
 											"party": party, 
 											"spacing" : spacing,
+											"sequence_formation": "following"
 											})
 				
 func reposition(new_position : Vector2, new_direction):
@@ -55,6 +58,9 @@ func save():
 	}	
 	return save_dict
 	
-
-
+	
+func change_sequenced_follow_formation(formation: String):
+	for i in range(party.size()):
+		if party[i].alive:	
+			party[i].party_data["sequence_formation"] = formation
 
