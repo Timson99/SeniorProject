@@ -9,6 +9,11 @@ var displayedID = null
 var currentspID = null
 var finalWaltz = true
 
+# Nodes for ease of access
+onready var scrollAudio = get_node("TextAudio")
+onready var textNode = get_node("Dialogue Box/RichTextLabel")
+onready var textTimer = get_node("Timer")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()
@@ -92,6 +97,8 @@ func _advance():
 			displayedID = null
 			return
 		
+		textNode.set_visible_characters(0)
+		
 		if displayedID == null:
 			displayedID = speakerDictionary[currentspID]
 			get_node("Dialogue Box/RichTextLabel").text = dialogueDictionary[displayedID]["msg"]
@@ -108,3 +115,10 @@ func _advance():
 			speakerDictionary[currentspID] = dialogueDictionary[displayedID]["-q"]
 		if dialogueDictionary[displayedID].has("-t"):
 			finalWaltz = true
+			
+		#begin text scroll
+		textTimer.start()
+		while (textNode.get_visible_characters() < textNode.get_text().length()):
+			scrollAudio.play()
+			textNode.set_visible_characters(textNode.get_visible_characters()+1)
+			yield(textTimer, "timeout")
