@@ -16,12 +16,10 @@ func _ready():
 func assume_control():
 	in_control = true
 	InputEngine.disable_player_input()
-	print("Control Begun")
 	
 func end_control():
 	in_control = false
 	InputEngine.enable_all()
-	print("Control Ended")
 	
 	
 func _process(delta):
@@ -76,23 +74,28 @@ func execute_event(event_id : String):
 						  "current_instruction" : null })
 	
 		
-		
+# Coroutine, Wait for Animation to finish, character to move, etc
 func ai_instruction(ai_id : String, command : String, time : float):
 	print((ai_id + " " + command + " %d") % time)
 	return
 	
+#Change Audio, no coroutine
 func bg_audio_instruction(audio_id : String):
 	print(audio_id)
 	return
-
+	
+	
+# Open Dialogue, No Coroutine
 func dialogue_instruction(dialogue_id : String):
 	print(dialogue_id)
 	return
-	
+
+#Begin Battle, No Coroutine, Last Instruction
 func battle_instruction(scene_id : String):
 	print(scene_id)
 	return
 
+#Change Scene, No Coroutine, Last Instruction
 func scene_instruction(scene_id : String, warp_id : String):
 	print(scene_id + " " + warp_id)
 	return
