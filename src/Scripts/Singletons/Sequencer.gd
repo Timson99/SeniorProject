@@ -16,12 +16,10 @@ func _ready():
 func assume_control():
 	in_control = true
 	InputEngine.disable_player_input()
-	print("Control Begun")
 	
 func end_control():
 	in_control = false
 	InputEngine.enable_all()
-	print("Control Ended")
 	
 	
 func _process(delta):
@@ -75,7 +73,7 @@ func execute_event(event_id : String):
 						  "instructions" : instructions,
 						  "current_instruction" : null })
 	
-		
+	
 		
 func actor_instruction(params: Array):
 	if ActorEngine.actors_dict[params[1]] in ActorEngine.synchronous_actors_dict:
@@ -92,19 +90,23 @@ func actor_instruction(params: Array):
 		yield(ActorEngine, "async_actor_command_complete")
 	return
 	
-	
+
 func bg_audio_instruction(audio_id : String):
 	print(audio_id)
 	return
-
+	
+	
+# Open Dialogue, No Coroutine
 func dialogue_instruction(dialogue_id : String):
 	print(dialogue_id)
 	return
-	
+
+#Begin Battle, No Coroutine, Last Instruction
 func battle_instruction(scene_id : String):
 	print(scene_id)
 	return
 
+#Change Scene, No Coroutine, Last Instruction
 func scene_instruction(scene_id : String, warp_id : String):
 	print(scene_id + " " + warp_id)
 	return
