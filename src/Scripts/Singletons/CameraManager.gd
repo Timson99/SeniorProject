@@ -6,7 +6,7 @@ onready var screen_size = get_viewport_rect().size
 onready var static_pos = Vector2(screen_size.x/2,screen_size.y/2)
 
 enum State {OnParty, Sequenced, Static}
-var state = State.Static
+var state = null
 
 
 
@@ -26,6 +26,9 @@ func _ready():
 #Run camera movement in physics process?
 # Use signals for state changes rather than process constant checks
 func _physics_process(delta):	
+	print(state)
+	
+	
 	var party = get_tree().get_nodes_in_group("Party")
 	if party.size() != 1:
 		if state != State.Static and state != State.Sequenced: state_to_static()
