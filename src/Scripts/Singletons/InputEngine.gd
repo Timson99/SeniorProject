@@ -36,7 +36,7 @@ var to_dialogue_commands : Dictionary = {
 var valid_receivers := {
 	"Debug_Menu" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
 	"Battle Menu" : {"priority": 2, "loop": "_process", "translator" : to_player_commands},
-	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_player_commands},
+	"Dialogue" : {"priority": 3, "loop": "_physics_process", "translator" : to_dialogue_commands},
 	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_player_commands},
 	"Player" : {"priority": 5, "loop": "_physics_process", "translator" : to_player_commands},
 	"Test_Item" : {"priority": 6, "loop": "_process", "translator" : to_player_commands},

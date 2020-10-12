@@ -29,7 +29,7 @@ func _ready():
 	file.open(path, file.READ)
 	
 	#parse file
-	print("started parse")
+	#print("started parse")
 	var raw = file.get_as_text()
 	file.close()
 	var rawArray = raw.split("\n", false)
@@ -73,11 +73,10 @@ func _ready():
 				#add entry with key of msgID and value as metadata subdirectory
 				dialogueDictionary[metaArray[2]] = toInsert
 				
-	print("finished parse")
+	#print("finished parse")
 	
 #Called every frame. 'delta' is the elapsed time since the previous frame.
 func ui_accept_pressed():
-	#testing purposes as substitute for input engine
 	#either skips scroll or advances to next line
 	if textNode.get_visible_characters() < textNode.get_text().length():
 		textNode.set_visible_characters(textNode.get_text().length() - 1)
@@ -85,20 +84,20 @@ func ui_accept_pressed():
 		_advance()
 
 func _beginTransmit(var spID):
-	add_to_group("Input_Receiver")
 	finalWaltz = false
 	if !speakerDictionary.has(spID):
 		print("Could not find speaker ID: " + spID + " in dictionary!")
 		return
 	currentspID = spID
 	$"Dialogue Box".show()
+	add_to_group("Input_Receiver")
 	_advance()
 	
 func _advance():
 	if $"Dialogue Box".is_visible_in_tree():
 		#if this was the final message, close
 		if finalWaltz:
-			print("hiding")
+			#print("hiding")
 			$"Dialogue Box".hide()
 			currentspID = null
 			displayedID = null
@@ -132,3 +131,4 @@ func _advance():
 			scrollAudio.play()
 			textNode.set_visible_characters(textNode.get_visible_characters()+1)
 			yield(textTimer, "timeout")
+		textTimer.stop()

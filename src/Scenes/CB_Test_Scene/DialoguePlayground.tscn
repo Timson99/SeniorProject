@@ -50,10 +50,10 @@ __meta__ = {
 }
 
 [node name="NPCRadius" type="Area2D" parent="Character2"]
-position = Vector2( -306.398, -0.127426 )
+position = Vector2( -5.72766, 4.48056 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character2/NPCRadius"]
-position = Vector2( 304.941, 0.274902 )
+position = Vector2( 1.96667, 2.57889 )
 shape = SubResource( 1 )
 
 [node name="Instructions" type="Panel" parent="."]
