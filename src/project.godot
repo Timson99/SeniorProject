@@ -70,6 +70,7 @@ CameraManager="*res://Scripts/Singletons/CameraManager.gd"
 Sequencer="*res://Scripts/Singletons/Sequencer.gd"
 PersistentData="*res://Scripts/Singletons/PersistentData.gd"
 ActorEngine="*res://Scripts/Singletons/ActorEngine.gd"
+DialogueEngine="*res://Scenes/CB_Test_Scene/DialogueEngine.tscn"
 
 [display]
 

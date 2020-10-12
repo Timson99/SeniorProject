@@ -1,19 +1,19 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/CB_Test_Scripts/Dialogue_Management.gd" type="Script" id=1]
-[ext_resource path="res://Assets/CB_Test_Assets/Text_Scroll_SFX.wav" type="AudioStream" id=2]
-[ext_resource path="res://Assets/CB_Test_Assets/Dialogue_Box_Mockup_02.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Christian_Test_Assets/Text_Scroll_SFX (1).wav" type="AudioStream" id=2]
+[ext_resource path="res://Assets/UI/Dialogue/Dialogue_Box_Mockup_02.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/ChunkyPixels.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 4 )
 
-[node name="Node2D" type="Node2D"]
+[node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
+ResFile = "Test_Project_Dialogue (1)"
 
 [node name="Dialogue Box" type="Sprite" parent="."]
 position = Vector2( 161.066, 205.007 )
-scale = Vector2( 0.895716, 0.895716 )
 texture = ExtResource( 3 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Dialogue Box"]
@@ -40,4 +40,4 @@ __meta__ = {
 stream = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.02
+wait_time = 0.016

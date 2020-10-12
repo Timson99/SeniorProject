@@ -9,7 +9,7 @@ var to_player_commands := {
 		},
 	"just_pressed": 
 		{"ui_up" : "up_just_pressed",
-		 "ui_accept" : "change_scene",
+		 "ui_accept" : "ui_accept_pressed",
 		 "ui_cancel" : "save_game",
 		 #Test Command
 		"ui_test" : "test_command"
@@ -19,7 +19,19 @@ var to_player_commands := {
 		},
 }
 
-var to_dialogue_commands : Dictionary = {}
+var to_dialogue_commands : Dictionary = {
+		"pressed": 
+		{
+		},
+	"just_pressed": 
+		{
+		 "ui_accept" : "ui_accept_pressed",
+		 "ui_cancel" : "ui_accept_pressed",
+		},
+	"just_released": 
+		{
+		},
+}
 
 var valid_receivers := {
 	"Debug_Menu" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},

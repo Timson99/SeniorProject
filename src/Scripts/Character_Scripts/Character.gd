@@ -6,6 +6,8 @@ export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
 
+var interact_areas := []
+
 #Party Vars, set by party
 var party_data : Dictionary = {}
 
@@ -107,6 +109,10 @@ func save_game():
 
 func change_scene():
 	SceneManager.goto_scene(destination)
+	
+func ui_accept_pressed():
+  if(interact_areas.size() != 0 and interact_areas.back() != ""):
+	  DialogueEngine._beginTransmit(interact_areas.back())
 	
 func change_sequenced_follow_formation(formation: String):
 	self.party_data["sequence_formation"] = formation

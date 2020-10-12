@@ -26,8 +26,6 @@ func _ready():
 #Run camera movement in physics process?
 # Use signals for state changes rather than process constant checks
 func _physics_process(delta):	
-	print(state)
-	
 	
 	var party = get_tree().get_nodes_in_group("Party")
 	if party.size() != 1:
