@@ -102,7 +102,7 @@ func up_just_pressed():
 	pass
 	
 func test_command():
-	Sequencer.execute_event("test_seq5")
+	Sequencer.execute_event("test_seq6")
 
 func save_game():
 	SaveManager.save_game()
@@ -114,8 +114,14 @@ func ui_accept_pressed():
   if(interact_areas.size() != 0 and interact_areas.back() != ""):
 	  DialogueEngine._beginTransmit(interact_areas.back())
 	
-func change_sequenced_follow_formation(formation: String):
+func change_follow(formation: String):
 	self.party_data["sequence_formation"] = formation
+	
+func change_speed(speed_string: String):
+	var default_speed: float = 60
+	var new_speed = float(speed_string)
+	$AnimatedSprite.set_speed_scale(new_speed/default_speed) 
+	self.speed = float(new_speed)
 
 func move_to_position(new_position: Vector2):
 	var current_position = self.get_global_position()

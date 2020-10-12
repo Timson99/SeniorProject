@@ -76,18 +76,19 @@ func execute_event(event_id : String):
 	
 		
 func actor_instruction(params: Array):
-	if ActorEngine.actors_dict[params[1]] in ActorEngine.synchronous_actors_dict:
-		if ActorEngine.synchronous_delay_time > 0:
-			#print("DELAYED for %f seconds" % ActorEngine.synchronous_delay_time)
-			yield(get_tree().create_timer(ActorEngine.synchronous_delay_time, false), "timeout")
-			ActorEngine.synchronous_delay_time = 0.0
-	#print(params)
+	# If an instruction is called for an actor already executing a command,
+	# the new instruction will NOT be processed by the Actor Engine until 
+	# ALL asynchronous actions have finished.
+	if ActorEngine.actors_dict[params[1]] in ActorEngine.asynchronous_actors_dict:
+		if ActorEngine.asynchronous_delay_time > 0:
+			yield(get_tree().create_timer(ActorEngine.asynchronous_delay_time, false), "timeout")
+			ActorEngine.asynchronous_delay_time = 0.0
 	if params.size() == 4:
 		ActorEngine.process_command(params[0], params[1], params[2], params[3])
-	if params.size() == 5:
+	elif params.size() == 5:
 		ActorEngine.process_command(params[0], params[1], params[2], params[3], params[4])
-	if params[0] == "Actor-async":
-		yield(ActorEngine, "async_actor_command_complete")
+	if params[0] == "Actor-sync":
+		yield(ActorEngine, "sync_actor_command_complete")
 	return
 	
 
