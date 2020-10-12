@@ -9,7 +9,7 @@ var to_player_commands := {
 		},
 	"just_pressed": 
 		{"ui_up" : "up_just_pressed",
-		 "ui_accept" : "ui_accept_pressed",
+		 "ui_accept" : "interact",
 		 "ui_cancel" : "change_scene",
 		 #Test Command
 		"ui_test" : "test_command"
@@ -20,17 +20,13 @@ var to_player_commands := {
 }
 
 var to_dialogue_commands : Dictionary = {
-		"pressed": 
-		{
-		},
+	"pressed": {},
 	"just_pressed": 
 		{
 		 "ui_accept" : "ui_accept_pressed",
 		 "ui_cancel" : "ui_accept_pressed",
 		},
-	"just_released": 
-		{
-		},
+	"just_released": {},
 }
 
 var valid_receivers := {
@@ -46,14 +42,36 @@ var input_disabled := false
 var input_target = null
 var prev_input_target = null
 const group_name := "Input_Receiver"
+var curr_input_receivers = []
 
 var disabled = []
+
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SceneManager.connect("goto_called", self, "disable_input")
 	SceneManager.connect("scene_fully_loaded", self, "enable_input")
+	
+	
+func update_and_sort_receivers():
+	curr_input_receivers = get_tree().get_nodes_in_group(group_name) if !input_disabled else []
+	if curr_input_receivers.size() > 1: 
+		curr_input_receivers.sort_custom(self, "sort_input_receivers")
+	
+	
+func activate_receiver(node):
+	if("input_id" in node and node.input_id in valid_receivers.keys()):
+		node.add_to_group(group_name)
+		update_and_sort_receivers()
+	else: 
+		Debugger.dprint("Unable to register %s, not a Valid Input Receiver" % node.name)
+
+func deactive_receiver(node):
+	node.remove_from_group(group_name)
+	update_and_sort_receivers()
+	
 
 
 func disable_input():
@@ -85,14 +103,12 @@ func sort_input_receivers(a,b):
 	
 	
 func process_input(loop):
-	var input_receivers = get_tree().get_nodes_in_group(group_name) if !input_disabled else []
+	var input_receivers = curr_input_receivers
 	if input_receivers.size() == 0: 
 		return
 		
-	input_receivers.sort_custom(self, "sort_input_receivers")
 	input_target = input_receivers[0]
 		 
-	
 	if input_target.input_id in disabled:
 		return
 	

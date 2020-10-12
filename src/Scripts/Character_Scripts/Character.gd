@@ -6,6 +6,7 @@ export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
 
+#Array oof objects that are currently interactable
 var interact_areas := []
 
 #Party Vars, set by party
@@ -33,6 +34,7 @@ func on_load():
 
 
 func _physics_process(delta : float):
+	print(interact_areas)
 	explore(delta)
 	
 
@@ -65,15 +67,13 @@ func explore(delta : float):
 	
 # When leader, player input is activate, 
 func activate_player():
-	add_to_group("Input_Receiver")
+	InputEngine.activate_receiver(self)
 	$CollisionBox.disabled = false
-	#$Area2D/InteractableArea.disabled = false
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
-	remove_from_group("Input_Receiver")
+	InputEngine.deactivate_receiver(self)
 	$CollisionBox.disabled = true
-	#$Area2D/InteractableArea.disabled = true
 	
 	
 #Input Receiver Methods
@@ -109,10 +109,14 @@ func save_game():
 
 func change_scene():
 	SceneManager.goto_scene(destination)
-	
-func ui_accept_pressed():
-  if(interact_areas.size() != 0 and interact_areas.back() != ""):
-	  DialogueEngine._beginTransmit(interact_areas.back())
+
+
+
+#Interactions with Interactables (Box Openings, Dialogue Starters)
+#Should add functionality to change direction toward thing being interacted with
+func interact():
+  if(interact_areas.size() != 0 and interact_areas.back().has_method("interact")):
+	  interact_areas.back().interact()
 	
 func change_sequenced_follow_formation(formation: String):
 	self.party_data["sequence_formation"] = formation

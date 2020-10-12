@@ -63,13 +63,13 @@ func explore(delta : float):
 	
 # When leader, player input is activate, 
 func activate_player():
-	add_to_group("Input_Receiver")
+	InputEngine.activate_receiver(self)
 	$CollisionBox.disabled = false
 	#$Area2D/InteractableArea.disabled = false
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
-	remove_from_group("Input_Receiver")
+	InputEngine.deactivate_receiver(self)
 	$CollisionBox.disabled = true
 	#$Area2D/InteractableArea.disabled = true
 	

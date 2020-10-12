@@ -10,16 +10,16 @@ func _ready():
 	interactable.connect("body_entered", self, "_NPC_body_entered")
 
 # Call the Dialogue Manager using the SpeakerID
-func _interacts(body):
+func interact():
 	print("SpeakerID: " + speakerID)
 	get_node("../DialogueEngine")._beginTransmit(speakerID)
 
 func _NPC_body_entered(body):
 	var party = get_tree().get_nodes_in_group("Party")
 	if party.size() == 1 && body == party[0].active_player:
-		body.interact_areas.append(speakerID)
+		body.interact_areas.append(self)
 
 func _NPC_body_exit(body):
 	var party = get_tree().get_nodes_in_group("Party")
 	if party.size() == 1 && body == party[0].active_player:
-			body.interact_areas.erase(speakerID)
+			body.interact_areas.erase(self)
