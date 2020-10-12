@@ -1,0 +1,69 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Assets/Character_Art/C1/C1_03.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Character_Art/C1/C1_07.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Character_Scripts/Character.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Character_Art/C1/C1_06.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Character_Art/C1/C1_12.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Character_Art/C1/C1_11.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Character_Art/C1/C1_10.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Character_Art/C1/C1_04.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Character_Art/C1/C1_02.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Character_Art/C1/C1_01.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Character_Art/C1/C1_09.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Character_Art/C1/C1_05.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Character_Art/C1/C1_08.png" type="Texture" id=15]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "Idle_Down",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "Idle_Left",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "Walk_Up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Walk_Down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Walk_Left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Idle_Up",
+"speed": 0.0
+} ]
+
+[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+"Actor",
+"Persistent",
+]]
+script = ExtResource( 3 )
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -4 )
+scale = Vector2( 1, 0.5 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -16 )
+frames = SubResource( 2 )
+animation = "Idle_Down"
+playing = true

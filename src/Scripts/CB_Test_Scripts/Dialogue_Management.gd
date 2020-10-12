@@ -1,5 +1,7 @@
-extends Node2D
+extends CanvasLayer
 
+#InputEngine
+var input_id = "Dialogue"
 
 # Member variables
 var dialogueDictionary = {}
@@ -16,8 +18,8 @@ onready var textTimer = get_node("Timer")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hide()
-	var path = "res://Assets/CB_Test_Assets/" + ResFile + ".res"
+	$"Dialogue Box".hide()
+	var path = "res://Assets/Christian_Test_Assets/" + ResFile + ".res"
 	
 	# Create file, test for existance
 	var file = File.new()
@@ -74,31 +76,33 @@ func _ready():
 	print("finished parse")
 	
 #Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func ui_accept_pressed():
 	#testing purposes as substitute for input engine
 	#either skips scroll or advances to next line
-	if Input.is_action_just_released("ui_focus_next"):
-		if textNode.get_visible_characters() < textNode.get_text().length():
-			textNode.set_visible_characters(textNode.get_text().length() - 1)
-		else:
-			_advance()
+	if textNode.get_visible_characters() < textNode.get_text().length():
+		textNode.set_visible_characters(textNode.get_text().length() - 1)
+	else:
+		_advance()
 
-func _beginTransmit(var spID, var manualID):
+func _beginTransmit(var spID):
+	add_to_group("Input_Receiver")
 	finalWaltz = false
 	if !speakerDictionary.has(spID):
 		print("Could not find speaker ID: " + spID + " in dictionary!")
 		return
 	currentspID = spID
-	show()
+	$"Dialogue Box".show()
 	_advance()
 	
 func _advance():
-	if is_visible_in_tree():
+	if $"Dialogue Box".is_visible_in_tree():
 		#if this was the final message, close
 		if finalWaltz:
-			hide()
+			print("hiding")
+			$"Dialogue Box".hide()
 			currentspID = null
 			displayedID = null
+			remove_from_group("Input_Receiver")
 			return
 		
 		textNode.set_visible_characters(0)
@@ -116,9 +120,11 @@ func _advance():
 		#check for a terminal flag and queued message to set
 		if dialogueDictionary[displayedID].has("-q"):
 			finalWaltz = true
+			#print("found queue flag")
 			speakerDictionary[currentspID] = dialogueDictionary[displayedID]["-q"]
 		if dialogueDictionary[displayedID].has("-t"):
 			finalWaltz = true
+			#print("found terminal flag")
 			
 		#begin text scroll
 		textTimer.start()

@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Test_Art/icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/CB_Test_Scene/DialogueEngine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/CB_Test_Scripts/Character_Dialogue_Manager.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Fonts/ChunkyPixels.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Scenes/Character_Scenes/Party.tscn" type="PackedScene" id=5]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 75.3545
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 4 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -23,6 +31,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="NPCRadius" type="Area2D" parent="Character1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character1/NPCRadius"]
+shape = SubResource( 2 )
+
 [node name="Character2" type="Sprite" parent="."]
 position = Vector2( 219.502, 44.9492 )
 scale = Vector2( 0.34449, 0.34449 )
@@ -40,6 +53,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="NPCRadius" type="Area2D" parent="Character2"]
+position = Vector2( 1.8429, 3.98247 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character2/NPCRadius"]
+position = Vector2( 0.684937, -1.36996 )
+shape = SubResource( 2 )
+
 [node name="Instructions" type="Panel" parent="."]
 margin_left = 70.0
 margin_top = 81.0
@@ -52,15 +72,16 @@ __meta__ = {
 [node name="RichTextLabel" type="RichTextLabel" parent="Instructions"]
 margin_left = 3.0
 margin_top = 4.0
-margin_right = 377.0
-margin_bottom = 44.0
-rect_scale = Vector2( 0.5, 0.5 )
-bbcode_text = "Click on the characters to simulate a player 'interact' input
-Tab key simulates 'next' input"
-text = "Click on the characters to simulate a player 'interact' input
-Tab key simulates 'next' input"
+margin_right = 378.0
+margin_bottom = 45.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_text = "Click me"
+text = "Click me"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="DialogueEngine" parent="." instance=ExtResource( 2 )]
+
+[node name="Party" parent="." instance=ExtResource( 5 )]
+position = Vector2( 30, 58.5 )
