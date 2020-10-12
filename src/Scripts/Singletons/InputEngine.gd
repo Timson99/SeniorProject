@@ -10,7 +10,7 @@ var to_player_commands := {
 	"just_pressed": 
 		{"ui_up" : "up_just_pressed",
 		 "ui_accept" : "ui_accept_pressed",
-		 "ui_cancel" : "save_game",
+		 "ui_cancel" : "change_scene",
 		 #Test Command
 		"ui_test" : "test_command"
 		},
