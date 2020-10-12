@@ -104,7 +104,7 @@ tile_data = PoolIntArray( -131073, 1, 0, -196608, 1, 0, -196607, 1, 0, -196606, 
 position = Vector2( 144, 200 )
 
 [node name="Party" parent="TileMap/YSort" instance=ExtResource( 3 )]
-position = Vector2( 0, -1.52588e-05 )
+position = Vector2( 0, -24 )
 C2_in_party = false
 C3_in_party = false
 

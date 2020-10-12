@@ -90,6 +90,11 @@ func enable_all():
 	
 func _process(_delta):
 	process_input("_process")
+	
+	####Fullscreen Toggle for Testing###############
+	if(Input.is_action_just_pressed("ui_fullscreen")):
+		OS.window_fullscreen = !OS.window_fullscreen
+	################################################
 
 
 func _physics_process(_delta):
@@ -103,6 +108,7 @@ func sort_input_receivers(a,b):
 	
 	
 func process_input(loop):
+	
 	var input_receivers = curr_input_receivers
 	if input_receivers.size() == 0: 
 		return

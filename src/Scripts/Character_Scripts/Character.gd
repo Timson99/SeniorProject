@@ -34,7 +34,6 @@ func on_load():
 
 
 func _physics_process(delta : float):
-	print(interact_areas)
 	explore(delta)
 	
 

@@ -76,11 +76,10 @@ DialogueEngine="*res://Scenes/CB_Test_Scene/DialogueEngine.tscn"
 
 window/size/width=320
 window/size/height=240
-window/size/test_width=1280
-window/size/test_height=960
+window/size/test_width=1680
+window/size/test_height=1050
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
-window/stretch/aspect="keep"
 
 [input]
 
@@ -202,9 +201,15 @@ ui_debug={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"unicode":0,"echo":false,"script":null)
  ]
 }
+ui_fullscreen={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [rendering]
 
 quality/2d/use_pixel_snap=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false
