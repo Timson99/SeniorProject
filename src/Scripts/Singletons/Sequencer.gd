@@ -38,7 +38,7 @@ func _process(delta):
 			indices_to_remove.append(i)
 			break
 		var instruction = event["instructions"].pop_front()
-		if instruction.size() >= 4 && (instruction[0] == "Actor-sync" || instruction[0] == "Actor-async"):	
+		if instruction.size() >= 3 && (instruction[0] == "Actor-sync" || instruction[0] == "Actor-async"):	
 			event["current_instruction"] = actor_instruction(instruction)
 		elif instruction.size() == 2 && instruction[0] == "BG_Audio":
 			event["current_instruction"] = bg_audio_instruction(instruction[1])
@@ -83,17 +83,20 @@ func actor_instruction(params: Array):
 		if ActorEngine.asynchronous_delay_time > 0:
 			yield(get_tree().create_timer(ActorEngine.asynchronous_delay_time, false), "timeout")
 			ActorEngine.asynchronous_delay_time = 0.0
-	if params.size() == 4:
+	if params.size() == 3:
+		ActorEngine.process_command(params[0], params[1], params[2])
+	elif params.size() == 4:
 		ActorEngine.process_command(params[0], params[1], params[2], params[3])
 	elif params.size() == 5:
 		ActorEngine.process_command(params[0], params[1], params[2], params[3], params[4])
 	if params[0] == "Actor-sync":
-		yield(ActorEngine, "sync_actor_command_complete")
+		yield(ActorEngine, "sync_command_complete")
 	return
 	
 
 func bg_audio_instruction(audio_id : String):
 	print(audio_id)
+	BgAudioEngine.swap_songs_midscene(audio_id)
 	return
 	
 	

@@ -32,7 +32,7 @@ static func instructions():
 		
 		["Actor-sync", "PChar1", "move_left", 1], 
 		
-		["Actor-async", "PChar1", "change_speed", "60"],
+		["Actor-async", "PChar1", "restore_default_speed"],
 		
 		["Actor-sync", "PChar1", "move_up", 1], 
 		

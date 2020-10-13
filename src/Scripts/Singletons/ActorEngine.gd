@@ -1,9 +1,9 @@
 extends Node
 
-signal sync_actor_command_complete
+signal sync_command_complete
 
 const actor_timed_func := ["move_up", "move_down", "move_left", "move_right", "move_to_position"]
-const actor_instant_func := ["change_follow", "change_speed"]
+const actor_instant_func := ["change_follow", "change_speed", "restore_default_speed"]
 
 var actors_dict: Dictionary = {}
 var actors_array: Array = []
@@ -27,7 +27,7 @@ func _physics_process(delta: float):
 		else:
 			execute_command(actor, command_string)
 	elif sync_command_timer && sync_command_timer.get_time_left() <= 0:
-		emit_signal("sync_actor_command_complete")
+		emit_signal("sync_command_complete")
 		sync_command_timer = null
 		
 	# Executes each command for each async actor for duration of their 
@@ -45,20 +45,17 @@ func _physics_process(delta: float):
 
 
 
-func process_command(mode: String, id: String, command : String, time_or_flag=null, optional_param=null) -> void:
+func process_command(mode: String, id: String, command : String, number_or_flag=null, optional_param=null) -> void:
 	var time: float
 	var flag: String
 	actor = actors_dict[id]
 	command_string = command
 	extra_param = optional_param if (optional_param != null) else null
-	if typeof(time_or_flag) == TYPE_STRING:
-		flag = time_or_flag
-	else: 
-		time = time_or_flag
 	if command in actor_instant_func:
-		execute_command(actor, command_string, flag)
+		execute_command(actor, command_string, number_or_flag)
 		return
-	elif command in actor_timed_func:
+	time = number_or_flag
+	if command in actor_timed_func:
 		if mode == "Actor-sync":
 			start_sync_command_timer(time)
 		elif mode == "Actor-async":

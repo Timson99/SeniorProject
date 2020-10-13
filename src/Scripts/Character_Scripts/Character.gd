@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
-export var speed := 60
+const default_speed := 60
+
+export var speed := default_speed
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
@@ -118,10 +120,13 @@ func change_follow(formation: String):
 	self.party_data["sequence_formation"] = formation
 	
 func change_speed(speed_string: String):
-	var default_speed: float = 60
 	var new_speed = float(speed_string)
 	$AnimatedSprite.set_speed_scale(new_speed/default_speed) 
 	self.speed = float(new_speed)
+
+func restore_default_speed():
+	$AnimatedSprite.set_speed_scale(default_speed/default_speed) 
+	self.speed = default_speed
 
 func move_to_position(new_position: Vector2):
 	var current_position = self.get_global_position()

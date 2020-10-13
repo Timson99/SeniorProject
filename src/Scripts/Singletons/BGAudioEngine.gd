@@ -1,44 +1,53 @@
 extends Node
 
 
-const SOUNDTRACK = preload("res://Scripts/Joe_Test_Scripts/GameSoundtrack.gd")
+const SOUNDTRACK = preload("res://Scripts/Resource_Scripts/GameSoundtrack.gd")
 
-onready var _music_player = $BackgroundMusic
-onready var tween_fade_out = get_node("FadeOut")
-onready var tween_fade_in = get_node("FadeIn")
+onready var music_player = AudioStreamPlayer.new()
+onready var tween_fade_out = Tween.new()
+onready var tween_fade_in = Tween.new()
 
-export var transition_duration_in: float = 1.00 # seconds
-export var transition_duration_out: float = 1.00 # seconds
-export var transition_type_in: int = 0 # LINEAR
-export var transition_type_out: int = 1 # SINE
+var transition_duration_in: float = 1.00 # seconds
+var transition_duration_out: float = 1.00 # seconds
+var transition_type_in: int = 0 # LINEAR
+var transition_type_out: int = 1 # SINE
 
 const min_volume_value: float = -20.0 # in dB
 const max_volume_value: float = 0.0 # in dB
-var current_scene: String = ""
+var current_scene: Node = null
 var seek_position: float = 0.0
 var reset_seek_position: float = 0.0 # starts track from beginning
 
 
 
 func _ready():
+	add_child(music_player)
+	add_child(tween_fade_in)
+	add_child(tween_fade_out)
+	music_player.set_volume_db(-40) 
 	#SceneManager.connect("scene_fully_loaded", self, "request_playback")
 	SceneManager.connect("goto_called", self, "request_playback_paused")
+	#yield(SceneManager, "scene_fully_loaded")
+	yield(get_tree(), "idle_frame")
+	request_playback(SceneManager.current_scene)
 
 
 # Loads audio file in AudioStreamPlayer and plays it
-func request_playback(next_scene) -> void:
-	$BackgroundMusic.stream = load(SOUNDTRACK.get_track_path(next_scene))
-	if next_scene == current_scene:
-		fade_in($BackgroundMusic, seek_position)
+func request_playback(next_scene: Node) -> void:
+	music_player.stream = load(SOUNDTRACK.get_track_path(next_scene.get_filename()))
+	print(SOUNDTRACK.get_track_path(next_scene.get_filename()))
+	if current_scene && next_scene.get_filename() == current_scene.get_filename():
+		fade_in(music_player, seek_position)
 	else:
-		fade_in($BackgroundMusic, reset_seek_position)
+		fade_in(music_player, reset_seek_position)
+	print("PLAYING")
 	current_scene = next_scene
 	
 	
 # Pauses audio playback 
 func request_playback_paused(next_scene) -> void:
-	seek_position = $BackgroundMusic.get_playback_position()
-	fade_out($BackgroundMusic)
+	seek_position = music_player.get_playback_position()
+	fade_out(music_player)
 
 
 
@@ -66,7 +75,7 @@ func fade_in(audio_player, seek_position: float) -> void:
 	
 # Switches songs mid-scene after receiving appropriate signal
 func swap_songs_midscene(new_song) -> void:
-	$BackgroundMusic.stream = load(new_song)
-	$BackgroundMusic.play()
+	music_player.stream = load(new_song)
+	music_player.play()
 	print("Playing new song in same scene")
 	
