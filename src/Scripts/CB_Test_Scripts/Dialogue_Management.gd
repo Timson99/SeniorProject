@@ -24,12 +24,12 @@ func _ready():
 	# Create file, test for existance
 	var file = File.new()
 	if !(file.file_exists(path)):
-		print("File not found")
+		Debugger.dprint("File not found")
 		return
 	file.open(path, file.READ)
 	
 	#parse file
-	print("started parse")
+	#print("started parse")
 	var raw = file.get_as_text()
 	file.close()
 	var rawArray = raw.split("\n", false)
@@ -73,7 +73,7 @@ func _ready():
 				#add entry with key of msgID and value as metadata subdirectory
 				dialogueDictionary[metaArray[2]] = toInsert
 				
-	print("finished parse")
+	#print("finished parse")
 	
 #Called every frame. 'delta' is the elapsed time since the previous frame.
 func ui_accept_pressed():
@@ -85,10 +85,10 @@ func ui_accept_pressed():
 		_advance()
 
 func _beginTransmit(var spID):
-	add_to_group("Input_Receiver")
+	InputEngine.activate_receiver(self)
 	finalWaltz = false
 	if !speakerDictionary.has(spID):
-		print("Could not find speaker ID: " + spID + " in dictionary!")
+		Debugger.dprint("Could not find speaker ID: " + spID + " in dictionary!")
 		return
 	currentspID = spID
 	$"Dialogue Box".show()
@@ -98,11 +98,11 @@ func _advance():
 	if $"Dialogue Box".is_visible_in_tree():
 		#if this was the final message, close
 		if finalWaltz:
-			print("hiding")
+			#print("hiding")
 			$"Dialogue Box".hide()
 			currentspID = null
 			displayedID = null
-			remove_from_group("Input_Receiver")
+			InputEngine.deactive_receiver(self)
 			return
 		
 		textNode.set_visible_characters(0)

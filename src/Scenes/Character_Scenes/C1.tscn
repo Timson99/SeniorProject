@@ -17,11 +17,21 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 10 ) ],
 "loop": true,
 "name": "Idle_Down",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Walk_Down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Idle_Up",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 8 ) ],
@@ -34,19 +44,9 @@ animations = [ {
 "name": "Walk_Left",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "Idle_Up",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 14 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "Walk_Up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "Walk_Down",
 "speed": 5.0
 } ]
 
@@ -64,6 +64,6 @@ disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
-frames = SubResource( 2 )
+frames = SubResource( 3 )
 animation = "Idle_Down"
 playing = true
