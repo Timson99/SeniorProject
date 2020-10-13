@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Test_Art/TestTileMap.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Explore_Scenes/General/Warp.tscn" type="PackedScene" id=2]
@@ -74,6 +74,9 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 8 )
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8, 8 )
+
 [node name="Explore_Scene" type="Node"]
 script = ExtResource( 3 )
 
@@ -113,20 +116,26 @@ entrance_direction = 1
 position = Vector2( 100, 129 )
 script = ExtResource( 6 )
 
-[node name="EnemyStandIn" type="Area2D" parent="." groups=[
+[node name="RigidBody2D" type="StaticBody2D" parent="."]
+
+[node name="EnemyStandIn" type="Area2D" parent="RigidBody2D" groups=[
 "Persistent",
 ]]
 position = Vector2( 48, 176 )
 script = ExtResource( 5 )
 scene_id = "TestBattle1"
 
-[node name="BattleStarter" type="CollisionShape2D" parent="EnemyStandIn"]
+[node name="BattleStarter" type="CollisionShape2D" parent="RigidBody2D/EnemyStandIn"]
 position = Vector2( 8, 8 )
 shape = SubResource( 4 )
 
-[node name="ColorRect" type="ColorRect" parent="EnemyStandIn"]
+[node name="ColorRect" type="ColorRect" parent="RigidBody2D/EnemyStandIn"]
 margin_right = 16.0
 margin_bottom = 16.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2( 56, 184 )
+shape = SubResource( 5 )

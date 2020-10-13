@@ -22,7 +22,7 @@ func end_control():
 	InputEngine.enable_all()
 	
 	
-func _process(delta):
+func _process(_delta):
 	if in_control and active_events.size() == 0:
 		end_control()
 	elif !in_control and active_events.size() > 0:
@@ -116,7 +116,7 @@ func scene_instruction(scene_id : String, warp_id : String):
 func camera_instruction(params : Array):
 	if params[0] == "move_to_party":
 		if params.size() == 2: 
-			 var camera_move = CameraManager.move_to_party(params[1])
+			 CameraManager.move_to_party(params[1])
 			 yield(CameraManager.tween, "tween_completed")	
 			 CameraManager.release_camera() 
 			 return

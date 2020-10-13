@@ -9,8 +9,8 @@ onready var static_pos = Vector2(screen_size.x/2,screen_size.y/2)
 enum State {OnParty, Sequenced, Static}
 var state = null
 
-var y_cutoff := 0
-var vp_scale = 1
+var y_cutoff : int = 0
+var vp_scale : int = 1
 
 
 
@@ -35,7 +35,7 @@ func screen_resize():
 	var scale_x = floor(window_size.x / viewport.size.x)
 	#Minimizes y cutoff
 	var scale_y = round(window_size.y / viewport.size.y)
-	#Diable Y Cutoff
+	#Diafble Y Cutoff
 	#var scale_y = floor(window_size.y / viewport.size.y)
 	#Allow Y Cutoff
 	#var scale_y = round(window_size.y / viewport.size.y)
@@ -51,7 +51,7 @@ func screen_resize():
 	#print("Viewport Scaled To: %s"  % str(viewport.size * scale))
 	#print(Scale X: %s , Scale Y: %s" % [  str(scale_x), str(scale_y)]   )
 	#print(y_cutoff)	
-	y_cutoff = abs(min(0,window_size.y - viewport.size.y * scale))
+	y_cutoff = abs(min(0, int(window_size.y - viewport.size.y * scale)))
 	vp_scale = scale
 
 	
@@ -63,7 +63,7 @@ func screen_resize():
 	
 #Run camera movement in physics process?
 # Use signals for state changes rather than process constant checks
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	var party = get_tree().get_nodes_in_group("Party")
 	if party.size() != 1:

@@ -56,7 +56,7 @@ func _ready():
 	
 	
 func update_and_sort_receivers():
-	curr_input_receivers = get_tree().get_nodes_in_group(group_name) if !input_disabled else []
+	curr_input_receivers = get_tree().get_nodes_in_group(group_name)
 	if curr_input_receivers.size() > 1: 
 		curr_input_receivers.sort_custom(self, "sort_input_receivers")
 	
@@ -73,10 +73,9 @@ func deactive_receiver(node):
 	update_and_sort_receivers()
 	
 
-
 func disable_input():
 	input_disabled = true
-	
+	curr_input_receivers = []
 	
 func enable_input():
 	input_disabled = false
@@ -108,14 +107,13 @@ func sort_input_receivers(a,b):
 	
 	
 func process_input(loop):
-	
 	var input_receivers = curr_input_receivers
 	if input_receivers.size() == 0: 
 		return
 		
 	input_target = input_receivers[0]
 		 
-	if input_target.input_id in disabled:
+	if input_disabled || input_target.input_id in disabled:
 		return
 	
 	#Input Frame Delay prevents multiple inputs from two different sources when input target changes

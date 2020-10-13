@@ -13,14 +13,14 @@ script = ExtResource( 1 )
 ResFile = "Test_Project_Dialogue (1)"
 
 [node name="Dialogue Box" type="Sprite" parent="."]
-position = Vector2( 161.066, 205.007 )
+position = Vector2( 160, 192 )
 texture = ExtResource( 3 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Dialogue Box"]
-margin_left = -143.0
-margin_top = -25.0
-margin_right = 142.0
-margin_bottom = 20.0
+margin_left = -143.066
+margin_top = -25.007
+margin_right = 141.934
+margin_bottom = 19.993
 custom_fonts/normal_font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

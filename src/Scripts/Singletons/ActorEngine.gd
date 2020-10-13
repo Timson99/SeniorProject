@@ -17,7 +17,7 @@ var command_string: String
 var extra_param = null
 
 
-func _physics_process(delta: float):
+func _physics_process(_delta: float):
 	actors_array = get_tree().get_nodes_in_group("Actor")
 	if async_command_timer && async_command_timer.get_time_left() > 0:
 		if extra_param != null:
