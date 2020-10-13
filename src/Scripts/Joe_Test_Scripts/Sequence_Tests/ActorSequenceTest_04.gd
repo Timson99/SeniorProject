@@ -12,7 +12,7 @@ static func instructions():
 				
 		["Actor-async", "PChar3", "change_follow", "split"],
 		
-		["Actor-async", "PChar1", "change_speed", "60"],
+		["Actor-async", "PChar1", "change_speed", 60],
 		
 		["Actor-sync", "PChar1", "move_up", 1], 
 		
@@ -22,7 +22,7 @@ static func instructions():
 		
 		["Actor-sync", "PChar1", "move_left", 1], 
 		
-		["Actor-async", "PChar1", "change_speed", "120"],
+		["Actor-async", "PChar1", "change_speed", 120],
 		
 		["Actor-sync", "PChar1", "move_up", 1], 
 		

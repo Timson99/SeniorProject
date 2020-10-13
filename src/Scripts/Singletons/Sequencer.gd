@@ -83,6 +83,8 @@ func actor_instruction(params: Array):
 		if ActorEngine.asynchronous_delay_time > 0:
 			yield(get_tree().create_timer(ActorEngine.asynchronous_delay_time, false), "timeout")
 			ActorEngine.asynchronous_delay_time = 0.0
+			
+	# Note: params unpacked here to simplify code for process_command()
 	if params.size() == 3:
 		ActorEngine.process_command(params[0], params[1], params[2])
 	elif params.size() == 4:

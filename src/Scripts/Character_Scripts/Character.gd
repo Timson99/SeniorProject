@@ -119,7 +119,7 @@ func ui_accept_pressed():
 func change_follow(formation: String):
 	self.party_data["sequence_formation"] = formation
 	
-func change_speed(speed_string: String):
+func change_speed(speed_string: float):
 	var new_speed = float(speed_string)
 	$AnimatedSprite.set_speed_scale(new_speed/default_speed) 
 	self.speed = float(new_speed)
