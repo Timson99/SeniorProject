@@ -13,12 +13,13 @@ var finalWaltz = true
 
 # Nodes for ease of access
 onready var scrollAudio = get_node("TextAudio")
-onready var textNode = get_node("Dialogue Box/RichTextLabel")
+onready var dialogue_box = $"Control/Dialogue Box"
+onready var textNode = dialogue_box.get_node("RichTextLabel")
 onready var textTimer = get_node("Timer")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$"Dialogue Box".hide()
+	dialogue_box.hide()
 	var path = "res://Assets/Christian_Test_Assets/" + ResFile + ".res"
 	
 	# Create file, test for existance
@@ -91,15 +92,15 @@ func _beginTransmit(var spID):
 		Debugger.dprint("Could not find speaker ID: " + spID + " in dictionary!")
 		return
 	currentspID = spID
-	$"Dialogue Box".show()
+	dialogue_box.show()
 	_advance()
 	
 func _advance():
-	if $"Dialogue Box".is_visible_in_tree():
+	if dialogue_box.is_visible_in_tree():
 		#if this was the final message, close
 		if finalWaltz:
 			#print("hiding")
-			$"Dialogue Box".hide()
+			dialogue_box.hide()
 			currentspID = null
 			displayedID = null
 			InputEngine.deactive_receiver(self)
@@ -109,12 +110,12 @@ func _advance():
 		
 		if displayedID == null:
 			displayedID = speakerDictionary[currentspID]
-			get_node("Dialogue Box/RichTextLabel").text = dialogueDictionary[displayedID]["msg"]
+			textNode.text = dialogueDictionary[displayedID]["msg"]
 		else:
 			#obtain and display the next item in the sequence
 			if dialogueDictionary[displayedID].has("-s"):
 				var advanceID = dialogueDictionary[displayedID]["-s"]
-				get_node("Dialogue Box/RichTextLabel").text = dialogueDictionary[advanceID]["msg"]
+				textNode.text = dialogueDictionary[advanceID]["msg"]
 				displayedID = advanceID
 		
 		#check for a terminal flag and queued message to set

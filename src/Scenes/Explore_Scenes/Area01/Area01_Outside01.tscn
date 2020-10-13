@@ -93,13 +93,13 @@ __meta__ = {
 camera_bounds = {
 "is_static": false,
 "max_x": 464,
-"max_y": -1000000,
+"max_y": 101,
 "min_x": 0,
 "min_y": 1000000
 }
 
 [node name="Pos_Tool" type="Position2D" parent="."]
-position = Vector2( 464, 208 )
+position = Vector2( 208, 264 )
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( 16, 0 )

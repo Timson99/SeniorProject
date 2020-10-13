@@ -3,8 +3,8 @@ extends Node2D
 onready var camera : Camera2D = Camera2D.new()
 var tween = Tween.new()
 onready var viewport = get_viewport()
-onready var screen_size = get_viewport_rect().size
-onready var static_pos = Vector2(screen_size.x/2,screen_size.y/2)
+onready var viewport_size = get_viewport_rect().size
+onready var static_pos = Vector2(viewport_size.x/2,viewport_size.y/2)
 
 enum State {OnParty, Sequenced, Static}
 var state = null
@@ -30,12 +30,22 @@ func _ready():
 
 
 func screen_resize():
+	
+	
+	#############################
+	#get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT,
+	#							SceneTree.STRETCH_ASPECT_IGNORE,
+	#							Vector2(320,240)
+	#							)
+	###############################
+	
 	var window_size = OS.get_window_size()
+	
 	#Disable x cutoff
 	var scale_x = floor(window_size.x / viewport.size.x)
 	#Minimizes y cutoff
 	var scale_y = round(window_size.y / viewport.size.y)
-	#Diafble Y Cutoff
+	#Diable Y Cutoff
 	#var scale_y = floor(window_size.y / viewport.size.y)
 	#Allow Y Cutoff
 	#var scale_y = round(window_size.y / viewport.size.y)
@@ -50,14 +60,21 @@ func screen_resize():
 	#print("Window Size: %s" % str(window_size))
 	#print("Viewport Scaled To: %s"  % str(viewport.size * scale))
 	#print(Scale X: %s , Scale Y: %s" % [  str(scale_x), str(scale_y)]   )
-	#print(y_cutoff)	
+	#print(y_cutoff)
 	y_cutoff = abs(min(0, int(window_size.y - viewport.size.y * scale)))
 	vp_scale = scale
-
 	
-	viewport.set_attach_to_screen_rect(Rect2(diffhalf, viewport.size * scale))
+	var scaled_screen_size = viewport.size * scale
+	viewport.set_attach_to_screen_rect(Rect2(diffhalf, scaled_screen_size))
 	
-	
+	#Prevent Flicker when using test window sizes
+	var odd_offset = Vector2(int(scaled_screen_size.x) % 2, int(scaled_screen_size.y) % 2)
+	VisualServer.black_bars_set_margins(
+		max(diffhalf.x, 0), # prevent negative values, they make the black bars go in the wrong direction.
+		max(diffhalf.y, 0),
+		max(diffhalf.x, 0) + odd_offset.x,
+		max(diffhalf.y, 0) + odd_offset.y
+	)
 	
 	
 	
@@ -84,12 +101,12 @@ func _physics_process(_delta):
 				position = static_pos
 				return
 			
-			var cuttoff_in_viewport = round(y_cutoff/(2 * vp_scale))
-			var screen_offset_y_min = bounds["min_y"] - (screen_size.y/2 - cuttoff_in_viewport)
-			var screen_offset_y_max = bounds["max_y"] + (screen_size.y/2 - cuttoff_in_viewport)
+			var cuttoff_in_viewport = floor((y_cutoff/2) / float(vp_scale))
+			var screen_offset_y_min = bounds["min_y"] - (viewport_size.y/2 - cuttoff_in_viewport)
+			var screen_offset_y_max = bounds["max_y"] + (viewport_size.y/2 - cuttoff_in_viewport)
 			
-			if bounds["min_x"] + screen_size.x/2 <= bounds["max_x"] - screen_size.x/2:
-				position.x = clamp(position.x, bounds["min_x"] + screen_size.x/2, bounds["max_x"] - screen_size.x/2)
+			if bounds["min_x"] + viewport_size.x/2 <= bounds["max_x"] - viewport_size.x/2:
+				position.x = clamp(position.x, bounds["min_x"] + viewport_size.x/2, bounds["max_x"] - viewport_size.x/2)
 			if screen_offset_y_max <= screen_offset_y_min:
 				position.y = clamp(position.y, screen_offset_y_max, screen_offset_y_min)
 			
