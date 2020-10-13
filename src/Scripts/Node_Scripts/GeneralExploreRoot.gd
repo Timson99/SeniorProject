@@ -1,10 +1,11 @@
 extends Node
 
 
-export var camera_bounds = {"max_x" : 100000, 
-							"max_y" : 100000,
+export var camera_bounds = {"is_static": false,
+							"max_x" : 100000, 
 							"min_x" : -100000,
-							"min_y" : -100000,
+							"max_y" : -100000,
+							"min_y" : 100000,
 							}
 
 

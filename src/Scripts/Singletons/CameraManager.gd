@@ -9,12 +9,14 @@ onready var static_pos = Vector2(screen_size.x/2,screen_size.y/2)
 enum State {OnParty, Sequenced, Static}
 var state = null
 
+var y_cutoff := 0
+var vp_scale = 1
+
 
 
 
 
 func _ready():
-	
 	camera.process_mode = Camera2D.CAMERA2D_PROCESS_PHYSICS
 	add_child(camera)
 	camera.current = true
@@ -29,8 +31,6 @@ func _ready():
 
 func screen_resize():
 	var window_size = OS.get_window_size()
-	# see how big the window is compared to the viewport size
-	# floor it so we only get round numbers (0, 1, 2, 3 ...)
 	#Disable x cutoff
 	var scale_x = floor(window_size.x / viewport.size.x)
 	#Minimizes y cutoff
@@ -39,27 +39,24 @@ func screen_resize():
 	#var scale_y = floor(window_size.y / viewport.size.y)
 	#Allow Y Cutoff
 	#var scale_y = round(window_size.y / viewport.size.y)
-
-	# use the smaller scale with 1x minimum scale
 	var scale = max(1, min(scale_x, scale_y))
-	#var scale = Vector2(scale_y, scale_y)
-	
-	
-	
-	#scale = 4.5
-	#scale = Vector2(5,5)
 
 	# find the coordinate we will use to center the viewport inside the window
 	var diff = window_size - (viewport.size * scale)
 	var diffhalf = (diff * 0.5).floor()
 	# attach the viewport to the rect we calculated
 	
-	print("Window Size: %s" % str(window_size))
-	print("Viewport Size: %s"  % str(viewport.size))
-	print("Viewport Scaled To: %s"  % str(viewport.size * scale))
-	print("Y Diff %s , Scale X: %s , Scale Y: %s" % [  str(int(abs(viewport.size.y - window_size.y)) % 240) , str(scale_x), str(scale_y)]   )
+	
+	#print("Window Size: %s" % str(window_size))
+	#print("Viewport Scaled To: %s"  % str(viewport.size * scale))
+	#print(Scale X: %s , Scale Y: %s" % [  str(scale_x), str(scale_y)]   )
+	#print(y_cutoff)	
+	y_cutoff = abs(min(0,window_size.y - viewport.size.y * scale))
+	vp_scale = scale
+
 	
 	viewport.set_attach_to_screen_rect(Rect2(diffhalf, viewport.size * scale))
+	
 	
 	
 	
@@ -82,8 +79,21 @@ func _physics_process(delta):
 		position = Vector2(party_pos.x, party_pos.y)
 		if "camera_bounds" in SceneManager.current_scene:
 			var bounds = SceneManager.current_scene.camera_bounds
-			position.x = clamp(position.x, bounds["min_x"], bounds["max_x"])
-			position.y = clamp(position.y, bounds["min_y"], bounds["max_y"])
+			
+			if(bounds["is_static"]):
+				position = static_pos
+				return
+			
+			var cuttoff_in_viewport = round(y_cutoff/(2 * vp_scale))
+			var screen_offset_y_min = bounds["min_y"] - (screen_size.y/2 - cuttoff_in_viewport)
+			var screen_offset_y_max = bounds["max_y"] + (screen_size.y/2 - cuttoff_in_viewport)
+			
+			if bounds["min_x"] + screen_size.x/2 <= bounds["max_x"] - screen_size.x/2:
+				position.x = clamp(position.x, bounds["min_x"] + screen_size.x/2, bounds["max_x"] - screen_size.x/2)
+			if screen_offset_y_max <= screen_offset_y_min:
+				position.y = clamp(position.y, screen_offset_y_max, screen_offset_y_min)
+			
+			
 		#position = Vector2(round(position.x), round(position.y))
 		camera.align()
 	elif state == State.Sequenced:

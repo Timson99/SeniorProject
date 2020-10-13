@@ -11,8 +11,14 @@
 "Persistent",
 ]]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="YSort" type="YSort" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="C3" parent="YSort" instance=ExtResource( 4 )]
 
