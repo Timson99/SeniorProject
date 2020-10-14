@@ -12,7 +12,8 @@ var to_player_commands := {
 		 "ui_accept" : "interact",
 		 "ui_cancel" : "change_scene",
 		 #Test Command
-		"ui_test" : "test_command"
+		"ui_test1" : "test_command",
+		"ui_test2" : "save_game",
 		},
 	"just_released": 
 		{"ui_down" : "down_just_released",

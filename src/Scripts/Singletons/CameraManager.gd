@@ -31,7 +31,7 @@ func _ready():
 
 func screen_resize():
 	
-	
+	#Code settings required for below to work, may be set in project.godot
 	#############################
 	#get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT,
 	#							SceneTree.STRETCH_ASPECT_IGNORE,
@@ -45,10 +45,12 @@ func screen_resize():
 	var scale_x = floor(window_size.x / viewport.size.x)
 	#Minimizes y cutoff
 	var scale_y = round(window_size.y / viewport.size.y)
-	#Diable Y Cutoff
+	#Disable Y Cutoff
 	#var scale_y = floor(window_size.y / viewport.size.y)
 	#Allow Y Cutoff
 	#var scale_y = round(window_size.y / viewport.size.y)
+	
+	
 	var scale = max(1, min(scale_x, scale_y))
 
 	# find the coordinate we will use to center the viewport inside the window

@@ -6,6 +6,8 @@ export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
 
+var stats := EntityStats.new()
+
 #Array oof objects that are currently interactable
 var interact_areas := []
 
@@ -143,7 +145,8 @@ func save():
 	var save_dict = {
 		"persistence_id" : persistence_id,
 		"position" : position, 
-		"current_dir" : current_dir
+		"current_dir" : current_dir,
+		"stats" : stats,
 	}	
 	return save_dict
 	

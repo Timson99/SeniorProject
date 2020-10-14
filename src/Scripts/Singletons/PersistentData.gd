@@ -14,12 +14,12 @@ func restore_data():
 	var save_nodes : Array = get_tree().get_nodes_in_group("Persistent")
 	for node in save_nodes:
 		if("persistence_id" in node):
-			load_pdata(node.persistence_id, node)
+			_load_pdata(node.persistence_id, node)
 			if node.has_method("on_load"):
 				node.on_load()
 
 # All persistent data under the id is loaded back into the actor
-func load_pdata(id : String, actor : Object): 
+func _load_pdata(id : String, actor : Object): 
 	if(data.has(id)):
 		for i in data[id].keys():
 			actor.set(i, str2var(data[id][i]))
@@ -31,10 +31,12 @@ func update_entry(node_data : Dictionary):
 				if typeof(node_data[prop]) != TYPE_STRING:
 					node_data[prop] = var2str(node_data[prop])
 			data[node_data.persistence_id] = node_data; 
-			
 		else: 
 			Debugger.dprint("No id in persistent node")
-
+		##############
+		print_data()
+		################
+		
 func get_data():
 	return data
 	
