@@ -38,10 +38,10 @@ func _process(_delta):
 			indices_to_remove.append(i)
 			break
 		var instruction = event["instructions"].pop_front()
-		if instruction.size() >= 4 && (instruction[0] == "Actor-sync" || instruction[0] == "Actor-async"):	
+		if instruction.size() >= 3 && (instruction[0] == "Actor-sync" || instruction[0] == "Actor-async"):	
 			event["current_instruction"] = actor_instruction(instruction)
-		elif instruction.size() == 2 && instruction[0] == "BG_Audio":
-			event["current_instruction"] = bg_audio_instruction(instruction[1])
+		elif instruction.size() >= 2 && instruction[0] == "BG_Audio":
+			event["current_instruction"] = bg_audio_instruction(instruction)
 		elif instruction.size() == 2 && instruction[0] == "Dialogue":
 			event["current_instruction"] = dialogue_instruction(instruction[1])
 		elif instruction.size() == 3 && instruction[0] == "Scene":
@@ -76,23 +76,35 @@ func execute_event(event_id : String):
 	
 		
 func actor_instruction(params: Array):
-	if ActorEngine.actors_dict[params[1]] in ActorEngine.synchronous_actors_dict:
-		if ActorEngine.synchronous_delay_time > 0:
-			#print("DELAYED for %f seconds" % ActorEngine.synchronous_delay_time)
-			yield(get_tree().create_timer(ActorEngine.synchronous_delay_time, false), "timeout")
-			ActorEngine.synchronous_delay_time = 0.0
-	#print(params)
-	if params.size() == 4:
+	# If an instruction is called for an actor already executing a command,
+	# the new instruction will NOT be processed by the Actor Engine until 
+	# ALL asynchronous actions have finished.
+	if ActorEngine.actors_dict[params[1]] in ActorEngine.asynchronous_actors_dict:
+		if ActorEngine.asynchronous_delay_time > 0:
+			yield(get_tree().create_timer(ActorEngine.asynchronous_delay_time, false), "timeout")
+			ActorEngine.asynchronous_delay_time = 0.0
+			
+	# Note: params unpacked here to simplify code for process_command()
+	if params.size() == 3:
+		ActorEngine.process_command(params[0], params[1], params[2])
+	elif params.size() == 4:
 		ActorEngine.process_command(params[0], params[1], params[2], params[3])
-	if params.size() == 5:
+	elif params.size() == 5:
 		ActorEngine.process_command(params[0], params[1], params[2], params[3], params[4])
-	if params[0] == "Actor-async":
-		yield(ActorEngine, "async_actor_command_complete")
+	if params[0] == "Actor-sync":
+		yield(ActorEngine, "sync_command_complete")
 	return
 	
 
-func bg_audio_instruction(audio_id : String):
-	print(audio_id)
+func bg_audio_instruction(params: Array):
+	if params.size() == 2:
+		BgEngine.call_deferred(params[1])
+	elif params.size() == 3:
+		BgEngine.call_deferred(params[1], params[2])
+	elif params.size() == 4:
+		BgEngine.call_deferred(params[1], params[2], params[4])
+	print(params)
+	yield(BgEngine, "audio_finished")
 	return
 	
 	

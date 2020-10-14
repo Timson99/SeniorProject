@@ -3,13 +3,13 @@ extends Resource
 
 static func instructions():
 	return [
-		#Actor-type Actor_ID Command, time in seconds or other paramter
+		#Actor-type Actor_ID Command, time in seconds or flag, optional param (Vector2 for position)
 		["Actor-async", "PChar1", "move_up", 5],
-		["Actor", "PChar2", "change_sequenced_follow_formation", "split"],
+		["Actor-sync", "PChar2", "change_follow", "split"],
 		#Dialogue, D_ID
 		["Dialogue", "d_id"],
-		#BG_Audio, Audio_id
-		["BG_Audio", "audio_id"],
+		#BG_Audio, command, optional audio_id
+		["BG_Audio", "command", "audio_id"],
 		#Battle, scene_id
 		["Battle", "scnen_id"],
 		#Scene, scene_id, optional warp_id
