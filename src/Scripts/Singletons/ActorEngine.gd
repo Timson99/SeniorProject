@@ -3,7 +3,8 @@ extends Node
 signal sync_command_complete
 
 const actor_timed_func := ["move_up", "move_down", "move_left", "move_right", "move_to_position"]
-const actor_instant_func := ["change_follow", "change_speed", "restore_default_speed"]
+const actor_instant_func := ["change_follow", "set_speed", "restore_speed",
+							 "scale_anim_speed", "restore_anim_speed"]
 
 var actors_dict: Dictionary = {}
 var actors_array: Array = []
@@ -46,6 +47,7 @@ func _physics_process(delta: float):
 
 
 func process_command(mode: String, id: String, command : String, number_or_flag=null, optional_param=null) -> void:
+	print(command)
 	var time: float
 	var flag: String
 	actor = actors_dict[id]

@@ -8,8 +8,8 @@ static func instructions():
 		["Actor-sync", "PChar2", "change_follow", "split"],
 		#Dialogue, D_ID
 		["Dialogue", "d_id"],
-		#BG_Audio, Audio_id
-		["BG_Audio", "audio_id"],
+		#BG_Audio, command, optional audio_id
+		["BG_Audio", "command", "audio_id"],
 		#Battle, scene_id
 		["Battle", "scnen_id"],
 		#Scene, scene_id, optional warp_id

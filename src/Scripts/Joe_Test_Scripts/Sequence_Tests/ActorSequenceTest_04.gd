@@ -12,7 +12,9 @@ static func instructions():
 				
 		["Actor-async", "PChar3", "change_follow", "split"],
 		
-		["Actor-async", "PChar1", "change_speed", 60],
+		["Actor-async", "PChar1", "restore_speed"],
+		
+		["Actor-async", "PChar1", "restore_anim_speed"],
 		
 		["Actor-sync", "PChar1", "move_up", 1], 
 		
@@ -22,7 +24,9 @@ static func instructions():
 		
 		["Actor-sync", "PChar1", "move_left", 1], 
 		
-		["Actor-async", "PChar1", "change_speed", 120],
+		["Actor-async", "PChar1", "set_speed", 120],
+		
+		["Actor-async", "PChar1", "scale_anim_speed", 2],
 		
 		["Actor-sync", "PChar1", "move_up", 1], 
 		
@@ -32,7 +36,9 @@ static func instructions():
 		
 		["Actor-sync", "PChar1", "move_left", 1], 
 		
-		["Actor-async", "PChar1", "restore_default_speed"],
+		["Actor-async", "PChar1", "restore_speed"],
+		
+		["Actor-async", "PChar1", "scale_anim_speed", 2.5],
 		
 		["Actor-sync", "PChar1", "move_up", 1], 
 		
@@ -41,6 +47,8 @@ static func instructions():
 		["Actor-sync", "PChar1", "move_down", 1], 
 		
 		["Actor-sync", "PChar1", "move_left", 1], 
+		
+		["Actor-async", "PChar1", "restore_anim_speed"],
 		
 		["Actor-async", "PChar1", "change_follow", "following"],
 		

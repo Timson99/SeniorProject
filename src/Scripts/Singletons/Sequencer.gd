@@ -101,7 +101,10 @@ func bg_audio_instruction(params: Array):
 		BgEngine.call_deferred(params[1])
 	elif params.size() == 3:
 		BgEngine.call_deferred(params[1], params[2])
+	elif params.size() == 4:
+		BgEngine.call_deferred(params[1], params[2], params[4])
 	print(params)
+	yield(BgEngine, "audio_finished")
 	return
 	
 	
