@@ -40,8 +40,8 @@ func _process(delta):
 		var instruction = event["instructions"].pop_front()
 		if instruction.size() >= 3 && (instruction[0] == "Actor-sync" || instruction[0] == "Actor-async"):	
 			event["current_instruction"] = actor_instruction(instruction)
-		elif instruction.size() == 2 && instruction[0] == "BG_Audio":
-			event["current_instruction"] = bg_audio_instruction(instruction[1])
+		elif instruction.size() >= 2 && instruction[0] == "BG_Audio":
+			event["current_instruction"] = bg_audio_instruction(instruction)
 		elif instruction.size() == 2 && instruction[0] == "Dialogue":
 			event["current_instruction"] = dialogue_instruction(instruction[1])
 		elif instruction.size() == 3 && instruction[0] == "Scene":
@@ -96,9 +96,12 @@ func actor_instruction(params: Array):
 	return
 	
 
-func bg_audio_instruction(audio_id : String):
-	print(audio_id)
-	BgAudioEngine.swap_songs_midscene(audio_id)
+func bg_audio_instruction(params: Array):
+	if params.size() == 2:
+		BgEngine.call_deferred(params[1])
+	elif params.size() == 3:
+		BgEngine.call_deferred(params[1], params[2])
+	print(params)
 	return
 	
 	

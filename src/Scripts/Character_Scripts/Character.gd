@@ -103,7 +103,7 @@ func up_just_pressed():
 	pass
 	
 func test_command():
-	Sequencer.execute_event("test_seq6")
+	Sequencer.execute_event("test_seq7")
 
 func save_game():
 	SaveManager.save_game()
@@ -128,7 +128,8 @@ func change_speed(speed_string: float):
 	self.speed = float(new_speed)
 
 func restore_default_speed():
-	$AnimatedSprite.set_speed_scale(default_speed/default_speed) 
+	# Resets the walking animation to its original speed 
+	$AnimatedSprite.set_speed_scale(1) 
 	self.speed = default_speed
 
 func move_to_position(new_position: Vector2):
