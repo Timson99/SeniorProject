@@ -23,7 +23,7 @@ var to_menu_commands: Dictionary = {
 	"pressed":{},
 	"just_pressed": 
 		{
-		"ui_menu_out": "remove_ui",
+		"ui_cancel": "remove_ui",
 		
 		},
 	"just_released": {},

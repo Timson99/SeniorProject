@@ -1,7 +1,7 @@
 extends Button
 
 export var reference_path=""
-export var smc_path = "../../Submenu" #submenu_container_path
+export var smc_path = "../../../Submenu" #submenu_container_path
 export(bool) var start_focused = false
 var btn_menu_instance = null
 
