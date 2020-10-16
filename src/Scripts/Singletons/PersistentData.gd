@@ -33,9 +33,6 @@ func update_entry(node_data : Dictionary):
 			data[node_data.persistence_id] = node_data; 
 		else: 
 			Debugger.dprint("No id in persistent node")
-		##############
-		print_data()
-		################
 		
 func get_data():
 	return data

@@ -3,6 +3,8 @@
 [ext_resource path="res://Scenes/Battle_Scenes/General/Module.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Battle_Scenes/General/Message_Module.tscn" type="PackedScene" id=2]
 
+
+
 [node name="CanvasLayer" type="CanvasLayer"]
 
 [node name="Control" type="Control" parent="."]
