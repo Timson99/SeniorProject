@@ -12,32 +12,30 @@ font_data = ExtResource( 4 )
 script = ExtResource( 1 )
 ResFile = "Test_Project_Dialogue (1)"
 
-[node name="Dialogue Box" type="Sprite" parent="."]
-position = Vector2( 161.066, 205.007 )
-texture = ExtResource( 3 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Dialogue Box"]
-margin_left = -143.0
-margin_top = -25.0
-margin_right = 142.0
-margin_bottom = 20.0
-custom_fonts/normal_font = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Options Popup" type="Panel" parent="."]
-visible = false
-margin_left = 137.0
-margin_top = 122.0
-margin_right = 312.0
-margin_bottom = 174.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="TextAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.016
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dialogue Box" type="Sprite" parent="Control"]
+texture = ExtResource( 3 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Dialogue Box"]
+margin_left = -143.066
+margin_top = -25.007
+margin_right = 141.934
+margin_bottom = 19.993
+custom_fonts/normal_font = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

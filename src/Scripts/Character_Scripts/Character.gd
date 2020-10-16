@@ -1,11 +1,16 @@
 extends KinematicBody2D
 
-export var speed := 60
+const default_speed := 60.0
+
+export var speed := default_speed setget set_speed
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
 
+var stats := EntityStats.new()
+
+#Array oof objects that are currently interactable
 var interact_areas := []
 
 #Party Vars, set by party
@@ -65,15 +70,13 @@ func explore(delta : float):
 	
 # When leader, player input is activate, 
 func activate_player():
-	add_to_group("Input_Receiver")
+	InputEngine.activate_receiver(self)
 	$CollisionBox.disabled = false
-	#$Area2D/InteractableArea.disabled = false
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
-	remove_from_group("Input_Receiver")
+	InputEngine.deactivate_receiver(self)
 	$CollisionBox.disabled = true
-	#$Area2D/InteractableArea.disabled = true
 	
 	
 #Input Receiver Methods
@@ -102,27 +105,43 @@ func up_just_pressed():
 	pass
 	
 func test_command():
-	Sequencer.execute_event("test_seq5")
+	Sequencer.execute_event("test_seq7")
 
 func save_game():
 	SaveManager.save_game()
 
 func change_scene():
 	SceneManager.goto_scene(destination)
+
+
+
+#Interactions with Interactables (Box Openings, Dialogue Starters)
+#Should add functionality to change direction toward thing being interacted with
+func interact():
+  if(interact_areas.size() != 0 and interact_areas.back().has_method("interact")):
+	  interact_areas.back().interact()
 	
-func ui_accept_pressed():
-  if(interact_areas.size() != 0 and interact_areas.back() != ""):
-	  DialogueEngine._beginTransmit(interact_areas.back())
-	
-func change_sequenced_follow_formation(formation: String):
+func change_follow(formation: String):
 	self.party_data["sequence_formation"] = formation
+	
+func set_speed(new_speed: float):
+	speed = new_speed
+	
+func restore_speed():
+	speed = default_speed
+	
+func scale_anim_speed(scale : float):
+	$AnimatedSprite.set_speed_scale(scale) 
+	
+func restore_anim_speed():
+	$AnimatedSprite.set_speed_scale(1) 
+
 
 func move_to_position(new_position: Vector2):
 	var current_position = self.get_global_position()
 	current_position = Vector2(round(position.x), round(position.y))
 	var x_delta = new_position.x - current_position.x
 	var y_delta = new_position.y - current_position.y
-	#print(current_position)
 	if y_delta != 0:
 		if current_position.y > new_position.y:
 			move_up()
@@ -140,7 +159,8 @@ func save():
 	var save_dict = {
 		"persistence_id" : persistence_id,
 		"position" : position, 
-		"current_dir" : current_dir
+		"current_dir" : current_dir,
+		"stats" : stats,
 	}	
 	return save_dict
 	

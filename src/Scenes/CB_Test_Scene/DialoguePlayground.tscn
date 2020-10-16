@@ -1,36 +1,22 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Test_Art/icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/CB_Test_Scene/DialogueEngine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/CB_Test_Scripts/Character_Dialogue_Manager.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Character_Scenes/Party.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Explore_Scenes/General/Checkable.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 78.5833
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Character1" type="Sprite" parent="."]
-position = Vector2( 113.951, 44.9053 )
-scale = Vector2( 0.34449, 0.34449 )
+[node name="Character1" parent="." instance=ExtResource( 5 )]
+
+[node name="Sprite" type="Sprite" parent="Character1"]
+position = Vector2( -2.38419e-07, -10 )
+scale = Vector2( 0.3125, 0.3125 )
 texture = ExtResource( 1 )
-script = ExtResource( 3 )
-speakerID = "liqmu"
-
-[node name="Button" type="Button" parent="Character1"]
-show_behind_parent = true
-margin_left = -28.8229
-margin_top = -27.9914
-margin_right = 28.1771
-margin_bottom = 27.0086
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NPCRadius" type="Area2D" parent="Character1"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Character1/NPCRadius"]
-shape = SubResource( 1 )
 
 [node name="Character2" type="Sprite" parent="."]
 position = Vector2( 219.502, 44.9492 )
