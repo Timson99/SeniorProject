@@ -6,6 +6,7 @@ export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
 
+var skills = null
 var stats := EntityStats.new()
 
 #Array oof objects that are currently interactable
