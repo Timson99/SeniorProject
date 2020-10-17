@@ -8,7 +8,7 @@ export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
 
-var skills = null
+var skills = {"Skill1" : 0} #"Skill" : Num_LP
 var stats := EntityStats.new()
 
 #Array oof objects that are currently interactable
@@ -104,13 +104,22 @@ func down_just_released():
 func up_just_pressed():
 	#print("Up Just Pressed")
 	pass
+###################################################	
+func test_command1():
+	Sequencer.execute_event("test_seq4")
+	pass
 	
-func test_command():
-	Sequencer.execute_event("test_seq7")
+func test_command2():
+	pass
+	
+func test_command3():
+	pass
 
+	
 func save_game():
 	SaveManager.save_game()
-
+	
+####################################################
 func change_scene():
 	SceneManager.goto_scene(destination)
 
@@ -162,6 +171,8 @@ func save():
 		"position" : position, 
 		"current_dir" : current_dir,
 		"stats" : stats,
+		"skills" : skills,
+		"alive" : alive
 	}	
 	return save_dict
 	

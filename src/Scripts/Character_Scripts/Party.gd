@@ -79,6 +79,7 @@ func save():
 		#"C1_in_party" : C1_in_party,
 		"C2_in_party" : C2_in_party,
 		"C3_in_party" : C3_in_party,
+		"items" : items,
 	}	
 	return save_dict
 	

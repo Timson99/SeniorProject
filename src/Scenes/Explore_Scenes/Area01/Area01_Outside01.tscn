@@ -115,8 +115,6 @@ __meta__ = {
 
 [node name="Party" parent="TileMap/YSort" instance=ExtResource( 3 )]
 position = Vector2( 128, 200 )
-C2_in_party = false
-C3_in_party = false
 
 [node name="StaticBody2D" parent="TileMap/YSort" instance=ExtResource( 4 )]
 position = Vector2( 192, 216 )

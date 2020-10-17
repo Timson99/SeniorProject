@@ -12,8 +12,10 @@ var to_player_commands := {
 		 "ui_accept" : "interact",
 		 "ui_cancel" : "change_scene",
 		 #Test Command
-		"ui_test1" : "test_command",
-		"ui_test2" : "save_game",
+		"ui_test1" : "test_command1",
+		"ui_test2" : "test_command2",
+		"ui_test3" : "test_command3",
+		"ui_test4" : "save_game",
 		},
 	"just_released": 
 		{"ui_down" : "down_just_released",
@@ -30,9 +32,17 @@ var to_dialogue_commands : Dictionary = {
 	"just_released": {},
 }
 
+var to_battle_commands : Dictionary = {
+	"pressed": {},
+	"just_pressed": {
+		"ui_test1" : "test_command1",
+					},
+	"just_released": {},
+}
+
 var valid_receivers := {
 	"Debug_Menu" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
-	"Battle Menu" : {"priority": 2, "loop": "_process", "translator" : to_player_commands},
+	"Battle_Menu" : {"priority": 2, "loop": "_process", "translator" : to_battle_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_dialogue_commands},
 	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_player_commands},
 	"Player" : {"priority": 5, "loop": "_physics_process", "translator" : to_player_commands},
@@ -69,7 +79,7 @@ func activate_receiver(node):
 	else: 
 		Debugger.dprint("Unable to register %s, not a Valid Input Receiver" % node.name)
 
-func deactive_receiver(node):
+func deactivate_receiver(node):
 	node.remove_from_group(group_name)
 	update_and_sort_receivers()
 	

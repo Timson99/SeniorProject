@@ -116,26 +116,55 @@ entrance_direction = 1
 position = Vector2( 100, 129 )
 script = ExtResource( 6 )
 
-[node name="RigidBody2D" type="StaticBody2D" parent="."]
+[node name="BattleStarter" type="StaticBody2D" parent="."]
 
-[node name="EnemyStandIn" type="Area2D" parent="RigidBody2D" groups=[
+[node name="EnemyStandIn" type="Area2D" parent="BattleStarter" groups=[
 "Persistent",
 ]]
 position = Vector2( 48, 176 )
 script = ExtResource( 5 )
-scene_id = "TestBattle1"
+scene_id = "DemoBattle"
+persistence_id = "test_enemy2"
 
-[node name="BattleStarter" type="CollisionShape2D" parent="RigidBody2D/EnemyStandIn"]
+[node name="BattleStarter" type="CollisionShape2D" parent="BattleStarter/EnemyStandIn"]
 position = Vector2( 8, 8 )
 shape = SubResource( 4 )
 
-[node name="ColorRect" type="ColorRect" parent="RigidBody2D/EnemyStandIn"]
+[node name="ColorRect" type="ColorRect" parent="BattleStarter/EnemyStandIn"]
 margin_right = 16.0
 margin_bottom = 16.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleStarter"]
+position = Vector2( 56, 184 )
+shape = SubResource( 5 )
+
+[node name="BattleStarter2" type="StaticBody2D" parent="."]
+position = Vector2( 208, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="EnemyStandIn" type="Area2D" parent="BattleStarter2" groups=[
+"Persistent",
+]]
+position = Vector2( 48, 176 )
+script = ExtResource( 5 )
+scene_id = "TestBattle1"
+
+[node name="BattleStarter" type="CollisionShape2D" parent="BattleStarter2/EnemyStandIn"]
+position = Vector2( 8, 8 )
+shape = SubResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="BattleStarter2/EnemyStandIn"]
+margin_right = 16.0
+margin_bottom = 16.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleStarter2"]
 position = Vector2( 56, 184 )
 shape = SubResource( 5 )

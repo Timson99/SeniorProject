@@ -103,7 +103,7 @@ func _advance():
 			dialogue_box.hide()
 			currentspID = null
 			displayedID = null
-			InputEngine.deactive_receiver(self)
+			InputEngine.deactivate_receiver(self)
 			return
 		
 		textNode.set_visible_characters(0)

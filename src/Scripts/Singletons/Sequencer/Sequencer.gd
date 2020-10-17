@@ -22,6 +22,7 @@ func end_control():
 	InputEngine.enable_all()
 	
 	
+	
 func _process(_delta):
 	if in_control and active_events.size() == 0:
 		end_control()

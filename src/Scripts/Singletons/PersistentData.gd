@@ -15,8 +15,9 @@ func restore_data():
 	for node in save_nodes:
 		if("persistence_id" in node):
 			_load_pdata(node.persistence_id, node)
-			if node.has_method("on_load"):
-				node.on_load()
+	for node in save_nodes:
+		if node.has_method("on_load"):
+			node.on_load()
 
 # All persistent data under the id is loaded back into the actor
 func _load_pdata(id : String, actor : Object): 
