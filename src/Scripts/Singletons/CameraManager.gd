@@ -94,6 +94,8 @@ func _physics_process(_delta):
 	if state == State.Static:
 		return
 	elif state == State.OnParty:
+		if party[0].active_player == null:
+			return
 		var party_pos = party[0].active_player.get_global_position()
 		position = Vector2(party_pos.x, party_pos.y)
 		if "camera_bounds" in SceneManager.current_scene:

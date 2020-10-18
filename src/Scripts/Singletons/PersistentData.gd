@@ -6,7 +6,10 @@ var data : Dictionary = {} setget , get_data
 func _ready():
 	SaveManager.connect("node_data_extracted", self, "update_entry")
 	SceneManager.connect("scene_loaded", self, "restore_data")
+	deferred_restore()
 	
+func deferred_restore():
+	yield(get_tree(), "physics_frame")
 	restore_data()
 
 # Loads persistent data back into all persistent nodes

@@ -8,5 +8,5 @@ __meta__ = {
 }
 
 [node name="Battle_UI04" type="Sprite" parent="."]
-position = Vector2( 160, 120 )
+position = Vector2( 0, 80 )
 texture = ExtResource( 1 )

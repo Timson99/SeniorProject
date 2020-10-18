@@ -77,7 +77,6 @@ CameraManager="*res://Scripts/Singletons/CameraManager.gd"
 PersistentData="*res://Scripts/Singletons/PersistentData.gd"
 ActorEngine="*res://Scripts/Singletons/ActorEngine.gd"
 DialogueEngine="*res://Scenes/CB_Test_Scene/DialogueEngine.tscn"
-BattleManager="*res://Scripts/Singletons/BattleManager/BattleManagerFuncRef.gd"
 BgEngine="*res://Scripts/Singletons/BGAudioEngine/BGEngine.tscn"
 
 [debug]

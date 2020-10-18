@@ -7,11 +7,11 @@ var skills = {} #"Skill" : Num_LP
 var stats := EntityStats.new()
 var temp_battle_stats := EntityStats.new()
 
+
 var moveset = null #Generated
 
 
 func on_load():
-	print(skills)
 	var temp_battle_stats = stats
 	
 func save():

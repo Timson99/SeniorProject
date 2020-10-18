@@ -63,6 +63,7 @@ var disabled = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SceneManager.connect("goto_called", self, "disable_input")
+	SceneManager.connect("scene_loaded", self, "update_and_sort_receivers")
 	SceneManager.connect("scene_fully_loaded", self, "enable_input")
 	
 	

@@ -31,7 +31,7 @@ func init_in_party(condition, character_scene, name):
 		party_member.name = name
 		$YSort.add_child(party_member)
 		
-	
+
 
 # Called when the node enters the scene tree for the first time.
 func on_load():
