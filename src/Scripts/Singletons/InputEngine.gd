@@ -65,6 +65,7 @@ func _ready():
 	SceneManager.connect("goto_called", self, "disable_input")
 	SceneManager.connect("scene_loaded", self, "update_and_sort_receivers")
 	SceneManager.connect("scene_fully_loaded", self, "enable_input")
+	update_and_sort_receivers()
 	
 	
 func update_and_sort_receivers():

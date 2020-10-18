@@ -2,6 +2,8 @@ extends Node
 
 var data : Dictionary = {} setget , get_data
 
+signal all_pdata_loaded()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SaveManager.connect("node_data_extracted", self, "update_entry")
@@ -21,6 +23,7 @@ func restore_data():
 	for node in save_nodes:
 		if node.has_method("on_load"):
 			node.on_load()
+	emit_signal("all_pdata_loaded")
 
 # All persistent data under the id is loaded back into the actor
 func _load_pdata(id : String, actor : Object): 
