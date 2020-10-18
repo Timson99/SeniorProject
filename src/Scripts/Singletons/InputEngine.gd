@@ -36,12 +36,16 @@ var to_battle_commands : Dictionary = {
 	"pressed": {},
 	"just_pressed": {
 		"ui_test1" : "test_command1",
+		"ui_up" : "move_up",
+		"ui_down" : "move_down",
+		"ui_accept" : "accept_pressed",
 					},
 	"just_released": {},
 }
 
 var valid_receivers := {
-	"Debug_Menu" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
+	#"Debug_Menu" : {"priority": 0, "loop": "_process", "translator" : to_player_commands},
+	"Battle_Dialogue" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
 	"Battle_Menu" : {"priority": 2, "loop": "_process", "translator" : to_battle_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_dialogue_commands},
 	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_player_commands},

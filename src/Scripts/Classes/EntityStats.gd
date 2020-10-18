@@ -20,7 +20,7 @@ const stat_template := {
 var stats := stat_template.duplicate() setget , get_stats
 
 
-func init(base_stats = stat_template):
+func _init(base_stats = stat_template):
 	if !validate_stats(base_stats):
 		Debugger.dprint("ERROR, INVALID STATS IN CONSTRUCTION, USING DEFAULTS")
 

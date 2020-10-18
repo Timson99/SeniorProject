@@ -4,10 +4,13 @@ extends Control
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 var input_id := "Battle_Menu"
 
+onready var menu = $UI/MainMenu
+onready var anim_player = $UI/AnimatedSprite
+
 export var alive := true
 var skills = {} #"Skill" : Num_LP
-var stats := EntityStats.new()
-var temp_battle_stats := EntityStats.new()
+onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
+onready var temp_battle_stats := stats
 
 var party_data = null
 
@@ -30,18 +33,34 @@ func on_load():
 	var temp_battle_stats = stats
 	
 func test_command1():
-	emit_signal("move", "Attack")
+	pass
 	
+func accept_pressed():
+	var command = menu.accept_pressed()
+	emit_signal("move", command)
+	
+	
+func move_up():
+	menu.move_up()
+	
+func move_down():
+	menu.move_down()
 	
 
 func activate_player():
 	InputEngine.activate_receiver(self)
 	$UI.position.y -= 5;
+	anim_player.animation = "Menu"
+	menu.show()
+	
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
 	InputEngine.deactivate_receiver(self)
 	$UI.position.y += 5;
+	anim_player.animation = "Display"
+	menu.hide()
+	menu.reset()
 	
 func save():
 	var save_dict = {

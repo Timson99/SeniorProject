@@ -9,7 +9,7 @@ export var actor_id := "PChar"
 export var alive := true
 
 var skills = {"Skill1" : 0} #"Skill" : Num_LP
-var stats := EntityStats.new()
+onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 
 #Array oof objects that are currently interactable
 var interact_areas := []
