@@ -21,6 +21,7 @@ func _draw():
 	draw_line(Vector2(WIDTH,0), Vector2(WIDTH,HEIGHT),Color.blue,4.0,true)
 	for i in range(VU_COUNT):
 		draw_line(draw_pos,draw_pos + Vector2(histogram[i] *WIDTH,0),Color.blue,4.0,true)
+		draw_line(draw_pos + Vector2(histogram[i] *WIDTH+1,0),Vector2(draw_pos.x+HEIGHT,draw_pos.y),Color.blue,4.0,true)
 		draw_pos.y += h_interval
 #func _draw():
 #	var w=WIDTH /VU_COUNT
