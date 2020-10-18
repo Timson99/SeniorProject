@@ -5,7 +5,7 @@ var asm_stack = null
 
 #InputEngine Reqs
 var input_id = "Menu" 
-const main_menu_path = "res://Scenes/Luis_Test_Scenes/MainMenu.tscn"
+const main_menu_path = "res://Scenes/Luis_Test_Scenes/MenuManager/MainMenu.tscn"
 #input receiver methods
 func overlay_ui():	
 	add_to_group("Input_Reciever")

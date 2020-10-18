@@ -57,7 +57,7 @@ BgEngine="*res://Scenes/Joe_Test_Scenes/BGEngine.tscn"
 CameraManager="*res://Scripts/Singletons/CameraManager.gd"
 Sequencer="*res://Scripts/Singletons/Sequencer.gd"
 PersistentData="*res://Scripts/Singletons/PersistentData.gd"
-MenuManager="*res://Scenes/Luis_Test_Scenes/MenuManager.tscn"
+MenuManager="*res://Scenes/Luis_Test_Scenes/MenuManager/MenuManager.tscn"
 ImportData="*res://Scripts/Singletons/ImportData.gd"
 
 [display]

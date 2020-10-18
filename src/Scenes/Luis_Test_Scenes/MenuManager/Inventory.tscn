@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scenes/Luis_Test_Scenes/Submenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Luis_Test_Scenes/MenuManager/Submenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Test_Art/icon.png" type="Texture" id=2]
+
 
 [node name="Inventory" instance=ExtResource( 1 )]
 
