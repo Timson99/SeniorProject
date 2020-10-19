@@ -21,19 +21,27 @@ func _process(delta):
 		turn.call_func()
 	
 func battle_engine():
+	yield(get_tree().create_timer(0.2, false), "timeout")
+	character_party.begin_turn()
+	
+	var moves_made = {}
 	
 	var characters = character_party.get_children()
 	var enemies = ["E1"]
 	
 	for c in characters:
 		var move = yield(c, "move")
+		moves_made[c.name] = {"Entity": c, "move" : move}
 		print("%s : %s" % [c.name, move])
 		#move = yield(UI, character.move_made_signal)
 		#Add as queued character action
 		
 	for e in enemies:
 		var move = "Defend"
+		moves_made["Enemy1"] = {"Entity": e, "move" : move}
 		print(e + " : " + move)
+	
+	print(moves_made)
 	
 	#execute(moves)
 	turn = null

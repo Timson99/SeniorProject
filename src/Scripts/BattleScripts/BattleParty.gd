@@ -17,8 +17,11 @@ func _ready():
 	$C3_Module.connect("move", self, "switch_characters")
 
 
-func switch_characters(_move):	
+func switch_characters(_move):
 	active_player.deactivate_player()
+		
+	yield(get_tree().create_timer(0.1, false), "timeout")
+	
 	for i in range(party.find(active_player) + 1 , party.size()):
 		if(!party[i].alive):
 			continue
@@ -27,7 +30,9 @@ func switch_characters(_move):
 		return
 	#No more characters, Enemy Move
 	active_player = front_player
-	active_player.activate_player()
+	yield(get_tree().create_timer(1, false), "timeout")
+	##############################
+	#active_player.activate_player()
 
 
 func sort_characters(a,b):
@@ -58,13 +63,15 @@ func on_load():
 			active_player.deactivate_player()
 		front_player = party[0]
 		active_player = front_player
-		active_player.activate_player()
 		
 		for i in range(party.size()):
 			if(party[i].alive):
 				party[i].set("party_data", {"items": items, 
 											"party": party, 
 											})
+											
+func begin_turn():
+	active_player.activate_player()
 			
 
 func save():

@@ -12,6 +12,8 @@ var skills = {} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 onready var temp_battle_stats := stats
 
+var module_rise := 2
+
 var party_data = null
 
 
@@ -49,7 +51,10 @@ func move_down():
 
 func activate_player():
 	InputEngine.activate_receiver(self)
-	$UI.position.y -= 5;
+	$UI.position.y -= module_rise
+	anim_player.play("Display_To_Menu")
+	yield(anim_player, "animation_finished")
+	anim_player.stop()
 	anim_player.animation = "Menu"
 	menu.show()
 	
@@ -57,7 +62,7 @@ func activate_player():
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
 	InputEngine.deactivate_receiver(self)
-	$UI.position.y += 5;
+	$UI.position.y += module_rise
 	anim_player.animation = "Display"
 	menu.hide()
 	menu.reset()

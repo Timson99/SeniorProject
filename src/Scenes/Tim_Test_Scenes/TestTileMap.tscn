@@ -115,7 +115,6 @@ entrance_direction = 1
 [node name="Party" parent="TileMap/YSort" instance=ExtResource( 4 )]
 position = Vector2( 100, 129 )
 script = ExtResource( 6 )
-C3_in_party = false
 
 [node name="BattleStarter" type="StaticBody2D" parent="."]
 

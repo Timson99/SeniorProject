@@ -5,7 +5,7 @@
 [ext_resource path="res://Scenes/Battle_Scenes/General/Modules/C3_Module.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Battle_Scenes/General/Modules/C1_Module.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/BattleScripts/BattleParty.gd" type="Script" id=5]
-[ext_resource path="res://Assets/Test_Art/Dark_Starman_large.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Test_Art/icon.png" type="Texture" id=6]
 
 [node name="BattleUI" type="Control"]
 anchor_right = 1.0
