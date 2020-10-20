@@ -137,8 +137,7 @@ func process_input(loop):
 		
 	input_target = input_receivers[0]
 
-	
-	if input_disabled || input_target.input_id in disabled:
+	if input_disabled || input_target == null || input_target.input_id in disabled:
 		return
 	
 	#Input Frame Delay prevents multiple inputs from two different sources when input target changes
