@@ -75,7 +75,7 @@ config/icon="res://Assets/Test_Art/icon.png"
 [autoload]
 
 Game="*res://Scripts/Singletons/Game.gd"
-SceneManager="*res://Scripts/Singletons/SceneManager.gd"
+SceneManager="*res://Scripts/Singletons/SceneManager/SceneManager.gd"
 SaveManager="*res://Scripts/Singletons/SaveManager.gd"
 InputEngine="*res://Scripts/Singletons/InputEngine.gd"
 Sequencer="*res://Scripts/Singletons/Sequencer/Sequencer.gd"
@@ -236,6 +236,10 @@ ui_test4={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[logging]
+
+file_logging/enable_file_logging=true
 
 [rendering]
 

@@ -53,6 +53,8 @@ var valid_receivers := {
 	"Test_Item" : {"priority": 6, "loop": "_process", "translator" : to_player_commands},
 }
 
+var pressed_held_commands = []
+
 var input_disabled := false
 var input_target = null
 var prev_input_target = null
@@ -94,14 +96,18 @@ func deactivate_receiver(node):
 func disable_input():
 	input_disabled = true
 	curr_input_receivers = []
+	set_process(false)
 	
 func enable_input():
 	input_disabled = false
+	set_process(true)
+	
 	
 func disable_player_input():
 	disabled.append("Player")
 	
 func enable_all():
+	set_process(true)
 	disabled = []
 	
 	
@@ -130,7 +136,8 @@ func process_input(loop):
 		return
 		
 	input_target = input_receivers[0]
-		 
+
+	
 	if input_disabled || input_target.input_id in disabled:
 		return
 	

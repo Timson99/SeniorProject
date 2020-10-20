@@ -92,7 +92,7 @@ scale = Vector2( 1, 0.5 )
 warp_id = "ldoor"
 warp_destination_id = "mdoor"
 warp_scene_id = "TileMapTest"
-entrance_direction = 1
+exit_direction = 1
 
 [node name="Middle_Door" parent="TileMap" instance=ExtResource( 2 )]
 position = Vector2( 152, 109 )
@@ -100,7 +100,7 @@ scale = Vector2( 1, 0.5 )
 warp_id = "mdoor"
 warp_destination_id = "rdoor"
 warp_scene_id = "TileMapTest"
-entrance_direction = 1
+exit_direction = 1
 
 [node name="Right_Door" parent="TileMap" instance=ExtResource( 2 )]
 position = Vector2( 232, 109 )
@@ -108,7 +108,7 @@ scale = Vector2( 1, 0.5 )
 warp_id = "rdoor"
 warp_destination_id = "ldoor"
 warp_scene_id = "TileMapTest"
-entrance_direction = 1
+exit_direction = 1
 
 [node name="YSort" type="YSort" parent="TileMap"]
 

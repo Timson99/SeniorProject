@@ -30,7 +30,7 @@ func switch_characters(_move):
 		return
 	#No more characters, Enemy Move
 	active_player = front_player
-	yield(get_tree().create_timer(1, false), "timeout")
+	#yield(get_tree().create_timer(1, false), "timeout")
 	##############################
 	#active_player.activate_player()
 
