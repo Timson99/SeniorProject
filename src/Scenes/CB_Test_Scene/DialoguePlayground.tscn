@@ -12,9 +12,10 @@ radius = 78.5833
 [node name="Node2D" type="Node2D"]
 
 [node name="Character1" parent="." instance=ExtResource( 5 )]
+position = Vector2( 91.3173, 66.8175 )
 
 [node name="Sprite" type="Sprite" parent="Character1"]
-position = Vector2( -2.38419e-07, -10 )
+position = Vector2( 1.52588e-05, -10 )
 scale = Vector2( 0.3125, 0.3125 )
 texture = ExtResource( 1 )
 

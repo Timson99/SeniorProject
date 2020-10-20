@@ -50,6 +50,11 @@ func _ready():
 				var toInsert = {"msg": val.right(mdLength + 3)}
 				var mdIndex = 0
 				
+				#get parent id for option logic
+				if metaArray[metaArray.size() - 2].length() > 5:
+					toInsert["pID"] = metaArray[metaArray.size() - 2] 
+					Debugger.dprint(toInsert["pID"])
+				
 				#manage the flags in the metaArray
 				for item in metaArray:
 					match item:
@@ -69,12 +74,18 @@ func _ready():
 							prevSequenceID = null
 						"-x":
 							toInsert["-x"] = metaArray[mdIndex + 1]
+						"-o":
+							var optvals = mdIndex+1
+							toInsert["-o"] = []
+							while optvals < metaArray.size() - 1 && metaArray[optvals].length() > 5:
+								toInsert["-o"].append(metaArray[optvals])
+								optvals += 1
 					mdIndex += 1
 				
 				#add entry with key of msgID and value as metadata subdirectory
 				dialogueDictionary[metaArray[2]] = toInsert
 				
-	#print("finished parse")
+	print("finished parse")
 	
 #Called every frame. 'delta' is the elapsed time since the previous frame.
 func ui_accept_pressed():
