@@ -12,6 +12,7 @@ var to_player_commands := {
 		 "ui_accept" : "interact",
 		 "ui_cancel" : "change_scene",
 		 #Test Command
+		"ui_menu" : "menu_just_pressed",
 		"ui_test1" : "test_command1",
 		"ui_test2" : "test_command2",
 		"ui_test3" : "test_command3",
@@ -40,7 +41,10 @@ var to_battle_commands : Dictionary = {
 		"ui_down" : "move_down",
 		"ui_accept" : "accept_pressed",
 					},
-	"just_released": {},
+	"just_released":{
+		"ui_up" : "release_up",
+		"ui_down" : "release_down",
+					},
 }
 
 var valid_receivers := {
@@ -131,6 +135,7 @@ func sort_input_receivers(a,b):
 	
 	
 func process_input(loop):
+	
 	var input_receivers = curr_input_receivers
 	if input_receivers.size() == 0: 
 		return
@@ -156,15 +161,16 @@ func translate_and_execute(input_translator):
 	for action in input_translator["just_pressed"].keys():
 		if(Input.is_action_just_pressed(action)):
 			commands.append(input_translator["just_pressed"][action])
-			break
+
 	for action in input_translator["just_released"].keys():
+		#Check if action is array of actions, for potential multi-button input
 		if(Input.is_action_just_released(action)):
 			commands.append(input_translator["just_released"][action])
-			break
+
 	for action in input_translator["pressed"].keys():
 		if(Input.is_action_pressed(action)):
 			commands.append(input_translator["pressed"][action])
-			break
+
 	for command in commands:
 			if input_target.has_method(command):
 				input_target.call_deferred(command)

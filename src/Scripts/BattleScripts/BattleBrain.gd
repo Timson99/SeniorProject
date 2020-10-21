@@ -21,7 +21,7 @@ func _process(delta):
 		turn.call_func()
 	
 func battle_engine():
-	yield(get_tree().create_timer(0.2, false), "timeout")
+	yield(get_tree().create_timer(1, false), "timeout")
 	character_party.begin_turn()
 	
 	var moves_made = {}

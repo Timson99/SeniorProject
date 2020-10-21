@@ -48,6 +48,12 @@ func move_up():
 func move_down():
 	menu.move_down()
 	
+func release_up():
+	menu.release_up()
+	
+func release_down():
+	menu.release_down()
+	
 
 func activate_player():
 	InputEngine.activate_receiver(self)

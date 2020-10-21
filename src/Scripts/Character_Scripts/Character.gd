@@ -82,18 +82,22 @@ func deactivate_player():
 	
 #Input Receiver Methods
 func move_up():
+	velocity = Vector2(0,0)
 	velocity.y -= 1
 	current_dir = Enums.Dir.Up
 	
 func move_down():
+	velocity = Vector2(0,0)
 	velocity.y += 1
 	current_dir = Enums.Dir.Down
 	
 func move_right():
+	velocity = Vector2(0,0)
 	velocity.x += 1
 	current_dir = Enums.Dir.Right
 	
 func move_left():
+	velocity = Vector2(0,0)
 	velocity.x -= 1
 	current_dir = Enums.Dir.Left
 	
@@ -101,8 +105,8 @@ func down_just_released():
 	#print("Down Just Released")
 	pass
 	
-func up_just_pressed():
-	#print("Up Just Pressed")
+func menu_just_pressed():
+	print("Menu Just Pressed")
 	pass
 ###################################################	
 func test_command1():
