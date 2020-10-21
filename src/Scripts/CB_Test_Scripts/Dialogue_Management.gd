@@ -20,6 +20,7 @@ var parentBranchNodes = []
 
 # Nodes for ease of access
 onready var scrollAudio = get_node("TextAudio")
+onready var optionAudio = get_node("OptionAudio")
 onready var dialogue_box = $"Control/Dialogue Box"
 onready var options_box = $"Control/Options Box"
 onready var textNode = dialogue_box.get_node("RichTextLabel")
@@ -99,6 +100,8 @@ func _ready():
 #either skips scroll, advances to next line, or selects option
 func ui_accept_pressed():
 	if inOptions:
+		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Selected.wav")
+		optionAudio.play()
 		displayedID = dialogueDictionary[displayedID]["-o"][selectedOption-1]
 		parentBranchNodes.append(displayedID)
 		clear_options()
@@ -111,6 +114,8 @@ func ui_accept_pressed():
 #move up and down in an option
 func ui_down_pressed():
 	if inOptions:
+		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Arrow_Key_Pressed.wav")
+		optionAudio.play()
 		var opName = "Option" + str(selectedOption) + "/Selected"
 		options_box.get_node(opName).hide()
 		selectedOption += 1
@@ -122,6 +127,8 @@ func ui_down_pressed():
 #move up and down in an option
 func ui_up_pressed():
 	if inOptions:
+		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Arrow_Key_Pressed.wav")
+		optionAudio.play()
 		var opName = "Option" + str(selectedOption) + "/Selected"
 		options_box.get_node(opName).hide()
 		selectedOption -= 1
