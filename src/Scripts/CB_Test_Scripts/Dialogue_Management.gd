@@ -10,9 +10,13 @@ export var ResFile = "Test_Project_Dialogue"
 var displayedID = null
 var currentspID = null
 var finalWaltz = true
+
+# Variables for dialogue options
 var inOptions = false
+var inOptionTree = false
 var selectedOption = 1
 var totalOptions = 1
+var parentBranchNodes = []
 
 # Nodes for ease of access
 onready var scrollAudio = get_node("TextAudio")
@@ -94,13 +98,18 @@ func _ready():
 
 #either skips scroll, advances to next line, or selects option
 func ui_accept_pressed():
-	if textNode.get_visible_characters() < textNode.get_text().length():
+	if inOptions:
+		displayedID = dialogueDictionary[displayedID]["-o"][selectedOption-1]
+		parentBranchNodes.append(displayedID)
+		clear_options()
+		_advance()
+	elif textNode.get_visible_characters() < textNode.get_text().length():
 		textNode.set_visible_characters(textNode.get_text().length() - 1)
 	else:
 		_advance()
 
 #move up and down in an option
-func ui_up_pressed():
+func ui_down_pressed():
 	if inOptions:
 		var opName = "Option" + str(selectedOption) + "/Selected"
 		options_box.get_node(opName).hide()
@@ -111,7 +120,7 @@ func ui_up_pressed():
 		options_box.get_node(opName).show()
 
 #move up and down in an option
-func ui_down_pressed():
+func ui_up_pressed():
 	if inOptions:
 		var opName = "Option" + str(selectedOption) + "/Selected"
 		options_box.get_node(opName).hide()
@@ -120,6 +129,16 @@ func ui_down_pressed():
 			selectedOption = totalOptions
 		opName = "Option" + str(selectedOption) + "/Selected"
 		options_box.get_node(opName).show()
+
+func clear_options():
+	inOptions = false
+	while totalOptions > 0:
+		var opName = "Option" + str(totalOptions)
+		var n = options_box.get_node(opName)
+		options_box.remove_child(n)
+		totalOptions -= 1
+	options_box.hide()
+	totalOptions = 1
 
 func _beginTransmit(var spID):
 	InputEngine.activate_receiver(self)
@@ -131,15 +150,18 @@ func _beginTransmit(var spID):
 	dialogue_box.show()
 	_advance()
 	
+func exec_final_waltz():
+	dialogue_box.hide()
+	currentspID = null
+	displayedID = null
+	parentBranchNodes = []
+	InputEngine.deactive_receiver(self)
+	
 func _advance():
 	if dialogue_box.is_visible_in_tree():
 		#if this was the final message, close
 		if finalWaltz:
-			#print("hiding")
-			dialogue_box.hide()
-			currentspID = null
-			displayedID = null
-			InputEngine.deactive_receiver(self)
+			exec_final_waltz()
 			return
 		
 		textNode.set_visible_characters(0)
@@ -148,11 +170,27 @@ func _advance():
 			displayedID = speakerDictionary[currentspID]
 			textNode.text = dialogueDictionary[displayedID]["msg"]
 		else:
-			#obtain and display the next item in the sequence
-			if dialogueDictionary[displayedID].has("-s"):
+			#if a response, obtain the next valid message
+			if dialogueDictionary[displayedID].has("-r"):
 				var advanceID = dialogueDictionary[displayedID]["-s"]
 				textNode.text = dialogueDictionary[advanceID]["msg"]
 				displayedID = advanceID
+				
+			#obtain and display the next item in the sequence
+			var advanceable = false
+			while !advanceable:
+				advanceable = true
+				var advanceID = dialogueDictionary[displayedID]["-s"]
+				textNode.text = dialogueDictionary[advanceID]["msg"]
+				displayedID = advanceID
+				#if dialogue has a parent, ensure that the parent has been encountered
+				if dialogueDictionary[displayedID].has("pID"):
+					if !(parentBranchNodes.has(dialogueDictionary[displayedID]["pID"])):
+						advanceable = false
+							#nothing found before end of file
+						if dialogueDictionary[displayedID].has("-t"):
+							exec_final_waltz()
+							return
 		
 		#check for a terminal flag and queued message to set
 		if dialogueDictionary[displayedID].has("-q"):
@@ -179,11 +217,10 @@ func _advance():
 				opNode.get_node("msg").text = dialogueDictionary[val]["msg"]
 				var marginSize = abs(opNode.get_node("msg").margin_top - opNode.get_node("msg").margin_bottom)
 				opNode.position.y += opCount * marginSize
-				#opNode.get_node("msg").margin_top = opNode.get_node("msg").margin_top + (opCount * marginSize)
-				#opNode.get_node("msg").margin_bottom = opNode.get_node("msg").margin_bottom + (opCount * marginSize)
 				opNode.set_owner(options_box)
 				opNode.show()
-				opNode.get_node("Selected").hide()
+				if (opCount != 1):
+					opNode.get_node("Selected").hide()
 				options_box.add_child(opNode, true)
 				opCount += 1
 			totalOptions = opCount - 1
