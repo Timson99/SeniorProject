@@ -224,3 +224,4 @@ func _advance():
 				options_box.add_child(opNode, true)
 				opCount += 1
 			totalOptions = opCount - 1
+			selectedOption = 1
