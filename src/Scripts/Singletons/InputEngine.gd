@@ -26,6 +26,8 @@ var to_dialogue_commands : Dictionary = {
 		{
 		 "ui_accept" : "ui_accept_pressed",
 		 "ui_cancel" : "ui_accept_pressed",
+		 "ui_up" : "ui_up_pressed",
+		 "ui_down" : "ui_down_pressed"
 		},
 	"just_released": {},
 }

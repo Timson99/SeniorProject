@@ -47,6 +47,7 @@ texture = ExtResource( 3 )
 
 [node name="Option0" type="Node2D" parent="Control/Options Box"]
 visible = false
+position = Vector2( 0, 5 )
 
 [node name="msg" type="RichTextLabel" parent="Control/Options Box/Option0"]
 margin_left = -134.479

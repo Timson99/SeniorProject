@@ -10,6 +10,9 @@ export var ResFile = "Test_Project_Dialogue"
 var displayedID = null
 var currentspID = null
 var finalWaltz = true
+var inOptions = false
+var selectedOption = 1
+var totalOptions = 1
 
 # Nodes for ease of access
 onready var scrollAudio = get_node("TextAudio")
@@ -88,14 +91,35 @@ func _ready():
 				
 	#print("finished parse")
 	
-#Called every frame. 'delta' is the elapsed time since the previous frame.
+
+#either skips scroll, advances to next line, or selects option
 func ui_accept_pressed():
-	#testing purposes as substitute for input engine
-	#either skips scroll or advances to next line
 	if textNode.get_visible_characters() < textNode.get_text().length():
 		textNode.set_visible_characters(textNode.get_text().length() - 1)
 	else:
 		_advance()
+
+#move up and down in an option
+func ui_up_pressed():
+	if inOptions:
+		var opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).hide()
+		selectedOption += 1
+		if selectedOption > totalOptions:
+			selectedOption = 1
+		opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).show()
+
+#move up and down in an option
+func ui_down_pressed():
+	if inOptions:
+		var opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).hide()
+		selectedOption -= 1
+		if selectedOption < 1:
+			selectedOption = totalOptions
+		opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).show()
 
 func _beginTransmit(var spID):
 	InputEngine.activate_receiver(self)
@@ -146,6 +170,7 @@ func _advance():
 		
 		#check for options flag and bring up bar if needed
 		if dialogueDictionary[displayedID].has("-o"):
+			inOptions = true
 			options_box.show()
 			var opCount = 1
 			#create node for each option
@@ -158,6 +183,7 @@ func _advance():
 				#opNode.get_node("msg").margin_bottom = opNode.get_node("msg").margin_bottom + (opCount * marginSize)
 				opNode.set_owner(options_box)
 				opNode.show()
+				opNode.get_node("Selected").hide()
 				options_box.add_child(opNode, true)
 				opCount += 1
-			
+			totalOptions = opCount - 1
