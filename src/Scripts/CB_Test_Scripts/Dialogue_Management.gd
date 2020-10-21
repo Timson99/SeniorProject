@@ -14,12 +14,14 @@ var finalWaltz = true
 # Nodes for ease of access
 onready var scrollAudio = get_node("TextAudio")
 onready var dialogue_box = $"Control/Dialogue Box"
+onready var options_box = $"Control/Options Box"
 onready var textNode = dialogue_box.get_node("RichTextLabel")
 onready var textTimer = get_node("Timer")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	dialogue_box.hide()
+	options_box.hide()
 	var path = "res://Assets/Christian_Test_Assets/" + ResFile + ".res"
 	
 	# Create file, test for existance
@@ -53,7 +55,6 @@ func _ready():
 				#get parent id for option logic
 				if metaArray[metaArray.size() - 2].length() > 5:
 					toInsert["pID"] = metaArray[metaArray.size() - 2] 
-					Debugger.dprint(toInsert["pID"])
 				
 				#manage the flags in the metaArray
 				for item in metaArray:
@@ -85,7 +86,7 @@ func _ready():
 				#add entry with key of msgID and value as metadata subdirectory
 				dialogueDictionary[metaArray[2]] = toInsert
 				
-	print("finished parse")
+	#print("finished parse")
 	
 #Called every frame. 'delta' is the elapsed time since the previous frame.
 func ui_accept_pressed():
@@ -132,11 +133,9 @@ func _advance():
 		#check for a terminal flag and queued message to set
 		if dialogueDictionary[displayedID].has("-q"):
 			finalWaltz = true
-			#print("found queue flag")
 			speakerDictionary[currentspID] = dialogueDictionary[displayedID]["-q"]
 		if dialogueDictionary[displayedID].has("-t"):
 			finalWaltz = true
-			#print("found terminal flag")
 			
 		#begin text scroll
 		textTimer.start()
@@ -144,3 +143,21 @@ func _advance():
 			scrollAudio.play()
 			textNode.set_visible_characters(textNode.get_visible_characters()+1)
 			yield(textTimer, "timeout")
+		
+		#check for options flag and bring up bar if needed
+		if dialogueDictionary[displayedID].has("-o"):
+			options_box.show()
+			var opCount = 1
+			#create node for each option
+			for val in dialogueDictionary[displayedID]["-o"]:
+				var opNode = $"Control/Options Box/Option0".duplicate()
+				opNode.get_node("msg").text = dialogueDictionary[val]["msg"]
+				var marginSize = abs(opNode.get_node("msg").margin_top - opNode.get_node("msg").margin_bottom)
+				opNode.position.y += opCount * marginSize
+				#opNode.get_node("msg").margin_top = opNode.get_node("msg").margin_top + (opCount * marginSize)
+				#opNode.get_node("msg").margin_bottom = opNode.get_node("msg").margin_bottom + (opCount * marginSize)
+				opNode.set_owner(options_box)
+				opNode.show()
+				options_box.add_child(opNode, true)
+				opCount += 1
+			

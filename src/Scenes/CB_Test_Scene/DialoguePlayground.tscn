@@ -19,6 +19,15 @@ position = Vector2( 1.52588e-05, -10 )
 scale = Vector2( 0.3125, 0.3125 )
 texture = ExtResource( 1 )
 
+[node name="Character3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 32.9633, 107.353 )
+speakerID = "upu30"
+
+[node name="Sprite" type="Sprite" parent="Character3"]
+position = Vector2( 0, -10.4454 )
+scale = Vector2( 0.3125, 0.3125 )
+texture = ExtResource( 1 )
+
 [node name="Character2" type="Sprite" parent="."]
 position = Vector2( 219.502, 44.9492 )
 scale = Vector2( 0.34449, 0.34449 )

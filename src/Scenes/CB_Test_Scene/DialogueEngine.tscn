@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/CB_Test_Scripts/Dialogue_Management.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Christian_Test_Assets/Text_Scroll_SFX (1).wav" type="AudioStream" id=2]
 [ext_resource path="res://Assets/UI/Dialogue/Dialogue_Box_Mockup_02.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/ChunkyPixels.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_05.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 4 )
@@ -39,3 +40,24 @@ custom_fonts/normal_font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Options Box" type="Sprite" parent="Control"]
+position = Vector2( -0.629913, -68.0358 )
+texture = ExtResource( 3 )
+
+[node name="Option0" type="Node2D" parent="Control/Options Box"]
+visible = false
+
+[node name="msg" type="RichTextLabel" parent="Control/Options Box/Option0"]
+margin_left = -134.479
+margin_top = -45.5675
+margin_right = 145.521
+margin_bottom = -30.5675
+custom_fonts/normal_font = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Selected" type="Sprite" parent="Control/Options Box/Option0"]
+position = Vector2( -93.7256, 8.41847 )
+texture = ExtResource( 5 )
