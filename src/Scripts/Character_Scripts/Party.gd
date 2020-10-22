@@ -64,8 +64,7 @@ func on_load():
 											})
 				
 func reposition(new_position : Vector2, new_direction):
-	position.x = new_position.x
-	position.y = new_position.y
+	set_global_position(new_position)
 	active_player.current_dir = new_direction
 	for i in range(party.size()):
 		party[i].position = Vector2(0,0)

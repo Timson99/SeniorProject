@@ -11,7 +11,8 @@ var to_player_commands := {
 		{"ui_up" : "up_just_pressed",
 		 "ui_accept" : "interact",
 		 "ui_cancel" : "change_scene",
-		 "ui_menu": "open_menu",
+		 "ui_menu" : "open_menu",
+
 		 #Test Command
 		"ui_test1" : "test_command1",
 		"ui_test2" : "test_command2",
@@ -54,6 +55,19 @@ var to_battle_commands : Dictionary = {
 		"ui_down" : "move_down",
 		"ui_accept" : "accept_pressed",
 					},
+	"just_released":{
+		"ui_up" : "release_up",
+		"ui_down" : "release_down",
+					},
+}
+
+var to_menu_commands: Dictionary = {
+	"pressed":{},
+	"just_pressed": 
+		{
+		"ui_cancel": "remove_ui",
+
+		},
 	"just_released": {},
 }
 
@@ -66,6 +80,8 @@ var valid_receivers := {
 	"Player" : {"priority": 5, "loop": "_physics_process", "translator" : to_player_commands},
 	"Test_Item" : {"priority": 6, "loop": "_process", "translator" : to_player_commands},
 }
+
+var pressed_held_commands = []
 
 var input_disabled := false
 var input_target = null
@@ -108,14 +124,18 @@ func deactivate_receiver(node):
 func disable_input():
 	input_disabled = true
 	curr_input_receivers = []
+	set_process(false)
 	
 func enable_input():
 	input_disabled = false
+	set_process(true)
+	
 	
 func disable_player_input():
 	disabled.append("Player")
 	
 func enable_all():
+	set_process(true)
 	disabled = []
 	
 	
@@ -139,13 +159,14 @@ func sort_input_receivers(a,b):
 	
 	
 func process_input(loop):
+	
 	var input_receivers = curr_input_receivers
 	if input_receivers.size() == 0: 
 		return
 		
 	input_target = input_receivers[0]
-		 
-	if input_disabled || input_target.input_id in disabled:
+
+	if input_disabled || input_target == null || input_target.input_id in disabled:
 		return
 	
 	#Input Frame Delay prevents multiple inputs from two different sources when input target changes
@@ -164,17 +185,16 @@ func translate_and_execute(input_translator):
 	for action in input_translator["just_pressed"].keys():
 		if(Input.is_action_just_pressed(action)):
 			commands.append(input_translator["just_pressed"][action])
-			print(commands)
-			print("input_targs: {in}".format({"in":input_target}))
-			break
+
 	for action in input_translator["just_released"].keys():
+		#Check if action is array of actions, for potential multi-button input
 		if(Input.is_action_just_released(action)):
 			commands.append(input_translator["just_released"][action])
-			break
+
 	for action in input_translator["pressed"].keys():
 		if(Input.is_action_pressed(action)):
 			commands.append(input_translator["pressed"][action])
-			break
+
 	for command in commands:
 			if input_target.has_method(command):
 				input_target.call_deferred(command)
