@@ -12,7 +12,7 @@ font_data = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
-ResFile = "Fixed_Test"
+ResFile = "reactive_test"
 
 [node name="TextAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )

@@ -17,6 +17,7 @@ extents = Vector2( 152.175, 31.9275 )
 [node name="Node2D" type="Node2D"]
 
 [node name="Character1" parent="." instance=ExtResource( 5 )]
+visible = false
 position = Vector2( 91.3173, 66.8175 )
 
 [node name="Sprite" type="Sprite" parent="Character1"]
@@ -25,6 +26,7 @@ scale = Vector2( 0.3125, 0.3125 )
 texture = ExtResource( 1 )
 
 [node name="Character3" parent="." instance=ExtResource( 5 )]
+visible = false
 position = Vector2( 32.9633, 107.353 )
 speakerID = "upu30"
 
@@ -34,6 +36,7 @@ scale = Vector2( 0.3125, 0.3125 )
 texture = ExtResource( 1 )
 
 [node name="Character2" type="Sprite" parent="."]
+visible = false
 position = Vector2( 219.502, 44.9492 )
 scale = Vector2( 0.34449, 0.34449 )
 texture = ExtResource( 1 )
@@ -58,7 +61,6 @@ position = Vector2( 6.84869, -2.30308 )
 shape = SubResource( 1 )
 
 [node name="Character4" type="Sprite" parent="."]
-visible = false
 position = Vector2( 114.81, 183.697 )
 scale = Vector2( 0.34449, 0.34449 )
 texture = ExtResource( 1 )
