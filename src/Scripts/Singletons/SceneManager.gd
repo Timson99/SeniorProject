@@ -1,22 +1,40 @@
 extends Node
 
+onready var MainScenes = preload("res://Scripts/Resource_Scripts/MainScenes.gd").new()
+onready var fade_screen = preload("res://Scenes/Tim_Test_Scenes/FadeScreen.tscn")
 var current_scene = null
-var fade_screen
+var saved_scene_path = null
+
 signal goto_called()
 signal scene_loaded()
 signal scene_fully_loaded()
 
 
 func _ready():
-	fade_screen = preload("res://Scenes/Tim_Test_Scenes/FadeScreen.tscn")
 	var root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
 	
 # Call this function from anywhere to change scene
 # Example: SceneManager.goto_scene(path_string, warp_destination_id) 
-func goto_scene(path, warp_destination_id = ""): 
+func goto_scene(scene_id : String, warp_destination_id := "", save_path = false): 
 	emit_signal("goto_called")
-	call_deferred("_deferred_goto_scene", path, warp_destination_id)
+	if save_path:
+		saved_scene_path = current_scene.filename
+	
+	if scene_id.find_last(".") != -1 and scene_id.substr(scene_id.find_last("."), 5) == ".tscn": 
+		pass
+	elif scene_id in MainScenes.explore_scenes:
+		scene_id = MainScenes.explore_scenes[scene_id]
+	elif scene_id in MainScenes.battle_scenes:
+		scene_id = MainScenes.battle_scenes[scene_id]
+	else:
+		Debugger.dprint("ERROR: Scene Not Valid")
+	
+	call_deferred("_deferred_goto_scene", scene_id, warp_destination_id)
+	
+func goto_saved(): 
+	emit_signal("goto_called")
+	call_deferred("_deferred_goto_scene", saved_scene_path, "")
 
 # Switches Scenes only when it is safe to do so
 func _deferred_goto_scene(path, warp_destination_id):
@@ -45,7 +63,10 @@ func _deferred_goto_scene(path, warp_destination_id):
 	fade_animation.play_backwards("Fade")
 	yield(fade_animation, "animation_finished")
 	
-	get_tree().get_root().remove_child(fade)
+	fade.queue_free()
 	emit_signal("scene_fully_loaded")
 	
 	
+	
+	
+

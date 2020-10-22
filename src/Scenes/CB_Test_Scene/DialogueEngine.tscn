@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/CB_Test_Scripts/Dialogue_Management.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Christian_Test_Assets/Text_Scroll_SFX (1).wav" type="AudioStream" id=2]
+[ext_resource path="res://Assets/UI/Dialogue/Dialogue_Box_Mockup_02.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Fonts/ChunkyPixels.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 1 )
+ResFile = "Test_Project_Dialogue (1)"
+
+[node name="TextAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.016
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dialogue Box" type="Sprite" parent="Control"]
+texture = ExtResource( 3 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Dialogue Box"]
+margin_left = -143.066
+margin_top = -25.007
+margin_right = 141.934
+margin_bottom = 19.993
+custom_fonts/normal_font = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

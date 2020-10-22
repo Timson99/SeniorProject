@@ -1,0 +1,207 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://Assets/UI/Battle/Battle_UI01.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI03.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI02.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Fonts/ChunkyPixels.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Scripts/BattleScripts/BattleCharacter.gd" type="Script" id=5]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI11.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI12.png" type="Texture" id=7]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI13.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI14.png" type="Texture" id=9]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI10.png" type="Texture" id=10]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI09.png" type="Texture" id=11]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI05.png" type="Texture" id=12]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI07.png" type="Texture" id=13]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI06.png" type="Texture" id=14]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI08.png" type="Texture" id=15]
+[ext_resource path="res://Scripts/BattleScripts/BattleMenu.gd" type="Script" id=16]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI16.png" type="Texture" id=17]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI17.png" type="Texture" id=18]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI18.png" type="Texture" id=19]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI19.png" type="Texture" id=20]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI20.png" type="Texture" id=21]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI21.png" type="Texture" id=22]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ) ],
+"loop": false,
+"name": "Display_To_Menu",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Menu",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Display",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Wave",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 4 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[node name="Module" type="Control" groups=[
+"Persistent",
+]]
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="UI"]
+position = Vector2( 112, -96 )
+frames = SubResource( 1 )
+animation = "Display"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+margin_left = -38.2806
+margin_top = -14.749
+margin_right = 28.7194
+margin_bottom = 25.251
+custom_fonts/normal_font = SubResource( 2 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "HP: 100/100
+SP: 10/10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="VBoxContainer" parent="UI"]
+visible = false
+margin_top = -68.0
+custom_constants/separation = 11
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Attack" type="Control" parent="UI/MainMenu"]
+
+[node name="Attack" type="AnimatedSprite" parent="UI/MainMenu/Attack"]
+position = Vector2( 117, -120 )
+frames = SubResource( 3 )
+animation = "off"
+
+[node name="Skills" type="Control" parent="UI/MainMenu"]
+margin_top = 11.0
+margin_bottom = 11.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skills" type="AnimatedSprite" parent="UI/MainMenu/Skills"]
+position = Vector2( 117, -120 )
+frames = SubResource( 4 )
+animation = "off"
+
+[node name="Items" type="Control" parent="UI/MainMenu"]
+margin_top = 22.0
+margin_bottom = 22.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Items" type="AnimatedSprite" parent="UI/MainMenu/Items"]
+position = Vector2( 117, -120 )
+frames = SubResource( 5 )
+animation = "off"
+
+[node name="Defend" type="Control" parent="UI/MainMenu"]
+margin_top = 33.0
+margin_bottom = 33.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Defend" type="AnimatedSprite" parent="UI/MainMenu/Defend"]
+position = Vector2( 117, -120 )
+frames = SubResource( 6 )
+animation = "off"
+
+[node name="Run" type="Control" parent="UI/MainMenu"]
+margin_top = 44.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Run" type="AnimatedSprite" parent="UI/MainMenu/Run"]
+position = Vector2( 117, -120 )
+frames = SubResource( 7 )
+animation = "off"

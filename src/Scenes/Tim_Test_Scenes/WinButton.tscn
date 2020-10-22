@@ -1,9 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Fonts/ChunkyPixels.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Scripts/Tim_Test_Scripts/Load.gd" type="Script" id=2]
-
-
+[ext_resource path="res://Scripts/Tim_Test_Scripts/WinButton.gd" type="Script" id=2]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -26,7 +24,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Load" type="Button" parent="Control"]
+[node name="Win" type="Button" parent="Control"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -37,9 +35,9 @@ margin_right = 96.0
 margin_bottom = 24.0
 size_flags_stretch_ratio = 0.0
 custom_fonts/font = SubResource( 1 )
-text = "Load"
+text = "Click to Win!"
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="Control/Load" to="Control/Load" method="_on_Load_pressed"]
+[connection signal="pressed" from="Control/Win" to="Control/Win" method="_on_Load_pressed"]
