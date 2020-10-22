@@ -5,11 +5,12 @@ var input_id = "Dialogue"
 
 # Member variables
 var dialogueDictionary = {}
-var speakerDictionary = {}
+var speakerDictionary = {} #where arr[0] is main, others are reactive
 export var ResFile = "Test_Project_Dialogue"
 var displayedID = null
 var currentspID = null
 var finalWaltz = true
+var reactiveID = ""
 
 # Variables for dialogue options
 var inOptions = false
@@ -40,7 +41,7 @@ func _ready():
 	file.open(path, file.READ)
 	
 	#parse file
-	#print("started parse")
+	var qParse = []
 	var raw = file.get_as_text()
 	file.close()
 	var rawArray = raw.split("\n", false)
@@ -54,7 +55,7 @@ func _ready():
 			if metaArray.size() > 5 && metaArray[1].length() == 5:
 				#check for -z flag, to update speaker dictionary
 				if !speakerDictionary.has(metaArray[1]) && metaArray[3] == "-z":
-					speakerDictionary[metaArray[1]] = metaArray[2]
+					speakerDictionary[metaArray[1]] = [metaArray[2]]
 				
 				#establish sub dictionary to add as val to dialogueDictionary
 				var toInsert = {"msg": val.right(mdLength + 3)}
@@ -65,22 +66,28 @@ func _ready():
 					toInsert["pID"] = metaArray[metaArray.size() - 2] 
 				
 				#manage the flags in the metaArray
+				var setPSID = false
 				for item in metaArray:
 					match item:
 						"-s":
 							if prevSequenceID != null:
 								dialogueDictionary[prevSequenceID]["-s"] = metaArray[2]
-							prevSequenceID = metaArray[2]
+							setPSID = true
 						"-z":
-							prevSequenceID = metaArray[2]
+							setPSID = true
 						"-t":
 							if prevSequenceID != null:
 								dialogueDictionary[prevSequenceID]["-s"] = metaArray[2]
 							toInsert["-t"] = true
 							prevSequenceID = null
 						"-q":
-							toInsert["-q"] = metaArray[mdIndex + 1]
-							prevSequenceID = null
+							if !qParse.has(metaArray[mdIndex + 1]):
+								qParse.append(metaArray[2])
+								toInsert["-q"] = metaArray[mdIndex + 1]
+								prevSequenceID = null
+							else:
+								if qParse.find(mdIndex + 1) > -1:
+									qParse.remove(qParse.find(mdIndex + 1))
 						"-x":
 							toInsert["-x"] = metaArray[mdIndex + 1]
 						"-o":
@@ -89,12 +96,22 @@ func _ready():
 							while optvals < metaArray.size() - 1 && metaArray[optvals].length() > 5:
 								toInsert["-o"].append(metaArray[optvals])
 								optvals += 1
+						"-rct":
+							if prevSequenceID != null:
+								dialogueDictionary[prevSequenceID]["-t"] = true
+								dialogueDictionary[prevSequenceID].erase("-s")
+							setPSID = true
+							toInsert["-rct"] = metaArray[mdIndex + 1]
+							speakerDictionary[metaArray[1]].append(metaArray[2])
 					mdIndex += 1
+				if setPSID:
+					prevSequenceID = metaArray[2]
+					setPSID = false
 				
 				#add entry with key of msgID and value as metadata subdirectory
 				dialogueDictionary[metaArray[2]] = toInsert
 				
-	#print("finished parse")
+	print("finished parse")
 	
 
 #either skips scroll, advances to next line, or selects option
@@ -147,11 +164,13 @@ func clear_options():
 	options_box.hide()
 	totalOptions = 1
 
-func _beginTransmit(var spID):
+func _beginTransmit(var spID, var toSignal):
 	InputEngine.activate_receiver(self)
 	finalWaltz = false
+	reactiveID = toSignal
 	if !speakerDictionary.has(spID):
 		Debugger.dprint("Could not find speaker ID: " + spID + " in dictionary!")
+		InputEngine.deactive_receiver(self)
 		return
 	currentspID = spID
 	dialogue_box.show()
@@ -174,7 +193,15 @@ func _advance():
 		textNode.set_visible_characters(0)
 		
 		if displayedID == null:
-			displayedID = speakerDictionary[currentspID]
+			if reactiveID != "" && reactiveID != null:
+				displayedID = reactiveID
+				for v in speakerDictionary[currentspID]:
+					if dialogueDictionary[v].has("-rct") && dialogueDictionary[v]["-rct"] == reactiveID:
+						displayedID = v
+				if displayedID == null:
+					displayedID = speakerDictionary[currentspID][0]
+			else:
+				displayedID = speakerDictionary[currentspID][0]
 			textNode.text = dialogueDictionary[displayedID]["msg"]
 		else:
 			#if a response, obtain the next valid message
@@ -187,6 +214,9 @@ func _advance():
 			var advanceable = false
 			while !advanceable:
 				advanceable = true
+				if !dialogueDictionary[displayedID].has("-s"):
+					exec_final_waltz()
+					return
 				var advanceID = dialogueDictionary[displayedID]["-s"]
 				textNode.text = dialogueDictionary[advanceID]["msg"]
 				displayedID = advanceID
@@ -202,7 +232,7 @@ func _advance():
 		#check for a terminal flag and queued message to set
 		if dialogueDictionary[displayedID].has("-q"):
 			finalWaltz = true
-			speakerDictionary[currentspID] = dialogueDictionary[displayedID]["-q"]
+			speakerDictionary[currentspID][0] = dialogueDictionary[displayedID]["-q"]
 		if dialogueDictionary[displayedID].has("-t"):
 			finalWaltz = true
 			

@@ -2,17 +2,24 @@ extends Node
 
 # member variables
 export var speakerID = "setMe!"
-export var queuedMsg = "none"
+export var acceptSignal = ""
+var sendSignal = ""
 onready var interactable = get_node("NPCRadius")
+onready var signalInteractable = get_node("../NoNoZone/DetectionRadius")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	interactable.connect("body_entered", self, "_NPC_body_entered")
+	signalInteractable.connect("body_entered", self, "_set_reactive")
+
+func _set_reactive(body):
+	sendSignal = acceptSignal
 
 # Call the Dialogue Manager using the SpeakerID
 func interact():
 	print("SpeakerID: " + speakerID)
-	get_node("../DialogueEngine")._beginTransmit(speakerID, "")
+	DialogueEngine._beginTransmit(speakerID, sendSignal)
 
 func _NPC_body_entered(body):
 	var party = get_tree().get_nodes_in_group("Party")

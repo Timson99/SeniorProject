@@ -1,13 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Test_Art/icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/CB_Test_Scene/DialogueEngine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/CB_Test_Scripts/Character_Dialogue_Manager.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Character_Scenes/Party.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Explore_Scenes/General/Checkable.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/UI/Dialogue/Dialogue_Box_Mockup_01.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/CB_Test_Scripts/Character_Dialogue_Reactive.gd" type="Script" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 78.5833
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 152.175, 31.9275 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -49,7 +54,33 @@ __meta__ = {
 position = Vector2( -5.72766, 4.48056 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character2/NPCRadius"]
-position = Vector2( 1.96667, 2.57889 )
+position = Vector2( 6.84869, -2.30308 )
+shape = SubResource( 1 )
+
+[node name="Character4" type="Sprite" parent="."]
+visible = false
+position = Vector2( 114.81, 183.697 )
+scale = Vector2( 0.34449, 0.34449 )
+texture = ExtResource( 1 )
+script = ExtResource( 8 )
+speakerID = "liqmu"
+acceptSignal = "no_no_zone"
+
+[node name="Button" type="Button" parent="Character4"]
+show_behind_parent = true
+margin_left = -28.2742
+margin_top = -30.2657
+margin_right = 27.7258
+margin_bottom = 28.7343
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NPCRadius" type="Area2D" parent="Character4"]
+position = Vector2( -5.72766, 4.48056 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character4/NPCRadius"]
+position = Vector2( 6.84863, -1.08257 )
 shape = SubResource( 1 )
 
 [node name="Instructions" type="Panel" parent="."]
@@ -79,3 +110,23 @@ __meta__ = {
 
 [node name="Party" parent="." instance=ExtResource( 4 )]
 position = Vector2( 34, 65 )
+
+[node name="NoNoZone" type="Sprite" parent="."]
+position = Vector2( 223.974, 183.404 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NoNoZone"]
+margin_left = -108.232
+margin_top = -10.0415
+margin_right = 102.768
+margin_bottom = 17.9585
+text = "The No No Zone"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DetectionRadius" type="Area2D" parent="NoNoZone"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoNoZone/DetectionRadius"]
+shape = SubResource( 2 )
