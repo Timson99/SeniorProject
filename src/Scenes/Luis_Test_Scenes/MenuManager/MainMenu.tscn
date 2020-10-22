@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Luis_Test_Scenes/MenuManager/MenuButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Luis_Test_Scenes/MenuManager/ExitButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/UI/Menu/Menu_Backdrop_06.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Fonts/ThinPixels.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 5 )
+
+[node name="MainMenu" type="Control"]
+margin_right = 320.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="Margin"]
+margin_right = 300.0
+margin_bottom = 220.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sections" type="GridContainer" parent="Margin/Background"]
+margin_left = 2.0
+margin_top = 22.0
+margin_right = 302.0
+margin_bottom = 210.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsBar" type="MarginContainer" parent="Margin/Background/Sections"]
+margin_right = 58.0
+margin_bottom = 188.0
+size_flags_vertical = 3
+custom_constants/margin_right = 4
+custom_constants/margin_top = 8
+custom_constants/margin_left = 4
+
+[node name="MenuOptions" type="VBoxContainer" parent="Margin/Background/Sections/OptionsBar"]
+margin_left = 4.0
+margin_top = 8.0
+margin_right = 54.0
+margin_bottom = 188.0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="Inventory" parent="Margin/Background/Sections/OptionsBar/MenuOptions" instance=ExtResource( 1 )]
+focus_neighbour_bottom = NodePath("../Skills")
+custom_fonts/font = SubResource( 1 )
+text = "Items"
+reference_path = "res://Scenes/Luis_Test_Scenes/ItemsSubmenu.tscn"
+start_focused = true
+
+[node name="Skills" parent="Margin/Background/Sections/OptionsBar/MenuOptions" instance=ExtResource( 1 )]
+margin_top = 24.0
+margin_bottom = 44.0
+focus_neighbour_top = NodePath("../Inventory")
+text = "Skills"
+
+[node name="ExitButton" parent="Margin/Background/Sections/OptionsBar/MenuOptions" instance=ExtResource( 2 )]
+margin_top = 48.0
+margin_right = 50.0
+margin_bottom = 61.0
+top_level = true
+
+[node name="Submenu" type="MarginContainer" parent="Margin/Background/Sections"]
+margin_left = 62.0
+margin_right = 300.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 20
+custom_constants/margin_top = 28
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 28

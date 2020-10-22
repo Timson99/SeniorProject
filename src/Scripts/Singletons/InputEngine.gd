@@ -5,13 +5,14 @@ var to_player_commands := {
 		{"ui_up" : "move_up",
 		"ui_down" : "move_down",
 		"ui_left" : "move_left",
-		"ui_right" : "move_right"
+		"ui_right" : "move_right",
 		},
 	"just_pressed": 
 		{"ui_up" : "up_just_pressed",
 		 "ui_accept" : "interact",
 		 "ui_cancel" : "change_scene",
 		 "ui_menu" : "open_menu",
+
 		 #Test Command
 		"ui_test1" : "test_command1",
 		"ui_test2" : "test_command2",
@@ -22,6 +23,19 @@ var to_player_commands := {
 		{"ui_down" : "down_just_released",
 		},
 }
+
+
+var to_dialogue_commands : Dictionary = {}
+var to_menu_commands: Dictionary = {
+	"pressed":{},
+	"just_pressed": 
+		{
+		"ui_cancel": "remove_ui",
+		
+		},
+	"just_released": {},
+}
+
 
 var to_dialogue_commands : Dictionary = {
 	"pressed": {},
