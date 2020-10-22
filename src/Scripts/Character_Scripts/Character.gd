@@ -105,8 +105,9 @@ func down_just_released():
 	#print("Down Just Released")
 	pass
 	
-func menu_just_pressed():
+func open_menu():
 	print("Menu Just Pressed")
+	MenuManager.overlay_ui()
 	pass
 ###################################################	
 func test_command1():
