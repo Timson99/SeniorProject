@@ -25,18 +25,6 @@ var to_player_commands := {
 }
 
 
-var to_dialogue_commands : Dictionary = {}
-var to_menu_commands: Dictionary = {
-	"pressed":{},
-	"just_pressed": 
-		{
-		"ui_cancel": "remove_ui",
-		
-		},
-	"just_released": {},
-}
-
-
 var to_dialogue_commands : Dictionary = {
 	"pressed": {},
 	"just_pressed": 
