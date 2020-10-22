@@ -20,7 +20,7 @@ const stat_template := {
 var stats := stat_template.duplicate() setget , get_stats
 
 
-func init(base_stats = stat_template):
+func _init(base_stats = stat_template):
 	if !validate_stats(base_stats):
 		Debugger.dprint("ERROR, INVALID STATS IN CONSTRUCTION, USING DEFAULTS")
 
@@ -43,7 +43,7 @@ func validate_stats(new_stats : Dictionary) -> bool:
 	
 	#Initialized Stats must be 1 or greater, must be ints	
 	for v in new_stats.values():
-		if(typeof(v) != TYPE_INT or v < 1):
+		if(typeof(v) != TYPE_INT or v < 1 or v > 999):
 			return false
 	
 	stats = new_stats

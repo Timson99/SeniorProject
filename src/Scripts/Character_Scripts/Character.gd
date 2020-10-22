@@ -8,7 +8,8 @@ export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
 
-var stats := EntityStats.new()
+var skills = {"Skill1" : 0} #"Skill" : Num_LP
+onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 
 #Array oof objects that are currently interactable
 var interact_areas := []
@@ -81,18 +82,22 @@ func deactivate_player():
 	
 #Input Receiver Methods
 func move_up():
+	velocity = Vector2(0,0)
 	velocity.y -= 1
 	current_dir = Enums.Dir.Up
 	
 func move_down():
+	velocity = Vector2(0,0)
 	velocity.y += 1
 	current_dir = Enums.Dir.Down
 	
 func move_right():
+	velocity = Vector2(0,0)
 	velocity.x += 1
 	current_dir = Enums.Dir.Right
 	
 func move_left():
+	velocity = Vector2(0,0)
 	velocity.x -= 1
 	current_dir = Enums.Dir.Left
 	
@@ -100,16 +105,24 @@ func down_just_released():
 	#print("Down Just Released")
 	pass
 	
-func up_just_pressed():
-	#print("Up Just Pressed")
+func open_menu():
+	MenuManager.overlay_ui()
+###################################################	
+func test_command1():
+	Sequencer.execute_event("test_seq4")
 	pass
 	
-func test_command():
-	Sequencer.execute_event("test_seq7")
+func test_command2():
+	pass
+	
+func test_command3():
+	pass
 
+	
 func save_game():
 	SaveManager.save_game()
-
+	
+####################################################
 func change_scene():
 	SceneManager.goto_scene(destination)
 
@@ -161,6 +174,8 @@ func save():
 		"position" : position, 
 		"current_dir" : current_dir,
 		"stats" : stats,
+		"skills" : skills,
+		"alive" : alive
 	}	
 	return save_dict
 	

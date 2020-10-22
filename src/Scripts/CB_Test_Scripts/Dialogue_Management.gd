@@ -181,7 +181,7 @@ func exec_final_waltz():
 	currentspID = null
 	displayedID = null
 	parentBranchNodes = []
-	InputEngine.deactive_receiver(self)
+	InputEngine.deactivate_receiver(self)
 	
 func _advance():
 	if dialogue_box.is_visible_in_tree():

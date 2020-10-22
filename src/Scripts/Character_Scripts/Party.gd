@@ -1,16 +1,16 @@
 extends Node2D
 
-export var actor_id: String = "Party"
+export var actor_id := "Party"
 #export var C1_in_party = true
 export var C2_in_party = true
 export var C3_in_party = true
 
 var active_player = null
-var party : Array = []
-var incapacitated : Array = []
-var items = null
-var spacing : float = 16
-var persistence_id = "main_party"
+var party := []
+var incapacitated := []
+var items := []
+var spacing := 16.0
+var persistence_id := "main_party"
 
 
 func sort_characters(a,b):
@@ -31,7 +31,7 @@ func init_in_party(condition, character_scene, name):
 		party_member.name = name
 		$YSort.add_child(party_member)
 		
-	
+
 
 # Called when the node enters the scene tree for the first time.
 func on_load():
@@ -64,8 +64,7 @@ func on_load():
 											})
 				
 func reposition(new_position : Vector2, new_direction):
-	position.x = new_position.x
-	position.y = new_position.y
+	set_global_position(new_position)
 	active_player.current_dir = new_direction
 	for i in range(party.size()):
 		party[i].position = Vector2(0,0)
@@ -79,6 +78,7 @@ func save():
 		#"C1_in_party" : C1_in_party,
 		"C2_in_party" : C2_in_party,
 		"C3_in_party" : C3_in_party,
+		"items" : items,
 	}	
 	return save_dict
 	

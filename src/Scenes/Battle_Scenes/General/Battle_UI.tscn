@@ -1,35 +1,68 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scenes/Battle_Scenes/General/Module.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Battle_Scenes/General/Modules/C2_Module.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Battle_Scenes/General/Message_Module.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Battle_Scenes/General/Modules/C3_Module.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Battle_Scenes/General/Modules/C1_Module.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/BattleScripts/BattleParty.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Test_Art/icon.png" type="Texture" id=6]
 
-[node name="CanvasLayer" type="CanvasLayer"]
-
-[node name="Control" type="Control" parent="."]
+[node name="BattleUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" parent="Control" instance=ExtResource( 1 )]
-margin_left = -176.0
-margin_top = -248.0
-margin_right = -176.0
-margin_bottom = -8.0
+[node name="BattleModules" type="CanvasLayer" parent="."]
 
-[node name="Control2" parent="Control" instance=ExtResource( 1 )]
-margin_left = 16.0
-margin_top = -248.0
-margin_right = 16.0
-margin_bottom = -8.0
+[node name="Party_Modules" type="HBoxContainer" parent="BattleModules" groups=[
+"Persistent",
+]]
+anchor_left = 0.5
+anchor_top = 0.835
+anchor_right = 0.5
+anchor_bottom = 0.835
+margin_left = -98.0
+margin_top = -0.399994
+margin_right = 94.0
+margin_bottom = -0.399994
+custom_constants/separation = 96
+alignment = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+C2_in_party = true
+C3_in_party = true
 
-[node name="Control3" parent="Control" instance=ExtResource( 1 )]
-margin_left = -80.0
-margin_top = -248.0
-margin_right = -80.0
-margin_bottom = -8.0
+[node name="C1_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 4 )]
 
-[node name="Node2D" parent="Control" instance=ExtResource( 2 )]
-margin_top = -8.0
-margin_bottom = -8.0
+[node name="C2_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 1 )]
+margin_left = 96.0
+margin_right = 96.0
+
+[node name="C3_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 3 )]
+margin_left = 192.0
+margin_right = 192.0
+
+[node name="BattleDialogue" type="CanvasLayer" parent="."]
+
+[node name="BattleDialogueBox" parent="BattleDialogue" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.165
+anchor_right = 0.5
+anchor_bottom = 0.165
+
+[node name="EnemyParty" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="EnemyParty"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
