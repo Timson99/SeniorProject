@@ -105,9 +105,8 @@ func down_just_released():
 	#print("Down Just Released")
 	pass
 	
-func menu_just_pressed():
-	print("Menu Just Pressed")
-	pass
+func open_menu():
+	MenuManager.overlay_ui()
 ###################################################	
 func test_command1():
 	Sequencer.execute_event("test_seq4")
