@@ -78,12 +78,12 @@ Game="*res://Scripts/Singletons/Game.gd"
 SceneManager="*res://Scripts/Singletons/SceneManager/SceneManager.gd"
 SaveManager="*res://Scripts/Singletons/SaveManager.gd"
 InputEngine="*res://Scripts/Singletons/InputEngine.gd"
-Sequencer="*res://Scripts/Singletons/Sequencer/Sequencer.gd"
 CameraManager="*res://Scripts/Singletons/CameraManager.gd"
 PersistentData="*res://Scripts/Singletons/PersistentData.gd"
 ActorEngine="*res://Scripts/Singletons/ActorEngine.gd"
 DialogueEngine="*res://Scenes/CB_Test_Scene/DialogueEngine.tscn"
 BgEngine="*res://Scripts/Singletons/BGAudioEngine/BGEngine.tscn"
+Sequencer="*res://Scripts/Singletons/Sequencer/Sequencer.gd"
 
 [debug]
 

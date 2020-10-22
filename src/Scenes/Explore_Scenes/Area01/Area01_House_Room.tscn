@@ -59,7 +59,6 @@ C2_in_party = false
 C3_in_party = false
 
 [node name="World_Collider" type="StaticBody2D" parent="TileMap"]
-visible = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true

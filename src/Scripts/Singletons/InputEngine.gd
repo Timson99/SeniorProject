@@ -11,8 +11,8 @@ var to_player_commands := {
 		{"ui_up" : "up_just_pressed",
 		 "ui_accept" : "interact",
 		 "ui_cancel" : "change_scene",
+		 "ui_menu" : "open_menu",
 		 #Test Command
-		"ui_menu" : "menu_just_pressed",
 		"ui_test1" : "test_command1",
 		"ui_test2" : "test_command2",
 		"ui_test3" : "test_command3",
@@ -47,12 +47,22 @@ var to_battle_commands : Dictionary = {
 					},
 }
 
+var to_menu_commands: Dictionary = {
+	"pressed":{},
+	"just_pressed": 
+		{
+		"ui_cancel": "remove_ui",
+
+		},
+	"just_released": {},
+}
+
 var valid_receivers := {
 	#"Debug_Menu" : {"priority": 0, "loop": "_process", "translator" : to_player_commands},
 	"Battle_Dialogue" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
 	"Battle_Menu" : {"priority": 2, "loop": "_process", "translator" : to_battle_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_dialogue_commands},
-	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_player_commands},
+	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_menu_commands},
 	"Player" : {"priority": 5, "loop": "_physics_process", "translator" : to_player_commands},
 	"Test_Item" : {"priority": 6, "loop": "_process", "translator" : to_player_commands},
 }
