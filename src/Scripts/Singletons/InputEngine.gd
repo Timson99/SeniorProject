@@ -24,8 +24,6 @@ var to_player_commands := {
 		},
 }
 
-
-var to_dialogue_commands : Dictionary = {}
 var to_menu_commands: Dictionary = {
 	"pressed":{},
 	"just_pressed": 
@@ -61,15 +59,6 @@ var to_battle_commands : Dictionary = {
 					},
 }
 
-var to_menu_commands: Dictionary = {
-	"pressed":{},
-	"just_pressed": 
-		{
-		"ui_cancel": "remove_ui",
-
-		},
-	"just_released": {},
-}
 
 var valid_receivers := {
 	#"Debug_Menu" : {"priority": 0, "loop": "_process", "translator" : to_player_commands},
