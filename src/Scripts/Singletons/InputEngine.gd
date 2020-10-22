@@ -24,6 +24,7 @@ var to_player_commands := {
 		},
 }
 
+
 var to_menu_commands: Dictionary = {
 	"pressed":{},
 	"just_pressed": 
@@ -33,6 +34,7 @@ var to_menu_commands: Dictionary = {
 		},
 	"just_released": {},
 }
+
 
 
 var to_dialogue_commands : Dictionary = {
