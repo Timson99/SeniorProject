@@ -1,0 +1,18 @@
+{
+  "Bomb ": {
+    "ItemPrice": 30,
+    "ItemWeight": 2
+  },
+  "Notebook": {
+    "ItemPrice": 10,
+    "ItemWeight": 1
+  },
+  "Revolver": {
+    "ItemPrice": 100,
+    "ItemWeight": 4
+  },
+  "WifeBox": {
+    "ItemPrice": 100,
+    "ItemWeight": 40
+  }
+}

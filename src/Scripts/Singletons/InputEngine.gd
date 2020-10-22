@@ -5,12 +5,13 @@ var to_player_commands := {
 		{"ui_up" : "move_up",
 		"ui_down" : "move_down",
 		"ui_left" : "move_left",
-		"ui_right" : "move_right"
+		"ui_right" : "move_right",
 		},
 	"just_pressed": 
 		{"ui_up" : "up_just_pressed",
 		 "ui_accept" : "interact",
 		 "ui_cancel" : "change_scene",
+		 "ui_menu": "open_menu",
 		 #Test Command
 		"ui_test1" : "test_command1",
 		"ui_test2" : "test_command2",
@@ -21,6 +22,19 @@ var to_player_commands := {
 		{"ui_down" : "down_just_released",
 		},
 }
+
+
+var to_dialogue_commands : Dictionary = {}
+var to_menu_commands: Dictionary = {
+	"pressed":{},
+	"just_pressed": 
+		{
+		"ui_cancel": "remove_ui",
+		
+		},
+	"just_released": {},
+}
+
 
 var to_dialogue_commands : Dictionary = {
 	"pressed": {},
@@ -48,7 +62,7 @@ var valid_receivers := {
 	"Battle_Dialogue" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
 	"Battle_Menu" : {"priority": 2, "loop": "_process", "translator" : to_battle_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_dialogue_commands},
-	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_player_commands},
+	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_menu_commands},
 	"Player" : {"priority": 5, "loop": "_physics_process", "translator" : to_player_commands},
 	"Test_Item" : {"priority": 6, "loop": "_process", "translator" : to_player_commands},
 }
@@ -150,6 +164,8 @@ func translate_and_execute(input_translator):
 	for action in input_translator["just_pressed"].keys():
 		if(Input.is_action_just_pressed(action)):
 			commands.append(input_translator["just_pressed"][action])
+			print(commands)
+			print("input_targs: {in}".format({"in":input_target}))
 			break
 	for action in input_translator["just_released"].keys():
 		if(Input.is_action_just_released(action)):
