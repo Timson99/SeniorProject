@@ -90,7 +90,7 @@ ActorEngine="*res://Scripts/Singletons/ActorEngine.gd"
 DialogueEngine="*res://Scenes/CB_Test_Scene/DialogueEngine.tscn"
 BgEngine="*res://Scripts/Singletons/BGAudioEngine/BGEngine.tscn"
 Sequencer="*res://Scripts/Singletons/Sequencer/Sequencer.gd"
-MenuManager="*res://Scripts/Singletons/MenuManager.gd"
+MenuManager="*res://Scripts/Singletons/MenuManager/MenuManager.gd"
 ImportData="*res://Scripts/Singletons/ImportData.gd"
 
 [debug]

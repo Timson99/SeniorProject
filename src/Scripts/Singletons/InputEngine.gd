@@ -29,10 +29,17 @@ var to_menu_commands: Dictionary = {
 	"pressed":{},
 	"just_pressed": 
 		{
-		"ui_cancel": "remove_ui",
-		
+		"ui_cancel": "back",
+		"ui_accept": "accept",
+		"ui_up": "up",
+		"ui_down": "down",
+		"ui_left": "left",
+		"ui_right": "right",
 		},
-	"just_released": {},
+	"just_released": {
+		"ui_up" : "release_up",
+		"ui_down" : "release_down",
+	},
 }
 
 

@@ -1,0 +1,157 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Assets/UI/Menu/Menu_Backdrop_01.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_04.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_09.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_01.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_06.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_02.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_07.png" type="Texture" id=7]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_05.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_10.png" type="Texture" id=9]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_08.png" type="Texture" id=10]
+[ext_resource path="res://Assets/UI/Menu/Menu_Button_03.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/Singletons/MenuManager/MainMenu.gd" type="Script" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[node name="MainMenu" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="CanvasLayer" parent="."]
+
+[node name="Background" type="TextureRect" parent="MainMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -110.0
+margin_right = 150.0
+margin_bottom = 110.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuOptions" type="VBoxContainer" parent="MainMenu/Background"]
+anchor_left = 0.1
+anchor_top = 0.355
+anchor_right = 0.1
+anchor_bottom = 0.4
+margin_top = -32.0
+margin_bottom = 32.0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Items" type="Control" parent="MainMenu/Background/MenuOptions"]
+
+[node name="Items" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Items"]
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="Equip" type="Control" parent="MainMenu/Background/MenuOptions"]
+margin_top = 16.0
+margin_bottom = 16.0
+
+[node name="Equip" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Equip"]
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Skills" type="Control" parent="MainMenu/Background/MenuOptions"]
+margin_top = 32.0
+margin_bottom = 32.0
+
+[node name="Skills" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Skills"]
+frames = SubResource( 3 )
+animation = "off"
+
+[node name="Status" type="Control" parent="MainMenu/Background/MenuOptions"]
+margin_top = 48.0
+margin_bottom = 48.0
+
+[node name="Status" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Status"]
+frames = SubResource( 4 )
+animation = "off"
+
+[node name="Config" type="Control" parent="MainMenu/Background/MenuOptions"]
+margin_top = 64.0
+margin_bottom = 64.0
+
+[node name="Config" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Config"]
+frames = SubResource( 5 )
+animation = "off"

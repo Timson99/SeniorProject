@@ -106,7 +106,7 @@ func down_just_released():
 	pass
 	
 func open_menu():
-	MenuManager.overlay_ui()
+	MenuManager.activate()
 ###################################################	
 func test_command1():
 	Sequencer.execute_event("test_seq4")
