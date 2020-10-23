@@ -93,15 +93,11 @@ position = Vector2( 105, 126 )
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World_Collider"]
-position = Vector2( 208, 200 )
+position = Vector2( 208, 184 )
 shape = SubResource( 2 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World_Collider"]
 position = Vector2( -8, 136 )
-shape = SubResource( 3 )
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="World_Collider"]
-position = Vector2( 424, 136 )
 shape = SubResource( 3 )
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="World_Collider"]
@@ -113,3 +109,6 @@ polygon = PoolVector2Array( 272, 80, 416, 80, 416, 64, 256, 64, 224, 64 )
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="World_Collider"]
 polygon = PoolVector2Array( 0, 64, 79, 64, 0, 90, 0, 64 )
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="World_Collider"]
+polygon = PoolVector2Array( 416, 80, 416, 64, 432, 64, 432, 80, 242, 176, 225, 176 )

@@ -64,6 +64,7 @@ C3_in_party = false
 position = Vector2( -63, -59 )
 
 [node name="World_Collider" type="StaticBody2D" parent="TileMap"]
+visible = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
