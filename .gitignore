@@ -11,3 +11,6 @@ data_*/
 # Asset Ignores
 Assets/
 *.zip
+
+#Batch Files
+*.bat
