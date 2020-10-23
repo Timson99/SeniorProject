@@ -1,28 +1,28 @@
-extends Control
+extends CanvasLayer
 
 
 enum Button {Items, Equip, Skills, Status, Config}
 
 onready var buttons = { 
 	Button.Items : {
-		"anim" : $MainMenu/Background/MenuOptions/Items/Items,
-		"submenu" : ""
+		"anim" : $Background/MenuOptions/Items/Items,
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/ItemsMenu.tscn")
 	},
 	 Button.Equip : {
-		"anim" : $MainMenu/Background/MenuOptions/Equip/Equip,
-		"submenu" : ""
+		"anim" : $Background/MenuOptions/Equip/Equip,
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/EquipMenu.tscn")
 	}, 
 	 Button.Skills : {
-		"anim" : $MainMenu/Background/MenuOptions/Skills/Skills,
-		"submenu" : ""
+		"anim" : $Background/MenuOptions/Skills/Skills,
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/SkillsMenu.tscn")
 	},
 	 Button.Status : {
-		"anim" : $MainMenu/Background/MenuOptions/Status/Status,
-		"submenu" : ""
+		"anim" : $Background/MenuOptions/Status/Status,
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/StatusMenu.tscn")
 	},
 	 Button.Config : {
-		"anim" : $MainMenu/Background/MenuOptions/Config/Config,
-		"submenu" : ""
+		"anim" : $Background/MenuOptions/Config/Config,
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/ConfigMenu.tscn")
 	}
 }
 
@@ -46,6 +46,7 @@ func _ready():
 	
 func _exit_tree():
 	InputEngine.deactivate_receiver(self)
+	parent.deactivate()
 	
 func _process(_delta):
 	for action in held_actions.keys():
@@ -63,16 +64,19 @@ func quick_scroll(action, start_time):
 		quick_scrolling.erase(action)
 
 func back():
-	if !submenu:
-		parent.deactivate()
-	else:
+	if submenu:
 		submenu.back()
+	else:
+		queue_free()
 		
 func accept():
-	if !submenu:
-		submenu = buttons[focused]["submenu"].instance()
-	else:
+	if submenu:
 		submenu.accept()
+	else:
+		submenu = buttons[focused]["submenu"].instance()
+		call_deferred("add_child", submenu)
+		submenu.layer = layer + 1
+		submenu.parent = self
 	
 func up():
 	if submenu:
@@ -88,7 +92,7 @@ func up():
 	
 func down():
 	if submenu:
-		submenu.down
+		submenu.down()
 	else:
 		buttons[focused]["anim"].animation = "off" 
 		focused += 1

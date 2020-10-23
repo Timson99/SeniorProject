@@ -78,17 +78,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="MainMenu" type="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="MainMenu" type="CanvasLayer" parent="."]
-
-[node name="Background" type="TextureRect" parent="MainMenu"]
+[node name="Background" type="TextureRect" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -104,7 +97,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MenuOptions" type="VBoxContainer" parent="MainMenu/Background"]
+[node name="MenuOptions" type="VBoxContainer" parent="Background"]
 anchor_left = 0.1
 anchor_top = 0.355
 anchor_right = 0.1
@@ -118,40 +111,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Items" type="Control" parent="MainMenu/Background/MenuOptions"]
+[node name="Items" type="Control" parent="Background/MenuOptions"]
 
-[node name="Items" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Items"]
+[node name="Items" type="AnimatedSprite" parent="Background/MenuOptions/Items"]
 frames = SubResource( 1 )
 animation = "off"
 
-[node name="Equip" type="Control" parent="MainMenu/Background/MenuOptions"]
+[node name="Equip" type="Control" parent="Background/MenuOptions"]
 margin_top = 16.0
 margin_bottom = 16.0
 
-[node name="Equip" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Equip"]
+[node name="Equip" type="AnimatedSprite" parent="Background/MenuOptions/Equip"]
 frames = SubResource( 2 )
 animation = "off"
 
-[node name="Skills" type="Control" parent="MainMenu/Background/MenuOptions"]
+[node name="Skills" type="Control" parent="Background/MenuOptions"]
 margin_top = 32.0
 margin_bottom = 32.0
 
-[node name="Skills" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Skills"]
+[node name="Skills" type="AnimatedSprite" parent="Background/MenuOptions/Skills"]
 frames = SubResource( 3 )
 animation = "off"
 
-[node name="Status" type="Control" parent="MainMenu/Background/MenuOptions"]
+[node name="Status" type="Control" parent="Background/MenuOptions"]
 margin_top = 48.0
 margin_bottom = 48.0
 
-[node name="Status" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Status"]
+[node name="Status" type="AnimatedSprite" parent="Background/MenuOptions/Status"]
 frames = SubResource( 4 )
 animation = "off"
 
-[node name="Config" type="Control" parent="MainMenu/Background/MenuOptions"]
+[node name="Config" type="Control" parent="Background/MenuOptions"]
 margin_top = 64.0
 margin_bottom = 64.0
 
-[node name="Config" type="AnimatedSprite" parent="MainMenu/Background/MenuOptions/Config"]
+[node name="Config" type="AnimatedSprite" parent="Background/MenuOptions/Config"]
 frames = SubResource( 5 )
 animation = "off"

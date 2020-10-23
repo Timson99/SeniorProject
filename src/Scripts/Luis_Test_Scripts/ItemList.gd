@@ -8,7 +8,7 @@ extends GridContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for item in ImportData.item_data:
+	for item in MenuManager.item_data:
 		_add_item_entry(item)
 		
 func _add_item_entry(item):
