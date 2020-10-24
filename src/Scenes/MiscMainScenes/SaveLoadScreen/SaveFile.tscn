@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/UI/Dialogue/Dialogue_Box_Mockup_01.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Dialogue/Dialogue_Box_Mockup_02.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/MiscMainScenes/SaveLoadScreen/SaveFile.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Fonts/ChunkyPixelsNormal.tres" type="DynamicFont" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
+
+[node name="Control" type="Control"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "off"
+
+[node name="DataAvailable" type="RichTextLabel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -24.0
+margin_top = -8.0
+margin_right = 56.0
+margin_bottom = 32.0
+custom_fonts/normal_font = ExtResource( 4 )
+text = "No Data"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveName" type="RichTextLabel" parent="."]
+margin_left = -144.0
+margin_top = -24.0
+margin_right = 144.0
+margin_bottom = 24.0
+custom_fonts/normal_font = ExtResource( 4 )
+text = "Save Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
