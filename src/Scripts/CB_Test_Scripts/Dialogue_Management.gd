@@ -110,8 +110,6 @@ func _ready():
 				
 				#add entry with key of msgID and value as metadata subdirectory
 				dialogueDictionary[metaArray[2]] = toInsert
-				
-	print("finished parse")
 	
 
 #either skips scroll, advances to next line, or selects option
