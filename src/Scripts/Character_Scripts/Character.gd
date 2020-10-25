@@ -11,6 +11,16 @@ export var alive := true
 var skills = {"Skill1" : 0} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 
+onready var skins  = {
+	"C1" : {
+		"default" : $AnimatedSprite,
+		"AtHome" : $AtHome
+	},
+	"C2" : { "default" : $AnimatedSprite,},
+	"C3" : { "default" : $AnimatedSprite },
+}
+onready var animations = skins[persistence_id]["default"]
+
 #Array oof objects that are currently interactable
 var interact_areas := []
 
@@ -33,7 +43,6 @@ var dir_anims := {
 var destination = "res://Scenes/Tim_Test_Scenes/TestTileMap.tscn"
 
 
-
 func on_load():
 	position = Vector2(round(position.x), round(position.y))
 
@@ -51,21 +60,21 @@ func explore(delta : float):
 
 	velocity = velocity.normalized() * speed
 	if velocity.length() != 0:
-		$AnimatedSprite.animation = dir_anims[current_dir][1]
+		animations.animation = dir_anims[current_dir][1]
 		velocity = velocity.normalized() * speed
 		if(!isMoving): 
-			$AnimatedSprite.play()
+			animations.play()
 			isMoving = true
 	else:
-		$AnimatedSprite.stop()
-		$AnimatedSprite.animation = dir_anims[current_dir][0]
+		animations.stop()
+		animations.animation = dir_anims[current_dir][0]
 		isMoving = false
 		
-	$AnimatedSprite.flip_h = (current_dir == Enums.Dir.Right)
+	animations.flip_h = (current_dir == Enums.Dir.Right)
 	var collision = move_and_collide(velocity * delta)
 	position = Vector2(round(position.x), round(position.y))
 	if collision:
-		$AnimatedSprite.animation = dir_anims[current_dir][0]
+		animations.animation = dir_anims[current_dir][0]
 	velocity = Vector2()
 	
 	
@@ -144,10 +153,19 @@ func restore_speed():
 	speed = default_speed
 	
 func scale_anim_speed(scale : float):
-	$AnimatedSprite.set_speed_scale(scale) 
+	animations.set_speed_scale(scale) 
 	
 func restore_anim_speed():
-	$AnimatedSprite.set_speed_scale(1) 
+	animations.set_speed_scale(1) 
+	
+func change_skin(skin_id):
+	if(skin_id in skins[persistence_id].keys()):
+		animations.hide()
+		animations = skins[persistence_id][skin_id]
+		animations.show()
+	else:
+		Debugger.dprint("Skin id %s not found in Character %s" % [skin_id, persistence_id])
+		
 
 
 func move_to_position(new_position: Vector2):
@@ -218,4 +236,4 @@ func follow(delta : float):
 			elif(to_leader.normalized() == Vector2.LEFT): move_left()
 			elif(to_leader.normalized() == Vector2.UP): move_up()
 			
-	$AnimatedSprite.frame = party_data["active"].get_node("AnimatedSprite").frame
+	animations.frame = party_data["active"].get_node("AnimatedSprite").frame
