@@ -14,7 +14,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 63.1255
+radius = 35.5035
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 2 )

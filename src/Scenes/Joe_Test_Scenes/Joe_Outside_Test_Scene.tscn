@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Environments/Area1/Outside_Map.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Character_Scenes/Party.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Enemy_Scenes/SampleEnemy.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 7, 16, 7 )
@@ -93,7 +92,4 @@ tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Party" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 136, 192 )
-
-[node name="KinematicBody2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( 285.5, 135 )
+position = Vector2( 15.7649, 240.469 )

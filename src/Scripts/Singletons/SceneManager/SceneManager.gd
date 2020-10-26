@@ -32,6 +32,7 @@ func goto_scene(scene_id : String, warp_destination_id := "", save_path = false)
 		pass
 	elif scene_id in MainScenes.explore_scenes:
 		scene_id = MainScenes.explore_scenes[scene_id]
+		EnemyHandler.can_spawn = true
 	elif scene_id in MainScenes.battle_scenes:
 		scene_id = MainScenes.battle_scenes[scene_id]
 	else:

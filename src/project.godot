@@ -91,6 +91,7 @@ DialogueEngine="*res://Scenes/CB_Test_Scene/DialogueEngine.tscn"
 BgEngine="*res://Scripts/Singletons/BGAudioEngine/BGEngine.tscn"
 Sequencer="*res://Scripts/Singletons/Sequencer/Sequencer.gd"
 MenuManager="*res://Scripts/Singletons/MenuManager/MenuManager.gd"
+EnemyHandler="*res://Scripts/Singletons/EnemyHandler.gd"
 
 [debug]
 

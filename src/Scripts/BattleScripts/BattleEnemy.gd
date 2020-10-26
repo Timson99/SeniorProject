@@ -1,16 +1,9 @@
-extends Node
+extends Sprite # May be changed to Control later in development
 
+export var battle_id := 1
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var battle_stats = EnemyHandler.get_enemy_data(battle_id)
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	print(battle_stats)
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
