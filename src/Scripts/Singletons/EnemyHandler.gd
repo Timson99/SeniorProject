@@ -1,6 +1,9 @@
 extends Node
 
+# Resource script with all possible enemy instantiations?
 const ENEMY = preload("res://Scenes/Enemy_Scenes/SampleEnemy.tscn")
+
+var random_num_generator = RandomNumberGenerator.new()
 
 export var generated_enemy_id := 1
 export var num_of_enemies := 0
@@ -8,7 +11,7 @@ export var max_enemies := 5
 var existing_enemy_data : Dictionary = {}
 var queued_despawns : Array = []
 var current_battle_stats : Dictionary
-var can_spawn := true
+var can_spawn := true # Will be determined by the SceneManager later on
 
 
 func _ready():
@@ -18,9 +21,12 @@ func get_enemy_data(id: int):
 	return existing_enemy_data.get(id)
 	
 func spawn_enemy():
-	var random_wait_time := randi()%7+12
+	random_num_generator.randomize()
+	var random_wait_time: int = random_num_generator.randi_range(7, 12)
+	print(random_wait_time)
 	yield(get_tree().create_timer(random_wait_time, false), "timeout")
-	var spawn_chance := randf()*0.0+1.0
+	var spawn_chance: float = random_num_generator.randf_range(0.5, 1)			# CHANGE LATER TO 0, 1
+	print(spawn_chance)
 	if spawn_chance > 0.5:
 		var new_enemy = ENEMY.instance()
 		new_enemy.data_id = generated_enemy_id
