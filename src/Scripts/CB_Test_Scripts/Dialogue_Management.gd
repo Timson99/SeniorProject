@@ -110,8 +110,6 @@ func _ready():
 				
 				#add entry with key of msgID and value as metadata subdirectory
 				dialogueDictionary[metaArray[2]] = toInsert
-				
-	print("finished parse")
 	
 
 #either skips scroll, advances to next line, or selects option
@@ -175,6 +173,14 @@ func _beginTransmit(var spID, var toSignal):
 	currentspID = spID
 	dialogue_box.show()
 	_advance()
+	
+func transmit_message(var message):
+	###############################NOT TESTED
+	InputEngine.activate_receiver(self)
+	finalWaltz = false
+	dialogue_box.show()
+	_advance()
+	##############################NOT TESTED
 	
 func exec_final_waltz():
 	dialogue_box.hide()
