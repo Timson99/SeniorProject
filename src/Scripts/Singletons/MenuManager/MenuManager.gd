@@ -29,7 +29,6 @@ func load_item_data():
 	var itemdata_json = JSON.parse(itemdata_file.get_as_text())
 	itemdata_file.close()
 	item_data = itemdata_json.result
-
 	
 	
 
