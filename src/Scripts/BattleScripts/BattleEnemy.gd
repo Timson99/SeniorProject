@@ -1,9 +1,14 @@
 extends Sprite # May be changed to Control later in development
 
 export var battle_id := 1
-
-onready var battle_stats = EnemyHandler.get_enemy_data(battle_id)
+export var alive := true
 
 func _ready():
-	print(battle_stats)
 	pass # Replace with function body.
+	
+func on_load():
+	var temp_battle_stats #= stats
+
+# Called upon enemy's defeat
+func deactivate_enemy():
+	pass 

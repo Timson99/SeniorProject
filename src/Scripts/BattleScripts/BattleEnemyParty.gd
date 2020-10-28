@@ -1,16 +1,9 @@
 extends Node
 
+export var battle_id := 1
+onready var battle_stats = EnemyHandler.get_enemy_data(battle_id)
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	print(battle_stats)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
