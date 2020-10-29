@@ -11,6 +11,7 @@ export var alive := true
 var skills = {"Skill1" : 0} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 
+
 onready var skins  = {
 	"C1" : {
 		"default" : $AnimatedSprite,
@@ -19,7 +20,9 @@ onready var skins  = {
 	"C2" : { "default" : $AnimatedSprite,},
 	"C3" : { "default" : $AnimatedSprite },
 }
-onready var animations = skins[persistence_id]["default"]
+
+onready var current_skin = "default"
+onready var animations = skins[persistence_id][current_skin]
 
 #Array oof objects that are currently interactable
 var interact_areas := []
@@ -45,6 +48,8 @@ var destination = "res://Scenes/Tim_Test_Scenes/TestTileMap.tscn"
 
 func on_load():
 	position = Vector2(round(position.x), round(position.y))
+	if current_skin != "default":
+		change_skin(current_skin)
 
 
 func _physics_process(delta : float):
@@ -160,9 +165,12 @@ func restore_anim_speed():
 	
 func change_skin(skin_id):
 	if(skin_id in skins[persistence_id].keys()):
+		current_skin = skin_id
 		animations.hide()
-		animations = skins[persistence_id][skin_id]
-		animations.show()
+		var new_animations = skins[persistence_id][skin_id]
+		new_animations.play(dir_anims[current_dir][0])
+		new_animations.show()
+		animations = new_animations
 	else:
 		Debugger.dprint("Skin id %s not found in Character %s" % [skin_id, persistence_id])
 		
@@ -193,7 +201,8 @@ func save():
 		"current_dir" : current_dir,
 		"stats" : stats,
 		"skills" : skills,
-		"alive" : alive
+		"alive" : alive,
+		"current_skin" : current_skin,
 	}	
 	return save_dict
 	

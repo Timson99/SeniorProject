@@ -168,7 +168,7 @@ func _beginTransmit(var spID, var toSignal):
 	reactiveID = toSignal
 	if !speakerDictionary.has(spID):
 		Debugger.dprint("Could not find speaker ID: " + spID + " in dictionary!")
-		InputEngine.deactive_receiver(self)
+		InputEngine.deactivate_receiver(self)
 		return
 	currentspID = spID
 	dialogue_box.show()

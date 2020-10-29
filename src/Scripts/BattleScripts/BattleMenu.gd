@@ -3,7 +3,8 @@ extends VBoxContainer
 
 enum Button {Attack, Skills, Items, Defend, Run}
 
-var submenu_open
+var submenu = null
+var parent = null
 
 var held_actions = {}
 var quick_scrolling = []
@@ -50,32 +51,63 @@ func reset():
 	buttons[focused]["anim_player"].animation = "on" 
 	
 	
-func move_up():
-	buttons[focused]["anim_player"].animation = "off" 
-	focused -= 1
-	focused = Button.Run if focused < Button.Attack else focused
-	buttons[focused]["anim_player"].animation = "on" 
+func up():
+	if submenu:
+		submenu.up()
+	else:
+		buttons[focused]["anim_player"].animation = "off" 
+		focused -= 1
+		focused = Button.Run if focused < Button.Attack else focused
+		buttons[focused]["anim_player"].animation = "on" 
 	
 	if(!("move_up" in held_actions)):
 		held_actions["move_up"] = OS.get_ticks_msec()
 	
-func move_down():
-	buttons[focused]["anim_player"].animation = "off" 
-	focused += 1
-	focused = Button.Attack if focused > Button.Run else focused
-	buttons[focused]["anim_player"].animation = "on" 
+func down():
+	if submenu:
+		submenu.down()
+	else:
+		buttons[focused]["anim_player"].animation = "off" 
+		focused += 1
+		focused = Button.Attack if focused > Button.Run else focused
+		buttons[focused]["anim_player"].animation = "on" 
 	
-	if(!("move_down" in held_actions)):
-		held_actions["move_down"] = OS.get_ticks_msec()
+		if(!("move_down" in held_actions)):
+			held_actions["move_down"] = OS.get_ticks_msec()
 	
 func release_up():
 	held_actions.erase("move_up")
 func release_down():
 	held_actions.erase("move_down")
 	
-func accept_pressed():
-	buttons[focused]["anim_player"].animation = "off" 
-	return buttons[focused]["command"]
+func accept():
+	if submenu:
+		submenu.accept()
+	else:
+		buttons[focused]["anim_player"].animation = "off" 
+		return buttons[focused]["command"]
+
+func back():
+	if submenu:
+		submenu.back()
+	else:
+		queue_free()
+		parent.submenu = null
+
+func left():
+	if submenu:
+		submenu.left()
+	else:
+		pass
+	
+func right():
+	if submenu:
+		submenu.right()
+	else:
+		pass
+		
+			
+
 
 
 func quick_scroll(action, start_time):
