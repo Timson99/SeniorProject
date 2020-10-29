@@ -16,9 +16,6 @@ var module_rise := 2
 
 var party_data = null
 
-
-var moveset = null #Generated
-
 signal move(move)
 
 func _ready():
@@ -37,16 +34,16 @@ func on_load():
 func test_command1():
 	pass
 	
-func accept_pressed():
-	var command = menu.accept_pressed()
+func accept():
+	var command = menu.accept()
 	emit_signal("move", command)
 	
 	
-func move_up():
-	menu.move_up()
+func up():
+	menu.up()
 	
-func move_down():
-	menu.move_down()
+func down():
+	menu.down()
 	
 func release_up():
 	menu.release_up()
@@ -56,13 +53,13 @@ func release_down():
 	
 
 func activate_player():
-	InputEngine.activate_receiver(self)
 	$UI.position.y -= module_rise
 	anim_player.play("Display_To_Menu")
 	yield(anim_player, "animation_finished")
 	anim_player.stop()
 	anim_player.animation = "Menu"
 	menu.show()
+	InputEngine.activate_receiver(self)
 	
 	
 # When followed or incapacitated, player is an AI follower

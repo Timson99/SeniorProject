@@ -33,6 +33,7 @@ func battle_engine():
 		var move = yield(c, "move")
 		moves_made[c.name] = {"Entity": c, "move" : move}
 		print("%s : %s" % [c.name, move])
+		dialogue_node.display_message("%s : %s" % [c.name, move])
 		#move = yield(UI, character.move_made_signal)
 		#Add as queued character action
 		
@@ -40,6 +41,7 @@ func battle_engine():
 		var move = "Defend"
 		moves_made["Enemy1"] = {"Entity": e, "move" : move}
 		print(e + " : " + move)
+		dialogue_node.display_message(e + " : " + move)
 	
 	print(moves_made)
 	
