@@ -10,5 +10,6 @@ func _ready():
 	
 func _setup(name):
 	item_name= name
+
 	
 

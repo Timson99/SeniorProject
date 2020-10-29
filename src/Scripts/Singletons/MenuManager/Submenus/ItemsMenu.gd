@@ -14,6 +14,7 @@ var items = []
 var scroll_level= 0
 var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenus/ItemButton.tscn"
+var popup_path = "res://Scripts/Singletons/MenuManager/Submenus/ItemPopup.tscn"
 
 func _ready():
 	_instantiate_items()
@@ -42,7 +43,7 @@ func scroll(direction):
 			_update_buttons()
 			_repopulate_btn_container()
 	else:
-		if(scroll_level >= 0):
+		if(scroll_level >= 1):
 			scroll_level -=2
 			_update_buttons()
 			_repopulate_btn_container()
@@ -60,7 +61,7 @@ func _update_buttons():
 	buttons= []
 	for i in range(btn_ctnr_size):
 		var item_ix = i+scroll_level
-		print(item_ix)
+#		print(item_ix)
 		if item_ix <len(items):
 			_add_item_button(items[item_ix])
 		else:
@@ -99,7 +100,15 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
-		pass
+		submenu = load(popup_path).instance()
+		call_deferred("add_child", submenu)
+		var current_btn  = buttons[focused]
+		print(submenu.get_child(0).get_position())
+		print(current_btn.get_position())
+		submenu.get_child(0).set_position(current_btn.get_position())
+		print(submenu.get_child(0).get_position())
+		submenu.layer = layer + 1
+		submenu.parent = self
 	
 func up():
 	if submenu:
@@ -107,7 +116,6 @@ func up():
 	else:
 		var next_focused = focused - 2
 	#	print(next_focused, " ", scroll_level)
-		print(next_focused+(scroll_level+1))
 		if next_focused < 0 and next_focused+(scroll_level+1)>=0:
 				scroll("up")
 				next_focused+=2
@@ -151,10 +159,3 @@ func right():
 		if not even(next_focused) and next_focused <= len(buttons)-1:
 			refocus(focused,next_focused)
 			focused = next_focused
-		
-			
-
-
-
-
-

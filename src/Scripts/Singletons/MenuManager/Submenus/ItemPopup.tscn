@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_04.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_05.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Fonts/ThinPixels.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/ItemPopup.gd" type="Script" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "focused",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "unfocused",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+margin_right = 100.0
+margin_bottom = 100.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 21
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UseOption" type="Control" parent="Control/VBoxContainer"]
+margin_right = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Control/VBoxContainer/UseOption"]
+position = Vector2( 55.6345, 58.9182 )
+frames = SubResource( 1 )
+animation = "unfocused"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/UseOption"]
+margin_left = 12.5962
+margin_top = 4.11092
+margin_right = 65.5962
+margin_bottom = 20.1109
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+text = "Use"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DiscardOption" type="Control" parent="Control/VBoxContainer"]
+margin_top = 21.0
+margin_right = 40.0
+margin_bottom = 21.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Control/VBoxContainer/DiscardOption"]
+position = Vector2( 55.6345, 58.9182 )
+frames = SubResource( 1 )
+animation = "unfocused"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/DiscardOption"]
+margin_left = 12.5962
+margin_top = 4.11092
+margin_right = 65.5962
+margin_bottom = 20.1109
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+text = "Discard"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

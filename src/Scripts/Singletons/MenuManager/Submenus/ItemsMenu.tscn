@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/UI/Menu/Menu_Backdrop_03.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/ItemsMenu.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Fonts/ThinPixels.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_01.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 3 )
@@ -86,6 +87,22 @@ margin_right = 68.1118
 margin_bottom = 16.3811
 custom_fonts/font = SubResource( 2 )
 text = "Description"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/ItemList"]
+light_mask = 0
+anchor_left = 0.96
+anchor_top = 0.077
+anchor_right = 0.96
+anchor_bottom = 0.077
+margin_left = -3.25374
+margin_top = 0.963958
+margin_right = 100.746
+margin_bottom = 100.964
+rect_scale = Vector2( 1, 5 )
+texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
