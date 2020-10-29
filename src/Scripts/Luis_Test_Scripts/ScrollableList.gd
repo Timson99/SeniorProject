@@ -37,24 +37,31 @@ func scroll(direction):
 			_update_buttons()
 			_repopulate_btn_container()
 	else:
-		if(scroll_level+btn_ctnr_size >= 0):
+		if(scroll_level >= 0):
 			scroll_level -=2
 			_update_buttons()
 			_repopulate_btn_container()
 		
 
 func down():
+	#is more complicated because it must deal with odd
+	#numbers of items in the list
 	var next_focused = focused + 2
 	if next_focused >= btn_ctnr_size and next_focused+(scroll_level+1)<=len(items):
 			scroll("down")
 			next_focused-=2
-	if next_focused <= btn_ctnr_size-1:
+	elif focused == btn_ctnr_size-1 and next_focused-1 >= btn_ctnr_size and next_focused+(scroll_level)<=len(items):
+			scroll("down")
+			focused -=1
+			next_focused-=3
+	if next_focused+(scroll_level+1)<=len(items) and next_focused <= btn_ctnr_size-1:
 		refocus(focused,next_focused)
 		focused = next_focused
 
 func up():
 	var next_focused = focused - 2
-	print(next_focused, " ", scroll_level)
+#	print(next_focused, " ", scroll_level)
+	print(next_focused+(scroll_level+1))
 	if next_focused < 0 and next_focused+(scroll_level+1)>=0:
 			scroll("up")
 			next_focused+=2
@@ -84,6 +91,7 @@ func _update_buttons():
 	buttons= []
 	for i in range(btn_ctnr_size):
 		var item_ix = i+scroll_level
+		print(item_ix)
 		if item_ix <len(items):
 			_add_item_button(items[item_ix])
 		else:
