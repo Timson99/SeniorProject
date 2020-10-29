@@ -9,8 +9,8 @@ export var current_mode := Mode.Patrol
 export var data_id := 1
 export var has_patrol_pattern := "patrol_erratic"
 
-
 onready var player_party = null
+onready var target_player = EnemyHandler.target_player
 onready var skins  = {
 	"SampleEnemy" : {
 		"default" : $AnimatedSprite,
@@ -34,13 +34,10 @@ var patrol_timer: SceneTreeTimer
 var wait_timer: SceneTreeTimer
 var next_movement: String = ""
 
-const target_player = "C1" # Should be active player in the party!
-
 
 func _ready():
 	$DetectionRadius.connect("body_entered", self, "begin_chasing")
 	$DetectionRadius.connect("body_exited", self, "stop_chasing")
-	print(initial_mode)
 
 
 func _physics_process(delta):
@@ -64,7 +61,7 @@ func _physics_process(delta):
 		isMoving = false
 	
 	var collision = move_and_collide(velocity * delta)
-	if collision and collision.collider.name == target_player:
+	if collision and collision.collider.name == target_player.persistence_id:
 		print("ENEMY COLLIDED WITH PLAYER")
 		stop_chasing(player_party)
 		current_mode = Mode.Battle
@@ -103,19 +100,17 @@ func move_left():
 	
 	
 func begin_chasing(body: Node):
-	if typeof(body) == 17 && body.name == target_player:
+	if body.name == target_player.persistence_id:
 		print("SHOULD CHASE CHARACTER")
 		player_party = body
 		current_mode = Mode.Chase
-		#print(position)
 	
 	
 func stop_chasing(body: Node):
-	if typeof(body) == 17 && body.name == target_player:
+	if body.name == target_player.persistence_id:
 		print("SHOULD STOP CHASING CHARACTER")
 		player_party = null
 		current_mode = initial_mode
-		yield(get_tree().create_timer(randi()%1+3, false), "timeout")	
 
 
 func patrol_erratic(current_movement: String):
