@@ -1,7 +1,4 @@
-extends CanvasLayer
-
-var submenu = null
-var parent = null
+extends Control
 
 #The following information should be stored in game state
 enum Stats {Attack, Defense, Speed, Luck, Willpower, WaveAttack, WaveDefense}
@@ -31,47 +28,4 @@ func _ready():
 	$Data/Bars/Max_HP.text = str("HP: ", char_params[curr_char]["Max_HP"],"/",char_params[curr_char]["Max_HP"])
 	$Data/Bars/Max_SP.text = str("SP: ", char_params[curr_char]["Max_SP"],"/",char_params[curr_char]["Max_HP"])
 	for stat in Stats:
-		get_node("Data/Stats/{s}".format({"s":stat})).text = str(stat,": ",char_params[curr_char][Stats[stat]])
-
-func back():
-	if submenu:
-		submenu.back()
-	else:
-		queue_free()
-		
-func accept():
-	if submenu:
-		submenu.accept()
-	else:
-		pass
-	
-func up():
-	if submenu:
-		submenu.up()
-	else:
-		pass
-		
-	
-func down():
-	if submenu:
-		submenu.down()
-	else:
-		pass
-
-func left():
-	if submenu:
-		submenu.left()
-	else:
-		pass
-	
-func right():
-	if submenu:
-		submenu.right()
-	else:
-		pass
-			
-
-
-
-
-
+		get_node("Stats/{s}".format({"s":stat})).text = str(stat,": ",char_params[curr_char][Stats[stat]])
