@@ -52,6 +52,7 @@ func right():
 func accept():
 	if submenu:
 		submenu.accept()
+		back()
 	#can be done with enum, but may be too much trouble for
 	#two buttons that can be done as a binary
 	elif focused ==0:

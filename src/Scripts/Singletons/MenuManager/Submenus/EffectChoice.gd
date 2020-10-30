@@ -54,7 +54,6 @@ func accept():
 	else:
 		use_item()
 		back()
-		parent.back()
 
 func back():
 	if submenu:
