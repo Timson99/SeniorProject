@@ -5,6 +5,7 @@ var parent = null
 
 onready var button_container = $TextureRect/ItemList/GridContainer
 onready var description_container = $TextureRect/ItemList/InfoPanel/RichDescription
+onready var scrollbar = $TextureRect/ItemList/ScrollBar
 
 var input_id = "Menu"
 var default_focused = 0
@@ -16,16 +17,25 @@ var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenus/ItemButton.tscn"
 var popup_path = "res://Scripts/Singletons/MenuManager/Submenus/ItemPopup.tscn"
 
+var scrollbar_offset = 0
+var max_sc_offset = 106
+var scrollbar_size = 1
+var max_sc_size = 18.5
 func _ready():
 	_instantiate_items()
 	_update_buttons()
 	_repopulate_btn_container()
-	refocus(0,0)
+	refocus(0)
+	_resize_scrollbar()
+	
 
-func refocus(from, to):
-	buttons[from].get_node("AnimatedSprite").animation = "unfocused" 
-	buttons[to].get_node("AnimatedSprite").animation = "focused"
-	update_description(MenuManager.item_data[buttons[to].item_name])
+func refocus(to):
+	if to >=0 and to < len(buttons):
+		buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
+		buttons[to].get_node("AnimatedSprite").animation = "focused"
+		focused = to
+		#can update to use funcref to be reusable
+		update_description(MenuManager.item_data[buttons[to].item_name])
 
 func update_description(item):
 	var description = ""
@@ -40,15 +50,27 @@ func scroll(direction):
 	if direction == "down":
 		if(scroll_level+btn_ctnr_size < len(items)):
 			scroll_level +=2
-			_update_buttons()
-			_repopulate_btn_container()
 	else:
 		if(scroll_level >= 1):
 			scroll_level -=2
-			_update_buttons()
-			_repopulate_btn_container()
+	_update_buttons()
+	_repopulate_btn_container()
+	_update_scrollbar()
 		
 
+func _resize_scrollbar():
+	scrollbar_size = (float(len(buttons))/len(items))*max_sc_size
+#	print(len(buttons), len(items))
+	scrollbar.set_scale(Vector2(1,scrollbar_size))
+	
+func _update_scrollbar():
+	var new_offset = (float(scroll_level*2) / len(items))*max_sc_offset*(scrollbar_size/max_sc_size)
+#	print(new_offset, scroll_level,len(items),max_sc_offset)
+	var update_vec = Vector2(0,0)
+	update_vec.y = -(scrollbar_offset-new_offset)
+	scrollbar.set_position(scrollbar.get_position()+update_vec)
+	scrollbar_offset = new_offset
+#	print(scrollbar.get_position())
 
 func _instantiate_items():
 	for item in MenuManager.item_data:
@@ -103,12 +125,19 @@ func accept():
 		submenu = load(popup_path).instance()
 		call_deferred("add_child", submenu)
 		var current_btn  = buttons[focused]
-		print(submenu.get_child(0).get_position())
-		print(current_btn.get_position())
-		submenu.get_child(0).set_position(current_btn.get_position())
-		print(submenu.get_child(0).get_position())
+		var container_pos = button_container.get_global_transform().get_origin()
+		var position_offset=null
+		#added vectors are eyeballed padding
+		if even(focused):
+			position_offset= current_btn.get_position() + Vector2(99,0)
+		else:
+			position_offset = buttons[focused-1].get_position() + Vector2(32,0)
+		var submenu_pos = container_pos+position_offset
+		submenu.reposition(submenu_pos)
+		submenu.item = current_btn
 		submenu.layer = layer + 1
 		submenu.parent = self
+		
 	
 func up():
 	if submenu:
@@ -120,8 +149,8 @@ func up():
 				scroll("up")
 				next_focused+=2
 		if next_focused >=0:
-			refocus(focused,next_focused)
-			focused = next_focused
+			refocus(next_focused)
+			
 		
 	
 func down():
@@ -139,8 +168,8 @@ func down():
 				focused -=1
 				next_focused-=3
 		if next_focused+(scroll_level+1)<=len(items) and next_focused <= btn_ctnr_size-1:
-			refocus(focused,next_focused)
-			focused = next_focused
+			refocus(next_focused)
+			
 
 func left():
 	if submenu:
@@ -148,8 +177,8 @@ func left():
 	else:
 		var next_focused = focused - 1
 		if even(next_focused):
-			refocus(focused,next_focused)
-			focused = next_focused
+			refocus(next_focused)
+			
 	
 func right():
 	if submenu:
@@ -157,5 +186,5 @@ func right():
 	else:
 		var next_focused = focused + 1
 		if not even(next_focused) and next_focused <= len(buttons)-1:
-			refocus(focused,next_focused)
-			focused = next_focused
+			refocus(next_focused)
+			

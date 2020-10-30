@@ -91,18 +91,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/ItemList"]
-light_mask = 0
+[node name="ScrollBar" type="TextureRect" parent="TextureRect/ItemList"]
 anchor_left = 0.96
 anchor_top = 0.077
 anchor_right = 0.96
 anchor_bottom = 0.077
 margin_left = -3.25374
-margin_top = 0.963958
+margin_top = 1.52519
 margin_right = 100.746
-margin_bottom = 100.964
-rect_scale = Vector2( 1, 5 )
+margin_bottom = 101.525
 texture = ExtResource( 4 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
