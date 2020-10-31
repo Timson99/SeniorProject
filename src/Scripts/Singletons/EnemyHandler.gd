@@ -72,7 +72,7 @@ func initialize_spawner_info():
 		#print("ENEMIES CANNOT SPAWN")
 		pass
 	
-
+# Definitely needs improvements over time!!!
 func spawn_enemy():
 	spawning_locked = true
 	random_num_generator.randomize()
@@ -88,13 +88,15 @@ func spawn_enemy():
 		var new_enemy = load(Enemies.enemy_types["Bully"]["enemy_scene_path"]).instance()
 		new_enemy.data_id = generated_enemy_id
 		new_enemy.position = spawn_position
-		var new_enemy_data = Enemies.enemy_types["Bully"]["battle_data"]
-		var enemy_battle_sprite = Enemies.enemy_types["Bully"]["battle_sprite"]
-		existing_enemy_data[new_enemy.data_id] = [new_enemy_data.get_stats(), enemy_battle_sprite]
+		existing_enemy_data[new_enemy.data_id] = {}
+		existing_enemy_data[new_enemy.data_id]["battle_data"] = Enemies.enemy_types["Bully"]["battle_data"]
+		existing_enemy_data[new_enemy.data_id]["battle_sprite"] = Enemies.enemy_types["Bully"]["battle_sprite"]
+		existing_enemy_data[new_enemy.data_id]["type"] = "Regular"
+		print(existing_enemy_data[new_enemy.data_id])
 		scene_node.add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
-		#print("Spawned enemy of id %d" % new_enemy.data_id)
+		print("Spawned enemy of id %d" % new_enemy.data_id)
 	spawning_locked = false
 
 
@@ -146,5 +148,5 @@ func _physics_process(delta):
 		if can_spawn && num_of_enemies < max_enemies && !spawning_locked:
 			spawn_enemy()
 			#can_spawn = false
-		if !can_spawn:
-			pass
+	if !can_spawn:
+		pass

@@ -39,4 +39,27 @@ var enemy_types = {
 										"LUCK" : 1,
 									})
 	},
+} 
+
+
+var bosses = {
+	"Boss1": {
+		"enemy_scene_path": "res://Scenes/Enemy_Scenes/Bully.tscn",
+		"battle_sprite": "res://Assets/Enemy_Art/Bully/Battle_Bully.png",
+		"battle_data": EntityStats.new({
+										"LEVEL" : 1,
+										"HP" : 15,
+										"MAX HP" : 15,
+										"SP" : 15,
+										"MAX SP" : 15,
+										"ATTACK" : 2,
+										"DEFENSE" : 1,
+										"WAVE ATTACK" : 3,
+										"WAVE DEFENSE" : 2,
+										"SPEED" : 3,
+										"WILLPOWER" : 1,
+										"LUCK" : 1,
+									})
+	}
 }
+
