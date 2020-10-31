@@ -142,10 +142,11 @@ func despawn_enemy(id: int):
 
 func _physics_process(delta):
 	if current_scene != null:
-		target_player = get_tree().get_nodes_in_group("Party")[0].active_player
-		player_view = CameraManager.viewport_size
-		if can_spawn && num_of_enemies < max_enemies && !spawning_locked:
-			spawn_enemy()
-			#can_spawn = false
-		if !can_spawn:
-			pass
+		if get_tree().get_nodes_in_group("Party") != []:
+			target_player = get_tree().get_nodes_in_group("Party")[0].active_player
+			player_view = CameraManager.viewport_size
+			if can_spawn && num_of_enemies < max_enemies && !spawning_locked:
+				spawn_enemy()
+				#can_spawn = false
+			if !can_spawn:
+				pass

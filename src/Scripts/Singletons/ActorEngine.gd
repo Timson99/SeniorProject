@@ -2,10 +2,6 @@ extends Node
 
 signal sync_command_complete
 
-const actor_timed_func := ["move_up", "move_down", "move_left", "move_right", "move_to_position"]
-const actor_instant_func := ["change_follow", "set_speed", "restore_speed",
-							 "scale_anim_speed", "restore_anim_speed"]
-
 var actors_dict: Dictionary = {}
 var actors_array: Array = []
 var asynchronous_actors_dict: Dictionary = {}
@@ -56,40 +52,35 @@ func _physics_process(_delta: float):
 func set_command(id : String, property : String, new_value):
 	actor = actors_dict[id]
 	actor.set_deferred(property, new_value)
+
 	
 func call_command(id, func_name, params):
 	actor = actors_dict[id]
 	actor.call_deferred("callv", func_name, params)
 
 
-
-func process_command(mode: String, id: String, command : String, number_or_flag=null, optional_param=null) -> void:
-	print(command)
-	var time: float
-	var flag: String
-	actor = actors_dict[id]
-	command_string = command
-	extra_param = optional_param if (optional_param != null) else null
-	if command in actor_instant_func:
-		execute_command(actor, command_string, number_or_flag)
-		return
-	time = number_or_flag
-	if command in actor_timed_func:
-		if mode == "Actor-sync":
-			start_sync_command_timer(time)
-		elif mode == "Actor-async":
-			asynchronous_delay_time = max(time, asynchronous_delay_time)
-			add_actor_to_asynchronous_actors(actor, command_string, time, extra_param)
-	else:
-		Debugger.dprint("Unexpected command string")
+func sync_command(params: Array):
+	actor = actors_dict[params[0]]
+	command_string = params[1]
+	if typeof(params[2]) in range(2,3):
+		start_sync_command_timer(params[2])
+	
+	
+func async_command(params: Array):
+	actor = actors_dict[params[0]]
+	command_string = params[1]
+	if typeof(params[2]) in range(2,3):
+		asynchronous_delay_time = max(params[2], asynchronous_delay_time)
+		add_actor_to_asynchronous_actors(actor, command_string, asynchronous_delay_time)
 	
 	
 func execute_command(actor: Node, command: String, optional_param=null) -> void:
+	
 	if actor.has_method(command):
 		if optional_param != null:
-			actor.call(command, optional_param)
+			actor.call_deferred(command, optional_param)
 		else:
-			actor.call(command)
+			actor.call_deferred(command)
 	else:
 		Debugger.dprint("Invalid command action") 
 

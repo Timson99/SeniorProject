@@ -90,6 +90,8 @@ func execute_event(event_id : String):
 	
 		
 func actor_instruction(params: Array):
+	var command_type = params[0]
+	print(params)
 	# If an instruction is called for an actor already executing a command,
 	# the new instruction will NOT be processed by the Actor Engine until 
 	# ALL asynchronous actions have finished.
@@ -99,25 +101,25 @@ func actor_instruction(params: Array):
 			ActorEngine.asynchronous_delay_time = 0.0
 			
 	# Note: params unpacked here to simplify code for process_command()
-	if params[0] == "Actor-set":
+	if command_type == "Actor-set":
 		if params.size() == 4:
 			ActorEngine.set_command(params[1], params[2], params[3])
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
 			
-	elif params[0] == "Actor-call":
+	elif command_type == "Actor-call":
 		if params.size() >= 3:
 			ActorEngine.call_command(params[1], params[2], params.slice(3, params.size()))
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
-			
-	elif params.size() == 3:
-		ActorEngine.process_command(params[0], params[1], params[2])
-	elif params.size() == 4:
-		ActorEngine.process_command(params[0], params[1], params[2], params[3])
-	elif params.size() == 5:
-		ActorEngine.process_command(params[0], params[1], params[2], params[3], params[4])
-	if params[0] == "Actor-sync":
+	
+	elif command_type == "Actor-async":
+		params.pop_front()
+		ActorEngine.async_command(params)
+		
+	elif command_type == "Actor-sync":
+		params.pop_front()
+		ActorEngine.sync_command(params)
 		yield(ActorEngine, "sync_command_complete")
 		
 	active_event["current_instruction"] = null
