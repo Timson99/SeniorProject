@@ -6,8 +6,21 @@ var input_id = "Dialogue"
 var current_area = "Area01"
 
 var dialogue_areas = {
-	"Area01" : "res://Assets/Dialogue/Area01.res"
+	"Area01" : 
+		{
+		 "res_path" : "res://Assets/Dialogue/Area01.res",
+		 "speakerDictionary": {},
+		 "dialogueDictionary": {},
+		}
 }
+
+enum Mode {Message, Dialogue}
+var mode = null
+var message = []
+
+var scroll_time := 0.025
+var breath_pause = 0.25
+var breath_char = "`"
 
 # Member variables
 var dialogueDictionary = {}
@@ -37,7 +50,10 @@ onready var textTimer = get_node("Timer")
 func _ready():
 	dialogue_box.hide()
 	options_box.hide()
-	var path = dialogue_areas[current_area]
+	parse_res_file()
+	
+func parse_res_file():
+	var path = dialogue_areas[current_area]["res_path"]
 	
 	# Create file, test for existance
 	var file = File.new()
@@ -52,17 +68,22 @@ func _ready():
 	file.close()
 	var rawArray = raw.split("\n", false)
 	var prevSequenceID = null
+	#Remove Project Name
+	rawArray.remove(0)
+	var current_speaker = ""
 	for val in rawArray:
 		var mdLength = val.find("*/")
 		if mdLength > -1:
 			#get metadata and split into array
 			var metaData = val.left(mdLength + 2)
 			var metaArray = metaData.split(" ", false)
+	
 			if metaArray.size() <= 5 || metaArray[1].length() != 5:
+				current_speaker = metaArray[1]
 				continue
 			#check for -z flag, to update speaker dictionary
-			if !speakerDictionary.has(metaArray[1]) && metaArray[3] == "-z":
-				speakerDictionary[metaArray[1]] = [metaArray[2]]
+			if !speakerDictionary.has(current_speaker) && metaArray[3] == "-z":
+				speakerDictionary[current_speaker] = [metaArray[2]]
 			
 			#establish sub dictionary to add as val to dialogueDictionary
 			var toInsert = {"msg": val.right(mdLength + 3)}
@@ -109,7 +130,7 @@ func _ready():
 							dialogueDictionary[prevSequenceID].erase("-s")
 						setPSID = true
 						toInsert["-rct"] = metaArray[mdIndex + 1]
-						speakerDictionary[metaArray[1]].append(metaArray[2])
+						speakerDictionary[current_speaker].append(metaArray[2])
 				mdIndex += 1
 			if setPSID:
 				prevSequenceID = metaArray[2]
@@ -130,8 +151,10 @@ func ui_accept_pressed():
 		_advance()
 	elif textNode.get_visible_characters() < textNode.get_text().length():
 		textNode.set_visible_characters(textNode.get_text().length() - 1)
-	else:
+	elif mode == Mode.Dialogue:
 		_advance()
+	elif mode == Mode.Message:
+		_advance_message()
 
 #move up and down in an option
 func ui_down_pressed():
@@ -179,21 +202,51 @@ func _beginTransmit(var spID, var toSignal):
 		return
 	currentspID = spID
 	dialogue_box.show()
+	mode = Mode.Dialogue
 	_advance()
 	
-func transmit_message(var message):
-	###############################NOT TESTED
+func item_message(itemId):
+	transmit_message("You recieved " + itemId + "!")
+	
+func transmit_message(message_param):
 	InputEngine.activate_receiver(self)
-	finalWaltz = false
 	dialogue_box.show()
-	_advance()
-	##############################NOT TESTED
+	mode = Mode.Message
+	message = message_param if typeof(message_param) == TYPE_ARRAY else [message_param]
+	_advance_message()
+	
+func _advance_message():
+	if dialogue_box.is_visible_in_tree():
+		textNode.set_visible_characters(0)	
+		
+		if(message.size() == 0):
+			exec_final_waltz()
+			return
+		
+		textNode.text = message.pop_front()
+		
+		while true:
+				if(textNode.get_visible_characters() >= textNode.get_text().length()):
+					break
+				#scrollAudio.play()
+				var new_scroll_time = scroll_time
+				textNode.set_visible_characters(textNode.get_visible_characters()+1)
+				if (textNode.get_visible_characters() < textNode.get_text().length() and
+					textNode.text[textNode.get_visible_characters()] == breath_char):
+					new_scroll_time += breath_pause
+					var tempText = textNode.text
+					tempText.erase(textNode.get_visible_characters(), 1)
+					textNode.text = tempText
+				yield(get_tree().create_timer(new_scroll_time, false), "timeout")
+				#scrollAudio.stop()
 	
 func exec_final_waltz():
 	dialogue_box.hide()
 	currentspID = null
 	displayedID = null
 	parentBranchNodes = []
+	mode = null
+	message = null
 	InputEngine.deactivate_receiver(self)
 	
 func _advance():
@@ -250,11 +303,20 @@ func _advance():
 			finalWaltz = true
 			
 		#begin text scroll
-		textTimer.start()
-		while (textNode.get_visible_characters() < textNode.get_text().length()):
+		while true:
+			if(textNode.get_visible_characters() >= textNode.get_text().length()):
+				break
 			#scrollAudio.play()
+			var new_scroll_time = scroll_time
 			textNode.set_visible_characters(textNode.get_visible_characters()+1)
-			yield(textTimer, "timeout")
+			if (textNode.get_visible_characters() < textNode.get_text().length() and
+				textNode.text[textNode.get_visible_characters()] == breath_char):
+				new_scroll_time += breath_pause
+				var tempText = textNode.text
+				tempText.erase(textNode.get_visible_characters(), 1)
+				textNode.text = tempText
+			yield(get_tree().create_timer(new_scroll_time, false), "timeout")
+			#scrollAudio.stop()
 		
 		#check for options flag and bring up bar if needed
 		if dialogueDictionary[displayedID].has("-o"):
