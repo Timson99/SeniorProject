@@ -17,6 +17,27 @@ var actor_position: Vector2
 var command_string: String
 var extra_param = null
 
+func _ready():
+	SceneManager.connect("scene_loaded", self, "update_actors")
+	update_actors()
+	
+func update_actors():
+	actors_array = get_tree().get_nodes_in_group("Actor")
+	
+	# Executes each command for each async actor for duration of their 
+	# respective timers
+	for actor_body in actors_array:
+		var key: String = actor_body.actor_id
+		actors_dict[key] = actor_body
+		if actor_body in asynchronous_actors_dict && asynchronous_actors_dict[actor_body][0].get_time_left() > 0:
+			if asynchronous_actors_dict[actor_body].size() == 3: 
+				execute_command(actor_body, asynchronous_actors_dict[actor_body][1], asynchronous_actors_dict[actor_body][2])
+			else:
+				execute_command(actor_body, asynchronous_actors_dict[actor_body][1])
+		elif actor_body in asynchronous_actors_dict && asynchronous_actors_dict[actor_body][0].get_time_left() <= 0:
+			asynchronous_actors_dict.erase(actor_body)
+	
+
 
 func _physics_process(_delta: float):
 	actors_array = get_tree().get_nodes_in_group("Actor")
@@ -30,19 +51,15 @@ func _physics_process(_delta: float):
 	elif sync_command_timer && sync_command_timer.get_time_left() <= 0:
 		emit_signal("sync_command_complete")
 		sync_command_timer = null
-		
-	# Executes each command for each async actor for duration of their 
-	# respective timers
-	for actor_body in actors_array:
-		var key: String = actor_body.actor_id
-		actors_dict[key] = actor_body
-		if actor_body in asynchronous_actors_dict && asynchronous_actors_dict[actor_body][0].get_time_left() > 0:
-			if asynchronous_actors_dict[actor_body].size() == 3: 
-				execute_command(actor_body, asynchronous_actors_dict[actor_body][1], asynchronous_actors_dict[actor_body][2])
-			else:
-				execute_command(actor_body, asynchronous_actors_dict[actor_body][1])
-		elif actor_body in asynchronous_actors_dict && asynchronous_actors_dict[actor_body][0].get_time_left() <= 0:
-			asynchronous_actors_dict.erase(actor_body)
+
+
+func set_command(id : String, property : String, new_value):
+	actor = actors_dict[id]
+	actor.set_deferred(property, new_value)
+	
+func call_command(id, func_name, params):
+	actor = actors_dict[id]
+	actor.call_deferred("callv", func_name, params)
 
 
 
@@ -83,7 +100,3 @@ func start_sync_command_timer(added_time: float) -> void:
 
 func add_actor_to_asynchronous_actors(actor: Node, command: String, time: float, extra_param=null) -> void:
 	asynchronous_actors_dict[actor] = [get_tree().create_timer(time, false), command, extra_param]
-
-
-func _ready():
-	pass

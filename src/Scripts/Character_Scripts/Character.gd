@@ -1,15 +1,17 @@
 extends KinematicBody2D
 
-const default_speed := 60.0
+const default_speed := 65.0
 
-export var speed := default_speed setget set_speed
+var speed := default_speed setget set_speed
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
+var exploring = true
 
 var skills = {"Skill1" : 0} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
+
 
 onready var skins  = {
 	"C1" : {
@@ -19,7 +21,9 @@ onready var skins  = {
 	"C2" : { "default" : $AnimatedSprite,},
 	"C3" : { "default" : $AnimatedSprite },
 }
-onready var animations = skins[persistence_id]["default"]
+
+onready var current_skin = "default"
+onready var animations = skins[persistence_id][current_skin]
 
 #Array oof objects that are currently interactable
 var interact_areas := []
@@ -45,10 +49,24 @@ var destination = "res://Scenes/Tim_Test_Scenes/TestTileMap.tscn"
 
 func on_load():
 	position = Vector2(round(position.x), round(position.y))
+	if current_skin != "default":
+		change_skin(current_skin)
 
 
 func _physics_process(delta : float):
-	explore(delta)
+	if exploring:
+		explore(delta)
+	
+	
+func play_anim(anim_str):
+	animations.play(anim_str)
+	
+func set_anim(anim_str):
+	print(anim_str)
+	animations.animation = anim_str
+	
+func flip_horizontal(flip : bool):
+	animations.flip_h = flip
 	
 
 func explore(delta : float):
@@ -71,8 +89,8 @@ func explore(delta : float):
 		isMoving = false
 		
 	animations.flip_h = (current_dir == Enums.Dir.Right)
+	
 	var collision = move_and_collide(velocity * delta)
-	position = Vector2(round(position.x), round(position.y))
 	if collision:
 		animations.animation = dir_anims[current_dir][0]
 	velocity = Vector2()
@@ -82,6 +100,7 @@ func explore(delta : float):
 func activate_player():
 	InputEngine.activate_receiver(self)
 	$CollisionBox.disabled = false
+
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
@@ -160,9 +179,12 @@ func restore_anim_speed():
 	
 func change_skin(skin_id):
 	if(skin_id in skins[persistence_id].keys()):
+		current_skin = skin_id
 		animations.hide()
-		animations = skins[persistence_id][skin_id]
-		animations.show()
+		var new_animations = skins[persistence_id][skin_id]
+		new_animations.play(dir_anims[current_dir][0])
+		new_animations.show()
+		animations = new_animations
 	else:
 		Debugger.dprint("Skin id %s not found in Character %s" % [skin_id, persistence_id])
 		
@@ -170,7 +192,7 @@ func change_skin(skin_id):
 
 func move_to_position(new_position: Vector2):
 	var current_position = self.get_global_position()
-	current_position = Vector2(round(position.x), round(position.y))
+	current_position = position
 	var x_delta = new_position.x - current_position.x
 	var y_delta = new_position.y - current_position.y
 	if y_delta != 0:
@@ -193,7 +215,8 @@ func save():
 		"current_dir" : current_dir,
 		"stats" : stats,
 		"skills" : skills,
-		"alive" : alive
+		"alive" : alive,
+		"current_skin" : current_skin,
 	}	
 	return save_dict
 	

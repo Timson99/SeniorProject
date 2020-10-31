@@ -3,10 +3,16 @@ extends CanvasLayer
 #InputEngine
 var input_id = "Dialogue"
 
+var area = "Area01"
+
+var dialogue_paths = {
+	"Area01" : "res://Assets/Dialogue/Area01.res"
+}
+
 # Member variables
 var dialogueDictionary = {}
 var speakerDictionary = {} #where arr[0] is main, others are reactive
-export var ResFile = "Test_Project_Dialogue"
+#export var ResFile = "Test_Project_Dialogue"
 var displayedID = null
 var currentspID = null
 var finalWaltz = true
@@ -31,7 +37,8 @@ onready var textTimer = get_node("Timer")
 func _ready():
 	dialogue_box.hide()
 	options_box.hide()
-	var path = "res://Assets/Christian_Test_Assets/" + ResFile + ".res"
+	#var path = "res://Assets/Christian_Test_Assets/" + ResFile + ".res"
+	var path = dialogue_paths[area]
 	
 	# Create file, test for existance
 	var file = File.new()
@@ -168,11 +175,19 @@ func _beginTransmit(var spID, var toSignal):
 	reactiveID = toSignal
 	if !speakerDictionary.has(spID):
 		Debugger.dprint("Could not find speaker ID: " + spID + " in dictionary!")
-		InputEngine.deactive_receiver(self)
+		InputEngine.deactivate_receiver(self)
 		return
 	currentspID = spID
 	dialogue_box.show()
 	_advance()
+	
+func transmit_message(var message):
+	###############################NOT TESTED
+	InputEngine.activate_receiver(self)
+	finalWaltz = false
+	dialogue_box.show()
+	_advance()
+	##############################NOT TESTED
 	
 func exec_final_waltz():
 	dialogue_box.hide()

@@ -2,7 +2,7 @@ extends Node
 signal node_data_extracted(node_data)
 
 const save_files = ["Save01", "Save02", "Save03", "DevSave01", "DevSave02", "DevSave03"]
-var current_save = save_files[3]
+var current_save = save_files[4]
 
 var encrypt = true
 

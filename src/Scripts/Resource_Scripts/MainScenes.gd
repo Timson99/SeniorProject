@@ -13,6 +13,10 @@ var explore_scenes := {
 					},
 	
 	#Area 1
+  "Area01_Opening" : {
+    "scene_path": "res://Scenes/Explore_Scenes/Area01/Area01_Opening.tscn",
+    "spawnable_enemies": false,
+		"max_num_of_enemies": 0
 	"Area01_House_Room" : {
 		"scene_path": "res://Scenes/Explore_Scenes/Area01/Area01_House_Room.tscn",
 		"spawnable_enemies": false,
@@ -40,7 +44,7 @@ var explore_scenes := {
 		"spawnable_enemies": true,
 		"max_num_of_enemies": 5
 								}
-
+                
 }
 
 var battle_scenes := {
@@ -48,6 +52,7 @@ var battle_scenes := {
 	#Tim Test Articles
 	"TestBattle1" : "res://Scenes/Tim_Test_Scenes/WinButton.tscn",
 	"DemoBattle" : "res://Scenes/Battle_Scenes/General/Demo_Battle_Scene.tscn",
-	"JoeDemoBattle": "res://Scenes/Joe_Test_Scenes/Joe_Demo_Battle.tscn"
+	"JoeDemoBattle": "res://Scenes/Joe_Test_Scenes/Joe_Demo_Battle.tscn",
+	"BullyBattle" : "res://Scenes/Battle_Scenes/Area01/BullyBattle.tscn",
 	
 }

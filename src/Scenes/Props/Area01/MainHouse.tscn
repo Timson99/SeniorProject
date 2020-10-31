@@ -11,9 +11,6 @@ extents = Vector2( 17, 7 )
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2( 0, -25 )
-
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="2"]
 position = Vector2( 28, 0 )
 shape = SubResource( 1 )

@@ -81,7 +81,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SeniorProject"
-run/main_scene="res://Node2D.tscn"
+run/main_scene="res://Scenes/MiscMainScenes/SaveLoadScreen/SaveLoadScreen.tscn"
 config/icon="res://Assets/Test_Art/icon.png"
 
 [autoload]
