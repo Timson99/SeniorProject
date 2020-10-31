@@ -3,35 +3,51 @@ extends CanvasLayer
 var submenu = null
 var parent = null
 
-#The following information should be stored in game state
-enum Stats {Attack, Defense, Speed, Luck, Willpower, WaveAttack, WaveDefense}
-onready var char_params = {
-	"C1":{
-		"sprite": preload("res://Assets/Character_Art/C1/C1_01.png"),
-		"Level" :1,
-		"Max_HP" : 60,
-		"Max_SP" : 60,
-		Stats.Attack : 45,
-		Stats.Defense : 35,
-		Stats.Speed : 40,
-		Stats.Luck : 2,
-		Stats.Willpower : 10,
-		Stats.WaveAttack : 20,
-		Stats.WaveDefense : 15
-	}
+var button_path = "res://Scripts/Singletons/MenuManager/Submenus/CharacterBtn.tscn"
+var detail_menu_path = "res://Scripts/Singletons/MenuManager/Submenus/StatusMenuDetails.tscn"
+var sprites = {
+	"C1": preload("res://Assets/Character_Art/C1/C1_02.png"),
+	"C2": preload("res://Assets/Character_Art/C2/C2_02.png"),
+	"C3": preload("res://Assets/Character_Art/C3/C3_02.png")
 }
-
-var curr_char = "C1"
+#The following information should be stored in game state
+const condition_stats = ["HP", "MAX HP", "SP", "MAX SP"]
+const gen_stats = ["ATTACK","DEFENSE","LUCK","WILLPOWER","SPEED","WAVE ATTACK","WAVE DEFENSE"]
+onready var button_container = $CharacterSelection
+var stats ={}
+#the character ids here are persistence ids
+var curr_party = ["C1","C2","C3"]
+var buttons = []
+var focused = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Data/Name.text = curr_char
-	$Data/Character.set_texture(char_params[curr_char]["sprite"])
-	$Data/Level.text = str("Level: ", char_params[curr_char]["Level"])
-	$Data/Bars/Max_HP.text = str("HP: ", char_params[curr_char]["Max_HP"],"/",char_params[curr_char]["Max_HP"])
-	$Data/Bars/Max_SP.text = str("SP: ", char_params[curr_char]["Max_SP"],"/",char_params[curr_char]["Max_HP"])
-	for stat in Stats:
-		get_node("Data/Stats/{s}".format({"s":stat})).text = str(stat,": ",char_params[curr_char][Stats[stat]])
+	_init_stats()
+	refocus(0)
+	pass
+
+func refocus(to):
+	if to >=0 and to < len(buttons):
+		buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
+		buttons[to].get_node("AnimatedSprite").animation = "focused"
+		focused = to
+
+func _get_party_stats():
+	#should add persistence ids for characters that are playable
+	#when the menu is instantiated
+	pass
+
+func _init_stats():
+	for character in curr_party:
+		stats[character] =  EntityStats.new(BaseStats.get_for(character)).get_stats()
+		_add_item_button(character)
+#	print(stats)
+
+func _add_item_button(item):
+	var button = load(button_path).instance()
+	button._setup(item,stats[item],sprites[item])
+	buttons.append(button)
+	button_container.add_child(button)
 
 func back():
 	if submenu:
@@ -43,20 +59,26 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
-		pass
+		submenu = load(detail_menu_path).instance()
+		call_deferred("add_child", submenu)
+		submenu.curr_char = curr_party[focused]
+		submenu.char_params = stats[curr_party[focused]]
+		submenu.sprite = sprites[curr_party[focused]]
+		submenu.layer = layer + 1
+		submenu.parent = self
 	
 func up():
 	if submenu:
 		submenu.up()
 	else:
-		pass
+		refocus(focused-1)
 		
 	
 func down():
 	if submenu:
 		submenu.down()
 	else:
-		pass
+		refocus(focused+1)
 
 func left():
 	if submenu:

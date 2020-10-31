@@ -69,5 +69,6 @@ func accept():
 func back():
 	if submenu:
 		submenu.back()
-	queue_free()
-	parent.submenu = null
+	else:
+		queue_free()
+		parent.submenu = null
