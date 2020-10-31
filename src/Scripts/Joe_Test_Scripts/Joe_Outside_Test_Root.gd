@@ -11,7 +11,7 @@ export var camera_bounds = {"is_static": false,
 #export var music_track_path = "res://Assets/Music/No_Place_Like_Home (temp).ogg"
 
 export var enemies_spawnable: bool = true
-export var max_enemies = 5
+export var max_enemies = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

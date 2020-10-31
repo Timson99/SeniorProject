@@ -7,17 +7,18 @@ export var chase_factor := 0.8
 export var alive := true
 export var current_mode := Mode.Patrol
 export var data_id := 1
+export var enemy_type := "Regular"
 export var has_patrol_pattern := "patrol_erratic"
 
 onready var player_party = null
 onready var target_player = EnemyHandler.target_player
 onready var skins  = {
-	"SampleEnemy" : {
+	"Enemy" : {
 		"default" : $AnimatedSprite,
 		"battle"  : "res://Assets/Enemy_Art/Bully/Battle_Bully.png"
 	}
 }
-onready var animations = skins["SampleEnemy"]["default"]
+onready var animations = skins["Enemy"]["default"]
 
 const patrol_patterns := ["patrol_erratic", "patrol_linear", "patrol_circle", "patrol_box"]	
 
@@ -68,7 +69,7 @@ func _physics_process(delta):
 	
 	var collision = move_and_collide(velocity * delta)
 	if collision and collision.collider.name == target_player.persistence_id: # Collides with party in general currently
-		EnemyHandler.queued_battle_enemies.append(data_id)
+		EnemyHandler.queued_battle_enemies.append(EnemyHandler.get_enemy_data(data_id))
 		EnemyHandler.can_spawn = false
 		#print("ENEMY COLLIDED WITH %s" % target_player.persistence_id)
 		stop_chasing(player_party)
