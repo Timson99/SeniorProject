@@ -91,7 +91,6 @@ func execute_event(event_id : String):
 		
 func actor_instruction(params: Array):
 	var command_type = params[0]
-	print(params)
 	# If an instruction is called for an actor already executing a command,
 	# the new instruction will NOT be processed by the Actor Engine until 
 	# ALL asynchronous actions have finished.
@@ -113,14 +112,10 @@ func actor_instruction(params: Array):
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
 	
-	elif command_type == "Actor-async":
-		params.pop_front()
-		ActorEngine.async_command(params)
-		
-	elif command_type == "Actor-sync":
-		params.pop_front()
-		ActorEngine.sync_command(params)
-		yield(ActorEngine, "sync_command_complete")
+	elif command_type == "Actor-async" || command_type == "Actor-sync":
+		ActorEngine.async_or_sync_command(params)
+		if command_type == "Actor-sync":
+			yield(ActorEngine, "sync_command_complete")
 		
 	active_event["current_instruction"] = null
 	return

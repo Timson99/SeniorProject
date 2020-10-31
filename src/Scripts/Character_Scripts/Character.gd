@@ -214,7 +214,6 @@ func move_to_position(new_position: Vector2):
 			move_right()
 	if current_position == new_position:
 		emit_signal("command_completed")
-		print("MOVE-TO COMPLETED")
 		
 	
 

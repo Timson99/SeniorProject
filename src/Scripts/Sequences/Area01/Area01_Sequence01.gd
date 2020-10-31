@@ -16,6 +16,5 @@ static func instructions():
 	  ["Actor-call", "C1", "flip_horizontal", false],
 	  ["Actor-set", "C1", "exploring", true],
 	  ["Actor-sync", "C1", "move_to_position", Vector2(0, 40)],
-	  #["Actor-sync", "C1", "move_down", 1],
 	  ["Actor-call", "C1", "set_collision", true],
   ]
