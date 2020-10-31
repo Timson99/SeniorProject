@@ -1,11 +1,10 @@
-extends Sprite # May be changed to Control later in development
+extends Sprite
 
 export var battle_id := 1
 export var alive := true
 
 
 var moveset = null
-
 
 func _ready():
 	pass # Replace with function body.

@@ -11,8 +11,8 @@ func _ready():
 		var battle_stats = enemy_data.pop_front()
 		print(battle_stats)
 		# Ensure enemy has correct sprite & battle info
-		var sprite = Sprite.new()
-		sprite.texture = load(enemy_data.pop_front())
-		get_tree().get_root().get_node("Battle/BattleUI/EnemyParty").add_child(sprite)
+		#var sprite = Sprite.new()
+		#sprite.texture = load(enemy_data.pop_front())
+		#get_tree().get_root().get_node("Battle/BattleUI/EnemyParty").add_child(sprite)
 
 

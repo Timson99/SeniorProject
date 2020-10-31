@@ -8,7 +8,6 @@ export var alive := true
 export var current_mode := Mode.Patrol
 export var data_id := 1
 export var has_patrol_pattern := "patrol_erratic"
-var battle_sprite
 
 onready var player_party = null
 onready var target_player = EnemyHandler.target_player
@@ -22,6 +21,7 @@ onready var animations = skins["SampleEnemy"]["default"]
 
 const patrol_patterns := ["patrol_erratic", "patrol_linear", "patrol_circle", "patrol_box"]	
 
+var battle_sprite
 var dir_anims := {
 	Enums.Dir.Up: ["Idle_Up", "Walk_Up"],
 	Enums.Dir.Down: ["Idle_Down", "Walk_Down"],
@@ -70,7 +70,7 @@ func _physics_process(delta):
 	if collision and collision.collider.name == target_player.persistence_id: # Collides with party in general currently
 		EnemyHandler.queued_battle_enemies.append(data_id)
 		EnemyHandler.can_spawn = false
-		print("ENEMY COLLIDED WITH %s" % target_player.persistence_id)
+		#print("ENEMY COLLIDED WITH %s" % target_player.persistence_id)
 		stop_chasing(player_party)
 		current_mode = Mode.Battle
 		$CollisionBox.disabled = true
@@ -117,14 +117,14 @@ func move_left():
 	
 func begin_chasing(body: Node):
 	if body.name == target_player.persistence_id:
-		print("SHOULD CHASE CHARACTER")
+		#print("SHOULD CHASE CHARACTER")
 		player_party = body
 		current_mode = Mode.Chase
 	
 	
 func stop_chasing(body: Node):
 	if body.name == target_player.persistence_id:
-		print("SHOULD STOP CHASING CHARACTER")
+		#print("SHOULD STOP CHASING CHARACTER")
 		player_party = null
 		current_mode = initial_mode
 

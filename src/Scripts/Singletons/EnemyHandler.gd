@@ -1,6 +1,5 @@
 extends Node
 
-# Resource script with all possible enemy instantiations?
 onready var Scenes = preload("res://Scripts/Resource_Scripts/MainScenes.gd")
 onready var Enemies = preload("res://Scripts/Resource_Scripts/EnemyTypes.gd").new()
 onready var Tester = preload("res://Scenes/Enemy_Scenes/SpawningScenes/SpawnPositionTester.tscn").instance()
@@ -9,45 +8,58 @@ var random_num_generator = RandomNumberGenerator.new()
 
 export var generated_enemy_id := 1
 export var num_of_enemies := 0
-export var max_enemies := 3
+export var max_enemies := 3		# Determined by scene
 
 
-onready var target_player 
-onready var player_view 
+onready var target_player: KinematicBody2D 
+onready var player_view: Vector2
 onready var current_scene = SceneManager.current_scene.filename
 
-onready var tilemap_rect: Rect2 = get_tree().get_root().get_node("Node2D/TileMap").get_used_rect()
-onready var tilemap_reference_point = get_tree().get_root().get_node("Node2D/TileMap").map_to_world(tilemap_rect.position)
-onready var tilemap_dimensions = get_tree().get_root().get_node("Node2D/TileMap").map_to_world(tilemap_rect.size)
-onready var tilemap_width: int = tilemap_dimensions.x
-onready var tilemap_height: int = tilemap_dimensions.y
+onready var tilemap_rect: Rect2 
+onready var tilemap_reference_point: Vector2
+onready var tilemap_dimensions 
+onready var tilemap_width: int
+onready var tilemap_height: int 
 
-onready var spawn_area = get_tree().get_root().get_node("Node2D").get_node("EnemySpawnArea")
-onready var spawn_collider = get_tree().get_root().get_node("Node2D").get_node("EnemySpawnArea/SpawnAreaCollider")
-onready var spawn_area_vertices = spawn_collider.polygon
-#onready var spawn_area_center = spawn_area.position + spawn_collider.position
+onready var spawn_area: Area2D 
+onready var spawn_collider: CollisionPolygon2D
+#onready var spawn_area_vertices = spawn_collider.polygon
 
 var existing_enemy_data : Dictionary = {}
 var queued_battle_enemies: Array = []
 var queued_despawns : Array = []
 var current_battle_stats : Dictionary
-var can_spawn := true # Will be determined by the SceneManager later on
+var can_spawn := false
 var spawning_locked := false
 var viewport_buffer := 40
 var valid_pos_flag := false
 
 
 func _ready():
-	spawn_area.connect("body_entered", EnemyHandler, "set_valid_pos_flag")
-	spawn_area.connect("body_exited", EnemyHandler, "reset_valid_pos_flag")
 	pass 
 
 
 func get_enemy_data(id: int):
 	return existing_enemy_data.get(id)
+
+
+func initialize_spawner_info(enemies_do_spawn: bool):
+	can_spawn = enemies_do_spawn
+	if enemies_do_spawn:
+		print("ENEMIES SPAWN")
+		spawn_area.connect("body_entered", EnemyHandler, "set_valid_pos_flag")
+		spawn_area.connect("body_exited", EnemyHandler, "reset_valid_pos_flag")
+		spawn_area = get_tree().get_root().get_node("Node2D").get_node("EnemySpawnArea")
+		spawn_collider = get_tree().get_root().get_node("Node2D").get_node("EnemySpawnArea/SpawnAreaCollider")
+		tilemap_rect = get_tree().get_root().get_node("Node2D/TileMap").get_used_rect()
+		tilemap_reference_point = get_tree().get_root().get_node("Node2D/TileMap").map_to_world(tilemap_rect.position)
+		tilemap_dimensions = get_tree().get_root().get_node("Node2D/TileMap").map_to_world(tilemap_rect.size)
+		tilemap_width = tilemap_dimensions.x
+		tilemap_height = tilemap_dimensions.y
+	else:
+		print("ENEMIES CANNOT SPAWN")
 	
-	
-# Currently drops frames on Joe's laptop when instancing new enemy object 
+
 func spawn_enemy():
 	spawning_locked = true
 	random_num_generator.randomize()
@@ -69,7 +81,7 @@ func spawn_enemy():
 		get_tree().get_root().get_node("Node2D").add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
-		print("Spawned enemy of id %d" % new_enemy.data_id)
+		#print("Spawned enemy of id %d" % new_enemy.data_id)
 	spawning_locked = false
 
 
@@ -84,26 +96,27 @@ func get_spawn_position():
 func validate_enemy_spawn(possible_location: Vector2):
 	Tester.position = possible_location
 	get_tree().get_root().get_node("Node2D").add_child(Tester)
-	print("TESTER INSTANCED")
+	#print("TESTER INSTANCED")
 	yield(get_tree().create_timer(1, false), "timeout")
 	var valid_spawn_position = valid_pos_flag
-	print(valid_pos_flag)
+	#print(valid_pos_flag)
 	yield(get_tree().create_timer(1, false), "timeout")
 	get_tree().get_root().get_node("Node2D").remove_child(Tester)
 	return valid_spawn_position
 	
 	
 func set_valid_pos_flag(body: Node):
-	print("body entered: %s" % body.name)
+	#print("body entered: %s" % body.name)
 	#print(body.get_global_position())
 	if body.name == "Tester":
 		valid_pos_flag = true
 	
 	
 func reset_valid_pos_flag(body: Node):
-	print("body exited: %s" % body.name)
+	#print("body exited: %s" % body.name)
 	if body.name == "Tester":
 		valid_pos_flag = false	
+	
 	
 func despawn_enemy(id: int):
 	yield(SceneManager, "scene_fully_loaded")
@@ -114,7 +127,7 @@ func despawn_enemy(id: int):
 
 func _physics_process(delta):
 	if current_scene != null:
-		target_player = get_tree().get_nodes_in_group("Party")[0].active_player # NOT IDEAL TO CHECK IN PHYSICS PROCESS??
+		target_player = get_tree().get_nodes_in_group("Party")[0].active_player
 		player_view = CameraManager.viewport_size
 		if can_spawn && num_of_enemies < max_enemies && !spawning_locked:
 			spawn_enemy()
