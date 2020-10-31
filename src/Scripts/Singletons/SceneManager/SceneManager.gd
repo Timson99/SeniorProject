@@ -31,7 +31,7 @@ func goto_scene(scene_id : String, warp_destination_id := "", save_path = false)
 	if scene_id.find_last(".") != -1 and scene_id.substr(scene_id.find_last("."), 5) == ".tscn": 
 		pass
 	elif scene_id in MainScenes.explore_scenes:
-		scene_id = MainScenes.explore_scenes[scene_id]["scene_path"]
+		scene_id = MainScenes.explore_scenes[scene_id]
 	elif scene_id in MainScenes.battle_scenes:
 		scene_id = MainScenes.battle_scenes[scene_id]
 	else:

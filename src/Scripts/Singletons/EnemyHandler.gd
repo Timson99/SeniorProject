@@ -1,6 +1,5 @@
 extends Node
 
-onready var Scenes = preload("res://Scripts/Resource_Scripts/MainScenes.gd")
 onready var Enemies = preload("res://Scripts/Resource_Scripts/EnemyTypes.gd").new()
 onready var Tester = preload("res://Scenes/Enemy_Scenes/SpawningScenes/SpawnPositionTester.tscn").instance()
 
