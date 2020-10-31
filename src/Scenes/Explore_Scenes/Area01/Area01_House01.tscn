@@ -155,13 +155,16 @@ shape = SubResource( 7 )
 
 [node name="CollisionShape2D4" type="CollisionPolygon2D" parent="World_Collider"]
 position = Vector2( 208, 24 )
-polygon = PoolVector2Array( -129, 40, -72, 40, -64, 38, -48, 38, -40, 40, 16, 40, 16, -24, -128, -24 )
+polygon = PoolVector2Array( -129, 40, -66, 40, -66, 38, -46, 38, -46, 40, 16, 40, 16, -24, -128, -24 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World_Collider"]
-polygon = PoolVector2Array( 272, 80, 328, 80, 336, 78, 353, 78, 360, 80, 416, 80, 416, 64, 256, 64, 224, 64 )
+polygon = PoolVector2Array( 271, 80, 335, 80, 335, 78, 353, 78, 353, 80, 416, 80, 416, 64, 271, 64 )
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="World_Collider"]
 polygon = PoolVector2Array( 79, 64, -80, 117, -16, 64 )
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="World_Collider"]
 polygon = PoolVector2Array( 416, 80, 416, 64, 432, 64, 432, 80, 432, 176, 384, 176, 416, 160 )
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="World_Collider"]
+polygon = PoolVector2Array( 271, 80, 224, 64, 224, 0, 271, 0 )

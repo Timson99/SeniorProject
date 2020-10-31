@@ -93,9 +93,14 @@ func explore(delta : float):
 		
 	animations.flip_h = (current_dir == Enums.Dir.Right)
 	
+	var last_position = position
 	var collision = move_and_collide(velocity * delta)
+	
 	if collision:
 		animations.animation = dir_anims[current_dir][0]
+		if !(collision.normal in [Vector2.UP, Vector2.DOWN, Vector2.RIGHT, Vector2.LEFT]):
+			position = last_position
+			
 	velocity = Vector2()
 	
 	
@@ -196,10 +201,14 @@ func change_skin(skin_id):
 		Debugger.dprint("Skin id %s not found in Character %s" % [skin_id, persistence_id])
 		
 
-
-func move_to_position(new_position: Vector2):
-	var current_position = self.get_global_position()
-	current_position = position
+#Sequener Method
+func move_to_position(new_position: Vector2, global = false):
+	var current_position
+	if global:
+	 current_position = self.get_global_position()
+	else:
+		current_position = position
+		
 	var x_delta = new_position.x - current_position.x
 	var y_delta = new_position.y - current_position.y
 	if y_delta != 0:

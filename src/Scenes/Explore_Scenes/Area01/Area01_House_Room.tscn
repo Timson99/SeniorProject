@@ -38,6 +38,8 @@ extents = Vector2( 56, 24 )
 [node name="Area01_House01" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="Position2D" type="Position2D" parent="."]
+
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( -16, -48 )
 tile_set = SubResource( 1 )
@@ -59,10 +61,9 @@ position = Vector2( 144, 200 )
 position = Vector2( -14, -30 )
 
 [node name="Bed" parent="TileMap/YSort" instance=ExtResource( 5 )]
-position = Vector2( -56, -72 )
+position = Vector2( -56, -78 )
 
 [node name="World_Collider" type="StaticBody2D" parent="TileMap"]
-visible = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
