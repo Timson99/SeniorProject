@@ -12,14 +12,18 @@ var skills = {} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 onready var temp_battle_stats := stats
 
+var enemy_party = null
+
 var module_rise := 2
 
 var party_data = null
 
+var enemy_select_mode = false
+
 signal move(move)
 
 func _ready():
-	pass	
+	menu.parent = self	
 	
 func _process(_delta):
 	$UI/RichTextLabel.text = ("HP: %d/%d\nSP: %d/%d" % [stats.get_stats()["HP"], 
@@ -34,16 +38,57 @@ func on_load():
 func test_command1():
 	pass
 	
+func back():
+	if !enemy_select_mode:
+		menu.back()
+	else:
+		InputEngine.deactivate_receiver(self)
+		anim_player.play("Display_To_Menu")
+		yield(anim_player, "animation_finished")
+		anim_player.stop()
+		anim_player.animation = "Menu"
+		menu.show()
+		enemy_select_mode = false
+		InputEngine.activate_receiver(self)
+		
+	
 func accept():
-	var command = menu.accept()
-	emit_signal("move", command)
+	if !enemy_select_mode:
+		var command = menu.accept()
+		#If accept didn't just open another submenu, and returned a command
+		if command != null:
+			if command in ["Run", "Defend"]:
+				emit_signal("move", command)
+			else:
+				enemy_select_mode = true
+				anim_player.animation = "Display"
+				menu.hide()
+				menu.reset(false)
+				enemy_party = SceneManager.current_scene.enemy_party
+				enemy_select_mode = true
+				#emit_signal("move", command)
 	
 	
 func up():
-	menu.up()
+	if !enemy_select_mode:
+		menu.up()
 	
 func down():
-	menu.down()
+	if !enemy_select_mode:
+		menu.down()
+	
+		
+func left():
+	if !enemy_select_mode:
+		menu.up()
+	else:
+		pass
+	
+func right():
+	if !enemy_select_mode:
+		menu.down()
+	else:
+		pass
 	
 func release_up():
 	menu.release_up()
@@ -69,6 +114,7 @@ func deactivate_player():
 	anim_player.animation = "Display"
 	menu.hide()
 	menu.reset()
+	enemy_party = null
 	
 func save():
 	var save_dict = {

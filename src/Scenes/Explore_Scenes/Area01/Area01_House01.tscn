@@ -85,7 +85,7 @@ shape = SubResource( 2 )
 
 [node name="Dialogue" type="Area2D" parent="TileMap/Warp_Outside"]
 script = ExtResource( 9 )
-speakerID = "rhxgo"
+speakerID = "Main_Door"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Warp_Outside/Dialogue"]
 position = Vector2( 0, 7 )
@@ -125,7 +125,7 @@ position = Vector2( 152, 112 )
 [node name="Radius" type="Area2D" parent="TileMap/YSort/Couch"]
 position = Vector2( 0, -8 )
 script = ExtResource( 9 )
-speakerID = "rhi91"
+speakerID = "Couch"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TileMap/YSort/Couch/Radius"]
 position = Vector2( 8, 0 )
@@ -137,7 +137,7 @@ position = Vector2( 152, 136 )
 
 [node name="Radius" type="Area2D" parent="TileMap/YSort/Table01"]
 script = ExtResource( 9 )
-speakerID = "bsyvj"
+speakerID = "Note"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/YSort/Table01/Radius"]
 position = Vector2( 24, -11 )

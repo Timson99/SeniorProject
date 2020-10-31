@@ -46,8 +46,8 @@ var focused = default_focused
 func _ready():
 	reset()
 	
-func reset():
-	focused = default_focused
+func reset(reset_focused = true):
+	focused = default_focused if reset_focused else focused
 	buttons[focused]["anim_player"].animation = "on" 
 	
 	
@@ -83,6 +83,7 @@ func release_down():
 func accept():
 	if submenu:
 		submenu.accept()
+		
 	else:
 		buttons[focused]["anim_player"].animation = "off" 
 		return buttons[focused]["command"]
@@ -91,8 +92,9 @@ func back():
 	if submenu:
 		submenu.back()
 	else:
-		queue_free()
-		parent.submenu = null
+		pass
+		#queue_free()
+		#parent.submenu = null
 
 func left():
 	if submenu:
