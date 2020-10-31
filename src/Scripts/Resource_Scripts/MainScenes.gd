@@ -48,5 +48,6 @@ var battle_scenes := {
 	#Tim Test Articles
 	"TestBattle1" : "res://Scenes/Tim_Test_Scenes/WinButton.tscn",
 	"DemoBattle" : "res://Scenes/Battle_Scenes/General/Demo_Battle_Scene.tscn",
+	"JoeDemoBattle": "res://Scenes/Joe_Test_Scenes/Joe_Demo_Battle.tscn"
 	
 }

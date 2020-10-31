@@ -8,16 +8,20 @@ export var alive := true
 export var current_mode := Mode.Patrol
 export var data_id := 1
 export var has_patrol_pattern := "patrol_erratic"
+var battle_sprite
 
 onready var player_party = null
 onready var target_player = EnemyHandler.target_player
 onready var skins  = {
 	"SampleEnemy" : {
 		"default" : $AnimatedSprite,
+		"battle"  : "res://Assets/Enemy_Art/Bully/Battle_Bully.png"
 	}
 }
 onready var animations = skins["SampleEnemy"]["default"]
-	
+
+const patrol_patterns := ["patrol_erratic", "patrol_linear", "patrol_circle", "patrol_box"]	
+
 var dir_anims := {
 	Enums.Dir.Up: ["Idle_Up", "Walk_Up"],
 	Enums.Dir.Down: ["Idle_Down", "Walk_Down"],
@@ -38,6 +42,8 @@ var next_movement: String = ""
 func _ready():
 	$DetectionRadius.connect("body_entered", self, "begin_chasing")
 	$DetectionRadius.connect("body_exited", self, "stop_chasing")
+	$DetectionRadius.connect("area_entered", self, "add_to_gang")
+	$DetectionRadius.connect("area_exited", self, "remove_from_gang")
 
 
 func _physics_process(delta):
@@ -61,21 +67,31 @@ func _physics_process(delta):
 		isMoving = false
 	
 	var collision = move_and_collide(velocity * delta)
-	if collision and collision.collider.name == target_player.persistence_id:
-		print("ENEMY COLLIDED WITH PLAYER")
+	if collision and collision.collider.name == target_player.persistence_id: # Collides with party in general currently
+		EnemyHandler.queued_battle_enemies.append(data_id)
+		EnemyHandler.can_spawn = false
+		print("ENEMY COLLIDED WITH %s" % target_player.persistence_id)
 		stop_chasing(player_party)
 		current_mode = Mode.Battle
 		$CollisionBox.disabled = true
-
-		SceneManager.goto_scene("DemoBattle")
+		SceneManager.goto_scene("JoeDemoBattle", "", true)
 	velocity = Vector2(0,0)
-
+	
 
 func move_toward_player():
 	var party_position = player_party.get_global_position()
 	var enemy_position = self.get_global_position()
 	var x_diff = party_position.x - enemy_position.x
 	var y_diff = party_position.y - enemy_position.y
+	var movement_vector: Vector2 = Vector2(x_diff, y_diff)
+	if enemy_position.y > party_position.y:
+		current_dir = Enums.Dir.Up
+	else:
+		current_dir = Enums.Dir.Down
+	if party_position.x > enemy_position.x:
+		current_dir = Enums.Dir.Right
+	else:
+		current_dir = Enums.Dir.Left
 	return Vector2(x_diff, y_diff).normalized() * default_speed * chase_factor
 	
 	
@@ -113,6 +129,16 @@ func stop_chasing(body: Node):
 		current_mode = initial_mode
 
 
+# Overlapping enemy Area2Ds throw enemies into array that may be instanced in battle later
+func add_to_gang():
+	pass
+
+	
+# Corresponding removal function for "add_to_gang"
+func remove_from_gang():
+	pass
+
+
 func patrol_erratic(current_movement: String):
 	if patrol_timer && patrol_timer.get_time_left() > 0:
 		return self.call(current_movement)
@@ -129,10 +155,9 @@ func patrol_erratic(current_movement: String):
 		rand_num_generator.randomize()
 		var movement_index = rand_num_generator.randi_range(0,3)
 		next_movement = movement_options[movement_index]
-		print(next_movement)
+		#print(next_movement)
 		patrol_timer = get_tree().create_timer(rand_num_generator.randf_range(0,1), false)
-		return self.call(next_movement)
-		
+		return self.call(next_movement)		
 
 
 func patrol_linear():

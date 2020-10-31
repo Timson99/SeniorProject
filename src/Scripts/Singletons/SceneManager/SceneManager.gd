@@ -32,9 +32,11 @@ func goto_scene(scene_id : String, warp_destination_id := "", save_path = false)
 		pass
 	elif scene_id in MainScenes.explore_scenes:
 		scene_id = MainScenes.explore_scenes[scene_id]["scene_path"]
+		EnemyHandler.current_scene = scene_id
 		EnemyHandler.can_spawn = MainScenes.explore_scenes[scene_id]["spawnable_enemies"]
 	elif scene_id in MainScenes.battle_scenes:
 		scene_id = MainScenes.battle_scenes[scene_id]
+		EnemyHandler.current_scene = null
 	else:
 		Debugger.dprint("ERROR: Scene Not Valid")
 	

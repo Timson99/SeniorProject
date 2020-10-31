@@ -4,5 +4,5 @@
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
 
-[node name="AnimatedSprite" parent="." index="1"]
-animation = "Idle_Right"
+[node name="CollisionCircle" parent="DetectionRadius" index="0"]
+position = Vector2( -0.125, -0.125 )
