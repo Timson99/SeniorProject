@@ -83,9 +83,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 1/z_index = 0
 
-[node name="Joe_Outside_Test" type="Node2D" groups=[
-"ExploreScene",
-]]
+[node name="Joe_Outside_Test" type="Node2D"]
 position = Vector2( 5, 0 )
 script = ExtResource( 4 )
 

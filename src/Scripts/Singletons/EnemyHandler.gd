@@ -39,8 +39,7 @@ var valid_pos_flag := false
 
 func _ready():
 	EnemyHandler.connect("scene_fully_loaded", self, "initialize_spawner_info")
-	if get_tree().get_nodes_in_group("ExploreScene")[0] != null:
-		scene_node = get_tree().get_nodes_in_group("ExploreScene")[0]
+	scene_node = SceneManager.current_scene
 	#print(scene_node.name)
 	if scene_node.get("enemies_spawnable") != null:
 		can_spawn = scene_node.get("enemies_spawnable")
@@ -48,7 +47,7 @@ func _ready():
 			initialize_spawner_info()
 	else: 
 		can_spawn = false
-	#print(can_spawn)
+	print("enemies spawnable here: %s" % can_spawn)
 	pass 
 
 
@@ -58,6 +57,7 @@ func get_enemy_data(id: int):
 
 func initialize_spawner_info():
 	#print(can_spawn)
+	scene_node = SceneManager.current_scene
 	if can_spawn:
 		#print("ENEMIES SPAWN")
 		max_enemies = scene_node.get("max_enemies")
