@@ -33,21 +33,21 @@
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 2 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 9, 3 )
 
-[sub_resource type="RectangleShape2D" id=5]
-
 [sub_resource type="RectangleShape2D" id=4]
+
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 14, 13 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 264, 8 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 8, 72 )
 
 [node name="Area01_House01" type="Node2D"]
@@ -81,7 +81,7 @@ position = Vector2( -152, -55 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Warp_Outside/MainDoor"]
 position = Vector2( 152, 62 )
-shape = SubResource( 6 )
+shape = SubResource( 2 )
 
 [node name="Dialogue" type="Area2D" parent="TileMap/Warp_Outside"]
 script = ExtResource( 9 )
@@ -89,7 +89,7 @@ speakerID = "rhxgo"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Warp_Outside/Dialogue"]
 position = Vector2( 0, 7 )
-shape = SubResource( 7 )
+shape = SubResource( 3 )
 
 [node name="LockedDoor01" type="Area2D" parent="TileMap"]
 script = ExtResource( 9 )
@@ -97,7 +97,7 @@ speakerID = "yoysg"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LockedDoor01"]
 position = Vector2( -40, 99 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="LockedDoor02" type="Area2D" parent="TileMap"]
 script = ExtResource( 9 )
@@ -105,7 +105,7 @@ speakerID = "yoysg"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LockedDoor02"]
 position = Vector2( 248, 67 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="YSort" type="YSort" parent="TileMap"]
 
@@ -141,17 +141,17 @@ speakerID = "bsyvj"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/YSort/Table01/Radius"]
 position = Vector2( 24, -11 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="World_Collider" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World_Collider"]
 position = Vector2( 168, 184 )
-shape = SubResource( 2 )
+shape = SubResource( 6 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World_Collider"]
 position = Vector2( -88, 136 )
-shape = SubResource( 3 )
+shape = SubResource( 7 )
 
 [node name="CollisionShape2D4" type="CollisionPolygon2D" parent="World_Collider"]
 position = Vector2( 208, 24 )
