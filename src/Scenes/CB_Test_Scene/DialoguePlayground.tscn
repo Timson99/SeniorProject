@@ -1,12 +1,14 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Test_Art/icon.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/CB_Test_Scene/DialogueEngine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Singletons/Dialogue_Engine/DialogueEngine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/CB_Test_Scripts/Character_Dialogue_Manager.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Character_Scenes/Party.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Explore_Scenes/General/Checkable.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/UI/Dialogue/Dialogue_Box_Mockup_01.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/CB_Test_Scripts/Character_Dialogue_Reactive.gd" type="Script" id=8]
+
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 78.5833

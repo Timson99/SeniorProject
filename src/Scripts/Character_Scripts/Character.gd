@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-const default_speed := 65.0
+const pixel_per_frame := 1
+const default_speed := 60.0 * pixel_per_frame
 
 var speed := default_speed setget set_speed
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type

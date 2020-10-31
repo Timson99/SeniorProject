@@ -7,6 +7,7 @@ export var camera_bounds = {"is_static": false,
 							"max_y" : -100000,
 							"min_y" : 100000,
 							}
+							
 
 #export var music_track_path = "res://Assets/Music/No_Place_Like_Home (temp).ogg"
 

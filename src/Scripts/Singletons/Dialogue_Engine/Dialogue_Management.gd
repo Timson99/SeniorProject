@@ -3,9 +3,9 @@ extends CanvasLayer
 #InputEngine
 var input_id = "Dialogue"
 
-var area = "Area01"
+var current_area = "Area01"
 
-var dialogue_paths = {
+var dialogue_areas = {
 	"Area01" : "res://Assets/Dialogue/Area01.res"
 }
 
@@ -37,8 +37,7 @@ onready var textTimer = get_node("Timer")
 func _ready():
 	dialogue_box.hide()
 	options_box.hide()
-	#var path = "res://Assets/Christian_Test_Assets/" + ResFile + ".res"
-	var path = dialogue_paths[area]
+	var path = dialogue_areas[current_area]
 	
 	# Create file, test for existance
 	var file = File.new()
@@ -59,64 +58,65 @@ func _ready():
 			#get metadata and split into array
 			var metaData = val.left(mdLength + 2)
 			var metaArray = metaData.split(" ", false)
-			if metaArray.size() > 5 && metaArray[1].length() == 5:
-				#check for -z flag, to update speaker dictionary
-				if !speakerDictionary.has(metaArray[1]) && metaArray[3] == "-z":
-					speakerDictionary[metaArray[1]] = [metaArray[2]]
-				
-				#establish sub dictionary to add as val to dialogueDictionary
-				var toInsert = {"msg": val.right(mdLength + 3)}
-				var mdIndex = 0
-				
-				#get parent id for option logic
-				if metaArray[metaArray.size() - 2].length() > 5:
-					toInsert["pID"] = metaArray[metaArray.size() - 2] 
-				
-				#manage the flags in the metaArray
-				var setPSID = false
-				for item in metaArray:
-					match item:
-						"-s":
-							if prevSequenceID != null:
-								dialogueDictionary[prevSequenceID]["-s"] = metaArray[2]
-							setPSID = true
-						"-z":
-							setPSID = true
-						"-t":
-							if prevSequenceID != null:
-								dialogueDictionary[prevSequenceID]["-s"] = metaArray[2]
-							toInsert["-t"] = true
+			if metaArray.size() <= 5 || metaArray[1].length() != 5:
+				continue
+			#check for -z flag, to update speaker dictionary
+			if !speakerDictionary.has(metaArray[1]) && metaArray[3] == "-z":
+				speakerDictionary[metaArray[1]] = [metaArray[2]]
+			
+			#establish sub dictionary to add as val to dialogueDictionary
+			var toInsert = {"msg": val.right(mdLength + 3)}
+			var mdIndex = 0
+			
+			#get parent id for option logic
+			if metaArray[metaArray.size() - 2].length() > 5:
+				toInsert["pID"] = metaArray[metaArray.size() - 2] 
+			
+			#manage the flags in the metaArray
+			var setPSID = false
+			for item in metaArray:
+				match item:
+					"-s":
+						if prevSequenceID != null:
+							dialogueDictionary[prevSequenceID]["-s"] = metaArray[2]
+						setPSID = true
+					"-z":
+						setPSID = true
+					"-t":
+						if prevSequenceID != null:
+							dialogueDictionary[prevSequenceID]["-s"] = metaArray[2]
+						toInsert["-t"] = true
+						prevSequenceID = null
+					"-q":
+						if !qParse.has(metaArray[mdIndex + 1]):
+							qParse.append(metaArray[2])
+							toInsert["-q"] = metaArray[mdIndex + 1]
 							prevSequenceID = null
-						"-q":
-							if !qParse.has(metaArray[mdIndex + 1]):
-								qParse.append(metaArray[2])
-								toInsert["-q"] = metaArray[mdIndex + 1]
-								prevSequenceID = null
-							else:
-								if qParse.find(mdIndex + 1) > -1:
-									qParse.remove(qParse.find(mdIndex + 1))
-						"-x":
-							toInsert["-x"] = metaArray[mdIndex + 1]
-						"-o":
-							var optvals = mdIndex+1
-							toInsert["-o"] = []
-							while optvals < metaArray.size() - 1 && metaArray[optvals].length() > 5:
-								toInsert["-o"].append(metaArray[optvals])
-								optvals += 1
-						"-rct":
-							if prevSequenceID != null:
-								dialogueDictionary[prevSequenceID]["-t"] = true
-								dialogueDictionary[prevSequenceID].erase("-s")
-							setPSID = true
-							toInsert["-rct"] = metaArray[mdIndex + 1]
-							speakerDictionary[metaArray[1]].append(metaArray[2])
-					mdIndex += 1
-				if setPSID:
-					prevSequenceID = metaArray[2]
-					setPSID = false
-				
-				#add entry with key of msgID and value as metadata subdirectory
-				dialogueDictionary[metaArray[2]] = toInsert
+						else:
+							if qParse.find(mdIndex + 1) > -1:
+								qParse.remove(qParse.find(mdIndex + 1))
+					"-x":
+						toInsert["-x"] = metaArray[mdIndex + 1]
+					"-o":
+						var optvals = mdIndex+1
+						toInsert["-o"] = []
+						while optvals < metaArray.size() - 1 && metaArray[optvals].length() > 5:
+							toInsert["-o"].append(metaArray[optvals])
+							optvals += 1
+					"-rct":
+						if prevSequenceID != null:
+							dialogueDictionary[prevSequenceID]["-t"] = true
+							dialogueDictionary[prevSequenceID].erase("-s")
+						setPSID = true
+						toInsert["-rct"] = metaArray[mdIndex + 1]
+						speakerDictionary[metaArray[1]].append(metaArray[2])
+				mdIndex += 1
+			if setPSID:
+				prevSequenceID = metaArray[2]
+				setPSID = false
+			
+			#add entry with key of msgID and value as metadata subdirectory
+			dialogueDictionary[metaArray[2]] = toInsert
 	
 
 #either skips scroll, advances to next line, or selects option
@@ -252,7 +252,7 @@ func _advance():
 		#begin text scroll
 		textTimer.start()
 		while (textNode.get_visible_characters() < textNode.get_text().length()):
-			scrollAudio.play()
+			#scrollAudio.play()
 			textNode.set_visible_characters(textNode.get_visible_characters()+1)
 			yield(textTimer, "timeout")
 		

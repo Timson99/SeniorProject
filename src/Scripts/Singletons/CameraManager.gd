@@ -83,7 +83,6 @@ func screen_resize():
 #Run camera movement in physics process?
 # Use signals for state changes rather than process constant checks
 func _physics_process(_delta):
-	
 	var party = get_tree().get_nodes_in_group("Party")
 	if party.size() != 1:
 		if state != State.Static and state != State.Sequenced: state_to_static()
@@ -96,7 +95,7 @@ func _physics_process(_delta):
 	elif state == State.OnParty:
 		if party[0].active_player == null:
 			return
-		var party_pos = party[0].active_player.get_global_position()
+		var party_pos = party[0].active_player.get_global_position()	
 		position = Vector2(party_pos.x, party_pos.y)
 		if "camera_bounds" in SceneManager.current_scene:
 			var bounds = SceneManager.current_scene.camera_bounds
