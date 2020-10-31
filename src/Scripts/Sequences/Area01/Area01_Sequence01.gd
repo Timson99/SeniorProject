@@ -9,6 +9,7 @@ static func instructions():
 	  ["Actor-call", "C1", "change_skin", "AtHome"],
 	  ["Actor-set", "C1", "exploring", false],
 	  ["Actor-call", "C1", "set_anim", "Rest_Closed"],
+	  ["Actor-call", "C1", "set_collision", false],
 	  ["Actor-set", "Party", "position", Vector2(-61, -67)],
 	  ["Actor-call", "C1", "flip_horizontal", true],
 	  ["Delay", 2.0],
@@ -16,4 +17,5 @@ static func instructions():
 	  ["Actor-set", "C1", "exploring", true],
 	  ["Actor-sync", "C1", "move_to_position", Vector2(0, 40)],
 	  #["Actor-sync", "C1", "move_down", 1],
+	  ["Actor-call", "C1", "set_collision", true],
   ]

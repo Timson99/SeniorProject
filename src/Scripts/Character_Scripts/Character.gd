@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal command_completed
+
 const pixel_per_frame := 1
 const default_speed := 60.0 * pixel_per_frame
 
@@ -109,6 +111,10 @@ func deactivate_player():
 	$CollisionBox.disabled = true
 	
 	
+func set_collision(is_enabled:bool):
+	$CollisionBox.disabled = !is_enabled
+
+	
 #Input Receiver Methods
 func move_up():
 	velocity = Vector2(0,0)
@@ -138,7 +144,7 @@ func open_menu():
 	MenuManager.activate()
 ###################################################	
 func test_command1():
-	Sequencer.execute_event("test_seq4")
+	Sequencer.execute_event("test_seq6")
 	pass
 	
 func test_command2():
@@ -206,6 +212,10 @@ func move_to_position(new_position: Vector2):
 			move_left()
 		else:
 			move_right()
+	if current_position == new_position:
+		emit_signal("command_completed")
+		print("MOVE-TO COMPLETED")
+		
 	
 
 #Persistent Object Method
