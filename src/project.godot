@@ -49,11 +49,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Resource_Scripts/MainScenes.gd"
 }, {
-"base": "Resource",
-"class": "MainScenesWithEnemyBehavior",
-"language": "GDScript",
-"path": "res://Scripts/Joe_Test_Scripts/MainScenesWithEnemyBehavior.gd"
-}, {
 "base": "Node",
 "class": "PriorityQueue",
 "language": "GDScript",
@@ -73,7 +68,6 @@ _global_script_class_icons={
 "Explore_Root": "",
 "Item": "",
 "MainScenes": "",
-"MainScenesWithEnemyBehavior": "",
 "PriorityQueue": "",
 "TestPQ": ""
 }

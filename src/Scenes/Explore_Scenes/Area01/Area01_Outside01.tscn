@@ -37,9 +37,7 @@
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 727, 10 )
 
-[node name="Area01_Outside01" type="Node2D" groups=[
-"ExploreScene",
-]]
+[node name="Area01_Outside01" type="Node2D"]
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true

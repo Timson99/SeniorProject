@@ -50,9 +50,7 @@ extents = Vector2( 264, 8 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 8, 72 )
 
-[node name="Area01_House01" type="Node2D" groups=[
-"ExploreScene",
-]]
+[node name="Area01_House01" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
