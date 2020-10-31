@@ -6,6 +6,8 @@ onready var party = get_tree().get_nodes_in_group("Party")
 var used = false
 var persistence_id = "Area01_Closet"
 
+signal used
+
 
 func _ready():
 	interact_area.connect("body_entered", self, "body_entered")
@@ -16,6 +18,7 @@ func interact():
 		party[0].active_player.has_method("change_skin") and
 		party[0].active_player.persistence_id == "C1"):
 		party[0].active_player.change_skin("AtHome")
+	emit_signal("used")
 	animations.play("Empty")
 	used = true
 	
@@ -42,3 +45,4 @@ func on_load():
 		animations.play("Empty")
 		interact_area.disconnect("body_entered", self, "body_entered")
 		interact_area.disconnect("body_exited", self, "body_exit")
+		emit_signal("used")

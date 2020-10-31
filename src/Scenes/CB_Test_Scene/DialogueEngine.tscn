@@ -12,7 +12,6 @@ font_data = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
-ResFile = "scene_3m4ai_ (1)"
 
 [node name="TextAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
@@ -41,6 +40,7 @@ margin_top = -25.007
 margin_right = 141.934
 margin_bottom = 19.993
 custom_fonts/normal_font = SubResource( 1 )
+scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }

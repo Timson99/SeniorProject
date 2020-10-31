@@ -36,13 +36,12 @@ func _process(_delta):
 		#print(event["current_instruction"].is_valid())
 		return
 		
-	print(event["instructions"])
 	if event["instructions"].size() == 0:
 		active_event = null
 		return
 		
 	var instruction = event["instructions"].pop_front()
-	if instruction.size() >= 3 && (instruction[0] == "Actor-sync" || instruction[0] == "Actor-async"):	
+	if instruction.size() >= 2 && (instruction[0] in ["Actor-sync", "Actor-async", "Actor-call", "Actor-set"]):	
 		event["current_instruction"] = funcref(self, "actor_instruction")
 		event["current_instruction"].call_func(instruction)
 	elif instruction.size() >= 2 && instruction[0] == "BG_Audio":
@@ -100,7 +99,19 @@ func actor_instruction(params: Array):
 			ActorEngine.asynchronous_delay_time = 0.0
 			
 	# Note: params unpacked here to simplify code for process_command()
-	if params.size() == 3:
+	if params[0] == "Actor-set":
+		if params.size() == 4:
+			ActorEngine.set_command(params[1], params[2], params[3])
+		else:
+			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
+			
+	elif params[0] == "Actor-call":
+		if params.size() >= 3:
+			ActorEngine.call_command(params[1], params[2], params.slice(3, params.size()))
+		else:
+			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
+			
+	elif params.size() == 3:
 		ActorEngine.process_command(params[0], params[1], params[2])
 	elif params.size() == 4:
 		ActorEngine.process_command(params[0], params[1], params[2], params[3])
@@ -109,7 +120,6 @@ func actor_instruction(params: Array):
 	if params[0] == "Actor-sync":
 		yield(ActorEngine, "sync_command_complete")
 		
-	print("END of Function")
 	active_event["current_instruction"] = null
 	return
 	
@@ -143,7 +153,8 @@ func battle_instruction(scene_id : String):
 #Change Scene, No Coroutine, Last Instruction
 func scene_instruction(scene_id : String, warp_id : String):
 	SceneManager.goto_scene(scene_id, warp_id)
-	yield(SceneManager, "scene_fully_loaded")
+	#Runs next event after all onloads are called
+	yield(SceneManager, "scene_loaded")
 	active_event["current_instruction"] = null
 	return
 	
@@ -175,7 +186,7 @@ func delay_instruction(time : float):
 func signal_instruction(obj_id : String, signal_name):
 	var observed_objects = {
 		#"Dialogue" : DialogueManager,
-		"Scene" : SceneManager,
+		"SceneManager" : SceneManager,
 	}
 	yield(observed_objects[obj_id], signal_name)
 	active_event["current_instruction"] = null

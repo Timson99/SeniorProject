@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/Environments/Area1/Inside_Map.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/Node_Scripts/GeneralExploreRoot.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Node_Scripts/Area01_House_SceneRoot.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Character_Scenes/Party.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Explore_Scenes/General/Warp.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Props/Area01/Closet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Props/Area01/Painting.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Props/Area01/Couch.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Props/Area01/Table01.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/Node_Scripts/Interactable_Dialogue.gd" type="Script" id=9]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Inside_Map.png 0"
@@ -32,6 +33,17 @@
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 16, 2 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 9, 3 )
+
+[sub_resource type="RectangleShape2D" id=5]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 14, 13 )
+
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 264, 8 )
 
@@ -40,13 +52,6 @@ extents = Vector2( 8, 72 )
 
 [node name="Area01_House01" type="Node2D"]
 script = ExtResource( 2 )
-camera_bounds = {
-"is_static": false,
-"max_x": 100000,
-"max_y": -100000,
-"min_x": -100000,
-"min_y": 100000
-}
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -71,6 +76,37 @@ warp_destination_id = "Outside_To_House"
 warp_scene_id = "Area01_Outside01"
 exit_direction = 1
 
+[node name="MainDoor" type="StaticBody2D" parent="TileMap/Warp_Outside"]
+position = Vector2( -152, -55 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Warp_Outside/MainDoor"]
+position = Vector2( 152, 62 )
+shape = SubResource( 6 )
+
+[node name="Dialogue" type="Area2D" parent="TileMap/Warp_Outside"]
+script = ExtResource( 9 )
+speakerID = "rhxgo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Warp_Outside/Dialogue"]
+position = Vector2( 0, 7 )
+shape = SubResource( 7 )
+
+[node name="LockedDoor01" type="Area2D" parent="TileMap"]
+script = ExtResource( 9 )
+speakerID = "yoysg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LockedDoor01"]
+position = Vector2( -40, 99 )
+shape = SubResource( 5 )
+
+[node name="LockedDoor02" type="Area2D" parent="TileMap"]
+script = ExtResource( 9 )
+speakerID = "yoysg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LockedDoor02"]
+position = Vector2( 248, 67 )
+shape = SubResource( 5 )
+
 [node name="YSort" type="YSort" parent="TileMap"]
 
 [node name="Party" parent="TileMap/YSort" instance=ExtResource( 3 )]
@@ -86,8 +122,26 @@ position = Vector2( 304, 56 )
 [node name="Couch" parent="TileMap/YSort" instance=ExtResource( 7 )]
 position = Vector2( 152, 112 )
 
+[node name="Radius" type="Area2D" parent="TileMap/YSort/Couch"]
+position = Vector2( 0, -8 )
+script = ExtResource( 9 )
+speakerID = "rhi91"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TileMap/YSort/Couch/Radius"]
+position = Vector2( 8, 0 )
+scale = Vector2( 1.18359, 1 )
+polygon = PoolVector2Array( -31.7993, 9, -32, -14, 18.8937, -14, 18.8937, 9 )
+
 [node name="Table01" parent="TileMap/YSort" instance=ExtResource( 8 )]
 position = Vector2( 152, 136 )
+
+[node name="Radius" type="Area2D" parent="TileMap/YSort/Table01"]
+script = ExtResource( 9 )
+speakerID = "bsyvj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/YSort/Table01/Radius"]
+position = Vector2( 24, -11 )
+shape = SubResource( 4 )
 
 [node name="World_Collider" type="StaticBody2D" parent="."]
 
@@ -110,4 +164,4 @@ polygon = PoolVector2Array( 272, 80, 328, 80, 336, 78, 353, 78, 360, 80, 416, 80
 polygon = PoolVector2Array( 79, 64, -80, 117, -16, 64 )
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="World_Collider"]
-polygon = PoolVector2Array( 416, 80, 416, 64, 432, 64, 432, 80, 432, 176, 416, 176 )
+polygon = PoolVector2Array( 416, 80, 416, 64, 432, 64, 432, 80, 432, 176, 384, 176, 416, 160 )

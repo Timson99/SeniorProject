@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Environments/Area1/Props_10.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Environments/Area1/Props_11.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Environments/Area1/Props_15.png" type="Texture" id=3]
-[ext_resource path="res://Scripts/Node_Scripts/Interactable_Dialogue.gd" type="Script" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -12,9 +11,6 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 } ]
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 21.0238
 
 [node name="Table01" type="StaticBody2D"]
 
@@ -26,17 +22,6 @@ frames = SubResource( 1 )
 position = Vector2( 339, 225 )
 texture = ExtResource( 2 )
 
-[node name="Radius" type="Area2D" parent="Props_11"]
-position = Vector2( -315, -237 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-speakerID = "ucgu5"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Props_11/Radius"]
-shape = SubResource( 2 )
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -14.82, 17 )
-polygon = PoolVector2Array( 46.82, -5, -17.18, -5, -17.18, -29, 46.82, -29 )
+polygon = PoolVector2Array( 46.82, -5, -17.18, -5, -17.18, -27, 46.82, -27 )

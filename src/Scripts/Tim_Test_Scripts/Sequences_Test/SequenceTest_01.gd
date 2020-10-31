@@ -4,8 +4,8 @@ extends Resource
 static func instructions():
 	return [
 		#Actor-type Actor_ID Command, time in seconds or flag, optional param (Vector2 for position)
-		["Actor-async", "PChar1", "move_up", 5],
-		["Actor-sync", "PChar2", "change_follow", "split"],
+		["Actor-async", "C1", "move_up", 5],
+		["Actor-sync", "C2", "change_follow", "split"],
 		#Dialogue, D_ID
 		["Dialogue", "d_id"],
 		#BG_Audio, command, optional audio_id
@@ -19,6 +19,6 @@ static func instructions():
 		#Delay, time in seconds,
 		["Delay", 2],
 		#Signal, Observed From, Signal Name
-		["Signal", "Scene", "goto_called"],
+		["Signal", "SceneManager", "goto_called"],
 		
 	]

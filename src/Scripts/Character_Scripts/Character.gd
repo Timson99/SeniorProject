@@ -1,12 +1,13 @@
 extends KinematicBody2D
 
-const default_speed := 60.0
+const default_speed := 65.0
 
-export var speed := default_speed setget set_speed
+var speed := default_speed setget set_speed
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
+var exploring = true
 
 var skills = {"Skill1" : 0} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
@@ -53,7 +54,19 @@ func on_load():
 
 
 func _physics_process(delta : float):
-	explore(delta)
+	if exploring:
+		explore(delta)
+	
+	
+func play_anim(anim_str):
+	animations.play(anim_str)
+	
+func set_anim(anim_str):
+	print(anim_str)
+	animations.animation = anim_str
+	
+func flip_horizontal(flip : bool):
+	animations.flip_h = flip
 	
 
 func explore(delta : float):
@@ -76,8 +89,8 @@ func explore(delta : float):
 		isMoving = false
 		
 	animations.flip_h = (current_dir == Enums.Dir.Right)
+	
 	var collision = move_and_collide(velocity * delta)
-	position = Vector2(round(position.x), round(position.y))
 	if collision:
 		animations.animation = dir_anims[current_dir][0]
 	velocity = Vector2()
@@ -87,6 +100,7 @@ func explore(delta : float):
 func activate_player():
 	InputEngine.activate_receiver(self)
 	$CollisionBox.disabled = false
+
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
@@ -178,7 +192,7 @@ func change_skin(skin_id):
 
 func move_to_position(new_position: Vector2):
 	var current_position = self.get_global_position()
-	current_position = Vector2(round(position.x), round(position.y))
+	current_position = position
 	var x_delta = new_position.x - current_position.x
 	var y_delta = new_position.y - current_position.y
 	if y_delta != 0:
