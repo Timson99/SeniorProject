@@ -6,11 +6,7 @@ var explore_scenes := {
 		
 	
 	#Tim Test Articles
-	"TileMapTest" : {
-		"scene_path": "res://Scenes/Tim_Test_Scenes/TestTileMap.tscn",
-		"spawnable_enemies": false,
-		"max_num_of_enemies": 0
-					},
+	"TileMapTest" : "res://Scenes/Tim_Test_Scenes/TestTileMap.tscn",
 	
 	#Area 1 	
 	"Area01_Opening" : "res://Scenes/Explore_Scenes/Area01/Area01_Opening.tscn",
