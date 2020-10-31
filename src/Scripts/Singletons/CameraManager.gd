@@ -78,8 +78,7 @@ func screen_resize():
 		max(diffhalf.y, 0) + odd_offset.y
 	)
 	
-	
-	
+
 #Run camera movement in physics process?
 # Use signals for state changes rather than process constant checks
 func _physics_process(_delta):
