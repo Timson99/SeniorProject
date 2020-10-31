@@ -8,12 +8,12 @@ var random_num_generator = RandomNumberGenerator.new()
 
 export var generated_enemy_id := 1
 export var num_of_enemies := 0
-export var max_enemies := 3		# Determined by scene
+export var max_enemies := 0	
 
 
 onready var target_player: KinematicBody2D 
 onready var player_view: Vector2
-onready var current_scene = SceneManager.current_scene.filename
+onready var current_scene = SceneManager.current_scene.name
 
 onready var tilemap_rect: Rect2 
 onready var tilemap_reference_point: Vector2
@@ -25,17 +25,30 @@ onready var spawn_area: Area2D
 onready var spawn_collider: CollisionPolygon2D
 #onready var spawn_area_vertices = spawn_collider.polygon
 
+onready var scene_node: Node
+
 var existing_enemy_data : Dictionary = {}
 var queued_battle_enemies: Array = []
 var queued_despawns : Array = []
 var current_battle_stats : Dictionary
-var can_spawn := false
+var can_spawn := true
 var spawning_locked := false
 var viewport_buffer := 40
 var valid_pos_flag := false
 
 
 func _ready():
+	EnemyHandler.connect("scene_fully_loaded", self, "initialize_spawner_info")
+	if get_tree().get_nodes_in_group("ExploreScene")[0] != null:
+		scene_node = get_tree().get_nodes_in_group("ExploreScene")[0]
+	#print(scene_node.name)
+	if scene_node.get("enemies_spawnable") != null:
+		can_spawn = scene_node.get("enemies_spawnable")
+		if can_spawn:
+			initialize_spawner_info()
+	else: 
+		can_spawn = false
+	#print(can_spawn)
 	pass 
 
 
@@ -43,21 +56,24 @@ func get_enemy_data(id: int):
 	return existing_enemy_data.get(id)
 
 
-func initialize_spawner_info(enemies_do_spawn: bool):
-	can_spawn = enemies_do_spawn
-	if enemies_do_spawn:
-		print("ENEMIES SPAWN")
+func initialize_spawner_info():
+	#print(can_spawn)
+	if can_spawn:
+		#print("ENEMIES SPAWN")
+		max_enemies = scene_node.get("max_enemies")
+		#print(max_enemies)
+		spawn_area = scene_node.get_node("EnemySpawnArea")
+		spawn_collider = scene_node.get_node("EnemySpawnArea/SpawnAreaCollider")
 		spawn_area.connect("body_entered", EnemyHandler, "set_valid_pos_flag")
 		spawn_area.connect("body_exited", EnemyHandler, "reset_valid_pos_flag")
-		spawn_area = get_tree().get_root().get_node("Node2D").get_node("EnemySpawnArea")
-		spawn_collider = get_tree().get_root().get_node("Node2D").get_node("EnemySpawnArea/SpawnAreaCollider")
-		tilemap_rect = get_tree().get_root().get_node("Node2D/TileMap").get_used_rect()
-		tilemap_reference_point = get_tree().get_root().get_node("Node2D/TileMap").map_to_world(tilemap_rect.position)
-		tilemap_dimensions = get_tree().get_root().get_node("Node2D/TileMap").map_to_world(tilemap_rect.size)
+		tilemap_rect = scene_node.get_node("TileMap").get_used_rect()
+		tilemap_reference_point = scene_node.get_node("TileMap").map_to_world(tilemap_rect.position)
+		tilemap_dimensions = scene_node.get_node("TileMap").map_to_world(tilemap_rect.size)
 		tilemap_width = tilemap_dimensions.x
 		tilemap_height = tilemap_dimensions.y
 	else:
-		print("ENEMIES CANNOT SPAWN")
+		#print("ENEMIES CANNOT SPAWN")
+		pass
 	
 
 func spawn_enemy():
@@ -78,7 +94,7 @@ func spawn_enemy():
 		var new_enemy_data = Enemies.enemy_types["Bully"]["battle_data"]
 		var enemy_battle_sprite = Enemies.enemy_types["Bully"]["battle_sprite"]
 		existing_enemy_data[new_enemy.data_id] = [new_enemy_data.get_stats(), enemy_battle_sprite]
-		get_tree().get_root().get_node("Node2D").add_child(new_enemy)
+		scene_node.add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
 		#print("Spawned enemy of id %d" % new_enemy.data_id)
@@ -95,13 +111,13 @@ func get_spawn_position():
 
 func validate_enemy_spawn(possible_location: Vector2):
 	Tester.position = possible_location
-	get_tree().get_root().get_node("Node2D").add_child(Tester)
+	scene_node.add_child(Tester)
 	#print("TESTER INSTANCED")
 	yield(get_tree().create_timer(1, false), "timeout")
 	var valid_spawn_position = valid_pos_flag
 	#print(valid_pos_flag)
 	yield(get_tree().create_timer(1, false), "timeout")
-	get_tree().get_root().get_node("Node2D").remove_child(Tester)
+	scene_node.remove_child(Tester)
 	return valid_spawn_position
 	
 	
@@ -133,4 +149,4 @@ func _physics_process(delta):
 			spawn_enemy()
 			#can_spawn = false
 		if !can_spawn:
-			print("CANNOT SPAWN")
+			pass

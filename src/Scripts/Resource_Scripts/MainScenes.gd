@@ -12,39 +12,16 @@ var explore_scenes := {
 		"max_num_of_enemies": 0
 					},
 	
-	#Area 1
-  "Area01_Opening" : {
-    "scene_path": "res://Scenes/Explore_Scenes/Area01/Area01_Opening.tscn",
-    "spawnable_enemies": false,
-		"max_num_of_enemies": 0
-	"Area01_House_Room" : {
-		"scene_path": "res://Scenes/Explore_Scenes/Area01/Area01_House_Room.tscn",
-		"spawnable_enemies": false,
-		"max_num_of_enemies": 0
-						   },
-	"Area01_House01" : {
-		"scene_path": "res://Scenes/Explore_Scenes/Area01/Area01_House01.tscn",
-		"spawnable_enemies": false,
-		"max_num_of_enemies": 0
-						},
-	"Area01_Outside01" : {
-		"scene_path": "res://Scenes/Explore_Scenes/Area01/Area01_Outside01.tscn",
-		"spawnable_enemies": false,
-		"max_num_of_enemies": 0
-						  },
-	"Area01_Outside02" : {
-		"scene_path": "res://Scenes/Explore_Scenes/Area01/Area01_Outside02.tscn",
-		"spawnable_enemies": false,
-		"max_num_of_enemies": 0
-						 },
+	#Area 1 	
+	"Area01_Opening" : "res://Scenes/Explore_Scenes/Area01/Area01_Opening.tscn",
+	"Area01_House_Room" : "res://Scenes/Explore_Scenes/Area01/Area01_House_Room.tscn",
+	"Area01_House01" : "res://Scenes/Explore_Scenes/Area01/Area01_House01.tscn",
+	"Area01_Outside01" : "res://Scenes/Explore_Scenes/Area01/Area01_Outside01.tscn",
+	"Area01_Outside02" : "res://Scenes/Explore_Scenes/Area01/Area01_Outside02.tscn",
 	
 	# Joe Overworld Test Scenes
-	"Joe_Outside_Test_Scene": {
-		"scene_path": "res://Scenes/Joe_Test_Scenes/Joe_Outside_Test_Scene.tscn",
-		"spawnable_enemies": true,
-		"max_num_of_enemies": 5
-								}
-                
+	"Joe_Outside_Test_Scene": "res://Scenes/Joe_Test_Scenes/Joe_Outside_Test_Scene.tscn",
+				
 }
 
 var battle_scenes := {

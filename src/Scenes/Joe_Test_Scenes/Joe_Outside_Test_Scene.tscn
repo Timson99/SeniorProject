@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Environments/Area1/Outside_Map.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Character_Scenes/Party.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Enemy_Scenes/SpawningScenes/EnemySpawnArea.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Joe_Test_Scripts/Joe_Outside_Test_Root.gd" type="Script" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 7, 16, 7 )
@@ -82,8 +83,11 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 1/z_index = 0
 
-[node name="Node2D" type="Node2D"]
+[node name="Joe_Outside_Test" type="Node2D" groups=[
+"ExploreScene",
+]]
 position = Vector2( 5, 0 )
+script = ExtResource( 4 )
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( 5, 0 )
