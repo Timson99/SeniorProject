@@ -39,10 +39,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Tim_Test_Scripts/TestSceneRoot.gd"
 }, {
-"base": "Node",
+"base": "Control",
 "class": "Item",
 "language": "GDScript",
-"path": "res://Scripts/Luis_Test_Scripts/item.gd"
+"path": "res://Scripts/Singletons/MenuManager/Submenus/ItemButton.gd"
 }, {
 "base": "Resource",
 "class": "MainScenes",
@@ -75,7 +75,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SeniorProject"
-run/main_scene="res://Scenes/MiscMainScenes/SaveLoadScreen/SaveLoadScreen.tscn"
+run/main_scene="res://Node2D.tscn"
 config/icon="res://Assets/Test_Art/icon.png"
 
 [autoload]
@@ -249,7 +249,7 @@ ui_test4={
 
 [logging]
 
-size/test_height=false
+file_logging/enable_file_logging=true
 
 [rendering]
 

@@ -7,9 +7,11 @@ var main_menu = null
 
 var item_data
 const item_data_file = "res://Scenes/Luis_Test_Scenes/Data/Item Table - Sheet1.json"
-
+var skill_data
+const skill_data_file = "res://Scenes/Luis_Test_Scenes/Data/Skill Table - Sheet1.json"
 func _ready():
 	load_item_data()
+	load_skill_data()
 
 func activate():	
 	main_menu = main_menu_scene.instance()
@@ -29,7 +31,13 @@ func load_item_data():
 	var itemdata_json = JSON.parse(itemdata_file.get_as_text())
 	itemdata_file.close()
 	item_data = itemdata_json.result
-
+	
+func load_skill_data():
+	var itemdata_file = File.new()
+	itemdata_file.open(skill_data_file, File.READ)
+	var itemdata_json = JSON.parse(itemdata_file.get_as_text())
+	itemdata_file.close()
+	skill_data = itemdata_json.result
 	
 	
 

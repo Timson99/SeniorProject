@@ -1,0 +1,30 @@
+{
+  "Japanizing Beam": {
+    "Cost": 9001,
+    "Description": "Will Nico Nico Ni the hell out of anything"
+  },
+  "Curse": {
+    "Cost": 1,
+    "Description": "Will offend opponent to death"
+  },
+  "Eat": {
+    "Cost": 5,
+    "Description": "Necessary for survival mode"
+  },
+  "Program Assembly": {
+    "Cost": "too much T^T",
+    "Description": "Allows you to unlock the infinit power of MIPS"
+  },
+  "Google It": {
+    "Cost": 0,
+    "Description": "Scouts for relevant information based on wisdom stat"
+  },
+  "Choose Pikachu": {
+    "Cost": 30,
+    "Description": "Generates automatic copyright infringement"
+  },
+  "attack": {
+    "Cost": 1,
+    "Description": "Boring but effective battle maneuvre"
+  }
+}

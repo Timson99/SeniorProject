@@ -14,5 +14,65 @@
   "WifeBox": {
     "ItemPrice": 100,
     "ItemWeight": 40
+  },
+  "Spoon":{
+    "ItemPrice": 2,
+    "ItemWeight": 0.5
+  },
+  "Death Note":{
+    "ItemPrice": 1000,
+    "ItemWeight": 1
+  },
+  "Heaphones":{
+    "ItemPrice": 100,
+    "ItemWeight": 2
+  },
+  "Snow":{
+    "ItemPrice": 1,
+    "ItemWeight": 1000
+  },
+  "US Constitution":{
+    "ItemPrice": 0,
+    "ItemWeight": 1
+  },
+  "Tacos Al Pastor":{
+    "ItemPrice": 2.50,
+    "ItemWeight": 2
+  },
+  "Pillow" :{
+    "ItemPrice": 38,
+    "ItemWeight": 3
+  },
+  "B.S. in CS":{
+    "ItemPrice": 240000,
+    "ItemWeight": 1
+  },
+  "Sugar" :{
+    "ItemPrice": 15,
+    "ItemWeight": 5
+  },
+  "Naruto Fanfiction":{
+    "ItemPrice": 7,
+    "ItemWeight": 1
+  },
+  "Mips Processor": {
+    "ItemPrice": 80,
+    "ItemWeight": 1
+  },
+  "AMD GPU": {
+    "ItemPrice": 400,
+    "ItemWeight": 4
+  },
+  "Will to Live": {
+    "ItemPrice": 0,
+    "ItemWeight": 0
+  },
+  "Pencil": {
+    "ItemPrice": 0.5,
+    "ItemWeight": 1
+  },
+  "linen" : {
+    "ItemPrice": 13,
+    "ItemWeight": 5
   }
 }
