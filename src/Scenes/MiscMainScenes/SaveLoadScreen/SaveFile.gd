@@ -13,7 +13,7 @@ func _ready():
 	
 func accept():
 	if !SaveManager.has_save_file(save_file_name):
-		pass
+		SceneManager.goto_scene("Area01_Opening")
 	else:
 		SaveManager.load_game(save_file_name)
 

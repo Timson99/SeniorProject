@@ -2,10 +2,6 @@ extends Node
 
 signal sync_command_complete
 
-const actor_timed_func := ["move_up", "move_down", "move_left", "move_right", "move_to_position"]
-const actor_instant_func := ["change_follow", "set_speed", "restore_speed",
-							 "scale_anim_speed", "restore_anim_speed"]
-
 var actors_dict: Dictionary = {}
 var actors_array: Array = []
 var asynchronous_actors_dict: Dictionary = {}
@@ -15,22 +11,18 @@ var sync_command_timer: SceneTreeTimer
 var actor: Node2D
 var actor_position: Vector2
 var command_string: String
-var extra_param = null
+var untimed_command_begun: bool
+var untimed_command_done: bool
+var additional_params
 
 
-func _physics_process(_delta: float):
+func _ready():
+	SceneManager.connect("scene_loaded", self, "update_actors")
+	update_actors()
+	
+func update_actors():
 	actors_array = get_tree().get_nodes_in_group("Actor")
 	
-	# Executes command until sync timer runs out; deletes sync timer at completion
-	if sync_command_timer && sync_command_timer.get_time_left() > 0:
-		if extra_param != null:
-			execute_command(actor, command_string, extra_param)
-		else:
-			execute_command(actor, command_string)
-	elif sync_command_timer && sync_command_timer.get_time_left() <= 0:
-		emit_signal("sync_command_complete")
-		sync_command_timer = null
-		
 	# Executes each command for each async actor for duration of their 
 	# respective timers
 	for actor_body in actors_array:
@@ -43,36 +35,75 @@ func _physics_process(_delta: float):
 				execute_command(actor_body, asynchronous_actors_dict[actor_body][1])
 		elif actor_body in asynchronous_actors_dict && asynchronous_actors_dict[actor_body][0].get_time_left() <= 0:
 			asynchronous_actors_dict.erase(actor_body)
+	
 
 
+func _physics_process(_delta: float):
+	#actors_array = get_tree().get_nodes_in_group("Actor")
+	
+	# Executes command until sync timer runs out; deletes sync timer at completion
+	if sync_command_timer && sync_command_timer.get_time_left() > 0:
+		execute_command(actor, command_string, additional_params)
+	elif sync_command_timer && sync_command_timer.get_time_left() <= 0:
+		emit_signal("sync_command_complete")
+		sync_command_timer = null
+	
+	elif untimed_command_begun && !untimed_command_done:
+		execute_command(actor, command_string, additional_params)
+	elif untimed_command_begun && untimed_command_done:
+		emit_signal("sync_command_complete")
+		untimed_command_done = false
+		untimed_command_begun = false
+		actor.disconnect("command_completed", ActorEngine, "indicate_untimed_done")
+	
+	elif asynchronous_actors_dict:
+		update_actors()
 
-func process_command(mode: String, id: String, command : String, number_or_flag=null, optional_param=null) -> void:
-	print(command)
-	var time: float
-	var flag: String
+
+func set_command(id : String, property : String, new_value):
 	actor = actors_dict[id]
-	command_string = command
-	extra_param = optional_param if (optional_param != null) else null
-	if command in actor_instant_func:
-		execute_command(actor, command_string, number_or_flag)
-		return
-	time = number_or_flag
-	if command in actor_timed_func:
-		if mode == "Actor-sync":
-			start_sync_command_timer(time)
-		elif mode == "Actor-async":
-			asynchronous_delay_time = max(time, asynchronous_delay_time)
-			add_actor_to_asynchronous_actors(actor, command_string, time, extra_param)
+	if property in actor:
+		actor.set_deferred(property, new_value)
 	else:
-		Debugger.dprint("Unexpected command string")
+		Debugger.dprint("Invalid property %s on actor %s" % [property, actor.name])
 	
 	
-func execute_command(actor: Node, command: String, optional_param=null) -> void:
-	if actor.has_method(command):
-		if optional_param != null:
-			actor.call(command, optional_param)
+func call_command(id, func_name, params):
+	actor = actors_dict[id]
+	if actor.has_method(func_name):
+		actor.call_deferred("callv", func_name, params)
+	else:
+		Debugger.dprint("Actor %s does not have method %s" % [id, func_name])
+
+
+func async_or_sync_command(params: Array):
+	actor = actors_dict[params[1]]
+	command_string = params[2]
+	var possible_time = params[3]
+	if typeof(possible_time) == TYPE_INT || typeof(possible_time) == TYPE_REAL:
+		if params[0] == "Actor-sync":
+			start_sync_command_timer(possible_time)
 		else:
-			actor.call(command)
+			asynchronous_delay_time = max(possible_time, asynchronous_delay_time)
+			add_actor_to_asynchronous_actors(actor, command_string, asynchronous_delay_time)
+		additional_params = null
+	else:
+		additional_params = params.slice(3, params.size())
+		untimed_command_begun = true
+		untimed_command_done = false
+		actor.connect("command_completed", ActorEngine, "indicate_untimed_done")
+
+		
+func indicate_untimed_done():
+	untimed_command_done = true
+	
+	
+func execute_command(actor: Node, command: String, additional_params = null) -> void:
+	if actor.has_method(command):
+		if additional_params != null:
+			actor.call_deferred("callv", command, additional_params)
+		else:
+			actor.call_deferred(command)
 	else:
 		Debugger.dprint("Invalid command action") 
 
@@ -81,9 +112,5 @@ func start_sync_command_timer(added_time: float) -> void:
 	sync_command_timer = get_tree().create_timer(added_time, false)
 
 
-func add_actor_to_asynchronous_actors(actor: Node, command: String, time: float, extra_param=null) -> void:
-	asynchronous_actors_dict[actor] = [get_tree().create_timer(time, false), command, extra_param]
-
-
-func _ready():
-	pass
+func add_actor_to_asynchronous_actors(actor: Node, command: String, time: float) -> void:
+	asynchronous_actors_dict[actor] = [get_tree().create_timer(time, false), command]

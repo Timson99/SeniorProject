@@ -3,16 +3,13 @@ extends Control
 var turn = null 
 
 
-onready var character_party = $BattleUI/BattleModules/Party_Modules
-onready var enemy_party = $BattleUI/BattleModules/EnemyParty
-onready var dialogue_node = $BattleUI/BattleDialogue/BattleDialogueBox
+onready var character_party = $BattleModules/Party_Modules
+onready var enemy_party = $EnemyParty
+onready var dialogue_node = $BattleDialogue/BattleDialogueBox
+onready var characters = character_party.get_children()
+onready var enemies = enemy_party.enemies
 
 
-
-func _ready():
-	#PersistentData.connect("all_pdata_loaded", self, "initialize_ui")
-	pass
-	
 func _process(delta):
 	if turn != null && turn.is_valid():
 		return
@@ -25,14 +22,14 @@ func battle_engine():
 	character_party.begin_turn()
 	
 	var moves_made = {}
-	
-	var characters = character_party.get_children()
-	var enemies = ["E1"]
+
+	#var enemies = enemy_party.enemies
 	
 	for c in characters:
 		var move = yield(c, "move")
 		moves_made[c.name] = {"Entity": c, "move" : move}
 		print("%s : %s" % [c.name, move])
+		dialogue_node.display_message("%s : %s" % [c.name, move])
 		#move = yield(UI, character.move_made_signal)
 		#Add as queued character action
 		
@@ -40,6 +37,7 @@ func battle_engine():
 		var move = "Defend"
 		moves_made["Enemy1"] = {"Entity": e, "move" : move}
 		print(e + " : " + move)
+		dialogue_node.display_message(e + " : " + move)
 	
 	print(moves_made)
 	
