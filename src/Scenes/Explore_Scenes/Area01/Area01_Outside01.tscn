@@ -9,7 +9,9 @@
 [ext_resource path="res://Scenes/Props/Area01/DeadTree02.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Props/Area01/MainHouse.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Props/Area01/House03.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/Battle_Scenes/General/Chests.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Explore_Scenes/General/Chests.tscn" type="PackedScene" id=11]
+
+
 
 [sub_resource type="TileSet" id=1]
 1/name = "Outside_Map.png 1"

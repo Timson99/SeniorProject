@@ -1,7 +1,9 @@
 extends Node
 
+#Every Type of Enemy
 onready var Enemies = preload("res://Scripts/Resource_Scripts/EnemyTypes.gd").new()
-onready var Tester = preload("res://Scenes/Enemy_Scenes/SpawningScenes/SpawnPositionTester.tscn").instance()
+
+onready var spawn_body = preload("res://Scenes/Enemy_Scenes/SpawningScenes/SpawnPositionTester.tscn").instance()
 
 var random_num_generator = RandomNumberGenerator.new()
 
@@ -86,6 +88,7 @@ func spawn_enemy():
 	
 	if spawn_chance > 0.2 && validate_enemy_spawn(spawn_position) && (!within_view_x && !within_view_y):
 		var new_enemy = load(Enemies.enemy_types["Bully"]["enemy_scene_path"]).instance()
+		new_enemy.key = "Bully"
 		new_enemy.data_id = generated_enemy_id
 		new_enemy.position = spawn_position
 		existing_enemy_data[new_enemy.data_id] = {}
@@ -109,14 +112,14 @@ func get_spawn_position():
 
 
 func validate_enemy_spawn(possible_location: Vector2):
-	Tester.position = possible_location
-	scene_node.add_child(Tester)
-	#print("TESTER INSTANCED")
+	spawn_body.position = possible_location
+	scene_node.add_child(spawn_body)
+	#print("spawn_body INSTANCED")
 	yield(get_tree().create_timer(1, false), "timeout")
 	var valid_spawn_position = valid_pos_flag
 	#print(valid_pos_flag)
 	yield(get_tree().create_timer(1, false), "timeout")
-	scene_node.remove_child(Tester)
+	scene_node.remove_child(spawn_body)
 	return valid_spawn_position
 	
 	

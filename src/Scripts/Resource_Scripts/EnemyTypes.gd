@@ -4,8 +4,8 @@ var enemy_types = {
 	
 	# Test enemies
 	"SampleEnemy": {
-		"enemy_scene_path": "res://Scenes/Enemy_Scenes/SampleEnemy.tscn",
-		'battle_sprite': "res://Assets/Test_Art/icon.png",
+		"enemy_scene_path": "res://Scenes/Enemy_Scenes/ExploreEnemies/SampleEnemy.tscn",
+		'battle_sprite_scene': "res://Scenes/Enemy_Scenes/BattleEnemies/BattleEnemyDemo.tscn",
 		"battle_data": EntityStats.new({
 										"LEVEL" : 1,
 										"HP" : 999,
@@ -22,8 +22,8 @@ var enemy_types = {
 									})
 	},
 	"Bully": {
-		"enemy_scene_path": "res://Scenes/Enemy_Scenes/Bully.tscn",
-		"battle_sprite": "res://Assets/Enemy_Art/Bully/Battle_Bully.png",
+		"enemy_scene_path": "res://Scenes/Enemy_Scenes/ExploreEnemies/Area01/Bully.tscn",
+		"battle_sprite_scene": "res://Scenes/Enemy_Scenes/BattleEnemies/Area01/BattleBully.tscn",
 		"battle_data": EntityStats.new({
 										"LEVEL" : 1,
 										"HP" : 10,
@@ -44,8 +44,8 @@ var enemy_types = {
 
 var bosses = {
 	"Boss1": {
-		"enemy_scene_path": "res://Scenes/Enemy_Scenes/Bully.tscn",
-		"battle_sprite": "res://Assets/Enemy_Art/Bully/Battle_Bully.png",
+		"enemy_scene_path": "res://Scenes/Enemy_Scenes/ExploreEnemies/Area01/Bully.tscn",
+		"battle_sprite_scene": "res://Scenes/Enemy_Scenes/BattleEnemies/Area01/BattleBully.tscn",
 		"battle_data": EntityStats.new({
 										"LEVEL" : 1,
 										"HP" : 15,
