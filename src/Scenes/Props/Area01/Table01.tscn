@@ -19,9 +19,9 @@ position = Vector2( 288, 220 )
 frames = SubResource( 1 )
 
 [node name="Props_11" type="Sprite" parent="."]
-position = Vector2( 332, 228 )
+position = Vector2( 339, 225 )
 texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -14.82, 17 )
-polygon = PoolVector2Array( 46.82, -5, -17.18, -5, -17.18, -29, 46.82, -29 )
+polygon = PoolVector2Array( 46.82, -5, -17.18, -5, -17.18, -27, 46.82, -27 )

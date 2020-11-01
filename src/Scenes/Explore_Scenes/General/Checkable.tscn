@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/Node_Scripts/Interactable_Dialogue.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 16.1245
+radius = 24.7386
 
 [node name="Radius" type="Area2D"]
 script = ExtResource( 1 )

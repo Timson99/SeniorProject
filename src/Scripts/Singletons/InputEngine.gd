@@ -60,9 +60,12 @@ var to_battle_commands : Dictionary = {
 	"pressed": {},
 	"just_pressed": {
 		"ui_test1" : "test_command1",
-		"ui_up" : "move_up",
-		"ui_down" : "move_down",
-		"ui_accept" : "accept_pressed",
+		"ui_up" : "up",
+		"ui_down" : "down",
+		"ui_left" : "left",
+		"ui_right" : "right",
+		"ui_accept" : "accept",
+		"ui_cancel": "back",
 					},
 	"just_released":{
 		"ui_up" : "release_up",

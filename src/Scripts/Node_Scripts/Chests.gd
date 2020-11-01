@@ -21,9 +21,8 @@ func interact():
 		yield(animations, "animation_finished")
 		animations.play("open")
 		opened = true
-		#Play DIalogue
 		if(item_id != ""):
-			pass
+			DialogueEngine.item_message("Poop")
 			#party.items.append(item_id)
 
 func body_entered(body):

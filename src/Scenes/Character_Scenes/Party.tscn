@@ -18,8 +18,10 @@ __meta__ = {
 }
 
 [node name="C3" parent="YSort" instance=ExtResource( 4 )]
+actor_id = "C3"
 
 [node name="C2" parent="YSort" instance=ExtResource( 1 )]
+actor_id = "C2"
 
 [node name="C1" parent="YSort" instance=ExtResource( 2 )]
-actor_id = "PChar1"
+actor_id = "C1"
