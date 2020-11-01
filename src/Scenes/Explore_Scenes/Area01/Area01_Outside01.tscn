@@ -11,8 +11,6 @@
 [ext_resource path="res://Scenes/Props/Area01/House03.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Explore_Scenes/General/Chests.tscn" type="PackedScene" id=11]
 
-
-
 [sub_resource type="TileSet" id=1]
 1/name = "Outside_Map.png 1"
 1/texture = ExtResource( 1 )
