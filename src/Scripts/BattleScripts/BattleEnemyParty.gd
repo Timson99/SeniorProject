@@ -6,8 +6,7 @@ onready var enemy_container = $HBoxContainer
 
 var enemy_keys := []
 var enemies := []
-onready var battle_stats
-onready var battle_scene
+var selected_enemy = null
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
 
@@ -21,10 +20,11 @@ func _ready():
 
 	for e in enemy_keys:
 		var enemy_data = EnemyHandler.Enemies.enemy_types[e]
-		battle_scene = load(enemy_data["battle_sprite_scene"]).instance()
-		battle_stats = enemy_data["battle_data"]
-		battle_scene.stats = battle_stats
-		enemy_container.add_child(battle_scene)
+		var enemy_scene = load(enemy_data["battle_sprite_scene"]).instance()
+		var enemy_stats = enemy_data["battle_data"]
+		enemy_scene.stats = enemy_stats
+		enemy_scene.party = self
+		enemy_container.add_child(enemy_scene)
 	enemies = enemy_container.get_children()
 
 
