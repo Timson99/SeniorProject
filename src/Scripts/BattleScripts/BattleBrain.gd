@@ -36,8 +36,8 @@ func battle_engine():
 	for e in enemies:
 		var move = "Defend"
 		moves_made["Enemy1"] = {"Entity": e, "move" : move}
-		print(e + " : " + move)
-		dialogue_node.display_message(e + " : " + move)
+		print(e.screen_name + " : " + move)
+		dialogue_node.display_message(e.screen_name + " : " + move)
 	
 	print(moves_made)
 	

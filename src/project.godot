@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Resource_Scripts/BaseStats.gd"
 }, {
+"base": "Object",
+"class": "BattleAttack",
+"language": "GDScript",
+"path": "res://Scripts/Classes/Battle_Attack.gd"
+}, {
 "base": "Resource",
 "class": "BattleBehaviors",
 "language": "GDScript",
@@ -61,6 +66,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseStats": "",
+"BattleAttack": "",
 "BattleBehaviors": "",
 "Debugger": "",
 "EntityStats": "",

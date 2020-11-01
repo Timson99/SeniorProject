@@ -9,6 +9,7 @@ var selected = false
 var stats := EntityStats.new()
 var selected_material : ShaderMaterial
 var party = null
+var screen_name
 
 
 var moveset = null
@@ -26,7 +27,6 @@ func deactivate_enemy():
 	
 func select():
 	$Sprite.set_material(selected_material)
-	party.selected_enemy = self
 	
 func deselect():
 	$Sprite.material = null

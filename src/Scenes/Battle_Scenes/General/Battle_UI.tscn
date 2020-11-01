@@ -71,7 +71,7 @@ script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-enemies_debug_keys = [ "SampleEnemy", "SampleEnemy", "SampleEnemy" ]
+enemies_debug_keys = [ "Bully" ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EnemyParty"]
 grow_horizontal = 2
