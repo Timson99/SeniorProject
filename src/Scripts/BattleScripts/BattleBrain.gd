@@ -28,8 +28,8 @@ func battle_engine():
 	for c in characters:
 		var move = yield(c, "move")
 		moves_made.append(move)
-		print("%s : %s" % [c.name, move.move_data])
-		dialogue_node.display_message("%s : %s" % [c.name, move.move_data])
+		print("%s : %s" % [c.name, move.type])
+		dialogue_node.display_message("%s : %s" % [c.name, move.type])
 		
 		#move = yield(UI, character.move_made_signal)
 		#Add as queued character action
@@ -37,8 +37,8 @@ func battle_engine():
 	for e in enemies:
 		var move = e.make_move()
 		moves_made.append(move)
-		print("%s : %s" % [e.screen_name, move.move_data])
-		dialogue_node.display_message("%s : %s" % [e.screen_name, move.move_data])
+		print("%s : %s" % [e.screen_name, move.type])
+		dialogue_node.display_message("%s : %s" % [e.screen_name, move.type])
 	
 	print(moves_made)
 	execute(moves_made)
@@ -46,8 +46,8 @@ func battle_engine():
 	
 	
 func sort_by_speed(a,b):
-	var a_speed = a.get_move()["Agent"].temp_battle_stats.get_stats()["SPEED"]
-	var b_speed = b.get_move()["Agent"].temp_battle_stats.get_stats()["SPEED"]
+	var a_speed = a.agent.stats.SPEED
+	var b_speed = b.agent.stats.SPEED
 	if a_speed >= b_speed:
 		return true
 	return false
@@ -55,11 +55,11 @@ func sort_by_speed(a,b):
 func execute(moves_made : Array):
 	moves_made.sort_custom(self, "sort_by_speed")
 	for move in moves_made:
-		var attack = move.get_move()["Agent"].stats.get_stats()["ATTACK"]
-		if move.get_move()["Target"]:
-			move.get_move()["Target"].take_damage(int(attack) * 3)
+		var attack = move.agent.stats.ATTACK
+		if move.target:
+			move.target.take_damage(int(attack) * 3)
 			print(attack)
-			print(move.get_move()["Target"].stats.get_stats()["HP"])
+			print(move.target.stats.HP)
 	
 	
 	

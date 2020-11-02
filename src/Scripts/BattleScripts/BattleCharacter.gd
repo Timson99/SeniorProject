@@ -26,10 +26,10 @@ func _ready():
 	menu.parent = self	
 	
 func _process(_delta):
-	$UI/RichTextLabel.text = ("HP: %d/%d\nSP: %d/%d" % [stats.get_stats()["HP"], 
-											stats.get_stats()["MAX HP"], 
-											stats.get_stats()["SP"], 
-											stats.get_stats()["MAX SP"]] )
+	$UI/RichTextLabel.text = ("HP: %d/%d\nSP: %d/%d" % [stats.HP, 
+											stats.MAX_HP, 
+											stats.SP, 
+											stats.MAX_SP ] )
 											
 enum Mode {Inactive, Menu, Enemy_Select}
 var current_mode = Mode.Inactive

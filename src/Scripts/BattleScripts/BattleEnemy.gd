@@ -29,9 +29,9 @@ func make_move() -> BattleMove:
 	return move
 	
 func take_damage(damage):
-	stats.get_stats()["HP"] -= damage
-	if stats.get_stats()["HP"] <= 0:
-		stats.get_stats()["HP"] = 0
+	stats.HP -= damage
+	if stats.HP <= 0:
+		stats.HP = 0
 		terminate_enemy()
 	
 	

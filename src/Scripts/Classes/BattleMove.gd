@@ -2,30 +2,32 @@ extends Object
 
 class_name BattleMove
 
-const move_template := {
-	"Agent" : null, #Object Ref to agent (has its stats, skills (for lookup) and itesm (for lookup), status effects
-	"Target" : null,  #Object Ref to agent (has its stats, skills (for lookup) and itesm (for lookup), status effects
-	"Type" : "", #Type of Move, can be Attack, Skill, Item, Run, Defend
-	"Skill_id" : "",
-	"Item_id" : "",
-}
 
-var move_data = move_template.duplicate()
+var agent = null #Object Ref to agent (has its stats, skills (for lookup) and itesm (for lookup), status effects
+var target = null  #Object Ref to agent (has its stats, skills (for lookup) and itesm (for lookup), status effects
+var type = ""  #Type of Move, can be Attack, Skill, Item, Run, Defend
+var skill_id = ""
+var item_id = ""
 
 func _init(agent, type, target = null, special_id = ""):
 	if !(type in ["Attack", "Skills", "Items", "Defend", "Run"]):
 		Debugger.dprint("Invalid Move Type")
 	
-	move_data["Agent"] = agent
-	move_data["Type"] = type
-	move_data["Target"] = target
-	
+	self.agent = agent
+	self.type = type
+	self.target = target
 	if type == "Skils":
-		move_data["Skill_id"] = special_id
-	else:
-		move_data["Item_id"] = special_id
+		self.skill_id = special_id
+	elif type == "Item":
+		self.item_id = special_id
 		
-func get_move():
-	return move_data
+func print_move():
+	print("+++++++++++")
+	print("agent : " + agent)
+	print("target : " + target)
+	print("type : " + type)
+	print("skill_id : " + skill_id)
+	print("item_id : " + item_id)
+	print("+++++++++++")
 	
 	

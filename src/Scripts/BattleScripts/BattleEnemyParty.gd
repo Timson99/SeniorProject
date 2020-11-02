@@ -31,6 +31,8 @@ func _ready():
 		enemy_container.add_child(enemy_scene)
 	enemies = enemy_container.get_children()
 	
+func check_alive():
+	pass
 
 func select_current():
 	enemies[selected_enemy_index].select()
