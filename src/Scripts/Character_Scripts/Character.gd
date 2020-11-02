@@ -160,7 +160,7 @@ func test_command3():
 
 	
 func save_game():
-	SaveManager.save_game()
+	SceneManager.goto_scene("SaveScreen", "", true)
 	
 ####################################################
 func change_scene():
