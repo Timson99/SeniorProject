@@ -7,14 +7,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "focused",
-"speed": 5.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "unfocused",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "focused",
 "speed": 5.0
 } ]
 
