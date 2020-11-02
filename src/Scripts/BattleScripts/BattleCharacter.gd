@@ -10,7 +10,7 @@ onready var anim_player = $UI/AnimatedSprite
 export var alive := true
 var skills = {} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
-onready var temp_battle_stats := stats
+onready var temp_battle_stats = stats
 
 onready var battle_brain = SceneManager.current_scene
 

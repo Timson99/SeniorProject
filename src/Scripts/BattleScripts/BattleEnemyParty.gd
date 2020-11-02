@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 export (Array, String) var enemies_debug_keys
 

@@ -16,10 +16,50 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="ColorRect" parent="."]
+[node name="BG" type="CanvasLayer" parent="."]
+
+[node name="Ceil" type="ColorRect" parent="BG"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.0745098, 0.631373, 0.054902, 1 )
+color = Color( 0.0431373, 0.717647, 0.87451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor" type="ColorRect" parent="BG"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 132.0
+color = Color( 0.156863, 0.482353, 0.380392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyParty" type="CanvasLayer" parent="."]
+script = ExtResource( 8 )
+enemies_debug_keys = [ "Bully" ]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EnemyParty"]
+margin_left = 160.0
+margin_top = 156.0
+margin_right = 160.0
+margin_bottom = 156.0
+grow_horizontal = 2
+custom_constants/separation = 50
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BattleDialogue" type="CanvasLayer" parent="."]
+
+[node name="BattleDialogueBox" parent="BattleDialogue" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.165
+anchor_right = 0.5
+anchor_bottom = 0.165
+margin_top = 0.399994
+margin_bottom = 0.399994
 
 [node name="BattleModules" type="CanvasLayer" parent="."]
 
@@ -52,31 +92,3 @@ margin_right = 96.0
 [node name="C3_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 3 )]
 margin_left = 192.0
 margin_right = 192.0
-
-[node name="BattleDialogue" type="CanvasLayer" parent="."]
-
-[node name="BattleDialogueBox" parent="BattleDialogue" instance=ExtResource( 2 )]
-anchor_left = 0.5
-anchor_top = 0.165
-anchor_right = 0.5
-anchor_bottom = 0.165
-
-[node name="EnemyParty" type="Control" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_top = 36.0
-script = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-enemies_debug_keys = [ "Bully" ]
-
-[node name="HBoxContainer" type="HBoxContainer" parent="EnemyParty"]
-grow_horizontal = 2
-custom_constants/separation = 50
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}

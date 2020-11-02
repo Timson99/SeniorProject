@@ -17,7 +17,7 @@ const stat_template := {
 	"LUCK" : 1,
 }
 
-var stats := stat_template.duplicate() setget , get_stats
+var stats_data := stat_template.duplicate() setget , get_stats
 
 
 func _init(base_stats = stat_template):
@@ -25,7 +25,7 @@ func _init(base_stats = stat_template):
 		Debugger.dprint("ERROR, INVALID STATS IN CONSTRUCTION, USING DEFAULTS")
 
 func get_stats() -> Dictionary:
-	return stats
+	return stats_data
 	
 func get_stat_template():
 	return stat_template
@@ -46,17 +46,17 @@ func validate_stats(new_stats : Dictionary) -> bool:
 		if(typeof(v) != TYPE_INT or v < 1 or v > 999):
 			return false
 	
-	stats = new_stats
+	stats_data = new_stats
 	return true
 	
 #Returns true if change, return false is clamped
 func set_stat(stat_key : String, new_value : int) -> bool:
 	if((stat_key in ["HP"])):
-		stats[stat_key] = clamp(0, new_value, stats["MAX_HP"])
+		stats_data[stat_key] = clamp(0, new_value, stats_data["MAX_HP"])
 	elif((stat_key in ["SP"])):
-		stats[stat_key] = clamp(0, new_value, stats["MAX_SP"])
+		stats_data[stat_key] = clamp(0, new_value, stats_data["MAX_SP"])
 	else:
-		stats[stat_key] = clamp(1, new_value, 99)
+		stats_data[stat_key] = clamp(1, new_value, 99)
 		
-	return (true if stats[stat_key] == new_value else false)
+	return (true if stats_data[stat_key] == new_value else false)
 

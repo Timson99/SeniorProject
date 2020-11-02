@@ -13,7 +13,7 @@ const c1_base_stats = {
 	"DEFENSE" : 1,
 	"WAVE ATTACK" : 1,
 	"WAVE DEFENSE" : 1,
-	"SPEED" : 1,
+	"SPEED" : 3,
 	"WILLPOWER" : 1,
 	"LUCK" : 1,
 }
@@ -41,7 +41,7 @@ const c3_base_stats = {
 	"DEFENSE" : 1,
 	"WAVE ATTACK" : 1,
 	"WAVE DEFENSE" : 1,
-	"SPEED" : 1,
+	"SPEED" : 2,
 	"WILLPOWER" : 1,
 	"LUCK" : 1,
 }

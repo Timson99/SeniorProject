@@ -10,7 +10,7 @@ const move_template := {
 	"Item_id" : "",
 }
 
-const move_data = move_template
+var move_data = move_template.duplicate()
 
 func _init(agent, type, target = null, special_id = ""):
 	if !(type in ["Attack", "Skills", "Items", "Defend", "Run"]):
@@ -24,5 +24,8 @@ func _init(agent, type, target = null, special_id = ""):
 		move_data["Skill_id"] = special_id
 	else:
 		move_data["Item_id"] = special_id
+		
+func get_move():
+	return move_data
 	
 	
