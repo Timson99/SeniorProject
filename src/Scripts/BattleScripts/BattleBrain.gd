@@ -27,15 +27,15 @@ func battle_engine():
 	
 	for c in characters:
 		var move = yield(c, "move")
-		moves_made[c.name] = {"Entity": c, "move" : move}
-		print("%s : %s" % [c.name, move])
-		dialogue_node.display_message("%s : %s" % [c.name, move])
+		moves_made[c.persistence_id] = {"Entity": c, "move" : move}
+		print("%s : %s" % [c.name, move.move_data])
+		dialogue_node.display_message("%s : %s" % [c.name, move.move_data])
 		#move = yield(UI, character.move_made_signal)
 		#Add as queued character action
 		
 	for e in enemies:
 		var move = "Defend"
-		moves_made["Enemy1"] = {"Entity": e, "move" : move}
+		moves_made[e.screen_name] = {"Entity": e, "move" : move}
 		print(e.screen_name + " : " + move)
 		dialogue_node.display_message(e.screen_name + " : " + move)
 	
