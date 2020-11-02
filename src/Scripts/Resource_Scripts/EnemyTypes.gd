@@ -8,7 +8,7 @@ var enemy_types = {
 		'battle_sprite_scene': "res://Scenes/Enemy_Scenes/BattleEnemies/BattleEnemyDemo.tscn",
 		"battle_data": EntityStats.new({
 										"LEVEL" : 1,
-										"HP" : 999,
+										"HP" : 9,
 										"MAX_HP" : 999,
 										"SP" : 999,
 										"MAX_SP" : 999,

@@ -28,8 +28,8 @@ func battle_engine():
 	for c in characters:
 		var move = yield(c, "move")
 		moves_made.append(move)
-		print("%s : %s" % [c.name, move.type])
-		dialogue_node.display_message("%s : %s" % [c.name, move.type])
+		print("%s : %s" % [c.name, move.to_dict()])
+		dialogue_node.display_message("%s : %s" % [c.name, move.to_dict()])
 		
 		#move = yield(UI, character.move_made_signal)
 		#Add as queued character action
@@ -37,10 +37,9 @@ func battle_engine():
 	for e in enemies:
 		var move = e.make_move()
 		moves_made.append(move)
-		print("%s : %s" % [e.screen_name, move.type])
-		dialogue_node.display_message("%s : %s" % [e.screen_name, move.type])
-	
-	print(moves_made)
+		print("%s : %s" % [e.screen_name, move.to_dict()])
+		dialogue_node.display_message("%s : %s" % [e.screen_name, move.to_dict()])
+
 	execute(moves_made)
 	turn = null
 	
@@ -57,9 +56,15 @@ func execute(moves_made : Array):
 	for move in moves_made:
 		var attack = move.agent.stats.ATTACK
 		if move.target:
-			move.target.take_damage(int(attack) * 3)
-			print(attack)
-			print(move.target.stats.HP)
+			move.target.take_damage(int(attack) * 10)
+			#print(attack)
+			#print(move.target.stats.HP)
+			
+func battle_victory():
+	print("Battle Victory")
+	
+func battle_failure():
+	pass
 	
 	
 	

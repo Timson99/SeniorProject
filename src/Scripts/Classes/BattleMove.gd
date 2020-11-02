@@ -21,13 +21,15 @@ func _init(agent, type, target = null, special_id = ""):
 	elif type == "Item":
 		self.item_id = special_id
 		
-func print_move():
-	print("+++++++++++")
-	print("agent : " + agent)
-	print("target : " + target)
-	print("type : " + type)
-	print("skill_id : " + skill_id)
-	print("item_id : " + item_id)
-	print("+++++++++++")
+func to_dict():
+	return {
+		"agent" : agent,
+		"target" : target,
+		"type" : type,
+		"skill_id" : skill_id,
+		"item_id" : item_id,
+	}
+		
+
 	
 	

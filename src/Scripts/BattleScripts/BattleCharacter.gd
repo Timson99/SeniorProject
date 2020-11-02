@@ -73,8 +73,8 @@ func accept():
 				battle_brain.enemy_party.select_current()
 				#emit_signal("move", command)
 	elif current_mode == Mode.Enemy_Select:
-		battle_brain.enemy_party.deselect_current()
 		var selected_enemy = battle_brain.enemy_party.get_selected_enemy()
+		battle_brain.enemy_party.deselect_current()
 		emit_signal("move", BattleMove.new(self, saved_command, selected_enemy))
 	
 	

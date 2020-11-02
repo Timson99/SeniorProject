@@ -7,6 +7,7 @@ onready var enemy_container = $HBoxContainer
 var enemy_keys := []
 var enemies := []
 var selected_enemy_index = 0
+onready var battle_brain = SceneManager.current_scene
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
 
@@ -32,10 +33,17 @@ func _ready():
 	enemies = enemy_container.get_children()
 	
 func check_alive():
-	pass
+	for e in enemies:
+		if e.alive:
+			return
+	battle_brain.battle_victory()
+	
 
 func select_current():
-	enemies[selected_enemy_index].select()
+	if enemies[selected_enemy_index].alive:
+		enemies[selected_enemy_index].select()
+	else:
+		select_right()
 	
 func deselect_current():
 	enemies[selected_enemy_index].deselect()
@@ -47,6 +55,15 @@ func select_right():
 	enemies[selected_enemy_index].deselect()
 	selected_enemy_index += 1
 	selected_enemy_index = min(selected_enemy_index, enemies.size() - 1)
+
+	if(!enemies[selected_enemy_index].alive):
+		if(selected_enemy_index ==  enemies.size() - 1):
+			select_left()
+		else:
+			select_right()
+
+			
+	
 	enemies[selected_enemy_index].select()
 	
 func select_left():
@@ -55,6 +72,13 @@ func select_left():
 	enemies[selected_enemy_index].deselect()
 	selected_enemy_index -= 1
 	selected_enemy_index = max(selected_enemy_index, 0)
+
+	if(!enemies[selected_enemy_index].alive):
+		if(selected_enemy_index == 0):
+			select_right()
+		else:
+			select_left()
+	
 	enemies[selected_enemy_index].select()
 	
 func select_up():

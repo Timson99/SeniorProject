@@ -2,7 +2,7 @@ extends Object
 
 class_name EntityStats
 
-var stat_keys = ["LEVEL", "HP", "MAX_HP", "SP","MAX_SP","ATTACK","DEFENSE",
+const stat_keys = ["LEVEL", "HP", "MAX_HP", "SP","MAX_SP","ATTACK","DEFENSE",
 	"WAVE_ATTACK","WAVE_DEFENSE","SPEED","WILLPOWER", "LUCK"]
 	
 const stats_template = {
@@ -86,18 +86,20 @@ func set_stat(stat_key : String, new_value : int) -> bool:
 	set(stat_key, final_stat)
 	return (true if get(stat_key) == new_value else false)
 	
-func print_stats():
-	print("-------------")
-	print("LEVEL : " + LEVEL)
-	print("HP : " + HP)
-	print("MAX_HP : " + MAX_HP)
-	print("SP : " + SP)
-	print("MAX_SP : " + MAX_SP)
-	print("ATTACK : " + ATTACK)
-	print("DEFENSE : " + DEFENSE)
-	print("WAVE_ATTACK : " + WAVE_ATTACK)
-	print("WAVE_DEFENSE : " + WAVE_DEFENSE)
-	print("SPEED : " + SPEED)
-	print("WILLPOWER : " + WILLPOWER)
-	print("LUCK : " + LUCK)
-	print("-------------")
+func to_dict():
+	return {
+		"LEVEL" : LEVEL,
+		"HP" : HP,
+		"MAX_HP" : MAX_HP,
+		"SP" : SP,
+		"MAX_SP" : MAX_SP,
+		"ATTACK" : ATTACK,
+		"DEFENSE" : DEFENSE,
+		"WAVE_ATTACK" : WAVE_ATTACK,
+		"WAVE_DEFENSE" : WAVE_DEFENSE,
+		"SPEED" : SPEED,
+		"WILLPOWER" : WILLPOWER,
+		"LUCK" : LUCK,
+	}
+	
+	
