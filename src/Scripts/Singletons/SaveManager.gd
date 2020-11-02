@@ -70,4 +70,5 @@ func load_game( file_name = current_save ):
 	SceneManager.goto_scene(destination)
 	
 func has_save_file(save_name : String):
+	save_name = ("unencrypted_" if !encrypt else "") + save_name
 	return File.new().file_exists("user://" + save_name + ".save")

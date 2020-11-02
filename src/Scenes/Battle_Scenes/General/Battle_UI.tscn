@@ -37,7 +37,7 @@ __meta__ = {
 
 [node name="EnemyParty" type="CanvasLayer" parent="."]
 script = ExtResource( 8 )
-enemies_debug_keys = [ "Bully", "Bully", "Bully" ]
+enemies_debug_keys = [ "SampleEnemy", "SampleEnemy", "SampleEnemy" ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EnemyParty"]
 margin_left = 160.0
