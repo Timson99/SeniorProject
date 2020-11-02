@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/InfoPanel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_01.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/ItemButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/EquipList.gd" type="Script" id=5]
+
+[sub_resource type="Theme" id=1]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 5 )
+
+[node name="ItemList" type="Control" parent="."]
+anchor_left = 0.592
+anchor_top = 0.5
+anchor_right = 0.592
+anchor_bottom = 0.5
+margin_left = -108.968
+margin_top = -69.0
+margin_right = 109.032
+margin_bottom = 89.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ItemList"]
+anchor_left = 0.491
+anchor_top = 0.07
+anchor_right = 0.491
+anchor_bottom = 0.07
+margin_left = -0.038002
+margin_top = -0.0600004
+margin_right = 101.962
+margin_bottom = 97.94
+custom_constants/separation = 17
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemButton" parent="ItemList/VBoxContainer" instance=ExtResource( 4 )]
+margin_right = 102.0
+theme = SubResource( 1 )
+
+[node name="ItemButton2" parent="ItemList/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 17.0
+margin_right = 102.0
+margin_bottom = 17.0
+theme = SubResource( 1 )
+
+[node name="InfoPanel" parent="ItemList" instance=ExtResource( 2 )]
+
+[node name="ScrollBar" type="TextureRect" parent="ItemList"]
+anchor_left = 1.0
+anchor_top = 0.081
+anchor_right = 1.0
+anchor_bottom = 0.081
+margin_left = -4.89467
+margin_top = -0.0506878
+margin_right = 99.1051
+margin_bottom = 99.9491
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,27 +1,24 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/UI/Menu/Menu_Backdrop_04.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/EquipMenu.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Fonts/ThinPixels.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Assets/Character_Art/C1/C1_02.png" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/Menu/Menu_Element_03.png" type="Texture" id=5]
-[ext_resource path="res://Assets/UI/Menu/Menu_Element_01.png" type="Texture" id=6]
-[ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/InfoPanel.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/ItemButton.tscn" type="PackedScene" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 3 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "unfocused",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "focused",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "unfocused",
 "speed": 5.0
 } ]
 
@@ -43,7 +40,7 @@ __meta__ = {
 }
 
 [node name="C1_02" type="Sprite" parent="TextureRect"]
-position = Vector2( 88, 64 )
+position = Vector2( 102.832, 64 )
 texture = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="TextureRect/C1_02"]
@@ -68,7 +65,7 @@ __meta__ = {
 }
 
 [node name="Categories" type="VBoxContainer" parent="TextureRect"]
-margin_left = 73.0
+margin_left = 81.0
 margin_top = 92.0
 margin_right = 175.0
 margin_bottom = 140.0
@@ -78,11 +75,11 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="TextureRect/Categories"]
-margin_right = 102.0
+margin_right = 94.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="TextureRect/Categories/Control"]
-position = Vector2( 54.8806, 49.3885 )
-scale = Vector2( 1.09389, 0.98 )
+position = Vector2( 50.3755, 49.3885 )
+scale = Vector2( 1.00379, 0.98 )
 frames = SubResource( 2 )
 animation = "unfocused"
 
@@ -99,14 +96,14 @@ __meta__ = {
 
 [node name="Control2" type="Control" parent="TextureRect/Categories"]
 margin_top = 14.0
-margin_right = 102.0
+margin_right = 94.0
 margin_bottom = 14.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="TextureRect/Categories/Control2"]
-position = Vector2( 54.8806, 49.3885 )
-scale = Vector2( 1.09389, 0.98 )
+position = Vector2( 50.5424, 49.3885 )
+scale = Vector2( 1.00713, 0.98 )
 frames = SubResource( 2 )
-animation = "focused"
+animation = "unfocused"
 
 [node name="Label3" type="Label" parent="TextureRect/Categories/Control2"]
 margin_left = 5.65547
@@ -121,12 +118,12 @@ __meta__ = {
 
 [node name="Control3" type="Control" parent="TextureRect/Categories"]
 margin_top = 28.0
-margin_right = 102.0
+margin_right = 94.0
 margin_bottom = 28.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="TextureRect/Categories/Control3"]
-position = Vector2( 54.8806, 49.3885 )
-scale = Vector2( 1.09389, 0.98 )
+position = Vector2( 50.7092, 49.3885 )
+scale = Vector2( 1.01046, 0.98 )
 frames = SubResource( 2 )
 animation = "unfocused"
 
@@ -137,58 +134,6 @@ margin_right = 93.6555
 margin_bottom = 15.3885
 custom_fonts/font = SubResource( 1 )
 text = "Skill: Ice (1/25)"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ItemList" type="Control" parent="TextureRect"]
-anchor_left = 0.592
-anchor_top = 0.5
-anchor_right = 0.592
-anchor_bottom = 0.5
-margin_left = -108.968
-margin_top = -69.0
-margin_right = 109.032
-margin_bottom = 89.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/ItemList"]
-anchor_left = 0.491
-anchor_top = 0.07
-anchor_right = 0.491
-anchor_bottom = 0.07
-margin_left = -0.038002
-margin_top = -0.0600004
-margin_right = 101.962
-margin_bottom = 97.94
-custom_constants/separation = 13
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ItemButton" parent="TextureRect/ItemList/VBoxContainer" instance=ExtResource( 8 )]
-margin_right = 102.0
-
-[node name="ItemButton2" parent="TextureRect/ItemList/VBoxContainer" instance=ExtResource( 8 )]
-margin_top = 13.0
-margin_right = 102.0
-margin_bottom = 13.0
-
-[node name="InfoPanel" parent="TextureRect/ItemList" instance=ExtResource( 7 )]
-
-[node name="ScrollBar" type="TextureRect" parent="TextureRect/ItemList"]
-anchor_left = 1.0
-anchor_top = 0.081
-anchor_right = 1.0
-anchor_bottom = 0.081
-margin_left = -4.89467
-margin_top = -0.0506878
-margin_right = 99.1051
-margin_bottom = 99.9491
-texture = ExtResource( 6 )
-expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
