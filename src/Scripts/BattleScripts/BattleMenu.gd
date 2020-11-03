@@ -47,6 +47,8 @@ func _ready():
 	reset()
 	
 func reset(reset_focused = true):
+	if reset_focused:
+		buttons[focused]["anim_player"].animation = "off" 
 	focused = default_focused if reset_focused else focused
 	buttons[focused]["anim_player"].animation = "on" 
 	

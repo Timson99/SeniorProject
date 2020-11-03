@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Resource_Scripts/BattleBehaviors.gd"
 }, {
 "base": "Object",
+"class": "BattleMove",
+"language": "GDScript",
+"path": "res://Scripts/Classes/BattleMove.gd"
+}, {
+"base": "Object",
 "class": "Debugger",
 "language": "GDScript",
 "path": "res://Scripts/Classes/Global_Debug.gd"
@@ -62,6 +67,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BaseStats": "",
 "BattleBehaviors": "",
+"BattleMove": "",
 "Debugger": "",
 "EntityStats": "",
 "Enums": "",
@@ -75,7 +81,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SeniorProject"
-run/main_scene="res://Scenes/MiscMainScenes/SaveLoadScreen/SaveLoadScreen.tscn"
+run/main_scene="res://Scenes/MiscMainScenes/SaveLoadScreen/LoadScreen.tscn"
 config/icon="res://Assets/Test_Art/icon.png"
 
 [autoload]

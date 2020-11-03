@@ -5,6 +5,9 @@ class_name MainScenes
 var explore_scenes := {
 		
 	
+	"SaveScreen" : "res://Scenes/MiscMainScenes/SaveLoadScreen/SaveScreen.tscn",
+	"LoadScreen" : "res://Scenes/MiscMainScenes/SaveLoadScreen/LoadScreen.tscn",
+	
 	#Tim Test Articles
 	"TileMapTest" : "res://Scenes/Tim_Test_Scenes/TestTileMap.tscn",
 	

@@ -14,6 +14,9 @@ var scroll_time = 0.15
 var max_y = 32
 var min_y = max_y + ((save_files_num - 3) * (-64))
 
+enum Mode {Load, Save}
+export (Mode) var current_mode
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var save_file_names = SaveManager.save_files
@@ -24,6 +27,10 @@ func _ready():
 		button_container.add_child(save_file)
 	"""
 	buttons = button_container.get_children()
+	
+	if current_mode == Mode.Save:
+		focused = SaveManager.current_save_index + 1
+		button_container.rect_position.y += max((-64 * (focused - 1)), min_y - max_y)
 	buttons[focused-1].get_node("AnimatedSprite").animation = "on"
 
 
@@ -60,4 +67,11 @@ func down():
 func accept():
 	if tween.is_active():
 		return
-	buttons[focused-1].accept()
+	if current_mode == Mode.Load:
+		buttons[focused-1].accept_load()
+	elif current_mode == Mode.Save:
+		buttons[focused-1].accept_save()
+		
+func back():
+	if current_mode == Mode.Save:
+		SceneManager.goto_saved()

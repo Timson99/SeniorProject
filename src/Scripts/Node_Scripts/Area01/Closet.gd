@@ -17,7 +17,7 @@ func interact():
 	if (party.size() == 1 and
 		party[0].active_player.has_method("change_skin") and
 		party[0].active_player.persistence_id == "C1"):
-		party[0].active_player.change_skin("AtHome")
+		party[0].active_player.change_skin("default")
 	emit_signal("used")
 	animations.play("Empty")
 	used = true

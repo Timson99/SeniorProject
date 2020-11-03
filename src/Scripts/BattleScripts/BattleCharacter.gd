@@ -10,9 +10,9 @@ onready var anim_player = $UI/AnimatedSprite
 export var alive := true
 var skills = {} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
-onready var temp_battle_stats := stats
+onready var temp_battle_stats = stats
 
-var enemy_party = null
+onready var battle_brain = SceneManager.current_scene
 
 var module_rise := 2
 
@@ -26,10 +26,13 @@ func _ready():
 	menu.parent = self	
 	
 func _process(_delta):
-	$UI/RichTextLabel.text = ("HP: %d/%d\nSP: %d/%d" % [stats.get_stats()["HP"], 
-											stats.get_stats()["MAX HP"], 
-											stats.get_stats()["SP"], 
-											stats.get_stats()["MAX SP"]] )
+	$UI/RichTextLabel.text = ("HP: %d/%d\nSP: %d/%d" % [stats.HP, 
+											stats.MAX_HP, 
+											stats.SP, 
+											stats.MAX_SP ] )
+											
+enum Mode {Inactive, Menu, Enemy_Select}
+var current_mode = Mode.Inactive
 
 
 func on_load():
@@ -39,56 +42,67 @@ func test_command1():
 	pass
 	
 func back():
-	if !enemy_select_mode:
+	if current_mode == Mode.Menu:
 		menu.back()
-	else:
+	elif current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.deselect_current()
 		InputEngine.deactivate_receiver(self)
 		anim_player.play("Display_To_Menu")
 		yield(anim_player, "animation_finished")
 		anim_player.stop()
 		anim_player.animation = "Menu"
 		menu.show()
-		enemy_select_mode = false
+		current_mode = Mode.Menu
 		InputEngine.activate_receiver(self)
 		
-	
+var saved_command
+
 func accept():
-	if !enemy_select_mode:
+	if current_mode == Mode.Menu:
 		var command = menu.accept()
 		#If accept didn't just open another submenu, and returned a command
 		if command != null:
 			if command in ["Run", "Defend"]:
-				emit_signal("move", command)
+				emit_signal("move", BattleMove.new(self, command))
 			else:
-				enemy_select_mode = true
+				saved_command = command
 				anim_player.animation = "Display"
 				menu.hide()
 				menu.reset(false)
-				enemy_party = SceneManager.current_scene.enemy_party
-				enemy_select_mode = true
+				current_mode = Mode.Enemy_Select
+				battle_brain.enemy_party.select_current()
 				#emit_signal("move", command)
+	elif current_mode == Mode.Enemy_Select:
+		var selected_enemy = battle_brain.enemy_party.get_selected_enemy()
+		battle_brain.enemy_party.deselect_current()
+		emit_signal("move", BattleMove.new(self, saved_command, selected_enemy))
+	
 	
 	
 func up():
-	if !enemy_select_mode:
+	if current_mode == Mode.Menu:
 		menu.up()
+	elif current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_up()
 	
 func down():
-	if !enemy_select_mode:
+	if current_mode == Mode.Menu:
 		menu.down()
+	elif current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_down()
 	
 		
 func left():
-	if !enemy_select_mode:
+	if current_mode == Mode.Menu:
 		menu.up()
-	else:
-		pass
+	elif current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_left()
 	
 func right():
-	if !enemy_select_mode:
+	if current_mode == Mode.Menu:
 		menu.down()
-	else:
-		pass
+	elif current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_right()
 	
 func release_up():
 	menu.release_up()
@@ -104,6 +118,7 @@ func activate_player():
 	anim_player.stop()
 	anim_player.animation = "Menu"
 	menu.show()
+	current_mode = Mode.Menu
 	InputEngine.activate_receiver(self)
 	
 	
@@ -114,7 +129,7 @@ func deactivate_player():
 	anim_player.animation = "Display"
 	menu.hide()
 	menu.reset()
-	enemy_party = null
+	current_mode = Mode.Inactive
 	
 func save():
 	var save_dict = {
