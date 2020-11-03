@@ -1,0 +1,40 @@
+
+
+HW 2 - Piloni & Miles Textbook
+Group #8: Luis, Tim, and Joe
+
+Category        Weight     Earned
+===========    ========    ======
+Problem 1      [3 pts.]      3.0
+Problem 2      [4 pts.]      4.0
+Problem 3      [6 pts.]      5.0
+Problem 4      [9 pts.]      9.0
+Problem 5      [2 pts.]      2.0
+Problem 6      [7 pts.]      7.0
+Problem 7      [1 pt.]       1.0
+Problem 8      [3 pts.]      3.0
+Problem 9      [5 pts.]      5.0
+Problem 10     [4 pts.]      4.0
+
+      Subtotal [44 max]     43.0
+             Your Total     97.7
+
+         Letter grade   A-plus
+
+Great work here, guys, as usual....
+
+Waterfall also has a "deployment" phase which you don't mention.  Sometimes
+that is lumped in with the "maintenance" phase, but in most cases it should
+NOT be.  Maintenance alone accounts for an average of 70% to 80% of total
+cost of a software project, so anything that can be taken separately will
+save money in the long run.
+
+Good thought on question six with blueskying!
+
+On number eight, is there a risk of notifying the customer *too soon*?  It
+might be a question to explore...
+
+Good discussion on branching, and thanks for the enlightenment on Godot!
+
+
+Great work on this one.
