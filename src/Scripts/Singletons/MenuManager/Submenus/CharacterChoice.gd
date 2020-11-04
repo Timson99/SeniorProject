@@ -23,7 +23,7 @@ var focused = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_get_party_stats()
+	_populate_party()
 	_init_stats()
 	refocus(0)
 	pass
@@ -34,7 +34,7 @@ func refocus(to):
 		buttons[to].get_node("AnimatedSprite").animation = "focused"
 		focused = to
 
-func _get_party_stats():
+func _populate_party():
 	if len(party_group)>0:
 		curr_party = []
 		for x in party_group[0].party:

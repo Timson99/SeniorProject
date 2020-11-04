@@ -15,7 +15,8 @@ onready var buttons = {
 	}, 
 	 Button.Skills : {
 		"anim" : $Background/MenuOptions/Skills/Skills,
-		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/SkillsMenu.tscn")
+		"forward": "res://Scripts/Singletons/MenuManager/Submenus/SkillsMenu.tscn",
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/CharacterChoice.tscn")
 	},
 	 Button.Status : {
 		"anim" : $Background/MenuOptions/Status/Status,
@@ -77,7 +78,7 @@ func accept():
 	else:
 		submenu = buttons[focused]["submenu"].instance()
 		call_deferred("add_child", submenu)
-		if buttons[focused]["forward"]:
+		if buttons[focused].has("forward"):
 			submenu.forward = buttons[focused]["forward"]
 		submenu.layer = layer + 1
 		submenu.parent = self

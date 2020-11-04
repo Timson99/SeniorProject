@@ -15,7 +15,6 @@ var items = []
 var scroll_level= 0
 var btn_ctnr_size = 6
 var button_path = "res://Scripts/Singletons/MenuManager/Submenus/ItemButton.tscn"
-var popup_path = "res://Scripts/Singletons/MenuManager/Submenus/ItemPopup.tscn"
 
 var data=null
 var num_cols = 1
@@ -125,21 +124,8 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
-		submenu = load(popup_path).instance()
-		call_deferred("add_child", submenu)
-		var current_btn  = buttons[focused]
-		var container_pos = button_container.get_global_transform().get_origin()
-		var position_offset=null
-		#added vectors are eyeballed padding
-		if even(focused):
-			position_offset= current_btn.get_position() + Vector2(99,0)
-		else:
-			position_offset = buttons[focused-1].get_position() + Vector2(32,0)
-		var submenu_pos = container_pos+position_offset
-#		submenu.reposition(submenu_pos)
-#		submenu.item = current_btn
-#		submenu.layer = layer + 1
-#		submenu.parent = self
+		parent.update_field(buttons[focused].item_name)
+		back()
 		
 	
 func up():

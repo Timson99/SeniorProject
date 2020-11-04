@@ -8,6 +8,11 @@ onready var description_container = $TextureRect/ItemList/InfoPanel/RichDescript
 onready var scrollbar = $TextureRect/ItemList/ScrollBar
 
 var input_id = "Menu"
+
+var curr_char = "C1"
+var char_params = {}
+var sprite = null
+
 var default_focused = 0
 var focused = default_focused 
 var buttons = []

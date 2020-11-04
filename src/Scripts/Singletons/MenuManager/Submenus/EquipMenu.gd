@@ -3,7 +3,7 @@ extends CanvasLayer
 var submenu = null
 var parent = null
 
-onready var button_container = $TextureRect/Categories
+onready var button_container = $Categories
 
 var list_path = "res://Scripts/Singletons/MenuManager/Submenus/EquipList.tscn"
 
@@ -17,10 +17,20 @@ var focused = default_focused
 var buttons = []
 
 func _ready():
+	_setup_char()
 	for button in button_container.get_children():
 		buttons.append(button) 
 		refocus(0)
 	pass
+	
+func update_field(item):
+	#Calls something like Character.equip(item)
+	print("Chose ", item)
+
+func _setup_char():
+	$Character/Name.text = curr_char
+	$Character.set_texture(sprite)
+	$Character/Level.text = str("Level: ", char_params.get("LEVEL"))
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
