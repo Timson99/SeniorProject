@@ -10,7 +10,8 @@ onready var buttons = {
 	},
 	 Button.Equip : {
 		"anim" : $Background/MenuOptions/Equip/Equip,
-		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/EquipMenu.tscn")
+		"forward": "res://Scripts/Singletons/MenuManager/Submenus/EquipMenu.tscn",
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/CharacterChoice.tscn")
 	}, 
 	 Button.Skills : {
 		"anim" : $Background/MenuOptions/Skills/Skills,
@@ -18,7 +19,8 @@ onready var buttons = {
 	},
 	 Button.Status : {
 		"anim" : $Background/MenuOptions/Status/Status,
-		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/StatusMenu.tscn")
+		"forward": "res://Scripts/Singletons/MenuManager/Submenus/StatusMenu.tscn",
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/CharacterChoice.tscn")
 	},
 	 Button.Config : {
 		"anim" : $Background/MenuOptions/Config/Config,
@@ -75,6 +77,8 @@ func accept():
 	else:
 		submenu = buttons[focused]["submenu"].instance()
 		call_deferred("add_child", submenu)
+		if buttons[focused]["forward"]:
+			submenu.forward = buttons[focused]["forward"]
 		submenu.layer = layer + 1
 		submenu.parent = self
 	
