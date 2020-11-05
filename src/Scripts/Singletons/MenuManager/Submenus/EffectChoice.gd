@@ -14,7 +14,6 @@ var curr_party = ["C1","C2","C3"]
 func _ready():
 	_populate_party()
 	_name_buttons()
-	print(buttons)
 	refocus(0)
 
 func _name_buttons():

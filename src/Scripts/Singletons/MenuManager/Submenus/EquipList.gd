@@ -70,7 +70,6 @@ func _update_scrollbar():
 	sc_start = middle.get_position()
 	scrollbar_offset = sc_start.y
 	var prop_size = (float(len(buttons))/len(items))*max_sc_offset
-	print(max_sc_offset, " " ,scrollbar_size)
 	middle.set_scale(Vector2(1,prop_size/scrollbar_size))
 	scrollbar_size = prop_size
 	
