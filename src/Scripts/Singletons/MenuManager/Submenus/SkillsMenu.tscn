@@ -22,5 +22,9 @@ __meta__ = {
 }
 
 [node name="ItemList" parent="TextureRect" instance=ExtResource( 3 )]
+anchor_left = 0.587066
+anchor_top = 0.501202
+anchor_right = 0.587066
+anchor_bottom = 0.501202
 margin_left = -107.496
 margin_right = 110.504

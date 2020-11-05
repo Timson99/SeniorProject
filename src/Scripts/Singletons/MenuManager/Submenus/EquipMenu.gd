@@ -25,6 +25,10 @@ func _ready():
 	
 func update_field(item):
 	#Calls something like Character.equip(item)
+	var text = buttons[focused].get_node("Current").text.split(" ")
+	text.resize(1)
+	text.append(item)
+	buttons[focused].get_node("Current").text = text.join(" ")
 	print("Chose ", item)
 
 func _setup_char():

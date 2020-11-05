@@ -14,6 +14,7 @@ var curr_party = ["C1","C2","C3"]
 func _ready():
 	_populate_party()
 	_name_buttons()
+	print(buttons)
 	refocus(0)
 
 func _name_buttons():
@@ -24,7 +25,7 @@ func _name_buttons():
 			buttons[i].get_node("Label").text = curr_party[i]
 		else:
 			buttons[i].hide()
-	buttons.resize(len(party_group))
+	buttons.slice(0,len(party_group))
 
 func _populate_party():
 	if len(party_group)>0:

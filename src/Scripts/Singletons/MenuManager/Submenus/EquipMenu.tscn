@@ -65,6 +65,7 @@ margin_right = 93.6555
 margin_bottom = 15.3885
 custom_fonts/font = SubResource( 1 )
 text = "Weapon: WP1"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -87,6 +88,7 @@ margin_right = 93.6555
 margin_bottom = 15.3885
 custom_fonts/font = SubResource( 1 )
 text = "Armor: AR1"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -109,6 +111,7 @@ margin_right = 93.6555
 margin_bottom = 15.3885
 custom_fonts/font = SubResource( 1 )
 text = "Skill: Ice (1/25)"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

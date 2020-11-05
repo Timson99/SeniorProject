@@ -5,7 +5,7 @@ var parent = null
 
 onready var button_container = $TextureRect/ItemList/GridContainer
 onready var description_container = $TextureRect/ItemList/InfoPanel/RichDescription
-onready var scrollbar = $TextureRect/ItemList/ScrollBar
+onready var scrollbar = $TextureRect/ItemList/Scrollbar
 
 var input_id = "Menu"
 var default_focused = 0
@@ -17,16 +17,19 @@ var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenus/ItemButton.tscn"
 var popup_path = "res://Scripts/Singletons/MenuManager/Submenus/ItemPopup.tscn"
 
+var sc_start =0
+var scrollbar_size = 2
 var scrollbar_offset = 0
-var max_sc_offset = 106
-var scrollbar_size = 1
-var max_sc_size = 18.5
+var max_sc_offset = 92
+var offset_size = max_sc_offset/5
+
+
 func _ready():
 	_instantiate_items()
 	_update_buttons()
 	_repopulate_btn_container()
 	refocus(0)
-	_resize_scrollbar()
+	_update_scrollbar()
 	
 
 func refocus(to):
@@ -50,27 +53,38 @@ func scroll(direction):
 	if direction == "down":
 		if(scroll_level+btn_ctnr_size < len(items)):
 			scroll_level +=2
+		_move_scrollbar("down")
 	else:
 		if(scroll_level >= 1):
 			scroll_level -=2
+			_move_scrollbar("up")
 	_update_buttons()
 	_repopulate_btn_container()
-	_update_scrollbar()
+	
 		
 
-func _resize_scrollbar():
-	scrollbar_size = (float(len(buttons))/len(items))*max_sc_size
-#	print(len(buttons), len(items))
-	scrollbar.set_scale(Vector2(1,scrollbar_size))
-	
 func _update_scrollbar():
-	var new_offset = (float(scroll_level*2) / len(items))*max_sc_offset*(scrollbar_size/max_sc_size)
-#	print(new_offset, scroll_level,len(items),max_sc_offset)
-	var update_vec = Vector2(0,0)
-	update_vec.y = -(scrollbar_offset-new_offset)
-	scrollbar.set_position(scrollbar.get_position()+update_vec)
-	scrollbar_offset = new_offset
-#	print(scrollbar.get_position())
+	var middle = scrollbar.get_node("middle")
+	sc_start = middle.get_position()
+	scrollbar_offset = sc_start.y
+	var prop_size = (float(len(buttons))/len(items))*max_sc_offset
+	print(max_sc_offset, " " ,scrollbar_size)
+	middle.set_scale(Vector2(1,prop_size/scrollbar_size))
+	scrollbar_size = prop_size
+	
+	scrollbar.get_node("bottom").set_position(middle.get_position()+Vector2(0,scrollbar_size))
+	var hidden_rows= ((len(items)-btn_ctnr_size)/2)
+	if not even(len(items)):
+		hidden_rows +=1
+	offset_size = float(max_sc_offset - scrollbar_size)/hidden_rows
+	
+	
+func _move_scrollbar(direction):
+	scrollbar_offset += offset_size if direction == "down" else -offset_size
+	scrollbar.get_node("top").set_position(Vector2(sc_start.x,scrollbar_offset-1))
+	scrollbar.get_node("middle").set_position(Vector2(sc_start.x,scrollbar_offset))
+	scrollbar.get_node("bottom").set_position(Vector2(sc_start.x,scrollbar_offset+scrollbar_size))
+
 
 func _instantiate_items():
 	for item in MenuManager.item_data:

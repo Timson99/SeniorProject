@@ -4,7 +4,9 @@
 [ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/ItemsMenu.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/ItemList.tscn" type="PackedScene" id=3]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="CanvasLayer" type="CanvasLayer" groups=[
+"Input_Receiver",
+]]
 script = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
