@@ -22,7 +22,7 @@ func refocus(to):
 		focused = to
 
 func reposition(new_pos):
-	print(new_pos)
+#	print(new_pos)
 	$Control.set_position(new_pos)
 
 func discard():
