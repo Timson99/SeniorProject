@@ -3,6 +3,9 @@ extends CanvasLayer
 
 enum Button {Items, Equip, Skills, Status, Config}
 
+onready var character_choice = preload("res://Scripts/Singletons/MenuManager/Submenus/CharacterChoice.tscn")
+var choice_menu = null
+
 onready var buttons = { 
 	Button.Items : {
 		"anim" : $Background/MenuOptions/Items/Items,
@@ -10,18 +13,15 @@ onready var buttons = {
 	},
 	 Button.Equip : {
 		"anim" : $Background/MenuOptions/Equip/Equip,
-		"forward": "res://Scripts/Singletons/MenuManager/Submenus/EquipMenu.tscn",
-		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/CharacterChoice.tscn")
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/EquipMenu.tscn")
 	}, 
 	 Button.Skills : {
 		"anim" : $Background/MenuOptions/Skills/Skills,
-		"forward": "res://Scripts/Singletons/MenuManager/Submenus/SkillsMenu.tscn",
-		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/CharacterChoice.tscn")
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/SkillsMenu.tscn")
 	},
 	 Button.Status : {
 		"anim" : $Background/MenuOptions/Status/Status,
-		"forward": "res://Scripts/Singletons/MenuManager/Submenus/StatusMenu.tscn",
-		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/CharacterChoice.tscn")
+		"submenu" : preload("res://Scripts/Singletons/MenuManager/Submenus/StatusMenu.tscn")
 	},
 	 Button.Config : {
 		"anim" : $Background/MenuOptions/Config/Config,
@@ -39,13 +39,14 @@ var focused = default_focused
 
 var held_actions = {}
 var quick_scrolling = []
-const quick_scroll_sec = 0.07
+const quick_scroll_sec = 0.075
 const qscroll_after_msec = 500
 
 
 func _ready():
 	InputEngine.activate_receiver(self)
 	buttons[focused]["anim"].animation = "on"
+	show_char_menu()
 	
 func _exit_tree():
 	InputEngine.deactivate_receiver(self)
@@ -65,6 +66,11 @@ func quick_scroll(action, start_time):
 		quick_scroll(action, start_time)
 	else:
 		quick_scrolling.erase(action)
+func show_char_menu():
+	choice_menu= character_choice.instance()
+	call_deferred("add_child", choice_menu)
+	choice_menu.layer = layer + 1
+	choice_menu.focused = -1
 
 func back():
 	if submenu:
@@ -76,13 +82,17 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
-		submenu = buttons[focused]["submenu"].instance()
-		call_deferred("add_child", submenu)
-		if buttons[focused].has("forward"):
-			submenu.forward = buttons[focused]["forward"]
-		submenu.layer = layer + 1
-		submenu.parent = self
-	
+		if not(focused == Button.Items or focused == Button.Config):
+			submenu = choice_menu
+			submenu.forward = buttons[focused]["submenu"]
+			submenu.parent = self
+			submenu.refocus(0)
+		else:
+			submenu = buttons[focused]["submenu"].instance()
+			call_deferred("add_child", submenu)
+			submenu.layer = layer + 1
+			submenu.parent = self
+		
 func up():
 	if submenu:
 		submenu.up()

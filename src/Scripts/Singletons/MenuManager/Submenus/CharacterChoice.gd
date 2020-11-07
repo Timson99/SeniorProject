@@ -4,7 +4,7 @@ var submenu = null
 var parent = null
 
 var button_path = "res://Scripts/Singletons/MenuManager/Submenus/CharacterBtn.tscn"
-var forward = "res://Scripts/Singletons/MenuManager/Submenus/StatusMenu.tscn"
+var forward = preload("res://Scripts/Singletons/MenuManager/Submenus/StatusMenu.tscn")
 var sprites = {
 	"C1": preload("res://Assets/Character_Art/C1/C1_02.png"),
 	"C2": preload("res://Assets/Character_Art/C2/C2_02.png"),
@@ -25,15 +25,20 @@ var focused = 0
 func _ready():
 	_populate_party()
 	_init_stats()
-	refocus(0)
-	pass
+	refocus(focused)
+	
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
-		buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
+		if focused>=0:
+			buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
 		buttons[to].get_node("AnimatedSprite").animation = "focused"
 		focused = to
-
+		
+func unfocus():
+	buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
+	focused = -1
+	
 func _populate_party():
 	if len(party_group)>0:
 		curr_party = []
@@ -57,13 +62,15 @@ func back():
 	if submenu:
 		submenu.back()
 	else:
-		queue_free()
+		unfocus()
+		parent.submenu = null
+#		queue_free()
 		
 func accept():
 	if submenu:
 		submenu.accept()
 	else:
-		submenu = load(forward).instance()
+		submenu = forward.instance()
 		call_deferred("add_child", submenu)
 		submenu.curr_char = curr_party[focused]
 		submenu.char_params = stats[curr_party[focused]]
