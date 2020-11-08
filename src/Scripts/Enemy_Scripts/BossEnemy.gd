@@ -3,7 +3,6 @@ extends KinematicBody2D
 export var default_speed := 60
 export var alive := true
 export var persistence_id := "Boss1"
-export var type := "Boss"
 
 onready var skins  = {
 	"Boss" : {
@@ -68,7 +67,6 @@ func move_left():
 
 # Sequenced call command?
 func queue_for_battle():
-	EnemyHandler.Enemies.bosses[persistence_id]["type"] = type
 	EnemyHandler.queued_battle_enemies.append(EnemyHandler.Enemies.bosses[persistence_id])
 	
 	

@@ -41,25 +41,3 @@ var enemy_types = {
 	},
 } 
 
-
-var bosses = {
-	"Boss1": {
-		"enemy_scene_path": "res://Scenes/Enemy_Scenes/ExploreEnemies/Area01/Bully.tscn",
-		"battle_sprite_scene": "res://Scenes/Enemy_Scenes/BattleEnemies/Area01/BattleBully.tscn",
-		"battle_data": EntityStats.new({
-										"LEVEL" : 1,
-										"HP" : 15,
-										"MAX_HP" : 15,
-										"SP" : 15,
-										"MAX_SP" : 15,
-										"ATTACK" : 2,
-										"DEFENSE" : 1,
-										"WAVE_ATTACK" : 3,
-										"WAVE_DEFENSE" : 2,
-										"SPEED" : 3,
-										"WILLPOWER" : 1,
-										"LUCK" : 1,
-									})
-	}
-}
-
