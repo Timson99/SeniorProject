@@ -6,20 +6,20 @@
 [ext_resource path="res://Assets/Character_Art/C1/C1_02.png" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/Menu/Menu_Element_03.png" type="Texture" id=5]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "unfocused",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "focused",
 "speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "unfocused",
+"speed": 5.0
 } ]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
@@ -40,9 +40,9 @@ __meta__ = {
 }
 
 [node name="Categories" type="VBoxContainer" parent="."]
-margin_left = 89.0
+margin_left = 81.0
 margin_top = 108.0
-margin_right = 183.0
+margin_right = 175.0
 margin_bottom = 156.0
 custom_constants/separation = 14
 __meta__ = {
@@ -53,9 +53,9 @@ __meta__ = {
 margin_right = 94.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Categories/Weapon"]
-position = Vector2( 50.3755, 49.3885 )
-scale = Vector2( 1.00379, 0.98 )
-frames = SubResource( 2 )
+position = Vector2( 54.7505, 49.3885 )
+scale = Vector2( 1.09129, 0.98 )
+frames = SubResource( 1 )
 animation = "unfocused"
 
 [node name="Current" type="Label" parent="Categories/Weapon"]
@@ -63,7 +63,7 @@ margin_left = 5.65547
 margin_top = 0.38855
 margin_right = 93.6555
 margin_bottom = 15.3885
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Weapon: WP1"
 clip_text = true
 __meta__ = {
@@ -76,9 +76,9 @@ margin_right = 94.0
 margin_bottom = 14.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Categories/Armor"]
-position = Vector2( 50.5424, 49.3885 )
-scale = Vector2( 1.00713, 0.98 )
-frames = SubResource( 2 )
+position = Vector2( 54.6674, 49.3885 )
+scale = Vector2( 1.08963, 0.98 )
+frames = SubResource( 1 )
 animation = "unfocused"
 
 [node name="Current" type="Label" parent="Categories/Armor"]
@@ -86,7 +86,7 @@ margin_left = 5.65547
 margin_top = 0.38855
 margin_right = 93.6555
 margin_bottom = 15.3885
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Armor: AR1"
 clip_text = true
 __meta__ = {
@@ -99,9 +99,9 @@ margin_right = 94.0
 margin_bottom = 28.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Categories/Skill"]
-position = Vector2( 50.7092, 49.3885 )
-scale = Vector2( 1.01046, 0.98 )
-frames = SubResource( 2 )
+position = Vector2( 54.6822, 49.3885 )
+scale = Vector2( 1.08992, 0.98 )
+frames = SubResource( 1 )
 animation = "unfocused"
 
 [node name="Current" type="Label" parent="Categories/Skill"]
@@ -109,7 +109,7 @@ margin_left = 5.65547
 margin_top = 0.38855
 margin_right = 93.6555
 margin_bottom = 15.3885
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Skill: Ice (1/25)"
 clip_text = true
 __meta__ = {
@@ -125,7 +125,7 @@ margin_left = 32.0
 margin_top = -16.0
 margin_right = 72.0
 margin_bottom = -2.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Name"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -135,7 +135,7 @@ __meta__ = {
 margin_left = 32.0
 margin_right = 72.0
 margin_bottom = 14.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Level"
 __meta__ = {
 "_edit_use_anchors_": false

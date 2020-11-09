@@ -8,14 +8,14 @@
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "unfocused",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "focused",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "unfocused",
 "speed": 5.0
 } ]
 
@@ -31,7 +31,7 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.605915, -0.0804443 )
-scale = Vector2( 1.01223, 1 )
+scale = Vector2( 1.106, 1 )
 frames = SubResource( 2 )
 animation = "unfocused"
 centered = false
