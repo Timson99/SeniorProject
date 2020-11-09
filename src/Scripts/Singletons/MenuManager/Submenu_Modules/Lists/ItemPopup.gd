@@ -6,7 +6,7 @@ var parent = null
 
 
 onready var btn_container = $Control/VBoxContainer
-var choice_path = "res://Scripts/Singletons/MenuManager/Submenus/EffectChoice.tscn"
+var choice_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Lists/EffectPopup.tscn"
 var item = null
 var buttons = []
 var focused = 0

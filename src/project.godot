@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "Item",
 "language": "GDScript",
-"path": "res://Scripts/Singletons/MenuManager/Submenus/ItemButton.gd"
+"path": "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.gd"
 }, {
 "base": "Resource",
 "class": "MainScenes",

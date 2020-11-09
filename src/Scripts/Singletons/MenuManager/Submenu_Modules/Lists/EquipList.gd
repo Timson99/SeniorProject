@@ -14,7 +14,7 @@ var buttons = []
 var items = []
 var scroll_level= 0
 var btn_ctnr_size = 6
-var button_path = "res://Scripts/Singletons/MenuManager/Submenus/ItemButton.tscn"
+var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
 
 var data=null
 var num_cols = 1
@@ -29,18 +29,23 @@ func _ready():
 	_instantiate_items()
 	_update_buttons()
 	_repopulate_btn_container()
-	refocus(0)
+	refocus(focused)
 	_update_scrollbar()
 	pass
 	
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
-		buttons[focused].get_node("AnimatedSprite").animation = "unfocused"
+		if focused>=0:
+			buttons[focused].get_node("AnimatedSprite").animation = "unfocused"
 		buttons[to].get_node("AnimatedSprite").animation = "focused"
 		focused = to
 		#can update to use funcref to be reusable
 		update_description(data[buttons[to].item_name])
+
+func unfocus():
+	buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
+	focused = -1
 
 func update_description(item):
 	var description = ""

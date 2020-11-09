@@ -5,7 +5,7 @@ var parent = null
 
 onready var button_container = $Categories
 
-var list_path = "res://Scripts/Singletons/MenuManager/Submenus/EquipList.tscn"
+var list_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Lists/EquipList.tscn"
 
 var input_id = "Menu"
 var curr_char = "C1"

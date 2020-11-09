@@ -3,7 +3,7 @@ extends CanvasLayer
 var submenu = null
 var parent = null
 
-var button_path = "res://Scripts/Singletons/MenuManager/Submenus/CharacterBtn.tscn"
+var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/CharacterBtn.tscn"
 var forward = preload("res://Scripts/Singletons/MenuManager/Submenus/StatusMenu.tscn")
 var sprites = {
 	"C1": preload("res://Assets/Character_Art/C1/C1_02.png"),
