@@ -8,7 +8,7 @@ export var C3_in_party = true
 var active_player = null
 var party := []
 var incapacitated := []
-var items := []
+var items := ["Bomb"]
 var spacing := 16.0
 var persistence_id := "main_party"
 
