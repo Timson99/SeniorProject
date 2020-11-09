@@ -93,7 +93,7 @@ shape = SubResource( 3 )
 
 [node name="LockedDoor01" type="Area2D" parent="TileMap"]
 script = ExtResource( 9 )
-speakerID = "yoysg"
+speakerID = "Locked_Door"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LockedDoor01"]
 position = Vector2( -40, 99 )
@@ -101,7 +101,7 @@ shape = SubResource( 4 )
 
 [node name="LockedDoor02" type="Area2D" parent="TileMap"]
 script = ExtResource( 9 )
-speakerID = "yoysg"
+speakerID = "Locked_Door"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/LockedDoor02"]
 position = Vector2( 248, 67 )
@@ -144,6 +144,10 @@ position = Vector2( 24, -11 )
 shape = SubResource( 5 )
 
 [node name="World_Collider" type="StaticBody2D" parent="."]
+visible = false
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World_Collider"]
 position = Vector2( 168, 184 )
@@ -155,10 +159,10 @@ shape = SubResource( 7 )
 
 [node name="CollisionShape2D4" type="CollisionPolygon2D" parent="World_Collider"]
 position = Vector2( 208, 24 )
-polygon = PoolVector2Array( -129, 40, -66, 40, -66, 38, -46, 38, -46, 40, 16, 40, 16, -24, -128, -24 )
+polygon = PoolVector2Array( -129, 40, -67, 40, -67, 38, -45, 38, -45, 40, 16, 40, 16, -24, -128, -24 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World_Collider"]
-polygon = PoolVector2Array( 271, 80, 335, 80, 335, 78, 353, 78, 353, 80, 416, 80, 416, 64, 271, 64 )
+polygon = PoolVector2Array( 271, 80, 334, 80, 334, 78, 354, 78, 354, 80, 416, 80, 416, 64, 271, 64 )
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="World_Collider"]
 polygon = PoolVector2Array( 79, 64, -80, 117, -16, 64 )

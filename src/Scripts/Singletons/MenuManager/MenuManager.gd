@@ -9,17 +9,21 @@ var item_data
 const item_data_file = "res://Scenes/Luis_Test_Scenes/Data/Item Table - Sheet1.json"
 var skill_data
 const skill_data_file = "res://Scenes/Luis_Test_Scenes/Data/Skill Table - Sheet1.json"
+var party = null
+
 func _ready():
 	load_item_data()
 	load_skill_data()
 
 func activate():	
+	party = get_tree().get_nodes_in_group("Party")[0]
 	main_menu = main_menu_scene.instance()
 	call_deferred("add_child", main_menu)
 	main_menu.parent = self
 	active = true
 	
 func deactivate():
+	party = null
 	main_menu = null
 	active = false
 	

@@ -73,7 +73,7 @@ func _update_scrollbar():
 #	print(scrollbar.get_position())
 
 func _instantiate_items():
-	for item in MenuManager.item_data:
+	for item in MenuManager.party.items:
 		_add_item(item)
 
 func _add_item(item):
@@ -91,6 +91,7 @@ func _update_buttons():
 		
 func _add_item_button(item):
 	var button = load(button_path).instance()
+	print(item)
 	button._setup(item)
 	buttons.append(button)
 	
