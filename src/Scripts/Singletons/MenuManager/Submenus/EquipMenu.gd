@@ -54,7 +54,8 @@ func accept():
 	else:
 		submenu = load(list_path).instance()
 		call_deferred("add_child", submenu)
-		submenu.data= MenuManager.skill_data if focused==2 else MenuManager.item_data
+		submenu.data_source = MenuManager.skill_data if focused==2 else MenuManager.item_data
+		submenu.data= MenuManager.skill_data if focused==2 else MenuManager.party.items
 		submenu.layer = layer + 1
 		submenu.parent = self
 		

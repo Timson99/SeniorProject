@@ -17,7 +17,8 @@ var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
 var popup_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Lists/ItemPopup.tscn"
 
-var data=MenuManager.item_data
+var data_source=MenuManager.item_data
+var data = MenuManager.party.items
 var num_cols = 2
 
 var sc_start =0
@@ -42,7 +43,7 @@ func refocus(to):
 		buttons[to].get_node("AnimatedSprite").animation = "focused"
 		focused = to
 		#can update to use funcref to be reusable
-		update_description(data[buttons[to].item_name])
+		update_description(data_source.get(buttons[to].item_name))
 		
 func unfocus():
 	buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 

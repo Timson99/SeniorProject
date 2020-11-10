@@ -16,7 +16,8 @@ var scroll_level= 0
 var btn_ctnr_size = 6
 var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
 
-var data=null
+var data= MenuManager.item_data
+var data_source=MenuManager.item_data
 var num_cols = 1
 
 var sc_start =0
@@ -41,7 +42,7 @@ func refocus(to):
 		buttons[to].get_node("AnimatedSprite").animation = "focused"
 		focused = to
 		#can update to use funcref to be reusable
-		update_description(data[buttons[to].item_name])
+		update_description(data_source[buttons[to].item_name])
 
 func unfocus():
 	buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
