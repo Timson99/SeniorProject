@@ -164,7 +164,8 @@ func save_game():
 	
 ####################################################
 func change_scene():
-	SceneManager.goto_scene(destination)
+	pass
+	#SceneManager.goto_scene(destination)
 
 
 

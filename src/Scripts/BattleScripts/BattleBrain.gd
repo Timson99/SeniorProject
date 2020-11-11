@@ -6,7 +6,6 @@ var turn = null
 onready var character_party = $BattleModules/Party_Modules
 onready var enemy_party = $EnemyParty
 onready var dialogue_node = $BattleDialogue/BattleDialogueBox
-onready var characters = character_party.get_children()
 onready var enemies = enemy_party.enemies
 
 
@@ -24,15 +23,17 @@ func battle_engine():
 	var moves_made := []
 
 	#var enemies = enemy_party.enemies
-	
+	var characters = character_party.get_children()
 	for c in characters:
 		var move = yield(c, "move")
 		moves_made.append(move)
 		print("%s : %s" % [c.name, move.to_dict()])
 		dialogue_node.display_message("%s : %s" % [c.name, move.to_dict()])
-		
+		print(characters)
 		#move = yield(UI, character.move_made_signal)
 		#Add as queued character action
+		
+	print("End")
 		
 	for e in enemies:
 		var move = e.make_move()

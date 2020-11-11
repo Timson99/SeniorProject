@@ -14,11 +14,10 @@ var selected_material = preload("res://Resources/Shaders/Illumination.tres")
 func _ready():
 	$HBoxContainer.rect_size = Vector2(0,0)
 	var enemy_keys = EnemyHandler.queued_battle_enemies 
-	
 
 	if enemy_keys.size() == 0 and enemies_debug_keys.size() != 0:
 		enemy_keys = enemies_debug_keys
-	else: 
+	elif enemies_debug_keys.size() == 0 && enemy_keys.size() == 0: 
 		return
 
 	for e in enemy_keys:

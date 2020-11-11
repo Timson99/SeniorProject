@@ -18,6 +18,7 @@ func _ready():
 
 
 func switch_characters(_move):
+	party = get_children()
 	active_player.deactivate_player()
 		
 	yield(get_tree().create_timer(0.1, false), "timeout")
@@ -48,9 +49,9 @@ func sort_alive(a,_b):
 
 func on_load(): 
 	if(!C2_in_party):
-		remove_child($C2_Module)
+		$C2_Module.queue_free()
 	if(!C3_in_party):
-		remove_child($C3_Module)	
+		$C3_Module.queue_free()	
 	
 	party = get_children()
 	party.sort_custom(self, "sort_alive")
