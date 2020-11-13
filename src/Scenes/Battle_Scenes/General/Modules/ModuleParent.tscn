@@ -1,8 +1,6 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=29 format=2]
 
-[ext_resource path="res://Assets/UI/Battle/Battle_UI01.png" type="Texture" id=1]
-[ext_resource path="res://Assets/UI/Battle/Battle_UI03.png" type="Texture" id=2]
-[ext_resource path="res://Assets/UI/Battle/Battle_UI02.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/Battle/Battle_UI_v2_06.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/ChunkyPixels.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Scripts/BattleScripts/BattleCharacter.gd" type="Script" id=5]
 [ext_resource path="res://Assets/UI/Battle/Battle_UI11.png" type="Texture" id=6]
@@ -16,37 +14,25 @@
 [ext_resource path="res://Assets/UI/Battle/Battle_UI06.png" type="Texture" id=14]
 [ext_resource path="res://Assets/UI/Battle/Battle_UI08.png" type="Texture" id=15]
 [ext_resource path="res://Scripts/BattleScripts/BattleMenuOld.gd" type="Script" id=16]
-[ext_resource path="res://Assets/UI/Battle/Battle_UI16.png" type="Texture" id=17]
-[ext_resource path="res://Assets/UI/Battle/Battle_UI17.png" type="Texture" id=18]
-[ext_resource path="res://Assets/UI/Battle/Battle_UI18.png" type="Texture" id=19]
-[ext_resource path="res://Assets/UI/Battle/Battle_UI19.png" type="Texture" id=20]
-[ext_resource path="res://Assets/UI/Battle/Battle_UI20.png" type="Texture" id=21]
-[ext_resource path="res://Assets/UI/Battle/Battle_UI21.png" type="Texture" id=22]
 [ext_resource path="res://Assets/UI/Battle/Battle_UI_v2_02.png" type="Texture" id=23]
 [ext_resource path="res://Assets/UI/Battle/Battle_UI_v2_12.png" type="Texture" id=24]
 [ext_resource path="res://Assets/Fonts/ChunkyPixelsNormal.tres" type="DynamicFont" id=25]
 
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ) ],
-"loop": false,
-"name": "Display_To_Menu",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 23 ) ],
 "loop": true,
 "name": "Display",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "Wave",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 23 ) ],
 "loop": true,
-"name": "Menu",
+"name": "Display2Wave",
 "speed": 5.0
 } ]
 
@@ -141,9 +127,9 @@ __meta__ = {
 [node name="UI" type="Node2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="UI"]
-position = Vector2( 112, 96 )
+position = Vector2( 112, -64 )
 frames = SubResource( 1 )
-animation = "Display"
+animation = "Display2Wave"
 
 [node name="Battle_UI_v2_12" type="Sprite" parent="UI"]
 position = Vector2( 119, 100 )
@@ -252,7 +238,7 @@ position = Vector2( 117, -120 )
 frames = SubResource( 7 )
 animation = "off"
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="HP_Bar" type="ProgressBar" parent="UI"]
 margin_left = -23.0
 margin_top = 2.0
 margin_right = 40.0
@@ -267,7 +253,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ProgressBar"]
+[node name="HP_Num" type="RichTextLabel" parent="UI/HP_Bar"]
 margin_left = 43.0
 margin_top = -12.0
 margin_right = 83.0
@@ -275,7 +261,7 @@ margin_bottom = 28.0
 custom_fonts/normal_font = ExtResource( 25 )
 text = "999"
 
-[node name="ProgressBar2" type="ProgressBar" parent="."]
+[node name="SP_Bar" type="ProgressBar" parent="UI"]
 margin_left = -23.0
 margin_top = 16.0
 margin_right = 40.0
@@ -289,7 +275,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ProgressBar2"]
+[node name="SP_Num" type="RichTextLabel" parent="UI/SP_Bar"]
 margin_left = 43.0
 margin_top = -12.0
 margin_right = 83.0

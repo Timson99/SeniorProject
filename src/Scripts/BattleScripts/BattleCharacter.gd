@@ -4,15 +4,20 @@ extends Control
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 var input_id := "Battle_Menu"
 
-onready var menu = $UI/MainMenu
+onready var battle_brain = SceneManager.current_scene
+onready var menu = null
 onready var anim_player = $UI/AnimatedSprite
+onready var name_label = $UI/Name
+onready var HP_Bar : ProgressBar = $UI/HP_Bar
+onready var SP_Bar : ProgressBar = $UI/SP_Bar
+
 
 export var alive := true
 var skills = {} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 onready var temp_battle_stats = stats
 
-onready var battle_brain = SceneManager.current_scene
+
 
 var module_rise := 2
 
@@ -22,21 +27,30 @@ var enemy_select_mode = false
 
 signal move(move)
 
-func _ready():
-	menu.parent = self	
+func _ready():	
+	pass
+	
+func on_load():
+	menu = battle_brain.dialogue_node.get_node("Menu")
+	menu.selector = self
+	menu.hide()
+	
+	var temp_battle_stats = stats
+	
+	
 	
 func _process(_delta):
-	$UI/RichTextLabel.text = ("HP: %d/%d\nSP: %d/%d" % [stats.HP, 
-											stats.MAX_HP, 
-											stats.SP, 
-											stats.MAX_SP ] )
+	HP_Bar.max_value = stats.MAX_HP
+	HP_Bar.min_value = 0
+	HP_Bar.value = stats.HP
+	
+	SP_Bar.max_value = stats.MAX_SP
+	SP_Bar.min_value = 0
+	SP_Bar.value = stats.SP
 											
 enum Mode {Inactive, Menu, Enemy_Select}
 var current_mode = Mode.Inactive
 
-
-func on_load():
-	var temp_battle_stats = stats
 	
 func test_command1():
 	pass
@@ -47,10 +61,11 @@ func back():
 	elif current_mode == Mode.Enemy_Select:
 		battle_brain.enemy_party.deselect_current()
 		InputEngine.deactivate_receiver(self)
-		anim_player.play("Display_To_Menu")
-		yield(anim_player, "animation_finished")
-		anim_player.stop()
-		anim_player.animation = "Menu"
+		#Anim Menu Open (Menu Sprite Relocated)
+		#OLD anim_player.play("Display_To_Menu")
+		#OLD yield(anim_player, "animation_finished")
+		#anim_player.stop()
+		#anim_player.animation = "Menu"
 		menu.show()
 		current_mode = Mode.Menu
 		InputEngine.activate_receiver(self)
@@ -66,17 +81,14 @@ func accept():
 				emit_signal("move", BattleMove.new(self, command))
 			else:
 				saved_command = command
-				anim_player.animation = "Display"
 				menu.hide()
 				menu.reset(false)
 				current_mode = Mode.Enemy_Select
 				battle_brain.enemy_party.select_current()
-				#emit_signal("move", command)
 	elif current_mode == Mode.Enemy_Select:
 		var selected_enemy = battle_brain.enemy_party.get_selected_enemy()
 		battle_brain.enemy_party.deselect_current()
 		emit_signal("move", BattleMove.new(self, saved_command, selected_enemy))
-	
 	
 	
 func up():
@@ -84,6 +96,7 @@ func up():
 		menu.up()
 	elif current_mode == Mode.Enemy_Select:
 		battle_brain.enemy_party.select_up()
+	
 	
 func down():
 	if current_mode == Mode.Menu:
@@ -94,13 +107,14 @@ func down():
 		
 func left():
 	if current_mode == Mode.Menu:
-		menu.up()
+		menu.left()
 	elif current_mode == Mode.Enemy_Select:
 		battle_brain.enemy_party.select_left()
-	
+
+
 func right():
 	if current_mode == Mode.Menu:
-		menu.down()
+		menu.right()
 	elif current_mode == Mode.Enemy_Select:
 		battle_brain.enemy_party.select_right()
 	
@@ -113,10 +127,11 @@ func release_down():
 
 func activate_player():
 	$UI.position.y -= module_rise
-	anim_player.play("Display_To_Menu")
-	yield(anim_player, "animation_finished")
-	anim_player.stop()
-	anim_player.animation = "Menu"
+	#Animate enu, relocaed
+	#anim_player.play("Display_To_Menu")
+	#yield(anim_player, "animation_finished")
+	#anim_player.stop()
+	#anim_player.animation = "Menu"
 	menu.show()
 	current_mode = Mode.Menu
 	InputEngine.activate_receiver(self)
@@ -126,7 +141,6 @@ func activate_player():
 func deactivate_player():
 	InputEngine.deactivate_receiver(self)
 	$UI.position.y += module_rise
-	anim_player.animation = "Display"
 	menu.hide()
 	menu.reset()
 	current_mode = Mode.Inactive

@@ -8,6 +8,6 @@ void fragment() {
 	COLOR = texture(TEXTURE, UV); //read from texture
     COLOR.b = blue;
 	COLOR.r = red;
-	COLOR.g = green;
+	COLOR.g = COLOR.g + green;
 }
 
