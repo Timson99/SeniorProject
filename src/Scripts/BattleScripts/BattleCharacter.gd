@@ -43,10 +43,12 @@ func _process(_delta):
 	HP_Bar.max_value = stats.MAX_HP
 	HP_Bar.min_value = 0
 	HP_Bar.value = stats.HP
+	HP_Bar.get_node("HP_Num").text = str(stats.HP)
 	
 	SP_Bar.max_value = stats.MAX_SP
 	SP_Bar.min_value = 0
 	SP_Bar.value = stats.SP
+	SP_Bar.get_node("SP_Num").text = str(stats.SP)
 											
 enum Mode {Inactive, Menu, Enemy_Select}
 var current_mode = Mode.Inactive

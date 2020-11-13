@@ -39,7 +39,7 @@ func battle_engine():
 		var move = e.make_move()
 		moves_made.append(move)
 		print("%s : %s" % [e.screen_name, move.to_dict()])
-		dialogue_node.display_message("%s : %s" % [e.screen_name, move.to_dict()])
+		#dialogue_node.display_message("%s : %s" % [e.screen_name, move.to_dict()])
 
 	execute(moves_made)
 	turn = null
