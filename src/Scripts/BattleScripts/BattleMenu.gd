@@ -70,32 +70,36 @@ func reset(reset_focused = true):
 	
 func left():
 	if submenu:
-		submenu.up()
+		submenu.left()
 	else:
 		deselect_focused()
 		focused -= 1
 		focused = Button.Run if focused < Button.Attack else focused
 		select_focused()
 	
-	if(!("move_up" in held_actions)):
-		held_actions["move_up"] = OS.get_ticks_msec()
+	if(!("left" in held_actions)):
+		held_actions["left"] = OS.get_ticks_msec()
 	
 func right():
 	if submenu:
-		submenu.down()
+		submenu.right()
 	else:
 		deselect_focused()
 		focused += 1
 		focused = Button.Attack if focused > Button.Run else focused
 		select_focused()
 	
-		if(!("move_down" in held_actions)):
-			held_actions["move_down"] = OS.get_ticks_msec()
+		if(!("right" in held_actions)):
+			held_actions["right"] = OS.get_ticks_msec()
 	
+func release_right():
+	held_actions.erase("right")
+func release_left():
+	held_actions.erase("left")
 func release_up():
-	held_actions.erase("move_up")
+	pass
 func release_down():
-	held_actions.erase("move_down")
+	pass
 	
 func accept():
 	if submenu:
@@ -113,13 +117,13 @@ func back():
 
 func up():
 	if submenu:
-		submenu.left()
+		submenu.up()
 	else:
 		pass
 	
 func down():
 	if submenu:
-		submenu.right()
+		submenu.down()
 	else:
 		pass
 		

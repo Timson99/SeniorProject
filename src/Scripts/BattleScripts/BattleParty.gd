@@ -5,6 +5,7 @@ export var persistence_id := "main_party"
 export var C2_in_party = false
 export var C3_in_party = false
 var items := []
+var terminated = false
 
 
 var party = null
@@ -16,6 +17,11 @@ func _ready():
 	$C2_Module.connect("move", self, "switch_characters")
 	$C3_Module.connect("move", self, "switch_characters")
 
+
+
+func terminate_input():
+	active_player.deactivate_player()
+	terminated = true
 
 func switch_characters(_move):
 	party = get_children()
@@ -72,7 +78,8 @@ func on_load():
 											})
 											
 func begin_turn():
-	active_player.activate_player()
+	if !terminated:
+		active_player.activate_player()
 			
 
 func save():
@@ -81,3 +88,64 @@ func save():
 		"items" : items,
 	}	
 	return save_dict
+	
+	
+####Character Selection
+#################
+"""
+func select_current():
+	if enemies[selected_enemy_index].alive:
+		enemies[selected_enemy_index].select()
+	else:
+		select_right()
+	
+func deselect_current():
+	enemies[selected_enemy_index].deselect()
+	selected_enemy_index = 0
+
+func select_right():
+	if(enemies.size() == 1):
+		return
+	enemies[selected_enemy_index].deselect()
+	selected_enemy_index += 1
+	selected_enemy_index = min(selected_enemy_index, enemies.size() - 1)
+
+	if(!enemies[selected_enemy_index].alive):
+		if(selected_enemy_index ==  enemies.size() - 1):
+			select_left()
+		else:
+			select_right()
+
+			
+	
+	enemies[selected_enemy_index].select()
+	
+func select_left():
+	if(enemies.size() == 1):
+		return
+	enemies[selected_enemy_index].deselect()
+	selected_enemy_index -= 1
+	selected_enemy_index = max(selected_enemy_index, 0)
+
+	if(!enemies[selected_enemy_index].alive):
+		if(selected_enemy_index == 0):
+			select_right()
+		else:
+			select_left()
+	
+	enemies[selected_enemy_index].select()
+	
+func select_up():
+	if(enemies.size() == 1):
+		return
+	
+func select_down():
+	if(enemies.size() == 1):
+		return
+		
+func get_selected_enemy():
+	return enemies[selected_enemy_index]
+
+func get_selected_enemy_name():
+	return enemies[selected_enemy_index].screen_name
+"""

@@ -126,6 +126,12 @@ func release_up():
 func release_down():
 	menu.release_down()
 	
+func release_left():
+	menu.release_left()
+	
+func release_right():
+	menu.release_right()
+	
 
 func activate_player():
 	$UI.position.y -= module_rise

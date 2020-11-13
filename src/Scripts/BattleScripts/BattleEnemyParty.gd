@@ -49,7 +49,7 @@ func deselect_current():
 	selected_enemy_index = 0
 
 func select_right():
-	if(enemies.size() == 1):
+	if(enemies.size() <= 1):
 		return
 	enemies[selected_enemy_index].deselect()
 	selected_enemy_index += 1
@@ -60,13 +60,11 @@ func select_right():
 			select_left()
 		else:
 			select_right()
-
-			
-	
 	enemies[selected_enemy_index].select()
 	
+	
 func select_left():
-	if(enemies.size() == 1):
+	if(enemies.size() <= 1):
 		return
 	enemies[selected_enemy_index].deselect()
 	selected_enemy_index -= 1
@@ -94,9 +92,3 @@ func get_selected_enemy():
 func get_selected_enemy_name():
 	return enemies[selected_enemy_index].screen_name
 
-
-func illuminate(isSelected):
-	if isSelected:
-		$Sprite.set_material(selected_material)
-	elif $Sprite.material != null:
-		$Sprite.material = null

@@ -6,8 +6,8 @@ onready var text_node = $RichTextLabel
 	
 var message = []
 
-var scroll_time := 0.01 #Can't be faster than a frame, 1/60
-var character_jump = 5
+var scroll_time := 0.0 #Can't be faster than a frame, 1/60
+var character_jump = 1
 var breath_pause = 0.25
 var breath_char = "`"
 enum Mode {Input, Display}
@@ -17,16 +17,22 @@ var mode = null
 
 #either skips scroll, advances to next line, or selects option
 func ui_accept_pressed():
+	print("Presed")
 	if text_node.get_visible_characters() < text_node.get_text().length():
 		text_node.set_visible_characters(text_node.get_text().length() - 1)
 	else:
 		_advance_message()
 
 	
-func display_message(message_param, input=false):
+func display_message(message_param, input=false, scroll_time=0.0, character_jump=1000):
+	
+	self.scroll_time = scroll_time
+	self.character_jump = character_jump
+	
 	if input:
 		mode = Mode.Input
 		InputEngine.activate_receiver(self)
+		print("Activated")
 	else:
 		mode = Mode.Display
 	message = message_param if typeof(message_param) == TYPE_ARRAY else [message_param]
@@ -63,4 +69,6 @@ func clear():
 		InputEngine.deactivate_receiver(self)
 	mode = null
 	message = null
+	scroll_time = 0.0
+	character_jump = 1000
 
