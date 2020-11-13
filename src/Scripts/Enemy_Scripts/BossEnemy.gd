@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export var default_speed := 60
 export var alive := true
-export var persistence_id := "Boss1"
+export var persistence_id := "Bully"
 export var type := "Boss"
 
 onready var skins  = {
@@ -12,7 +12,9 @@ onready var skins  = {
 }
 onready var animations = skins["Boss"]["default"]
 
-onready var stats = EnemyHandler.Enemies[persistence_id]["battle_data"]
+onready var data = EnemyHandler.Enemies.enemy_types[persistence_id]
+onready var stats = data["battle_data"]
+onready var battle_id = "battle"
 
 var dir_anims := {
 	Enums.Dir.Up: ["Idle_Up", "Walk_Up"],
@@ -27,7 +29,10 @@ var velocity = Vector2(0,0)
 
 func _ready():
 	pass
-
+	
+func initiate_battle():
+	EnemyHandler.queued_battle_enemies.append(persistence_id)
+	SceneManager.goto_scene(battle_id, "", true)
 
 # Physics process kept in just in case we want to sequence boss movement prior
 # to or after a battle

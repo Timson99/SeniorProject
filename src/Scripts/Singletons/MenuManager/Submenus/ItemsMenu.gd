@@ -38,9 +38,9 @@ func refocus(to):
 		update_description(MenuManager.item_data[buttons[to].item_name])
 
 func update_description(item):
-	var description = ""
-	for val in item :
-		description = str(description,"\t",val," : ", item[val])
+	var description = item["Type"] + ": " + item["Description"]
+	#for val in item :
+		#description = str(description,"\t",val," : ", item[val])
 	description_container.text = description
 
 func even(num):# can adjust condition to fit any number of columns
@@ -91,7 +91,7 @@ func _update_buttons():
 		
 func _add_item_button(item):
 	var button = load(button_path).instance()
-	print(item)
+	#print(item)
 	button._setup(item)
 	buttons.append(button)
 	

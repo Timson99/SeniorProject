@@ -4,18 +4,20 @@ extends ExploreRoot
 
 
 onready var closet = $TileMap/YSort/Closet
-onready var main_door_lock = $TileMap/Warp_Outside/MainDoor/CollisionShape2D
+onready var main_door_warp = $TileMap/Warp_Outside
 onready var main_door_dialogue = $TileMap/Warp_Outside/Dialogue/CollisionShape2D
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	main_door_warp.monitoring = false
 	closet.connect("used", self, "open_main_door")
+	
 	#BgEngine.facilitate_track_changes(music_track_path)
  
 
 func open_main_door():
-	main_door_lock.disabled = true
+	main_door_warp.monitoring = true
 	main_door_dialogue.disabled = true
 	
 

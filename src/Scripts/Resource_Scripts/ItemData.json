@@ -1,0 +1,8 @@
+{
+  "Bomb": {
+    "ItemPrice": 30,
+    "ItemWeight": 2,
+    "Description": "Desc",
+    "Type": "WPN"
+  }
+}

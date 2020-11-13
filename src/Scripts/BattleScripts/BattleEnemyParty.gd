@@ -8,17 +8,17 @@ var enemy_keys := []
 var enemies := []
 var selected_enemy_index = 0
 onready var battle_brain = SceneManager.current_scene
+var terminated = false
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
 
 func _ready():
 	$HBoxContainer.rect_size = Vector2(0,0)
 	var enemy_keys = EnemyHandler.queued_battle_enemies 
-	
 
 	if enemy_keys.size() == 0 and enemies_debug_keys.size() != 0:
 		enemy_keys = enemies_debug_keys
-	else: 
+	elif enemies_debug_keys.size() == 0 && enemy_keys.size() == 0: 
 		return
 
 	for e in enemy_keys:
@@ -33,9 +33,12 @@ func _ready():
 	enemies = enemy_container.get_children()
 	
 func check_alive():
+	if terminated:
+		return
 	for e in enemies:
 		if e.alive:
 			return
+	terminated = true
 	battle_brain.battle_victory()
 	
 
@@ -50,35 +53,20 @@ func deselect_current():
 	selected_enemy_index = 0
 
 func select_right():
-	if(enemies.size() == 1):
+	if(enemies.size() <= 1):
 		return
 	enemies[selected_enemy_index].deselect()
 	selected_enemy_index += 1
 	selected_enemy_index = min(selected_enemy_index, enemies.size() - 1)
-
-	if(!enemies[selected_enemy_index].alive):
-		if(selected_enemy_index ==  enemies.size() - 1):
-			select_left()
-		else:
-			select_right()
-
-			
-	
 	enemies[selected_enemy_index].select()
 	
+	
 func select_left():
-	if(enemies.size() == 1):
+	if(enemies.size() <= 1):
 		return
 	enemies[selected_enemy_index].deselect()
 	selected_enemy_index -= 1
 	selected_enemy_index = max(selected_enemy_index, 0)
-
-	if(!enemies[selected_enemy_index].alive):
-		if(selected_enemy_index == 0):
-			select_right()
-		else:
-			select_left()
-	
 	enemies[selected_enemy_index].select()
 	
 func select_up():
@@ -95,9 +83,3 @@ func get_selected_enemy():
 func get_selected_enemy_name():
 	return enemies[selected_enemy_index].screen_name
 
-
-func illuminate(isSelected):
-	if isSelected:
-		$Sprite.set_material(selected_material)
-	elif $Sprite.material != null:
-		$Sprite.material = null
