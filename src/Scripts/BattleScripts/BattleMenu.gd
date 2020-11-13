@@ -5,6 +5,9 @@ enum Button {Attack, Skills, Items, Defend, Run}
 
 var icon_highlight = preload("res://Resources/Shaders/HighlightGreen.tres")
 
+var items_submenu = preload("res://Scenes/Battle_Scenes/General/BattleItems_Submenu.tscn")
+var skills_submenu = preload("res://Scenes/Battle_Scenes/General/BattleSkills_Submenu.tscn")
+
 var submenu = null
 var selector = null
 
@@ -52,6 +55,14 @@ var focused = default_focused
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	reset()
+	
+func instance_items_submenu():
+	submenu = items_submenu.instance()
+	add_child(submenu)
+	
+func instance_skills_submenu():
+	submenu = skills_submenu.instance()
+	add_child(submenu)
 	
 func select_focused():
 	buttons[focused]["sprite"].set_material(icon_highlight)

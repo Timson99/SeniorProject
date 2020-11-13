@@ -11,7 +11,7 @@ onready var name_label = $UI/Name
 onready var HP_Bar : ProgressBar = $UI/HP_Bar
 onready var SP_Bar : ProgressBar = $UI/SP_Bar
 
-
+var screen_name = "placeholder"
 export var alive := true
 var skills = {} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
@@ -19,9 +19,11 @@ onready var temp_battle_stats = stats
 
 
 
+
+
 var module_rise := 2
 
-var party_data = null
+var party = null
 
 var enemy_select_mode = false
 
@@ -50,7 +52,7 @@ func _process(_delta):
 	SP_Bar.value = stats.SP
 	SP_Bar.get_node("SP_Num").text = str(stats.SP)
 											
-enum Mode {Inactive, Menu, Enemy_Select}
+enum Mode {Inactive, Menu, Enemy_Select, Character_Select}
 var current_mode = Mode.Inactive
 
 	
@@ -81,16 +83,32 @@ func accept():
 		if command != null:
 			if command in ["Run", "Defend"]:
 				emit_signal("move", BattleMove.new(self, command))
-			else:
+			elif command == "Attack":
 				saved_command = command
 				menu.hide()
 				menu.reset(false)
-				current_mode = Mode.Enemy_Select
+				current_mode = Mode.Enemy_Select			
 				battle_brain.enemy_party.select_current()
+			elif command == "Skills":
+				saved_command = command
+				menu.hide()
+				menu.reset(false)
+				menu.instance_skills_submenu()
+			elif command == "Items":
+				saved_command = command
+				menu.hide()
+				menu.reset(false)
+				menu.instance_items_submenu()
+				
 	elif current_mode == Mode.Enemy_Select:
 		var selected_enemy = battle_brain.enemy_party.get_selected_enemy()
 		battle_brain.enemy_party.deselect_current()
 		emit_signal("move", BattleMove.new(self, saved_command, selected_enemy))
+		
+	elif current_mode == Mode.Character_Select:
+		var selected_character = battle_brain.character_party.get_selected_character()
+		battle_brain.character_party.deselect_current()
+		emit_signal("move", BattleMove.new(self, saved_command, selected_character))
 	
 	
 func up():
@@ -112,6 +130,8 @@ func left():
 		menu.left()
 	elif current_mode == Mode.Enemy_Select:
 		battle_brain.enemy_party.select_left()
+	elif current_mode == Mode.Character_Select:
+		battle_brain.character_party.select_left()
 
 
 func right():
@@ -119,7 +139,10 @@ func right():
 		menu.right()
 	elif current_mode == Mode.Enemy_Select:
 		battle_brain.enemy_party.select_right()
-	
+	elif current_mode == Mode.Character_Select:
+		battle_brain.character_party.select_right()
+		
+		
 func release_up():
 	menu.release_up()
 	
@@ -148,10 +171,10 @@ func activate_player():
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
 	InputEngine.deactivate_receiver(self)
-	$UI.position.y += module_rise
 	menu.hide()
 	menu.reset()
 	current_mode = Mode.Inactive
+	$UI.position.y = 0
 	
 func save():
 	var save_dict = {
@@ -161,5 +184,14 @@ func save():
 		"alive" : alive
 	}	
 	return save_dict
+	
+	
+func select():
+	anim_player.set_material(party.selected_material)
+	battle_brain.dialogue_node.display_message(screen_name)
+	
+func deselect():
+	anim_player.material = null
+	battle_brain.dialogue_node.clear()
 
 

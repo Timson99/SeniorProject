@@ -17,7 +17,6 @@ var mode = null
 
 #either skips scroll, advances to next line, or selects option
 func ui_accept_pressed():
-	print("Presed")
 	if text_node.get_visible_characters() < text_node.get_text().length():
 		text_node.set_visible_characters(text_node.get_text().length() - 1)
 	else:
@@ -32,7 +31,7 @@ func display_message(message_param, input=false, scroll_time=0.0, character_jump
 	if input:
 		mode = Mode.Input
 		InputEngine.activate_receiver(self)
-		print("Activated")
+
 	else:
 		mode = Mode.Display
 	message = message_param if typeof(message_param) == TYPE_ARRAY else [message_param]

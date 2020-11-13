@@ -8,6 +8,7 @@ var enemy_keys := []
 var enemies := []
 var selected_enemy_index = 0
 onready var battle_brain = SceneManager.current_scene
+var terminated = false
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
 
@@ -32,9 +33,12 @@ func _ready():
 	enemies = enemy_container.get_children()
 	
 func check_alive():
+	if terminated:
+		return
 	for e in enemies:
 		if e.alive:
 			return
+	terminated = true
 	battle_brain.battle_victory()
 	
 
@@ -54,12 +58,6 @@ func select_right():
 	enemies[selected_enemy_index].deselect()
 	selected_enemy_index += 1
 	selected_enemy_index = min(selected_enemy_index, enemies.size() - 1)
-
-	if(!enemies[selected_enemy_index].alive):
-		if(selected_enemy_index ==  enemies.size() - 1):
-			select_left()
-		else:
-			select_right()
 	enemies[selected_enemy_index].select()
 	
 	
@@ -69,13 +67,6 @@ func select_left():
 	enemies[selected_enemy_index].deselect()
 	selected_enemy_index -= 1
 	selected_enemy_index = max(selected_enemy_index, 0)
-
-	if(!enemies[selected_enemy_index].alive):
-		if(selected_enemy_index == 0):
-			select_right()
-		else:
-			select_left()
-	
 	enemies[selected_enemy_index].select()
 	
 func select_up():

@@ -7,8 +7,11 @@ export var C3_in_party = false
 var items := []
 var terminated = false
 
+var selected_material = preload("res://Resources/Shaders/Illumination.tres")
+
 
 var party = null
+var party_alive = null
 var front_player = null
 var active_player = null
 
@@ -24,7 +27,6 @@ func terminate_input():
 	terminated = true
 
 func switch_characters(_move):
-	party = get_children()
 	active_player.deactivate_player()
 		
 	yield(get_tree().create_timer(0.1, false), "timeout")
@@ -62,6 +64,7 @@ func on_load():
 	party = get_children()
 	party.sort_custom(self, "sort_alive")
 	party.sort_custom(self, "sort_characters")
+	party_alive = party.duplicate()
 	
 	if(party.size() == 0 or party[0].alive == false):
 		print("Game Over")
@@ -73,9 +76,7 @@ func on_load():
 		
 		for i in range(party.size()):
 			if(party[i].alive):
-				party[i].set("party_data", {"items": items, 
-											"party": party, 
-											})
+				party[i].set("party", self)
 											
 func begin_turn():
 	if !terminated:
@@ -92,60 +93,38 @@ func save():
 	
 ####Character Selection
 #################
-"""
+
+var selected_module_index = -1
+
 func select_current():
-	if enemies[selected_enemy_index].alive:
-		enemies[selected_enemy_index].select()
-	else:
-		select_right()
+	active_player.select()
+	selected_module_index = party
 	
 func deselect_current():
-	enemies[selected_enemy_index].deselect()
-	selected_enemy_index = 0
-
-func select_right():
-	if(enemies.size() == 1):
-		return
-	enemies[selected_enemy_index].deselect()
-	selected_enemy_index += 1
-	selected_enemy_index = min(selected_enemy_index, enemies.size() - 1)
-
-	if(!enemies[selected_enemy_index].alive):
-		if(selected_enemy_index ==  enemies.size() - 1):
-			select_left()
-		else:
-			select_right()
-
-			
+	party[selected_module_index].deselect()
+	selected_module_index = -1
 	
-	enemies[selected_enemy_index].select()
+func select_right():
+	if(party_alive.size() <= 1):
+		return
+	party[selected_module_index].deselect()
+	selected_module_index += 1
+	selected_module_index = min(selected_module_index, party_alive.size() - 1)
+	party[selected_module_index].select()
 	
 func select_left():
-	if(enemies.size() == 1):
+	if(party_alive.size() <= 1):
 		return
-	enemies[selected_enemy_index].deselect()
-	selected_enemy_index -= 1
-	selected_enemy_index = max(selected_enemy_index, 0)
+	party[selected_module_index].deselect()
+	selected_module_index -= 1
+	selected_module_index = max(selected_module_index, 0)
+	party[selected_module_index].select()
 
-	if(!enemies[selected_enemy_index].alive):
-		if(selected_enemy_index == 0):
-			select_right()
-		else:
-			select_left()
-	
-	enemies[selected_enemy_index].select()
-	
-func select_up():
-	if(enemies.size() == 1):
-		return
-	
-func select_down():
-	if(enemies.size() == 1):
-		return
 		
-func get_selected_enemy():
-	return enemies[selected_enemy_index]
+func get_selected_character():
+	return party[selected_module_index]
 
-func get_selected_enemy_name():
-	return enemies[selected_enemy_index].screen_name
-"""
+func get_selected_character_name():
+	return party[selected_module_index].screen_name
+
+#######################################
