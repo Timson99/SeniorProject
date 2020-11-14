@@ -2,14 +2,14 @@ extends Node
 signal node_data_extracted(node_data)
 
 const save_files = ["Save01", "Save02", "Save03", "DevSave01", "DevSave02", "DevSave03"]
-var current_save = save_files[4]
+var current_save_index = 0
 
-var encrypt = true
+var encrypt = false
 
 func _ready():
 	SceneManager.connect("goto_called", self, "update_persistent_data")
 
-func save_game( file_name = current_save ):
+func save_game( file_name = save_files[current_save_index] ):
 	update_persistent_data()
 	var save_game = File.new()
 	var file_path = ""
@@ -25,7 +25,7 @@ func save_game( file_name = current_save ):
 	else:
 		save_game.open(file_path, File.WRITE)
 	##################################
-	save_game.store_line(to_json({"current_scene" : SceneManager.current_scene.filename}))
+	save_game.store_line(to_json({"current_scene" : SceneManager.saved_scene_path}))
 	var persistent_data = PersistentData.data
 	for node_id in persistent_data.keys():
 		save_game.store_line(to_json(persistent_data[node_id]))
@@ -43,7 +43,7 @@ func update_persistent_data():
 		#PersistentData.update_entry(node_data)
 
 
-func load_game( file_name = current_save ):
+func load_game( file_name = save_files[current_save_index]  ):
 	var save_game = File.new()
 	var file_path = ""
 	##################################
@@ -70,4 +70,5 @@ func load_game( file_name = current_save ):
 	SceneManager.goto_scene(destination)
 	
 func has_save_file(save_name : String):
+	save_name = ("unencrypted_" if !encrypt else "") + save_name
 	return File.new().file_exists("user://" + save_name + ".save")

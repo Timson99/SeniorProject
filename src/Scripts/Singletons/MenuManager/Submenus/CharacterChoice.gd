@@ -48,7 +48,7 @@ func _populate_party():
 
 func _init_stats():
 	for character in curr_party:
-		stats[character] =  EntityStats.new(BaseStats.get_for(character)).get_stats()
+		stats[character] =  EntityStats.new(BaseStats.get_for(character)).to_dict()
 		_add_item_button(character)
 #	print(stats)
 

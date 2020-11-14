@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Resource_Scripts/BattleBehaviors.gd"
 }, {
 "base": "Object",
+"class": "BattleMove",
+"language": "GDScript",
+"path": "res://Scripts/Classes/BattleMove.gd"
+}, {
+"base": "Object",
 "class": "Debugger",
 "language": "GDScript",
 "path": "res://Scripts/Classes/Global_Debug.gd"
@@ -33,6 +38,11 @@ _global_script_classes=[ {
 "class": "Enums",
 "language": "GDScript",
 "path": "res://Scripts/Classes/Global_Enums.gd"
+}, {
+"base": "Node",
+"class": "ExploreRoot",
+"language": "GDScript",
+"path": "res://Scripts/Node_Scripts/GeneralExploreRoot.gd"
 }, {
 "base": "Node",
 "class": "Explore_Root",
@@ -62,9 +72,11 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BaseStats": "",
 "BattleBehaviors": "",
+"BattleMove": "",
 "Debugger": "",
 "EntityStats": "",
 "Enums": "",
+"ExploreRoot": "",
 "Explore_Root": "",
 "Item": "",
 "MainScenes": "",
@@ -75,7 +87,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SeniorProject"
-run/main_scene="res://Node2D.tscn"
+run/main_scene="res://Scenes/MiscMainScenes/SaveLoadScreen/LoadScreen.tscn"
 config/icon="res://Assets/Test_Art/icon.png"
 
 [autoload]
@@ -249,7 +261,7 @@ ui_test4={
 
 [logging]
 
-file_logging/enable_file_logging=true
+size/test_height=false
 
 [rendering]
 

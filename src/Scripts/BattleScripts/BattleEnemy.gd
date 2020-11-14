@@ -1,32 +1,54 @@
 extends Control
 
 
-export var alive := true
-
+var alive := true
 var selected = false
 
 #Populated by Party
 var stats := EntityStats.new()
+onready var temp_battle_stats = stats
 var selected_material : ShaderMaterial
 var party = null
+var screen_name
+var tween : Tween
 
 
 var moveset = null
 
 func _ready():
-	pass # Replace with function body.
+	tween = Tween.new()
+	tween.name = "Tween"
+	self.add_child(tween)
+	tween = $Tween
 	
 func on_load():
 	var temp_battle_stats #= stats
 
 # Called upon enemy's defeat
-func deactivate_enemy():
-	# Indicate enemy's defeat and remove sprite from party
-	pass 
+func terminate_enemy():
+	alive = false	
+	tween.interpolate_property(self, "modulate:a", null, 0.0, 1.0)
+	tween.start()
+	yield(tween, "tween_completed")
+	party.check_alive()
+	party.enemies.erase(self)
+	
+func make_move() -> BattleMove:
+	var move = BattleMove.new(self, "Defend")
+	return move
+	
+func take_damage(damage):
+	stats.HP -= damage
+	if stats.HP <= 0 and alive == true:
+		stats.HP = 0
+		terminate_enemy()
+	
+	
 	
 func select():
 	$Sprite.set_material(selected_material)
-	party.selected_enemy = self
+	party.battle_brain.dialogue_node.display_message(screen_name)
 	
 func deselect():
 	$Sprite.material = null
+	party.battle_brain.dialogue_node.clear()

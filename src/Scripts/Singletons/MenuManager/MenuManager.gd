@@ -6,7 +6,7 @@ const main_menu_scene = preload("res://Scripts/Singletons/MenuManager/MainMenu.t
 var main_menu = null
 
 var item_data
-const item_data_file = "res://Scenes/Luis_Test_Scenes/Data/Item Table - Sheet1.json"
+const item_data_file = "res://Scripts/Resource_Scripts/ItemData.json"
 var skill_data
 const skill_data_file = "res://Scenes/Luis_Test_Scenes/Data/Skill Table - Sheet1.json"
 var party = null

@@ -1,15 +1,10 @@
-extends HBoxContainer
+extends VBoxContainer
 
 
 enum Button {Attack, Skills, Items, Defend, Run}
 
-var icon_highlight = preload("res://Resources/Shaders/HighlightGreen.tres")
-
-var items_submenu = preload("res://Scenes/Battle_Scenes/General/BattleItems_Submenu.tscn")
-var skills_submenu = preload("res://Scenes/Battle_Scenes/General/BattleSkills_Submenu.tscn")
-
 var submenu = null
-var selector = null
+var parent = null
 
 var held_actions = {}
 var quick_scrolling = []
@@ -19,32 +14,27 @@ const qscroll_after_msec = 500
 onready var buttons = {
 	Button.Attack : 
 		{
-		 "sprite" : $Attack/AttackIcon,
-		 "text" : $Attack/AttackText,
+		 "anim_player" : $Attack/Attack,
 		 "command" : "Attack",
 		},
 	Button.Skills : 
 		{
-		 "sprite" : $Skills/SkillsIcon,
-		 "text" : $Skills/SkillsText,
+		 "anim_player" : $Skills/Skills,
 		 "command" : "Skills",
 		},
 	Button.Items : 
 		{
-		 "sprite" : $Items/ItemsIcon,
-		 "text" : $Items/ItemsText,
+		 "anim_player" : $Items/Items,
 		 "command" : "Items",
 		},
 	Button.Defend :
 		{
-		 "sprite" :  $Defend/DefendIcon,
-		 "text" : $Defend/DefendText,
+		 "anim_player" :  $Defend/Defend,
 		 "command" : "Defend",
 		},
 	Button.Run : 
 		{
-		 "sprite" : $Run/RunIcon,
-		 "text" : $Run/RunText,
+		 "anim_player" : $Run/Run,
 		 "command" : "Run",
 		},
 }
@@ -56,68 +46,48 @@ var focused = default_focused
 func _ready():
 	reset()
 	
-func instance_items_submenu():
-	submenu = items_submenu.instance()
-	add_child(submenu)
-	
-func instance_skills_submenu():
-	submenu = skills_submenu.instance()
-	add_child(submenu)
-	
-func select_focused():
-	buttons[focused]["sprite"].set_material(icon_highlight)
-	buttons[focused]["text"].set_material(icon_highlight)
-	
-func deselect_focused():
-	buttons[focused]["sprite"].set_material(null)
-	buttons[focused]["text"].set_material(null)
-	
 func reset(reset_focused = true):
 	if reset_focused:
-		deselect_focused()
+		buttons[focused]["anim_player"].animation = "off" 
 	focused = default_focused if reset_focused else focused
-	select_focused()
+	buttons[focused]["anim_player"].animation = "on" 
 	
 	
-func left():
+func up():
 	if submenu:
-		submenu.left()
+		submenu.up()
 	else:
-		deselect_focused()
+		buttons[focused]["anim_player"].animation = "off" 
 		focused -= 1
 		focused = Button.Run if focused < Button.Attack else focused
-		select_focused()
+		buttons[focused]["anim_player"].animation = "on" 
 	
-	if(!("left" in held_actions)):
-		held_actions["left"] = OS.get_ticks_msec()
+	if(!("move_up" in held_actions)):
+		held_actions["move_up"] = OS.get_ticks_msec()
 	
-func right():
+func down():
 	if submenu:
-		submenu.right()
+		submenu.down()
 	else:
-		deselect_focused()
+		buttons[focused]["anim_player"].animation = "off" 
 		focused += 1
 		focused = Button.Attack if focused > Button.Run else focused
-		select_focused()
+		buttons[focused]["anim_player"].animation = "on" 
 	
-		if(!("right" in held_actions)):
-			held_actions["right"] = OS.get_ticks_msec()
+		if(!("move_down" in held_actions)):
+			held_actions["move_down"] = OS.get_ticks_msec()
 	
-func release_right():
-	held_actions.erase("right")
-func release_left():
-	held_actions.erase("left")
 func release_up():
-	pass
+	held_actions.erase("move_up")
 func release_down():
-	pass
+	held_actions.erase("move_down")
 	
 func accept():
 	if submenu:
 		submenu.accept()
 		
 	else:
-		deselect_focused()
+		buttons[focused]["anim_player"].animation = "off" 
 		return buttons[focused]["command"]
 
 func back():
@@ -125,16 +95,18 @@ func back():
 		submenu.back()
 	else:
 		pass
+		#queue_free()
+		#parent.submenu = null
 
-func up():
+func left():
 	if submenu:
-		submenu.up()
+		submenu.left()
 	else:
 		pass
 	
-func down():
+func right():
 	if submenu:
-		submenu.down()
+		submenu.right()
 	else:
 		pass
 		
