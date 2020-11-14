@@ -12,8 +12,5 @@ __meta__ = {
 }
 
 [node name="Battle_UI_v2_04" type="Sprite" parent="Control"]
-position = Vector2( 204, 136 )
+position = Vector2( 192, 136 )
 texture = ExtResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
