@@ -56,6 +56,10 @@ scale = Vector2( 1.10599, 1 )
 visible = false
 
 [node name="InfoPanel" parent="." instance=ExtResource( 4 )]
+anchor_left = 0.458973
+anchor_top = 0.840396
+anchor_right = 0.610349
+anchor_bottom = 0.840396
 
 [node name="Scrollbar" parent="." instance=ExtResource( 2 )]
 

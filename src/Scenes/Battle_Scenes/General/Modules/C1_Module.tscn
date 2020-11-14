@@ -4,5 +4,5 @@
 
 [node name="C1_Module" instance=ExtResource( 1 )]
 
-[node name="Name" parent="UI" index="3"]
+[node name="Name" parent="UI" index="4"]
 text = "Bumble"

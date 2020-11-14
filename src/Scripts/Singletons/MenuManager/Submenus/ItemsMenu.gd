@@ -19,6 +19,7 @@ var popup_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Lists/Ite
 
 var data_source=MenuManager.item_data
 var data = MenuManager.party.items
+
 var num_cols = 2
 
 var sc_start =0

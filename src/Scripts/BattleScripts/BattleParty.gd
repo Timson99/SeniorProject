@@ -4,7 +4,7 @@ extends HBoxContainer
 export var persistence_id := "main_party"
 export var C2_in_party = false
 export var C3_in_party = false
-var items := []
+var items := ["Bomb"]
 var terminated = false
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
