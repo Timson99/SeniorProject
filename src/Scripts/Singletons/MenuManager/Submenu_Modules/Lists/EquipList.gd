@@ -3,27 +3,22 @@ extends CanvasLayer
 var submenu = null
 var parent = null
 
-onready var button_container = $TextureRect/ItemList/GridContainer
-onready var description_container = $TextureRect/ItemList/InfoPanel/RichDescription
-onready var scrollbar = $TextureRect/ItemList/Scrollbar
+onready var button_container = $ItemList/VBoxContainer
+onready var description_container = $ItemList/InfoPanel/RichDescription
+onready var scrollbar = $ItemList/Scrollbar
 
 var input_id = "Menu"
-
-var data=MenuManager.skill_data
-var num_cols = 2
-
-var curr_char = "C1"
-var char_params = {}
-var sprite = null
-
 var default_focused = 0
-var focused = default_focused 
+var focused = default_focused
 var buttons = []
 var items = []
 var scroll_level= 0
-var btn_ctnr_size = 12
+var btn_ctnr_size = 6
 var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
-var popup_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Lists/EffectPopup.tscn"
+
+var data= MenuManager.item_data
+var data_source=MenuManager.item_data
+var num_cols = 1
 
 var sc_start =0
 var scrollbar_size = 2
@@ -31,23 +26,23 @@ var scrollbar_offset = 0
 var max_sc_offset = 92
 var offset_size = max_sc_offset/5
 
-
 func _ready():
 	_instantiate_items()
 	_update_buttons()
 	_repopulate_btn_container()
 	refocus(focused)
 	_update_scrollbar()
+	pass
 	
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
 		if focused>=0:
-			buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
+			buttons[focused].get_node("AnimatedSprite").animation = "unfocused"
 		buttons[to].get_node("AnimatedSprite").animation = "focused"
 		focused = to
 		#can update to use funcref to be reusable
-		update_description(data[buttons[to].item_name])
+		update_description(data_source[buttons[to].item_name])
 
 func unfocus():
 	buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
@@ -65,11 +60,11 @@ func even(num):# can adjust condition to fit any number of columns
 func scroll(direction):
 	if direction == "down":
 		if(scroll_level+btn_ctnr_size < len(items)):
-			scroll_level += num_cols
-		_move_scrollbar("down")
+			scroll_level +=num_cols
+			_move_scrollbar("down")
 	else:
 		if(scroll_level >= 1):
-			scroll_level -= num_cols
+			scroll_level -=num_cols
 			_move_scrollbar("up")
 	_update_buttons()
 	_repopulate_btn_container()
@@ -87,7 +82,7 @@ func _update_scrollbar():
 	scrollbar.get_node("bottom").set_position(middle.get_position()+Vector2(0,scrollbar_size))
 	var hidden_rows= ((len(items)-btn_ctnr_size)/num_cols)
 	if num_cols>1 and not even(len(items)):
-		hidden_rows +=1
+		hidden_rows += 1
 	offset_size = float(max_sc_offset - scrollbar_size)/hidden_rows
 	
 	
@@ -134,7 +129,7 @@ func _clear_btn_container():
 	for child in button_container.get_children():
 		#queue_free() is preferable for standards,
 		#but it makes the scrolling glitch out.
-		child.free() 
+		child.free()
 
 
 func back():
@@ -148,21 +143,8 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
-		submenu = load(popup_path).instance()
-		call_deferred("add_child", submenu)
-		var current_btn  = buttons[focused]
-		var container_pos = button_container.get_global_transform().get_origin()
-		var position_offset=null
-		#added vectors are eyeballed padding
-		if even(focused):
-			position_offset= current_btn.get_position() + Vector2(99,0)
-		else:
-			position_offset = buttons[focused-1].get_position() + Vector2(32,0)
-		var submenu_pos = container_pos+position_offset
-		submenu.reposition(submenu_pos)
-		submenu.item = current_btn
-		submenu.layer = layer + 1
-		submenu.parent = self
+		parent.update_field(buttons[focused].item_name)
+		back()
 		
 	
 func up():
@@ -172,8 +154,8 @@ func up():
 		var next_focused = focused - num_cols
 	#	print(next_focused, " ", scroll_level)
 		if next_focused < 0 and next_focused+(scroll_level+1)>=0:
-				scroll("up")
-				next_focused+= num_cols
+			scroll("up")
+			next_focused+=num_cols
 		if next_focused >=0:
 			refocus(next_focused)
 			

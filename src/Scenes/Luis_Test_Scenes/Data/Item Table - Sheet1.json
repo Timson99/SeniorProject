@@ -74,5 +74,9 @@
   "linen" : {
     "ItemPrice": 13,
     "ItemWeight": 5
+  },
+  "roomba" :{
+    "ItemPrice":300,
+    "ItemWeight":10
   }
 }

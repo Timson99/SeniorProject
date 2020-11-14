@@ -1,7 +1,26 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/UI/Menu/Menu_Backdrop_04.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Singletons/MenuManager/Submenus/EquipMenu.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Fonts/ThinPixels.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Character_Art/C1/C1_02.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_03.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "focused",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "unfocused",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -16,6 +35,108 @@ margin_top = -104.0
 margin_right = 152.0
 margin_bottom = 104.0
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Categories" type="VBoxContainer" parent="."]
+margin_left = 81.0
+margin_top = 108.0
+margin_right = 175.0
+margin_bottom = 156.0
+custom_constants/separation = 14
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Weapon" type="Control" parent="Categories"]
+margin_right = 94.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Categories/Weapon"]
+position = Vector2( 54.7505, 49.3885 )
+scale = Vector2( 1.09129, 0.98 )
+frames = SubResource( 1 )
+animation = "unfocused"
+
+[node name="Current" type="Label" parent="Categories/Weapon"]
+margin_left = 5.65547
+margin_top = 0.38855
+margin_right = 93.6555
+margin_bottom = 15.3885
+custom_fonts/font = SubResource( 2 )
+text = "Weapon: WP1"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Armor" type="Control" parent="Categories"]
+margin_top = 14.0
+margin_right = 94.0
+margin_bottom = 14.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Categories/Armor"]
+position = Vector2( 54.6674, 49.3885 )
+scale = Vector2( 1.08963, 0.98 )
+frames = SubResource( 1 )
+animation = "unfocused"
+
+[node name="Current" type="Label" parent="Categories/Armor"]
+margin_left = 5.65547
+margin_top = 0.38855
+margin_right = 93.6555
+margin_bottom = 15.3885
+custom_fonts/font = SubResource( 2 )
+text = "Armor: AR1"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill" type="Control" parent="Categories"]
+margin_top = 28.0
+margin_right = 94.0
+margin_bottom = 28.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Categories/Skill"]
+position = Vector2( 54.6822, 49.3885 )
+scale = Vector2( 1.08992, 0.98 )
+frames = SubResource( 1 )
+animation = "unfocused"
+
+[node name="Current" type="Label" parent="Categories/Skill"]
+margin_left = 5.65547
+margin_top = 0.38855
+margin_right = 93.6555
+margin_bottom = 15.3885
+custom_fonts/font = SubResource( 2 )
+text = "Skill: Ice (1/25)"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character" type="Sprite" parent="."]
+position = Vector2( 110.832, 80 )
+texture = ExtResource( 4 )
+
+[node name="Name" type="Label" parent="Character"]
+margin_left = 32.0
+margin_top = -16.0
+margin_right = 72.0
+margin_bottom = -2.0
+custom_fonts/font = SubResource( 2 )
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="Character"]
+margin_left = 32.0
+margin_right = 72.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 2 )
+text = "Level"
 __meta__ = {
 "_edit_use_anchors_": false
 }
