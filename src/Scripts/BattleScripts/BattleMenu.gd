@@ -117,7 +117,6 @@ func release_down():
 func accept():
 	if submenu:
 		submenu.accept()
-		
 	else:
 		deselect_focused()
 		return buttons[focused]["command"]

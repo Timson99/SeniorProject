@@ -15,7 +15,7 @@ var items = []
 var scroll_level= 0
 var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
-var popup_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Lists/ItemPopup.tscn"
+var popup_path = "res://Scenes/Battle_Scenes/General/Popups/EffectPopup_Battle.tscn"
 
 var party = null 
 #Must set data sources to valid source
@@ -145,6 +145,8 @@ func back():
 	if submenu:
 		submenu.back()
 	else:
+		var menu = SceneManager.current_scene.dialogue_node.get_node("Menu")
+		menu.show()
 		queue_free()
 #		parent.submenu = null
 
