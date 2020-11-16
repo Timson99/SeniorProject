@@ -12,7 +12,7 @@ var default_focused = 0
 var focused = default_focused
 var buttons = []
 var items = []
-var scroll_level= 0
+var scroll_level = 0
 var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
 var popup_path = "res://Scenes/Battle_Scenes/General/Popups/EffectPopup_Battle.tscn"
@@ -145,6 +145,7 @@ func back():
 	if submenu:
 		submenu.back()
 	else:
+		
 		var menu = SceneManager.current_scene.dialogue_node.get_node("Menu")
 		menu.show()
 		queue_free()
@@ -154,21 +155,25 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
-		submenu = load(popup_path).instance()
-		call_deferred("add_child", submenu)
-		var current_btn  = buttons[focused]
-		var container_pos = button_container.get_global_transform().get_origin()
-		var position_offset=null
-		#added vectors are eyeballed padding
-		if even(focused):
-			position_offset= current_btn.get_position() + Vector2(99,0)
-		else:
-			position_offset = buttons[focused-1].get_position() + Vector2(32,0)
-		var submenu_pos = container_pos+position_offset
-		submenu.reposition(submenu_pos)
-		submenu.item = current_btn
-		submenu.layer = layer + 1
-		submenu.parent = self
+		var menu = SceneManager.current_scene.dialogue_node.get_node("Menu")
+		menu.show()
+		$Control/Battle_UI_v2_05.hide()
+		$Control.show()
+#		submenu = load(popup_path).instance()
+#		call_deferred("add_child", submenu)
+#		var current_btn  = buttons[focused]
+#		var container_pos = button_container.get_global_transform().get_origin()
+#		var position_offset=null
+#		#added vectors are eyeballed padding
+#		if even(focused):
+#			position_offset= current_btn.get_position() + Vector2(99,0)
+#		else:
+#			position_offset = buttons[focused-1].get_position() + Vector2(32,0)
+#		var submenu_pos = container_pos+position_offset
+#		submenu.reposition(submenu_pos)
+#		submenu.item = current_btn
+#		submenu.layer = layer + 1
+#		submenu.parent = self
 
 
 func up():

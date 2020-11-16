@@ -33,8 +33,6 @@ var scrollbar_offset = 0
 var max_sc_offset = 92
 var offset_size = max_sc_offset/5
 
-
-
 func _ready():
 	#There may be a better way to get this data via singleton maybe...
 	party = get_tree().get_nodes_in_group("BattleParty")[0]
@@ -44,7 +42,6 @@ func _ready():
 	_repopulate_btn_container()
 	refocus(focused)
 	_update_scrollbar()
-
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
