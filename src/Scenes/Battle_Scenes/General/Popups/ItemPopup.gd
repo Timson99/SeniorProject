@@ -3,8 +3,7 @@ var input_id = "Menu"
 var submenu = null
 var parent = null
 
-
-
+onready var base = $Control
 onready var btn_container = $Control/VBoxContainer
 var choice_path = "res://Scenes/Battle_Scenes/General/Popups/EffectPopup_Battle.tscn"
 var item = null
@@ -18,10 +17,11 @@ var current_mode = Mode.Inactive
 
 
 func _ready():
+	menu= battle_brain.dialogue_node.get_node("Menu") 
 	buttons = btn_container.get_children()
 	refocus(0)
 func _use_skill(chara):
-	print("Used ", buttons[focused].item_name, " on ", chara)
+	print("Used ", item.item_name, " on ", chara)
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
@@ -76,7 +76,7 @@ func accept():
 			selected_character = battle_brain.character_party.get_selected_character()
 			battle_brain.character_party.deselect_current()
 		elif current_mode == Mode.Enemy_Select:
-			selected_character = battle_brain.enemy_party.get_selected_character()
+			selected_character = battle_brain.enemy_party.get_selected_enemy()
 			battle_brain.enemy_party.deselect_current()
 		#Use Skill, we can use a signal or something if we get an item manager of sorts ...
 		_use_skill(selected_character.screen_name)
@@ -84,7 +84,7 @@ func accept():
 		back()
 		#reset the menu
 		#This time it will exit out of the submenu only used if one usage allowed per turn
-		# back()
+		back()
 	elif submenu:
 		submenu.accept()
 		back()
@@ -99,13 +99,15 @@ func accept():
 		# submenu.layer = layer + 1
 		# submenu.parent = self
 		parent.base.hide()
-		# if _get_focused()["target"] == "ally": something like this
-		battle_brain.character_party.select_current()
-		current_mode = Mode.Character_Select
+		base.hide()
+		print(item)
+		if parent.get_focused().get("Target") == "ally": #something like this
+			battle_brain.character_party.select_current()
+			current_mode = Mode.Character_Select
+		else:
+			battle_brain.enemy_party.select_current()
+			current_mode = Mode.Enemy_Select
 		menu.reset(false)
-		# else:
-		# 	battle_brain.enemy_party.select_current()
-		# 	current_mode = Mode.Enemy_Select
 	else:
 		discard() #TODO
 		back()
@@ -118,6 +120,7 @@ func back():
 			battle_brain.enemy_party.deselect_current()
 		current_mode = Mode.Inactive
 		parent.base.show()
+		base.show()
 	elif submenu:
 		submenu.back()
 	else:

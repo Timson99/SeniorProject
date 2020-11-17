@@ -152,7 +152,7 @@ func _clear_btn_container():
 		#queue_free() is preferable for standards,
 		#but it makes the scrolling glitch out.
 		child.free()
-func _get_focused():
+func get_focused():
 	return _get_item(focused)
 
 func _get_item(ix):
@@ -182,7 +182,7 @@ func accept():
 			selected_character = battle_brain.character_party.get_selected_character()
 			battle_brain.character_party.deselect_current()
 		elif current_mode == Mode.Enemy_Select:
-			selected_character = battle_brain.enemy_party.get_selected_character()
+			selected_character = battle_brain.enemy_party.get_selected_enemy()
 			battle_brain.enemy_party.deselect_current()
 		#Use Skill, we can use a signal or something if we get an item manager of sorts ...
 		_use_skill(selected_character.screen_name)
@@ -195,13 +195,13 @@ func accept():
 		submenu.accept()
 	else:
 		base.hide()
-		# if _get_focused()["target"] == "ally": something like this
-		battle_brain.character_party.select_current()
-		current_mode = Mode.Character_Select
+		if get_focused().get("Target") == "ally": #something like this
+			battle_brain.character_party.select_current()
+			current_mode = Mode.Character_Select
+		else:
+			battle_brain.enemy_party.select_current()
+			current_mode = Mode.Enemy_Select
 		menu.reset(false)
-		# else:
-		# 	battle_brain.enemy_party.select_current()
-		# 	current_mode = Mode.Enemy_Select
 
 
 func up():

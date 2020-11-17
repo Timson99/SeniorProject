@@ -16,7 +16,7 @@ var items = []
 var scroll_level= 0
 var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
-var popup_path = "res://Scenes/Battle_Scenes/General/Popups/ItemPopup_Battle.tscn"
+var popup_path = "res://Scenes/Battle_Scenes/General/Popups/ItemPopup.tscn"
 
 var party = null
 #Must set data sources to valid source
@@ -141,6 +141,13 @@ func _clear_btn_container():
 		#but it makes the scrolling glitch out.
 		child.free()
 
+func get_focused():
+	return _get_item(focused)
+
+func _get_item(ix):
+	return data_source.get(buttons[ix].item_name)
+
+
 
 func back():
 	if submenu:
@@ -163,9 +170,9 @@ func accept():
 		var position_offset=null
 		#added vectors are eyeballed padding
 		if even(focused):
-			position_offset= current_btn.get_position() + Vector2(99,0)
+			position_offset= current_btn.get_position() + Vector2(118,0)
 		else:
-			position_offset = buttons[focused-1].get_position() + Vector2(32,0)
+			position_offset = buttons[focused-1].get_position() + Vector2(52,0)
 		var submenu_pos = container_pos+position_offset
 		submenu.reposition(submenu_pos)
 		submenu.item = current_btn
