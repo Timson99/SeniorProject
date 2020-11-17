@@ -3,6 +3,7 @@ extends CanvasLayer
 var submenu = null
 var parent = null
 
+onready var base = $Control/Battle_UI_v2_05
 onready var button_container = $Control/Battle_UI_v2_05/ItemList/GridContainer
 onready var description_container = $Control/Battle_UI_v2_05/ItemList/InfoPanel/RichDescription
 onready var scrollbar = $Control/Battle_UI_v2_05/ItemList/Scrollbar
@@ -165,7 +166,7 @@ func back():
 		elif current_mode == Mode.Enemy_Select:
 			battle_brain.enemy_party.deselect_current()
 		current_mode = Mode.Inactive
-		$Control/Battle_UI_v2_05.show()
+		base.show()
 	elif submenu:
 		submenu.back()
 	else:
@@ -189,11 +190,11 @@ func accept():
 		back()
 		#reset the menu
 		#This time it will exit out of the submenu only used if one usage allowed per turn
-		back()
+		# back()
 	elif submenu:
 		submenu.accept()
 	else:
-		$Control/Battle_UI_v2_05.hide()
+		base.hide()
 		# if _get_focused()["target"] == "ally": something like this
 		battle_brain.character_party.select_current()
 		current_mode = Mode.Character_Select

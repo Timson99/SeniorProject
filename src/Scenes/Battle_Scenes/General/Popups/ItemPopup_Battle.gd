@@ -1,5 +1,5 @@
 extends CanvasLayer
-var input_id = "Menu" 
+var input_id = "Menu"
 var submenu = null
 var parent = null
 
@@ -11,13 +11,21 @@ var item = null
 var buttons = []
 var focused = 0
 
+onready var battle_brain = SceneManager.current_scene
+var menu = null
+enum Mode {Inactive, Menu, Enemy_Select, Character_Select}
+var current_mode = Mode.Inactive
+
+
 func _ready():
 	buttons = btn_container.get_children()
 	refocus(0)
+func _use_skill(chara):
+	print("Used ", buttons[focused].item_name, " on ", chara)
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
-		buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
+		buttons[focused].get_node("AnimatedSprite").animation = "unfocused"
 		buttons[to].get_node("AnimatedSprite").animation = "focused"
 		focused = to
 
@@ -31,43 +39,86 @@ func discard():
 	pass
 
 func up():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_up()
+	elif submenu:
 		submenu.up()
 	refocus(0)
-	
+
 func down():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_down()
+	elif submenu:
 		submenu.down()
 	refocus(1)
 
 func left():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_left()
+	elif current_mode == Mode.Character_Select:
+		battle_brain.character_party.select_left()
+	elif submenu:
 		submenu.left()
 	pass
 func right():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_right()
+	elif current_mode == Mode.Character_Select:
+		battle_brain.character_party.select_right()
+	elif submenu:
 		submenu.right()
 	pass
-	
+
 func accept():
-	if submenu:
+	if current_mode != Mode.Inactive:
+		var selected_character = null
+		if current_mode  == Mode.Character_Select:
+			selected_character = battle_brain.character_party.get_selected_character()
+			battle_brain.character_party.deselect_current()
+		elif current_mode == Mode.Enemy_Select:
+			selected_character = battle_brain.enemy_party.get_selected_character()
+			battle_brain.enemy_party.deselect_current()
+		#Use Skill, we can use a signal or something if we get an item manager of sorts ...
+		_use_skill(selected_character.screen_name)
+		#to get back to menu
+		back()
+		#reset the menu
+		#This time it will exit out of the submenu only used if one usage allowed per turn
+		# back()
+	elif submenu:
 		submenu.accept()
 		back()
 	#can be done with enum, but may be too much trouble for
 	#two buttons that can be done as a binary
 	elif focused ==0:
-		submenu = load(choice_path).instance()
-		call_deferred("add_child", submenu)
-		submenu.reposition($Control.get_position())
-		submenu.item = item
-		submenu.layer = layer + 1
-		submenu.parent = self
+		#Use this block if we want to use a submenu list
+		# submenu = load(choice_path).instance()
+		# call_deferred("add_child", submenu)
+		# submenu.reposition($Control.get_position())
+		# submenu.item = item
+		# submenu.layer = layer + 1
+		# submenu.parent = self
+		parent.base.hide()
+		# if _get_focused()["target"] == "ally": something like this
+		battle_brain.character_party.select_current()
+		current_mode = Mode.Character_Select
+		menu.reset(false)
+		# else:
+		# 	battle_brain.enemy_party.select_current()
+		# 	current_mode = Mode.Enemy_Select
 	else:
 		discard() #TODO
 		back()
 
 func back():
-	if submenu:
+	if current_mode != Mode.Inactive:
+		if current_mode  == Mode.Character_Select:
+			battle_brain.character_party.deselect_current()
+		elif current_mode == Mode.Enemy_Select:
+			battle_brain.enemy_party.deselect_current()
+		current_mode = Mode.Inactive
+		parent.base.show()
+	elif submenu:
 		submenu.back()
 	else:
 		queue_free()

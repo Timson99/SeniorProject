@@ -3,6 +3,7 @@ extends CanvasLayer
 var submenu = null
 var parent = null
 
+onready var base = $Control/Battle_UI_v2_04
 onready var button_container = $Control/Battle_UI_v2_04/ItemList/GridContainer
 onready var description_container = $Control/Battle_UI_v2_04/ItemList/InfoPanel/RichDescription
 onready var scrollbar = $Control/Battle_UI_v2_04/ItemList/Scrollbar
@@ -17,7 +18,7 @@ var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
 var popup_path = "res://Scenes/Battle_Scenes/General/Popups/ItemPopup_Battle.tscn"
 
-var party = null 
+var party = null
 #Must set data sources to valid source
 #var data_source=MenuManager.item_data
 #var data = MenuManager.party.items
