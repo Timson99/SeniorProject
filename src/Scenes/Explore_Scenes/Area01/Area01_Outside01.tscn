@@ -62,7 +62,7 @@ __meta__ = {
 }
 
 [node name="Pos_Tool" type="Position2D" parent="."]
-position = Vector2( -166, 208 )
+position = Vector2( -166, -250 )
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -96,7 +96,7 @@ __meta__ = {
 }
 
 [node name="Party" parent="YSort" instance=ExtResource( 3 )]
-position = Vector2( 128, 200 )
+position = Vector2( -183, 216 )
 C2_in_party = false
 C3_in_party = false
 

@@ -77,6 +77,12 @@ func tween_pos(destination, duration):
 	tween.start()
 	yield(tween, "tween_completed")
 	emit_signal("tween_pos_completed")
+	
+func tween_pos_relative(mod, duration):
+	tween.interpolate_property(self, "position", null, position+mod, duration)
+	tween.start()
+	yield(tween, "tween_completed")
+	emit_signal("tween_pos_completed")
 
 
 func save():

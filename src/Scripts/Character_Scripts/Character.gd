@@ -62,10 +62,11 @@ func _physics_process(delta : float):
 	
 	
 func play_anim(anim_str):
+	print(anim_str)
+	print(animations.frames.has_animation(anim_str))
 	animations.play(anim_str)
 	
 func set_anim(anim_str):
-	print(anim_str)
 	animations.animation = anim_str
 	
 func flip_horizontal(flip : bool):
