@@ -17,13 +17,14 @@ var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
 var popup_path = "res://Scenes/Battle_Scenes/General/Popups/EffectPopup_Battle.tscn"
 
-var party = null 
+var party = null
 #Must set data sources to valid source
 #var data_source=MenuManager.item_data
 #var data = MenuManager.party.items
 
 var data_source= MenuManager.skill_data
 var data = MenuManager.skill_data
+
 
 var num_cols = 2
 
@@ -33,8 +34,17 @@ var scrollbar_offset = 0
 var max_sc_offset = 92
 var offset_size = max_sc_offset/5
 
+# const api_script = preload("res://Scripts/BattleScripts/BattleCharacter.gd")
+# const api = api_script.new()
+
+onready var battle_brain = SceneManager.current_scene
+var menu = null
+enum Mode {Inactive, Menu, Enemy_Select, Character_Select}
+var current_mode = Mode.Inactive
+
 
 func _ready():
+	menu= battle_brain.dialogue_node.get_node("Menu")
 	#There may be a better way to get this data via singleton maybe...
 	_instantiate_items()
 	_update_buttons()
@@ -42,6 +52,8 @@ func _ready():
 	refocus(focused)
 	_update_scrollbar()
 
+func _use_skill(chara):
+	print("Used ", buttons[focused].item_name, " on ", chara)
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
@@ -50,7 +62,7 @@ func refocus(to):
 		buttons[to].get_node("AnimatedSprite").animation = "focused"
 		focused = to
 		#can update to use funcref to be reusable
-		update_description(data_source.get(buttons[to].item_name))
+		update_description(_get_item(to))
 
 func unfocus():
 	buttons[focused].get_node("AnimatedSprite").animation = "unfocused"
@@ -139,45 +151,59 @@ func _clear_btn_container():
 		#queue_free() is preferable for standards,
 		#but it makes the scrolling glitch out.
 		child.free()
+func _get_focused():
+	return _get_item(focused)
+
+func _get_item(ix):
+	return data_source.get(buttons[ix].item_name)
 
 
 func back():
-	if submenu:
+	if current_mode != Mode.Inactive:
+		current_mode = Mode.Inactive
+		$Control/Battle_UI_v2_05.show()
+	elif submenu:
 		submenu.back()
 	else:
-		
-		var menu = SceneManager.current_scene.dialogue_node.get_node("Menu")
 		menu.show()
 		queue_free()
 #		parent.submenu = null
 
 func accept():
-	if submenu:
+	if current_mode != Mode.Inactive:
+		var selected_character = null
+		if current_mode  == Mode.Character_Select:
+			selected_character = battle_brain.character_party.get_selected_character()
+			battle_brain.character_party.deselect_current()
+		elif current_mode == Mode.Enemy_Select:
+			selected_character = battle_brain.enemy_party.get_selected_character()
+			battle_brain.enemy_party.deselect_current()
+		#Use Skill, we can use a signal or something if we get an item manager of sorts ...
+		_use_skill(selected_character.screen_name)
+		#to get back to menu
+		back()
+		#reset the menu
+		#This time it will exit out of the submenu only used if one usage allowed per turn
+		# back()
+
+	elif submenu:
 		submenu.accept()
 	else:
-		var menu = SceneManager.current_scene.dialogue_node.get_node("Menu")
-		menu.show()
+
 		$Control/Battle_UI_v2_05.hide()
-		$Control.show()
-#		submenu = load(popup_path).instance()
-#		call_deferred("add_child", submenu)
-#		var current_btn  = buttons[focused]
-#		var container_pos = button_container.get_global_transform().get_origin()
-#		var position_offset=null
-#		#added vectors are eyeballed padding
-#		if even(focused):
-#			position_offset= current_btn.get_position() + Vector2(99,0)
-#		else:
-#			position_offset = buttons[focused-1].get_position() + Vector2(32,0)
-#		var submenu_pos = container_pos+position_offset
-#		submenu.reposition(submenu_pos)
-#		submenu.item = current_btn
-#		submenu.layer = layer + 1
-#		submenu.parent = self
+		# if _get_focused()["target"] == "ally": something like this
+		battle_brain.character_party.select_current()
+		current_mode = Mode.Character_Select
+
+		# else:
+		# 	battle_brain.enemy_party.select_current()
+		# 	current_mode = Mode.Enemy_Select
 
 
 func up():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_up()
+	elif submenu:
 		submenu.up()
 	else:
 		var next_focused = focused - num_cols
@@ -191,7 +217,9 @@ func up():
 
 
 func down():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_down()
+	elif submenu:
 		submenu.down()
 	else:
 		#is more complicated because it must deal with odd
@@ -213,7 +241,11 @@ func down():
 
 
 func left():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_left()
+	elif current_mode == Mode.Character_Select:
+		battle_brain.character_party.select_left()
+	elif submenu:
 		submenu.left()
 	elif num_cols>1:
 		var next_focused = focused - 1
@@ -222,7 +254,11 @@ func left():
 
 
 func right():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_right()
+	elif current_mode == Mode.Character_Select:
+		battle_brain.character_party.select_right()
+	elif submenu:
 		submenu.right()
 	elif num_cols>1:
 		var next_focused = focused + 1
