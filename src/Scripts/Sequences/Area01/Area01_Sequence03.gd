@@ -5,7 +5,9 @@ extends Resource
 static func instructions():
   return [
 		["Actor-call", "Area01_Outside_Root", "execute_glow"],
-		#["Scene", "Area01_House_Room", "Room_To_House"],
+		["Signal", "Area01_Outside_Root", "glow_complete"],
+		["Actor-call", "Area01_Outside_Root", "increment_attempt"],
+		["Scene", "Area01_House_Room", "Room_To_House"],
   ]
 
 

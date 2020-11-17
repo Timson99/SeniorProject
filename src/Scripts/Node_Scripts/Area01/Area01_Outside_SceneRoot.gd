@@ -29,6 +29,10 @@ func _ready():
 	add_to_group("Persistent")
 	add_to_group("Actor")
 	ActorEngine.update_actors()
+	
+func increment_attempt():
+	current_attempt += 1
+	current_attempt = min(current_attempt,Attempt.Three)
 
 func _process(delta):
 	if(Input.is_action_just_pressed("ui_test2")):
@@ -36,7 +40,7 @@ func _process(delta):
 	if(Input.is_action_just_pressed("ui_test3")):
 		vanish_world()
 
-signal command_completed()
+signal glow_complete()
 func execute_glow():
 	glow.show()
 	glow.color.a = 1.0
@@ -53,7 +57,7 @@ func execute_glow():
 	tween.interpolate_property(glow, "color:a", 1.0, 0.0, 1.0)
 	yield(tween, "tween_all_completed")
 	glow.hide()
-	emit_signal("command_completed")
+	emit_signal("glow_complete")
 		
 func vanish_world():
 	map.hide()
@@ -76,6 +80,7 @@ func fade_world():
 		collider.disabled = true
 
 func on_load():
+	print(current_attempt)
 	if current_attempt == Attempt.One:
 		exit_door.hide()
 		#create_vertical_event_trigger("Area01_Sequence02", pre_fight)
