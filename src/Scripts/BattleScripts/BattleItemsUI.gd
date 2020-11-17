@@ -58,9 +58,9 @@ func unfocus():
 	focused = -1
 
 func update_description(item):
-	var description = ""
-	for val in item :
-		description = str(description,"\t",val," : ", item[val])
+	var description = item["Description"]
+	#for val in item :
+		#description = str(description,"\t",val," : ", item[val])
 	description_container.text = description
 
 func even(num):# can adjust condition to fit any number of columns
