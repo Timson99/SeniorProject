@@ -8,6 +8,7 @@ onready var static_pos = Vector2(viewport_size.x/2,viewport_size.y/2)
 
 enum State {OnParty, Sequenced, Static}
 var state = null
+var actor_id = "Camera"
 
 var y_cutoff : int = 0
 var vp_scale : int = 1
@@ -27,6 +28,7 @@ func _ready():
 	#Disbale if Fullscreen Stretch is allowed
 	screen_resize()
 	get_tree().connect("screen_resized", self, "screen_resize")
+	add_to_group("Actor")
 
 
 func screen_resize():
@@ -122,13 +124,14 @@ func _physics_process(_delta):
 	else:
 		Debugger.dprint("ERROR: Invalid Camera Manager State")
 	
-	
-func move_to_position(destination : Vector2, time : float):
+signal complete
+func move_to_position(destination : Vector2, time := 60.0):
 	tween.interpolate_property(self, "position", position, destination, time)
 	tween.start()
 	yield(tween, "tween_completed")
+	emit_signal("complete")
 	
-	
+
 func move_to_party(time : float):
 	var destination = Vector2(0,0)
 	var party = get_tree().get_nodes_in_group("Party")

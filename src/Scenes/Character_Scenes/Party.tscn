@@ -12,6 +12,8 @@
 ]]
 script = ExtResource( 3 )
 
+[node name="Tween" type="Tween" parent="."]
+
 [node name="YSort" type="YSort" parent="."]
 __meta__ = {
 "_edit_lock_": true

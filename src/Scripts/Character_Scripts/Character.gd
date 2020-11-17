@@ -149,7 +149,7 @@ func open_menu():
 	MenuManager.activate()
 ###################################################	
 func test_command1():
-	Sequencer.execute_event("test_seq6")
+	Sequencer.execute_event("Area01_Sequence03")
 	pass
 	
 func test_command2():

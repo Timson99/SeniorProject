@@ -215,6 +215,9 @@ func _beginTransmit(var spID, var toSignal):
 func item_message(itemId):
 	transmit_message("You recieved " + itemId + "!")
 	
+func custom_message(message):
+	transmit_message(message)
+	
 func transmit_message(message_param):
 	InputEngine.activate_receiver(self)
 	dialogue_box.show()
@@ -327,7 +330,7 @@ func _advance():
 			#scrollAudio.stop()
 		
 		#check for options flag and bring up bar if needed
-		if dialogueDictionary[displayedID].has("-o"):
+		if displayedID and dialogueDictionary[displayedID].has("-o"):
 			inOptions = true
 			options_box.show()
 			var opCount = 1

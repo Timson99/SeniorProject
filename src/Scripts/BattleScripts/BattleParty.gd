@@ -100,9 +100,8 @@ var selected_module_index = -1
 
 func select_current():
 	active_player.select()
-	# selected_module_index = party #index should be a number
-	selected_module_index = 0
-
+	selected_module_index = party.find(active_player)
+	
 func deselect_current():
 	party[selected_module_index].deselect()
 	selected_module_index = -1
