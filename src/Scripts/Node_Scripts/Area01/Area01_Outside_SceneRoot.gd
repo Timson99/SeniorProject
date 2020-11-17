@@ -1,4 +1,4 @@
-extends ExploreRoot
+ extends ExploreRoot
 
 var persistence_id = "Area01_Outside_Root"
 var actor_id = "Area01_Outside_Root"

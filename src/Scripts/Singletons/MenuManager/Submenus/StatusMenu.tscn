@@ -33,13 +33,13 @@ __meta__ = {
 }
 
 [node name="Character" type="Sprite" parent="Data"]
-position = Vector2( 120.076, 121.388 )
+position = Vector2( 99.2163, 121.388 )
 texture = ExtResource( 3 )
 
 [node name="Name" type="Label" parent="Data"]
-margin_left = 104.0
+margin_left = 84.5546
 margin_top = 64.0
-margin_right = 132.0
+margin_right = 112.555
 margin_bottom = 78.0
 custom_fonts/font = SubResource( 1 )
 text = "Name"
@@ -148,16 +148,16 @@ __meta__ = {
 }
 
 [node name="Bars" type="VBoxContainer" parent="Data"]
-margin_left = 96.0
+margin_left = 69.8388
 margin_top = 160.0
-margin_right = 144.0
+margin_right = 158.839
 margin_bottom = 200.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Max_HP" type="Label" parent="Data/Bars"]
-margin_right = 48.0
+margin_right = 89.0
 margin_bottom = 14.0
 custom_fonts/font = SubResource( 1 )
 text = "HP:     "
@@ -168,7 +168,7 @@ __meta__ = {
 
 [node name="Max_SP" type="Label" parent="Data/Bars"]
 margin_top = 18.0
-margin_right = 48.0
+margin_right = 89.0
 margin_bottom = 32.0
 custom_fonts/font = SubResource( 1 )
 text = "SP:     "

@@ -5,10 +5,10 @@
 
 [sub_resource type="Theme" id=1]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=2]
 script/source = "extends Control
 
-class_name Item
+#class_name Item
 
 onready var item_label = $Name
 var item_name = \"Item\"
@@ -23,7 +23,7 @@ func _setup(name):
 
 "
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
@@ -36,20 +36,20 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 font_data = ExtResource( 2 )
 
 [node name="ItemButton" type="Control"]
 theme = SubResource( 1 )
-script = SubResource( 4 )
+script = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.605915, -0.0804443 )
-scale = Vector2( 1.106, 1 )
-frames = SubResource( 2 )
+scale = Vector2( 1.23087, 1 )
+frames = SubResource( 3 )
 animation = "unfocused"
 centered = false
 
@@ -58,7 +58,7 @@ margin_left = 5.2505
 margin_top = -0.0674591
 margin_right = 70.2505
 margin_bottom = 14.9325
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Item Name"
 valign = 1
 clip_text = true

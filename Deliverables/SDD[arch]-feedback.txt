@@ -1,0 +1,21 @@
+
+
+Group 7: [3 souls]
+   Luis Garcia, Timothy Herrmann, Joe Maiocco
+      synopsis:   Cosmonarium ~ 2D game pixel art using Godot Engine
+=====================================================================================
+Another great effort on this deliverable!
+
+Your description is, of course, excellent.  I love the screen views at the
+start which show the coders a lot of detail of what is intended.  Your other
+diagrams at the end are also VERY useful.  Good for you for finding out how
+to do UML diagrams!  They look great.  You have handled the "manager" and
+"sequencer" parts very well.
+
+Another outstanding document from Team Triumverate!!  EXCELLENT!!
+
+Evaluation score:
+
+    10% out of 10% for this deliverable:  A-plus
+
+
