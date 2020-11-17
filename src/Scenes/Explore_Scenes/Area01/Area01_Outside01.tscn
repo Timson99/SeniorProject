@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/Environments/Area1/Outside_Map.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Node_Scripts/Area01/Area01_Outside_SceneRoot.gd" type="Script" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://Scenes/Explore_Scenes/General/Chests.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Environments/Area1/Props_17.png" type="Texture" id=12]
 [ext_resource path="res://Scripts/Node_Scripts/AreaEnteredDialogue.gd" type="Script" id=13]
-[ext_resource path="res://Scenes/Explore_Scenes/Area01/BullyEventTrigger.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Assets/Environments/Area1/Props_16.png" type="Texture" id=15]
 [ext_resource path="res://Scripts/Node_Scripts/Area01/ExitDoor.gd" type="Script" id=16]
 
@@ -62,10 +61,21 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Pos_Tool" type="Position2D" parent="."]
+position = Vector2( -166, 208 )
+
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Pos_Tool" type="Position2D" parent="."]
-position = Vector2( -53, 208 )
+[node name="Glow" type="ColorRect" parent="."]
+visible = false
+show_behind_parent = true
+margin_left = -540.0
+margin_top = -378.0
+margin_right = 1106.0
+margin_bottom = 699.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Outside_To_House" parent="." instance=ExtResource( 7 )]
 position = Vector2( 408, 168 )
@@ -166,7 +176,7 @@ item_id = "Bomb"
 [node name="BossBully" parent="YSort" groups=[
 "Persistent",
 ] instance=ExtResource( 6 )]
-position = Vector2( -177, 234 )
+position = Vector2( 58, 200 )
 
 [node name="ExitDoor" type="StaticBody2D" parent="YSort"]
 position = Vector2( -200, 175 )
@@ -195,8 +205,6 @@ message = "The store is not this way."
 position = Vector2( 702, 193 )
 rotation = 1.5708
 shape = SubResource( 3 )
-
-[node name="BullyEventTrigger" parent="." instance=ExtResource( 14 )]
 
 [node name="World_Collision" type="StaticBody2D" parent="."]
 

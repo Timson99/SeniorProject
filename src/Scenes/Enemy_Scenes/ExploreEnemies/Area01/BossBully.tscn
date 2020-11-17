@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scenes/Enemy_Scenes/ExploreEnemies/EnemyParent.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Enemy_Art/Bully/Bully_12.png" type="Texture" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://Assets/Enemy_Art/Bully/Bully_10.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Enemy_Art/Bully/Bully_08.png" type="Texture" id=13]
 [ext_resource path="res://Scripts/Enemy_Scripts/BossEnemy.gd" type="Script" id=14]
+[ext_resource path="res://Assets/Enemy_Art/Bully/Bully_14.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Enemy_Art/Bully/Bully_13.png" type="Texture" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 3 )
@@ -58,6 +60,16 @@ animations = [ {
 "frames": [  ],
 "loop": true,
 "name": "Walk_Right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "Sleep_Closed",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "Sleep_Open",
 "speed": 5.0
 } ]
 

@@ -6,6 +6,7 @@ export var persistence_id := "Bully"
 export var actor_id := "Bully"
 export var type := "Boss"
 var speed = 60
+var exploring = true
 
 onready var skins  = {
 	"Boss" : {
@@ -28,8 +29,14 @@ var current_dir = Enums.Dir.Down
 var isMoving := false
 var velocity = Vector2(0,0)
 
+func on_load():
+	if !alive:
+		exploring = false
+		change_anim("Sleep_Closed")
+
 func _physics_process(delta):
-	explore(delta)
+	if exploring == true:
+		explore(delta)
 
 func explore(delta : float):
 	velocity = velocity.normalized() * speed
@@ -84,6 +91,10 @@ func initiate_battle():
 
 # Physics process kept in just in case we want to sequence boss movement prior
 # to or after a battle
+
+func change_anim(anim_string):
+	animations.play(anim_string)
+	
 	
 func move_up():
 	velocity = Vector2(0,0)

@@ -13,6 +13,8 @@ var sequences = {
 	#Area01 Sequences
 	"Area01_Sequence01" : "res://Scripts/Sequences/Area01/Area01_Sequence01.gd",
 	"Area01_Sequence02" : "res://Scripts/Sequences/Area01/Area01_Sequence02.gd",
+	"Area01_Sequence03" : "res://Scripts/Sequences/Area01/Area01_Sequence03.gd",
+	"Area01_Sequence04" : "res://Scripts/Sequences/Area01/Area01_Sequence04.gd",
 	
 }
 
