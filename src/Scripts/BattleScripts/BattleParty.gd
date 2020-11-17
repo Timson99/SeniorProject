@@ -65,6 +65,8 @@ func on_load():
 	party.sort_custom(self, "sort_alive")
 	party.sort_custom(self, "sort_characters")
 	party_alive = party.duplicate()
+	for i in range(len(party)):
+		party[i].screen_name = party[i].get_node("UI/Name").text
 
 	if(party.size() == 0 or party[0].alive == false):
 		print("Game Over")

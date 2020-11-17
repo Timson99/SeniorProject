@@ -160,11 +160,16 @@ func _get_item(ix):
 
 func back():
 	if current_mode != Mode.Inactive:
+		if current_mode  == Mode.Character_Select:
+			battle_brain.character_party.deselect_current()
+		elif current_mode == Mode.Enemy_Select:
+			battle_brain.enemy_party.deselect_current()
 		current_mode = Mode.Inactive
 		$Control/Battle_UI_v2_05.show()
 	elif submenu:
 		submenu.back()
 	else:
+		menu.reset(false)
 		menu.show()
 		queue_free()
 #		parent.submenu = null
@@ -184,17 +189,15 @@ func accept():
 		back()
 		#reset the menu
 		#This time it will exit out of the submenu only used if one usage allowed per turn
-		# back()
-
+		back()
 	elif submenu:
 		submenu.accept()
 	else:
-
 		$Control/Battle_UI_v2_05.hide()
 		# if _get_focused()["target"] == "ally": something like this
 		battle_brain.character_party.select_current()
 		current_mode = Mode.Character_Select
-
+		menu.reset(false)
 		# else:
 		# 	battle_brain.enemy_party.select_current()
 		# 	current_mode = Mode.Enemy_Select
