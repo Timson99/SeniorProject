@@ -58,10 +58,12 @@ func _ready():
 	
 func instance_items_submenu():
 	submenu = items_submenu.instance()
+	submenu.parent = self
 	add_child(submenu)
 	
 func instance_skills_submenu():
 	submenu = skills_submenu.instance()
+	submenu.parent = self
 	add_child(submenu)
 	
 func select_focused():
@@ -115,7 +117,6 @@ func release_down():
 func accept():
 	if submenu:
 		submenu.accept()
-		
 	else:
 		deselect_focused()
 		return buttons[focused]["command"]

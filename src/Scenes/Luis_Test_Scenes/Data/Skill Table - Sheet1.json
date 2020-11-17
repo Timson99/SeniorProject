@@ -1,30 +1,37 @@
 {
   "Japanizing Beam": {
     "Cost": 9001,
-    "Description": "Will Nico Nico Ni the hell out of anything"
+    "Description": "Will Nico Nico Ni the hell out of anything",
+    "Target": "enemy"
   },
   "Curse": {
     "Cost": 1,
-    "Description": "Will offend opponent to death"
+    "Description": "Will offend opponent to death",
+    "Target": "enemy"
   },
   "Eat": {
     "Cost": 5,
-    "Description": "Necessary for survival mode"
+    "Description": "Necessary for survival mode",
+    "Target": "enemy"
   },
   "Program Assembly": {
     "Cost": "too much T^T",
-    "Description": "Allows you to unlock the infinit power of MIPS"
+    "Description": "Allows you to unlock the infinit power of MIPS",
+    "Target": "ally"
   },
   "Google It": {
     "Cost": 0,
-    "Description": "Scouts for relevant information based on wisdom stat"
+    "Description": "Scouts for relevant information based on wisdom stat",
+    "Target": "ally"
   },
   "Choose Pikachu": {
     "Cost": 30,
-    "Description": "Generates automatic copyright infringement"
+    "Description": "Generates automatic copyright infringement",
+    "Target": "enemy"
   },
   "attack": {
     "Cost": 1,
-    "Description": "Boring but effective battle maneuvre"
+    "Description": "Boring but effective battle maneuvre",
+    "Target": "enemy"
   }
 }

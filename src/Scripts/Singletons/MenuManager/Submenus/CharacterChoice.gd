@@ -11,8 +11,8 @@ var sprites = {
 	"C3": preload("res://Assets/Character_Art/C3/C3_02.png")
 }
 #The following information should be stored in game state
-const condition_stats = ["HP", "MAX HP", "SP", "MAX SP"]
-const gen_stats = ["ATTACK","DEFENSE","LUCK","WILLPOWER","SPEED","WAVE ATTACK","WAVE DEFENSE"]
+const condition_stats = ["HP", "MAX_HP", "SP", "MAX_SP"]
+const gen_stats = ["ATTACK","DEFENSE","LUCK","WILLPOWER","SPEED","WAVE_ATTACK","WAVE_DEFENSE"]
 onready var button_container = $CharacterSelection
 var stats ={}
 #the character ids here are persistence ids

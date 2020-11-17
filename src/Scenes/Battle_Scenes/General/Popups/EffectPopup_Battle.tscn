@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_05.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Fonts/ThinPixels.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/Battle_Scenes/General/Popups/EffectPopup_Battle.gd" type="Script" id=3]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_04.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "unfocused",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "focused",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+margin_right = 100.0
+margin_bottom = 100.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 14
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name 5" type="Control" parent="Control/VBoxContainer"]
+margin_right = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Control/VBoxContainer/Name 5"]
+position = Vector2( 55.6345, 58.9182 )
+frames = SubResource( 1 )
+animation = "unfocused"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/Name 5"]
+margin_left = 12.5962
+margin_top = 4.11092
+margin_right = 65.5962
+margin_bottom = 20.1109
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+text = "Name 1"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name 4" type="Control" parent="Control/VBoxContainer"]
+margin_top = 14.0
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Control/VBoxContainer/Name 4"]
+position = Vector2( 55.6345, 58.9182 )
+frames = SubResource( 1 )
+animation = "unfocused"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/Name 4"]
+margin_left = 12.5962
+margin_top = 4.11092
+margin_right = 65.5962
+margin_bottom = 20.1109
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+text = "Name 2"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name 3" type="Control" parent="Control/VBoxContainer"]
+margin_top = 28.0
+margin_right = 40.0
+margin_bottom = 28.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Control/VBoxContainer/Name 3"]
+position = Vector2( 55.6345, 58.9182 )
+frames = SubResource( 1 )
+animation = "unfocused"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/Name 3"]
+margin_left = 12.5962
+margin_top = 4.11092
+margin_right = 65.5962
+margin_bottom = 20.1109
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+text = "Name 3"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

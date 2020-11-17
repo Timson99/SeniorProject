@@ -69,6 +69,7 @@ margin_bottom = 0.399994
 [node name="BattleModules" type="CanvasLayer" parent="."]
 
 [node name="Party_Modules" type="HBoxContainer" parent="BattleModules" groups=[
+"BattleParty",
 "Persistent",
 ]]
 anchor_left = 0.5
