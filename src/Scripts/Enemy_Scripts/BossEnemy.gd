@@ -3,7 +3,9 @@ extends KinematicBody2D
 export var default_speed := 60
 export var alive := true
 export var persistence_id := "Bully"
+export var actor_id := "Bully"
 export var type := "Boss"
+var speed = 60
 
 onready var skins  = {
 	"Boss" : {
@@ -26,6 +28,52 @@ var current_dir = Enums.Dir.Down
 var isMoving := false
 var velocity = Vector2(0,0)
 
+func _physics_process(delta):
+	explore(delta)
+
+func explore(delta : float):
+	velocity = velocity.normalized() * speed
+	if velocity.length() != 0:
+		animations.animation = dir_anims[current_dir][1]
+		velocity = velocity.normalized() * speed
+		if(!isMoving): 
+			animations.play()
+			isMoving = true
+	else:
+		animations.stop()
+		animations.animation = dir_anims[current_dir][0]
+		isMoving = false
+		
+	animations.flip_h = (current_dir == Enums.Dir.Right)
+	
+	var last_position = position
+	var collision = move_and_collide(velocity * delta)
+	velocity = Vector2()
+			
+
+signal command_completed
+func move_to_position(new_position: Vector2, global = false):
+	var current_position
+	if global:
+	 current_position = self.get_global_position()
+	else:
+		current_position = position
+		
+	var x_delta = new_position.x - current_position.x
+	var y_delta = new_position.y - current_position.y
+	if y_delta != 0:
+		if current_position.y > new_position.y:
+			move_up()
+		else:
+			move_down()
+	elif y_delta <= 0 && x_delta != 0:
+		if current_position.x > new_position.x:
+			move_left()
+		else:
+			move_right()
+	if current_position == new_position:
+		emit_signal("command_completed")
+
 
 func _ready():
 	pass
@@ -36,45 +84,26 @@ func initiate_battle():
 
 # Physics process kept in just in case we want to sequence boss movement prior
 # to or after a battle
-func _physics_process(delta):
-	velocity = velocity.normalized() * default_speed
-	if velocity.length() != 0:
-		animations.animation = dir_anims[current_dir][1]
-		if(!isMoving): 
-			animations.play()
-			isMoving = true
-		animations.flip_h = (current_dir == Enums.Dir.Right)
-	else:
-		animations.stop()
-		animations.animation = dir_anims[current_dir][0]
-		isMoving = false
-	velocity = Vector2(0,0)
-	
 	
 func move_up():
+	velocity = Vector2(0,0)
+	velocity.y -= 1
 	current_dir = Enums.Dir.Up
-	return Vector2(velocity.x, velocity.y - 1)
-
 	
 func move_down():
+	velocity = Vector2(0,0)
+	velocity.y += 1
 	current_dir = Enums.Dir.Down
-	return Vector2(velocity.x, velocity.y + 1)
-
 	
 func move_right():
+	velocity = Vector2(0,0)
+	velocity.x += 1
 	current_dir = Enums.Dir.Right
-	return Vector2(velocity.x + 1, velocity.y)
-
 	
 func move_left():
+	velocity = Vector2(0,0)
+	velocity.x -= 1
 	current_dir = Enums.Dir.Left
-	return Vector2(velocity.x - 1, velocity.y)
-
-
-# Sequenced call command?
-func queue_for_battle():
-	EnemyHandler.Enemies.bosses[persistence_id]["type"] = type
-	EnemyHandler.queued_battle_enemies.append(EnemyHandler.Enemies.bosses[persistence_id])
 	
 	
 # Persistent data to be saved
@@ -83,7 +112,6 @@ func save():
 		"persistence_id" : persistence_id,
 		"position" : position, 
 		"current_dir" : current_dir,
-		"stats" : stats,
 		"alive" : alive,
 	}	
 	return save_dict

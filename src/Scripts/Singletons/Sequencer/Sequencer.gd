@@ -185,6 +185,7 @@ func signal_instruction(obj_id : String, signal_name):
 		#"Dialogue" : DialogueManager,
 		"SceneManager" : SceneManager,
 		"DialogueEngine" : DialogueEngine,
+		"CameraManager" : CameraManager,
 	}
 	yield(observed_objects[obj_id], signal_name)
 	active_event["current_instruction"] = null
