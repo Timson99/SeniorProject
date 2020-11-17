@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scenes/Character_Scenes/CharacterParent.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Character_Art/C1/C1_AtHome_03.png" type="Texture" id=2]
@@ -15,9 +15,21 @@
 [ext_resource path="res://Assets/Character_Art/C1/C1_AtHome_01.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Character_Art/C1/C1_AtHome_13.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Character_Art/C1/C1_AtHome_14.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Character_Art/C1/C1_AtHome_16.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Character_Art/C1/C1_AtHome_15.png" type="Texture" id=17]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 14 ) ],
+"loop": false,
+"name": "Rest_Opened",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "Idle_Down",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "Idle_Left",
@@ -26,6 +38,11 @@ animations = [ {
 "frames": [ ExtResource( 5 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "Walk_Left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "Walk_Down",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ) ],
@@ -38,25 +55,15 @@ animations = [ {
 "name": "Walk_Up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "Walk_Down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 12 ) ],
-"loop": true,
-"name": "Idle_Down",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 15 ) ],
 "loop": false,
 "name": "Rest_Closed",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
-"loop": false,
-"name": "Rest_Opened",
-"speed": 5.0
+"frames": [ ExtResource( 17 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "Fall_Sideways",
+"speed": 9.0
 } ]
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
@@ -66,3 +73,4 @@ visible = false
 position = Vector2( 0, -16 )
 frames = SubResource( 1 )
 animation = "Idle_Down"
+playing = true

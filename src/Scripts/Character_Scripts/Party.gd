@@ -11,6 +11,7 @@ var incapacitated := []
 var items := ["Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea"]
 var spacing := 16.0
 var persistence_id := "main_party"
+onready var tween = $Tween
 
 
 func sort_characters(a,b):
@@ -69,6 +70,13 @@ func reposition(new_position : Vector2, new_direction):
 	for i in range(party.size()):
 		party[i].position = Vector2(0,0)
 		party[i].current_dir = new_direction
+		
+signal tween_pos_completed
+func tween_pos(destination, duration):
+	tween.interpolate_property(self, "position", null, destination, duration)
+	tween.start()
+	yield(tween, "tween_completed")
+	emit_signal("tween_pos_completed")
 
 
 func save():

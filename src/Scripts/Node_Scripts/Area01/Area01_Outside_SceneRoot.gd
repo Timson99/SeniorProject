@@ -80,7 +80,6 @@ func fade_world():
 		collider.disabled = true
 
 func on_load():
-	print(current_attempt)
 	if current_attempt == Attempt.One:
 		exit_door.hide()
 		#create_vertical_event_trigger("Area01_Sequence02", pre_fight)
