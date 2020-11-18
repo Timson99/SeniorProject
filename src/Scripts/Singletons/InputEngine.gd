@@ -68,6 +68,8 @@ var to_battle_commands : Dictionary = {
 		"ui_cancel": "back",
 					},
 	"just_released":{
+		"ui_left" : "release_left",
+		"ui_right" : "release_right",
 		"ui_up" : "release_up",
 		"ui_down" : "release_down",
 					},
@@ -76,7 +78,7 @@ var to_battle_commands : Dictionary = {
 
 var valid_receivers := {
 	#"Debug_Menu" : {"priority": 0, "loop": "_process", "translator" : to_player_commands},
-	"Battle_Dialogue" : {"priority": 1, "loop": "_process", "translator" : to_player_commands},
+	"Battle_Dialogue" : {"priority": 1, "loop": "_process", "translator" : to_dialogue_commands},
 	"Battle_Menu" : {"priority": 2, "loop": "_process", "translator" : to_battle_commands},
 	"Dialogue" : {"priority": 3, "loop": "_process", "translator" : to_dialogue_commands},
 	"Menu" : {"priority": 4, "loop": "_process", "translator" : to_menu_commands},
@@ -149,7 +151,6 @@ func _process(_delta):
 	if(Input.is_action_just_pressed("ui_fullscreen")):
 		OS.window_fullscreen = !OS.window_fullscreen
 	################################################
-
 
 func _physics_process(_delta):
 	process_input("_physics_process")

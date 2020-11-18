@@ -3,6 +3,10 @@ extends CanvasLayer
 #InputEngine
 var input_id = "Dialogue"
 
+signal begin()
+signal page_over()
+signal end()
+
 var current_area = "Area01"
 
 var dialogue_areas = {
@@ -153,8 +157,10 @@ func ui_accept_pressed():
 		textNode.set_visible_characters(textNode.get_text().length() - 1)
 	elif mode == Mode.Dialogue:
 		_advance()
+		emit_signal("page_over")
 	elif mode == Mode.Message:
 		_advance_message()
+		emit_signal("page_over")
 
 #move up and down in an option
 func ui_down_pressed():
@@ -203,10 +209,14 @@ func _beginTransmit(var spID, var toSignal):
 	currentspID = spID
 	dialogue_box.show()
 	mode = Mode.Dialogue
+	emit_signal("begin")
 	_advance()
 	
 func item_message(itemId):
 	transmit_message("You recieved " + itemId + "!")
+	
+func custom_message(message):
+	transmit_message(message)
 	
 func transmit_message(message_param):
 	InputEngine.activate_receiver(self)
@@ -241,6 +251,7 @@ func _advance_message():
 				#scrollAudio.stop()
 	
 func exec_final_waltz():
+	emit_signal("end")
 	dialogue_box.hide()
 	currentspID = null
 	displayedID = null
@@ -319,7 +330,7 @@ func _advance():
 			#scrollAudio.stop()
 		
 		#check for options flag and bring up bar if needed
-		if dialogueDictionary[displayedID].has("-o"):
+		if displayedID and dialogueDictionary[displayedID].has("-o"):
 			inOptions = true
 			options_box.show()
 			var opCount = 1

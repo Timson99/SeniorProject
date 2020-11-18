@@ -1,78 +1,149 @@
 {
-  "Bomb ": {
+  "SmokeScreen": {
+    "ItemPrice": 10,
+    "ItemWeight": 2,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
+  },
+  "Bomb": {
     "ItemPrice": 30,
-    "ItemWeight": 2
+    "ItemWeight": 2,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Notebook": {
     "ItemPrice": 10,
-    "ItemWeight": 1
+    "ItemWeight": 1,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Revolver": {
     "ItemPrice": 100,
-    "ItemWeight": 4
+    "ItemWeight": 4,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "WifeBox": {
     "ItemPrice": 100,
-    "ItemWeight": 40
+    "ItemWeight": 40,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Spoon":{
     "ItemPrice": 2,
-    "ItemWeight": 0.5
+    "ItemWeight": 0.5,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Death Note":{
     "ItemPrice": 1000,
-    "ItemWeight": 1
+    "ItemWeight": 1,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Heaphones":{
     "ItemPrice": 100,
-    "ItemWeight": 2
+    "ItemWeight": 2,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Snow":{
     "ItemPrice": 1,
-    "ItemWeight": 1000
+    "ItemWeight": 1000,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "US Constitution":{
     "ItemPrice": 0,
-    "ItemWeight": 1
+    "ItemWeight": 1,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Tacos Al Pastor":{
     "ItemPrice": 2.50,
-    "ItemWeight": 2
+    "ItemWeight": 2,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Pillow" :{
     "ItemPrice": 38,
-    "ItemWeight": 3
+    "ItemWeight": 3,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "B.S. in CS":{
     "ItemPrice": 240000,
-    "ItemWeight": 1
+    "ItemWeight": 1,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Sugar" :{
     "ItemPrice": 15,
-    "ItemWeight": 5
+    "ItemWeight": 5,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Naruto Fanfiction":{
     "ItemPrice": 7,
-    "ItemWeight": 1
+    "ItemWeight": 1,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Mips Processor": {
     "ItemPrice": 80,
-    "ItemWeight": 1
+    "ItemWeight": 1,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "AMD GPU": {
     "ItemPrice": 400,
-    "ItemWeight": 4
+    "ItemWeight": 4,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Will to Live": {
     "ItemPrice": 0,
-    "ItemWeight": 0
+    "ItemWeight": 0,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "Pencil": {
     "ItemPrice": 0.5,
-    "ItemWeight": 1
+    "ItemWeight": 1,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   },
   "linen" : {
     "ItemPrice": 13,
-    "ItemWeight": 5
+    "ItemWeight": 5,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
+  },
+  "roomba" :{
+    "ItemPrice":300,
+    "ItemWeight":10,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   }
 }

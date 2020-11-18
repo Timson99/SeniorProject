@@ -22,8 +22,9 @@ func interact():
 		animations.play("open")
 		opened = true
 		if(item_id != ""):
-			DialogueEngine.item_message("Poop")
-			#party.items.append(item_id)
+			DialogueEngine.item_message(item_id)
+			if party.size() == 1:
+				party[0].items.append(item_id)
 
 func body_entered(body):
 	if party.size() == 1 && body == party[0].active_player && !opened:

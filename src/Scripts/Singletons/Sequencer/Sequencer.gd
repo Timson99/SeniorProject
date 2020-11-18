@@ -127,7 +127,7 @@ func bg_audio_instruction(params: Array):
 	elif params.size() == 3:
 		BgEngine.call_deferred(params[1], params[2])
 	elif params.size() == 4:
-		BgEngine.call_deferred(params[1], params[2], params[4])
+		BgEngine.call_deferred(params[1], params[2], params[3])
 	print(params)
 	yield(BgEngine, "audio_finished")
 	active_event["current_instruction"] = null
@@ -136,7 +136,7 @@ func bg_audio_instruction(params: Array):
 	
 # Open Dialogue, No Coroutine
 func dialogue_instruction(dialogue_id : String):
-	print(dialogue_id)
+	DialogueEngine._beginTransmit(dialogue_id, "")
 	active_event["current_instruction"] = null
 	return
 
@@ -181,10 +181,18 @@ func delay_instruction(time : float):
 	return
 
 func signal_instruction(obj_id : String, signal_name):
+	var object_to_observe = null
 	var observed_objects = {
 		#"Dialogue" : DialogueManager,
 		"SceneManager" : SceneManager,
+		"DialogueEngine" : DialogueEngine,
+		"CameraManager" : CameraManager,
 	}
-	yield(observed_objects[obj_id], signal_name)
+	if obj_id in observed_objects.keys():
+		object_to_observe = observed_objects[obj_id]
+	elif obj_id in ActorEngine.actors_dict.keys():
+		object_to_observe = ActorEngine.actors_dict[obj_id]
+
+	yield(object_to_observe, signal_name)
 	active_event["current_instruction"] = null
 	return

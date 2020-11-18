@@ -26,12 +26,12 @@ func on_load():
 
 # Called upon enemy's defeat
 func terminate_enemy():
+	alive = false	
 	tween.interpolate_property(self, "modulate:a", null, 0.0, 1.0)
 	tween.start()
 	yield(tween, "tween_completed")
-	
-	alive = false
 	party.check_alive()
+	party.enemies.erase(self)
 	
 func make_move() -> BattleMove:
 	var move = BattleMove.new(self, "Defend")
@@ -39,7 +39,7 @@ func make_move() -> BattleMove:
 	
 func take_damage(damage):
 	stats.HP -= damage
-	if stats.HP <= 0:
+	if stats.HP <= 0 and alive == true:
 		stats.HP = 0
 		terminate_enemy()
 	
@@ -47,6 +47,8 @@ func take_damage(damage):
 	
 func select():
 	$Sprite.set_material(selected_material)
+	party.battle_brain.dialogue_node.display_message(screen_name)
 	
 func deselect():
 	$Sprite.material = null
+	party.battle_brain.dialogue_node.clear()

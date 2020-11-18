@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_07.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_06.png" type="Texture" id=2]
+
+[node name="Scrollbar" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="top" type="TextureRect" parent="."]
+margin_left = 213.716
+margin_top = 14.0941
+margin_right = 313.716
+margin_bottom = 114.094
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="middle" type="TextureRect" parent="."]
+anchor_left = 0.979
+anchor_top = 0.095
+anchor_right = 0.979
+anchor_bottom = 0.095
+margin_left = 0.16095
+margin_top = 0.0351725
+margin_right = 100.161
+margin_bottom = 100.035
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bottom" type="TextureRect" parent="."]
+margin_left = 213.591
+margin_top = 16.5322
+margin_right = 313.591
+margin_bottom = 116.532
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

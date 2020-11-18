@@ -40,6 +40,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Classes/Global_Enums.gd"
 }, {
 "base": "Node",
+"class": "ExploreRoot",
+"language": "GDScript",
+"path": "res://Scripts/Node_Scripts/GeneralExploreRoot.gd"
+}, {
+"base": "Node",
 "class": "Explore_Root",
 "language": "GDScript",
 "path": "res://Scripts/Tim_Test_Scripts/TestSceneRoot.gd"
@@ -47,7 +52,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "Item",
 "language": "GDScript",
-"path": "res://Scripts/Singletons/MenuManager/Submenus/ItemButton.gd"
+"path": "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.gd"
 }, {
 "base": "Resource",
 "class": "MainScenes",
@@ -71,6 +76,7 @@ _global_script_class_icons={
 "Debugger": "",
 "EntityStats": "",
 "Enums": "",
+"ExploreRoot": "",
 "Explore_Root": "",
 "Item": "",
 "MainScenes": "",

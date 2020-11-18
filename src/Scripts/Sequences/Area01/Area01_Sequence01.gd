@@ -1,5 +1,7 @@
 extends Resource
 
+#Wake Up, Attempt 1
+
 static func instructions():
   return [
 	  ["Scene", "Area01_House_Room", ""],
