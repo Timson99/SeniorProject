@@ -62,8 +62,6 @@ func _physics_process(delta : float):
 	
 	
 func play_anim(anim_str):
-	print(anim_str)
-	print(animations.frames.has_animation(anim_str))
 	animations.play(anim_str)
 	
 func set_anim(anim_str):
@@ -207,12 +205,13 @@ func change_skin(skin_id):
 func move_to_position(new_position: Vector2, global = false):
 	var current_position
 	if global:
-	 current_position = self.get_global_position()
+	 current_position = self.get_global_position().round()
 	else:
 		current_position = position
 		
-	var x_delta = new_position.x - current_position.x
-	var y_delta = new_position.y - current_position.y
+	var x_delta = round(new_position.x - current_position.x)
+	var y_delta = round(new_position.y - current_position.y)
+	
 	if y_delta != 0:
 		if current_position.y > new_position.y:
 			move_up()

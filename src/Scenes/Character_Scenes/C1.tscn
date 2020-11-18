@@ -78,7 +78,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 32 ) ],
 "loop": true,
-"name": "Rest_Open",
+"name": "Rest_Opened",
 "speed": 5.0
 } ]
 
@@ -87,11 +87,6 @@ animations = [ {
 "frames": [ ExtResource( 15 ) ],
 "loop": false,
 "name": "Rest_Closed",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": false,
-"name": "Rest_Opened",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 17 ), ExtResource( 16 ) ],
@@ -128,6 +123,11 @@ animations = [ {
 "loop": true,
 "name": "Walk_Down",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": false,
+"name": "Rest_Opened",
+"speed": 5.0
 } ]
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
@@ -140,5 +140,5 @@ animation = "Idle_Down"
 visible = false
 position = Vector2( 0, -16 )
 frames = SubResource( 2 )
-animation = "Idle_Down"
+animation = "Rest_Opened"
 playing = true

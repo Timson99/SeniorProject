@@ -19,4 +19,6 @@ static func instructions():
 	  ["Actor-set", "C1", "exploring", true],
 	  ["Actor-sync", "C1", "move_to_position", Vector2(0, 40)],
 	  ["Actor-call", "C1", "set_collision", true],
+	  ["Dialogue", "Monologue"],
+	  ["Signal", "DialogueEngine", "end"],
   ]
