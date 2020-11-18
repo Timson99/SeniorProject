@@ -1,6 +1,6 @@
 extends Node
 
-#Every Type of Enemy
+# Every Type of Enemy
 onready var Enemies = preload("res://Scripts/Resource_Scripts/EnemyTypes.gd").new()
 
 export var generated_enemy_id := 1
@@ -65,19 +65,19 @@ func initialize_spawner_info():
 		tilemap_width = tilemap_dimensions.x
 		tilemap_height = tilemap_dimensions.y
 	
+	
 # Needs continued balancing 
 func spawn_enemy():
 	spawning_locked = true
 	random_num_generator.randomize()
 	var random_wait_time: int = random_num_generator.randi_range(1, 3)
-	yield(get_tree().create_timer(random_wait_time, false), "timeout")
 	var spawn_chance: float = random_num_generator.randf_range(0, 1)
 	
 	var spawn_position = get_spawn_position()
-	var within_view_x: bool = abs(spawn_position.x - target_player.position.x) < (player_view.x/2)
-	var within_view_y: bool = abs(spawn_position.y - target_player.position.y) < (player_view.y/2)
-	#print(spawn_position) 
-	if spawn_chance > 0.2 && validate_spawn_position(spawn_position) && (!within_view_x && !within_view_y):
+	var view_buffer: int = 20
+	var within_view_x: bool = abs(spawn_position.x - target_player.position.x) < (player_view.x/2 + view_buffer)
+	var within_view_y: bool = abs(spawn_position.y - target_player.position.y) < (player_view.y/2 + view_buffer)
+	if spawn_chance > 0.5 && validate_spawn_position(spawn_position) && (!within_view_x && !within_view_y):
 		var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, 1)]
 		var new_enemy = load(Enemies.enemy_types[enemy_type]["enemy_scene_path"]).instance()
 		new_enemy.key = enemy_type
@@ -88,14 +88,14 @@ func spawn_enemy():
 		scene_node.add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
-		print("Spawned enemy of id %d that is a %s" % [new_enemy.data_id, enemy_type])
+
 	spawning_locked = false
 
 
 func get_spawn_position():
 	random_num_generator.randomize()
-	var spawn_position_x = (tilemap_reference_point.x + random_num_generator.randi_range(0, tilemap_width)) #+ spawn_area_center.x
-	var spawn_position_y = (tilemap_reference_point.x + random_num_generator.randi_range(0, tilemap_height)) #+ spawn_area_center.y
+	var spawn_position_x = (tilemap_reference_point.x + random_num_generator.randi_range(0, tilemap_width)) 
+	var spawn_position_y = (tilemap_reference_point.x + random_num_generator.randi_range(0, tilemap_height)) 
 	return Vector2(spawn_position_x, spawn_position_y)
 
 
@@ -105,12 +105,20 @@ func validate_spawn_position(possible_location: Vector2):
 	var intersected_area_names := []
 	for area in area_interesections: 
 		intersected_area_names.append(area["collider"].name)
+	if intersected_area_names.has("DetectionRadius"):
+		return false
 	return intersected_area_names.has("EnemySpawnArea")
 	
 	
+func freeze_on_contact():
+	get_tree().call_group("Enemy", "freeze_in_place")
+
+	
 func despawn_enemy(id: int):
 	yield(SceneManager, "scene_fully_loaded")
-	# despawning animation in the overworld
+	# 1. despawning animation in the overworld
+	# 2. handling the despawn of multiple enemies who joined in a gang
+	num_of_enemies -= 1
 	can_spawn = true
 	pass
 
