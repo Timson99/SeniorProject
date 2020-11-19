@@ -30,11 +30,10 @@ func switch_characters(_move):
 	active_player.deactivate_player()
 
 	yield(get_tree().create_timer(0.1, false), "timeout")
-
-	for i in range(party.find(active_player) + 1 , party.size()):
-		if(!party[i].alive):
+	for i in range(party.find(active_player) + 1 , party_alive.size()):
+		if(!party_alive[i].alive):
 			continue
-		active_player = party[i]
+		active_player = party_alive[i]
 		active_player.activate_player()
 		return
 	#No more characters, Enemy Move
@@ -57,9 +56,13 @@ func sort_alive(a,_b):
 
 func on_load():
 	if(!C2_in_party):
-		$C2_Module.queue_free()
+		var ref = $C2_Module
+		remove_child(ref)
+		ref.queue_free()
 	if(!C3_in_party):
-		$C3_Module.queue_free()
+		var ref = $C3_Module
+		remove_child(ref)
+		ref.queue_free()
 
 	party = get_children()
 	party.sort_custom(self, "sort_alive")
