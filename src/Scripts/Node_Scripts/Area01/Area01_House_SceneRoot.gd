@@ -2,6 +2,9 @@ extends ExploreRoot
 
 #export var music_track_path = "res://Assets/Music/No_Place_Like_Home (temp).ogg"
 
+var persistence_id = "Area01_Data"
+var actor_id = "Area01_House"
+
 
 onready var closet = $TileMap/YSort/Closet
 onready var main_door_warp = $TileMap/Warp_Outside
@@ -10,6 +13,10 @@ onready var main_door_dialogue = $TileMap/Warp_Outside/MainDoorDialogue/Collisio
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("Persistent")
+	add_to_group("Actor")
+	ActorEngine.update_actors()
+	
 	main_door_warp.monitoring = false
 	closet.connect("used", self, "open_main_door")
 	

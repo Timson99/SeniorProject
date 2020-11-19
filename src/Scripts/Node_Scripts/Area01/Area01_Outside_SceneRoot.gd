@@ -1,6 +1,6 @@
  extends ExploreRoot
 
-var persistence_id = "Area01_Outside_Root"
+var persistence_id = "Area01_Data"
 var actor_id = "Area01_Outside_Root"
 
 var event_trigger_scene = preload('res://Scenes/Explore_Scenes/Area01/BullyEventTrigger.tscn')
@@ -82,7 +82,7 @@ func fade_world():
 func on_load():
 	if current_attempt == Attempt.One:
 		exit_door.hide()
-		#create_vertical_event_trigger("Area01_Sequence02", pre_fight)
+		create_vertical_event_trigger("Area01_Sequence02", pre_fight)
 		create_vertical_event_trigger("Area01_Sequence03", post_fight)
 	elif current_attempt == Attempt.Two:
 		exit_door.hide()

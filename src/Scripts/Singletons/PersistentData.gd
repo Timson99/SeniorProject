@@ -32,12 +32,21 @@ func _load_pdata(id : String, actor : Object):
 			actor.set(i, str2var(data[id][i]))
 
 # Updates a specific entry in the Persistent Data
-func update_entry(node_data : Dictionary): 
+func update_entry(node_data : Dictionary):
 		if("persistence_id" in node_data):
 			for prop in node_data.keys():
 				if typeof(node_data[prop]) != TYPE_STRING:
 					node_data[prop] = var2str(node_data[prop])
-			data[node_data.persistence_id] = node_data; 
+			for key in node_data.keys():
+				
+				print(node_data)
+				#print(data[node_data["persistence_id"]])
+				#print(node_data[key] )
+				
+				if !(node_data["persistence_id"] in data):
+					data[node_data["persistence_id"]] = {}
+				
+				data[node_data["persistence_id"]][key] = node_data[key] 
 		else: 
 			Debugger.dprint("No id in persistent node")
 		
