@@ -10,7 +10,6 @@ export var enemy_variations := []
 
 onready var target_player: KinematicBody2D 
 onready var player_view: Vector2
-onready var current_scene = SceneManager.current_scene.name
 
 onready var tilemap_rect: Rect2 
 onready var tilemap_reference_point: Vector2
@@ -28,7 +27,6 @@ var random_num_generator = RandomNumberGenerator.new()
 
 var existing_enemy_data : Dictionary = {}
 var queued_battle_enemies: Array = []
-var queued_despawns : Array = []
 var current_battle_stats : Dictionary
 var can_spawn := true
 var spawning_locked := false
@@ -36,7 +34,16 @@ var valid_pos_flag := false
 
 
 func _ready():
-	EnemyHandler.connect("scene_fully_loaded", self, "initialize_spawner_info")
+	SceneManager.connect("goto_called", self, "block_spawning")
+	SceneManager.connect("scene_fully_loaded", self, "check_if_spawning_possible")
+	check_if_spawning_possible()
+
+
+func block_spawning():
+	can_spawn = false
+
+	
+func check_if_spawning_possible():
 	scene_node = SceneManager.current_scene
 	if scene_node.get("enemies_spawnable") != null:
 		can_spawn = scene_node.get("enemies_spawnable")
@@ -85,10 +92,11 @@ func spawn_enemy():
 		new_enemy.position = spawn_position
 		existing_enemy_data[new_enemy.data_id] = {}
 		existing_enemy_data[new_enemy.data_id]["battle_data"] = Enemies.enemy_types[enemy_type]["battle_data"]
+		existing_enemy_data[new_enemy.data_id]["exploration_node"] = new_enemy
 		scene_node.add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
-
+		print("New enemy added")
 	spawning_locked = false
 
 
@@ -113,10 +121,13 @@ func validate_spawn_position(possible_location: Vector2):
 func freeze_on_contact():
 	get_tree().call_group("Enemy", "freeze_in_place")
 
-	
-func despawn_enemy(id: int):
+# Called for battle victory or fleeing
+func despawn_defeated_enemies(id: int):
 	yield(SceneManager, "scene_fully_loaded")
-	# 1. despawning animation in the overworld
+	for enemy in queued_battle_enemies:
+			# 1. despawning animation in the overworld
+			# yield for despawn anim to complete 
+			scene_node.remove_child(existing_enemy_data[enemy]["exloration_node"])
 	# 2. handling the despawn of multiple enemies who joined in a gang
 	num_of_enemies -= 1
 	can_spawn = true
@@ -125,7 +136,7 @@ func despawn_enemy(id: int):
 
 func _physics_process(delta):
 	var party := get_tree().get_nodes_in_group("Party")
-	if current_scene != null && party.size() == 1:
+	if scene_node != null && party.size() == 1:
 		target_player = party[0].active_player
 		player_view = CameraManager.viewport_size
 		if can_spawn && num_of_enemies < max_enemies && !spawning_locked:			

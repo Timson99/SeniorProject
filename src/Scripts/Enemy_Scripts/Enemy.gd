@@ -131,12 +131,12 @@ func freeze_in_place():
 
 
 # Overlapping enemy Area2Ds throw enemies into array that may be instanced in battle later
-func add_to_gang():
+func add_to_gang(area: Area2D):
 	pass
 
 	
 # Corresponding removal function for "add_to_gang"
-func remove_from_gang():
+func remove_from_gang(area: Area2D):
 	pass
 
 
