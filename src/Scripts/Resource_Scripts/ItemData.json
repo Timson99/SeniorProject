@@ -3,6 +3,14 @@
     "ItemPrice": 30,
     "ItemWeight": 2,
     "Description": "Desc",
-    "Type": "WPN"
+    "Type": "WPN",
+    "Target": "enemy"
+  },
+  "SmokeScreen": {
+    "ItemPrice": 10,
+    "ItemWeight": 2,
+    "Description": "Desc",
+    "Type": "WPN",
+    "Target": "ally"
   }
 }
