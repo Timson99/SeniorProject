@@ -1,0 +1,32 @@
+
+
+Group 7: [3 souls]
+   Luis Garcia, Timothy Herrmann, Joe Maiocco
+      synopsis:   Cosmonarium ~ 2D game pixel art using Godot Engine
+=====================================================================================
+Sorry for the delay on this evaluation.  I looked back and found that you had
+not submitted this document by the due date, so I logged that in my sheet,
+then promptly forgot about it....  *blush*
+
+Anyhow, nice work on this document!  I like that you have given an excellent
+overview description of the game and technologies used.  The diagram shows
+very well how the parts interact and fit together with the Godot engine.
+The CSCI breakdown is excellent, although it might benefit from a very brief
+description of each part [VERY brief, since there are so many parts].
+
+Your functional requirements have the proper level of detail, and you have
+used the "should" and "will" statements effectively, although there are one
+or two places where a "shall" sneaked in there...  *grin*  Your requirements
+are detailed enough to actually start designing from, which is something I
+don't usually see in even industry first draft SRS's.  GOOD WORK!
+
+This is just an awesome job and you have nothing else to do on this document
+for full credit on both submissions.
+
+GREAT WORK!
+
+
+Evaluation score:
+
+    10% out of 10% for this deliverable:  A-plus
+

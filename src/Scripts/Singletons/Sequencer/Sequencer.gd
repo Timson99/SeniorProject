@@ -181,11 +181,18 @@ func delay_instruction(time : float):
 	return
 
 func signal_instruction(obj_id : String, signal_name):
+	var object_to_observe = null
 	var observed_objects = {
 		#"Dialogue" : DialogueManager,
 		"SceneManager" : SceneManager,
 		"DialogueEngine" : DialogueEngine,
+		"CameraManager" : CameraManager,
 	}
-	yield(observed_objects[obj_id], signal_name)
+	if obj_id in observed_objects.keys():
+		object_to_observe = observed_objects[obj_id]
+	elif obj_id in ActorEngine.actors_dict.keys():
+		object_to_observe = ActorEngine.actors_dict[obj_id]
+
+	yield(object_to_observe, signal_name)
 	active_event["current_instruction"] = null
 	return

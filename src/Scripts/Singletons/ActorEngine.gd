@@ -20,8 +20,11 @@ func _ready():
 	SceneManager.connect("scene_loaded", self, "update_actors")
 	update_actors()
 	
-func update_actors():
-	actors_array = get_tree().get_nodes_in_group("Actor")
+func update_actors(actor_group_array = null):
+	if actor_group_array == null:
+		actors_array = get_tree().get_nodes_in_group("Actor")
+	else:
+		actors_array = actor_group_array
 	
 	# Executes each command for each async actor for duration of their 
 	# respective timers
@@ -38,8 +41,7 @@ func update_actors():
 	
 
 
-func _physics_process(_delta: float):
-	#actors_array = get_tree().get_nodes_in_group("Actor")
+func _physics_process(_delta: float):	
 	
 	# Executes command until sync timer runs out; deletes sync timer at completion
 	if sync_command_timer && sync_command_timer.get_time_left() > 0:

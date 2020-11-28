@@ -54,10 +54,9 @@ animation = "unfocused"
 centered = false
 
 [node name="Name" type="Label" parent="."]
-margin_left = 5.2505
-margin_top = -0.0674591
-margin_right = 70.2505
-margin_bottom = 14.9325
+margin_left = 5.0
+margin_right = 120.0
+margin_bottom = 15.0
 custom_fonts/font = SubResource( 4 )
 text = "Item Name"
 valign = 1

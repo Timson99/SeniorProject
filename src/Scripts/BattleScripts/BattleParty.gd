@@ -4,7 +4,7 @@ extends HBoxContainer
 export var persistence_id := "main_party"
 export var C2_in_party = false
 export var C3_in_party = false
-var items := ["Bomb","SmokeScreen"]
+var items := ["Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea"]
 var terminated = false
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
@@ -100,9 +100,8 @@ var selected_module_index = -1
 
 func select_current():
 	active_player.select()
-	# selected_module_index = party #index should be a number
-	selected_module_index = 0
-
+	selected_module_index = party.find(active_player)
+	
 func deselect_current():
 	party[selected_module_index].deselect()
 	selected_module_index = -1

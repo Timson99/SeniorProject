@@ -5,7 +5,7 @@ extends ExploreRoot
 
 onready var closet = $TileMap/YSort/Closet
 onready var main_door_warp = $TileMap/Warp_Outside
-onready var main_door_dialogue = $TileMap/Warp_Outside/Dialogue/CollisionShape2D
+onready var main_door_dialogue = $TileMap/Warp_Outside/MainDoorDialogue/CollisionShape2D
 
 
 # Called when the node enters the scene tree for the first time.
