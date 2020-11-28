@@ -61,6 +61,9 @@ func _add_item_button(item):
 func back():
 	if submenu:
 		submenu.back()
+		submenu = null
+		back()
+		
 	else:
 		unfocus()
 		parent.submenu = null
@@ -103,7 +106,6 @@ func right():
 	else:
 		pass
 			
-
 
 
 

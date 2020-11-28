@@ -244,6 +244,7 @@ func down():
 			refocus(next_focused)
 
 
+
 func left():
 	if current_mode == Mode.Enemy_Select:
 		battle_brain.enemy_party.select_left()
