@@ -12,6 +12,8 @@ var to_player_commands := {
 		 "ui_accept" : "interact",
 		 "ui_cancel" : "change_scene",
 		 "ui_menu" : "open_menu",
+		 "ui_right_trigger":"r_trig",
+		 "ui_left_trigger":"l_trig",
 
 		 #Test Command
 		"ui_test1" : "test_command1",

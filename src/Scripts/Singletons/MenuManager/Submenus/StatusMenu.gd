@@ -72,14 +72,20 @@ func right():
 		pass
 			
 func r_trig():
-	var curr_index = parent.curr_party.index(curr_char)
-	curr_index = curr_index +1 % len(parent.curr_party)
-	_change_char(parent.curr_party[curr_index])
+	if submenu:
+		submenu.r_trig()
+	else:
+		var curr_index = parent.curr_party.find(curr_char,0)
+		curr_index = (curr_index +1) % len(parent.curr_party)
+		_change_char(parent.curr_party[curr_index])
 	
 	
 func l_trig():
-	var curr_index = parent.curr_party.index(curr_char)
-	curr_index = (curr_index if curr_index>0 else len(parent.curr_party))-1
-	_change_char(parent.curr_party[curr_index])
+	if submenu:
+		submenu.r_trig()
+	else:
+		var curr_index = parent.curr_party.find(curr_char,0)
+		curr_index = (curr_index if curr_index>0 else len(parent.curr_party)) -1
+		_change_char(parent.curr_party[curr_index])
 
 

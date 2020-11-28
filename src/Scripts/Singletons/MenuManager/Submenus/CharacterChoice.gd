@@ -60,10 +60,12 @@ func _add_item_button(item):
 
 func back():
 	if submenu:
-		submenu.back()
-		submenu = null
-		back()
-		
+		if not submenu.submenu:
+			submenu.back()
+			submenu=null
+			back()
+		else:
+			submenu.back()
 	else:
 		unfocus()
 		parent.submenu = null
@@ -106,6 +108,17 @@ func right():
 	else:
 		pass
 			
+func r_trig():
+	if submenu:
+		submenu.r_trig()
+	else:
+		pass
+	
+func l_trig():
+	if submenu:
+		submenu.l_trig()
+	else:
+		pass
 
 
 

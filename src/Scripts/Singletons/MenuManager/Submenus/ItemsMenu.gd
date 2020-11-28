@@ -215,3 +215,15 @@ func right():
 		var next_focused = focused + 1
 		if not even(next_focused) and next_focused <= len(buttons)-1:
 			refocus(next_focused)
+
+func r_trig():
+	if submenu:
+		submenu.r_trig()
+	else:
+		pass
+	
+func l_trig():
+	if submenu:
+		submenu.l_trig()
+	else:
+		pass

@@ -15,7 +15,7 @@ var sprite = null
 var default_focused = 0
 var focused = default_focused
 var buttons = []
-
+	
 func _ready():
 	_setup_char()
 	for button in button_container.get_children():
@@ -30,7 +30,7 @@ func update_field(item):
 	text.append(item)
 	buttons[focused].get_node("Current").text = text.join(" ")
 	print("Chose ", item)
-
+	
 func _setup_char():
 	$Character/Name.text = curr_char
 	$Character.set_texture(sprite)
@@ -80,4 +80,18 @@ func right():
 	if submenu:
 		submenu.right()
 	pass
+func r_trig():
+	if submenu:
+		submenu.r_trig()
+	else:
+		back()
+		parent.down()
+		parent.accept()
 	
+func l_trig():
+	if submenu:
+		submenu.l_trig()
+	else:
+		back()
+		parent.up()
+		parent.accept()
