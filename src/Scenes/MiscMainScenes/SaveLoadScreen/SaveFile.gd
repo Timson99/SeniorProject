@@ -14,7 +14,8 @@ func _ready():
 func accept_load():
 	update_current_save()
 	if !SaveManager.has_save_file(save_file_name):
-		SceneManager.goto_scene("Area01_Opening")
+		#SceneManager.goto_scene("Area01_Opening")
+		Sequencer.execute_event("Area01_Sequence01")
 	else:
 		SaveManager.load_game(save_file_name)
 		

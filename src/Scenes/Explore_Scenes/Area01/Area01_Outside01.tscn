@@ -62,7 +62,7 @@ __meta__ = {
 }
 
 [node name="Pos_Tool" type="Position2D" parent="."]
-position = Vector2( -166, 208 )
+position = Vector2( -65, 234 )
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -96,7 +96,7 @@ __meta__ = {
 }
 
 [node name="Party" parent="YSort" instance=ExtResource( 3 )]
-position = Vector2( 128, 200 )
+position = Vector2( 24, 242 )
 C2_in_party = false
 C3_in_party = false
 
@@ -110,6 +110,7 @@ position = Vector2( 182, -6 )
 position = Vector2( 98, 39 )
 
 [node name="Tree03" parent="YSort/Trees" instance=ExtResource( 8 )]
+position = Vector2( -176, -11 )
 
 [node name="Tree04" parent="YSort/Trees" instance=ExtResource( 4 )]
 position = Vector2( 254, -6 )
@@ -176,10 +177,10 @@ item_id = "Bomb"
 [node name="BossBully" parent="YSort" groups=[
 "Persistent",
 ] instance=ExtResource( 6 )]
-position = Vector2( 58, 200 )
+position = Vector2( -200, 238 )
 
 [node name="ExitDoor" type="StaticBody2D" parent="YSort"]
-position = Vector2( -200, 175 )
+position = Vector2( -24, 168 )
 script = ExtResource( 16 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/ExitDoor"]

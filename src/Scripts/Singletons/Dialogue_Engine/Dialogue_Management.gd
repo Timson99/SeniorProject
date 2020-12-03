@@ -22,7 +22,9 @@ enum Mode {Message, Dialogue}
 var mode = null
 var message = []
 
-var scroll_time := 0.025
+
+var scroll_time := 0.02 #Can't be faster than a frame, 1/60
+var character_jump = 2
 var breath_pause = 0.25
 var breath_char = "`"
 
@@ -235,20 +237,29 @@ func _advance_message():
 		
 		textNode.text = message.pop_front()
 		
+		#begin text scroll
 		while true:
-				if(textNode.get_visible_characters() >= textNode.get_text().length()):
-					break
-				#scrollAudio.play()
-				var new_scroll_time = scroll_time
-				textNode.set_visible_characters(textNode.get_visible_characters()+1)
-				if (textNode.get_visible_characters() < textNode.get_text().length() and
-					textNode.text[textNode.get_visible_characters()] == breath_char):
-					new_scroll_time += breath_pause
-					var tempText = textNode.text
-					tempText.erase(textNode.get_visible_characters(), 1)
-					textNode.text = tempText
-				yield(get_tree().create_timer(new_scroll_time, false), "timeout")
-				#scrollAudio.stop()
+			if(textNode.get_visible_characters() >= textNode.get_text().length()):
+				break
+			#scrollAudio.play()
+			var new_scroll_time = scroll_time
+			var initial_visible = textNode.get_visible_characters()
+			textNode.set_visible_characters(initial_visible+character_jump)
+			var char_chunk = textNode.text.substr(initial_visible, textNode.get_visible_characters())
+			if (textNode.get_visible_characters() < textNode.get_text().length() and
+				breath_char in char_chunk):
+				
+				var first_breath_index = char_chunk.find(breath_char)
+				new_scroll_time += breath_pause
+				####
+				var tempText = textNode.text
+				tempText.erase(initial_visible + first_breath_index, 1)
+				textNode.text = tempText
+				####
+				textNode.set_visible_characters(initial_visible+first_breath_index)
+				
+			yield(get_tree().create_timer(new_scroll_time, false), "timeout")
+			#scrollAudio.stop()
 	
 func exec_final_waltz():
 	emit_signal("end")
@@ -319,13 +330,21 @@ func _advance():
 				break
 			#scrollAudio.play()
 			var new_scroll_time = scroll_time
-			textNode.set_visible_characters(textNode.get_visible_characters()+1)
+			var initial_visible = textNode.get_visible_characters()
+			textNode.set_visible_characters(initial_visible+character_jump)
+			var char_chunk = textNode.text.substr(initial_visible, textNode.get_visible_characters())
 			if (textNode.get_visible_characters() < textNode.get_text().length() and
-				textNode.text[textNode.get_visible_characters()] == breath_char):
+				breath_char in char_chunk):
+				
+				var first_breath_index = char_chunk.find(breath_char)
 				new_scroll_time += breath_pause
+				####
 				var tempText = textNode.text
-				tempText.erase(textNode.get_visible_characters(), 1)
+				tempText.erase(initial_visible + first_breath_index, 1)
 				textNode.text = tempText
+				####
+				textNode.set_visible_characters(initial_visible+first_breath_index)
+				
 			yield(get_tree().create_timer(new_scroll_time, false), "timeout")
 			#scrollAudio.stop()
 		
