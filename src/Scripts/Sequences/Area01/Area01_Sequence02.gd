@@ -14,16 +14,16 @@ static func instructions():
 		["Signal", "CameraManager", "complete"],
 		["Actor-call", "Camera", "release_camera"],
 		
-		["Dialogue", "Darren"],
-		["Signal", "DialogueEngine", "page_over"],
-		["Actor-async", "Bully", "move_up", 0.5],
-		["Actor-async", "Bully", "move_right", 0.8],
-		["Signal", "DialogueEngine", "page_over"],
-		["Actor-async", "Bully", "move_down", 0.8],
-		["Actor-async", "Bully", "move_left", 0.5],
-		["Signal", "DialogueEngine", "page_over"],
+		###["Dialogue", "Darren"],
+		###["Signal", "DialogueEngine", "page_over"],
+		###["Actor-async", "Bully", "move_up", 0.5],
+		###["Actor-async", "Bully", "move_right", 0.8],
+		###["Signal", "DialogueEngine", "page_over"],
+		###["Actor-async", "Bully", "move_down", 0.8],
+		###["Actor-async", "Bully", "move_left", 0.5],
+		###["Signal", "DialogueEngine", "page_over"],
 		
-		["Signal", "DialogueEngine", "end"],
+		###["Signal", "DialogueEngine", "end"],
 		["Actor-call", "Bully", "initiate_battle"]
   ]
 
