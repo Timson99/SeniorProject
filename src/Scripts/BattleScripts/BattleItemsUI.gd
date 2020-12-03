@@ -34,7 +34,16 @@ var scrollbar_offset = 0
 var max_sc_offset = 92
 var offset_size = max_sc_offset/5
 
+onready var battle_brain = SceneManager.current_scene
+var menu = null
+enum Mode {Inactive, Menu, Enemy_Select, Character_Select}
+var current_mode = Mode.Inactive
+
+#Items with these types act on party not enemies
+var party_item_types = ["USE-HEAL","WPN"]
+
 func _ready():
+	menu= battle_brain.dialogue_node.get_node("Menu")
 	#There may be a better way to get this data via singleton maybe...
 	party = get_tree().get_nodes_in_group("BattleParty")[0]
 	data = party.items
@@ -101,6 +110,8 @@ func _move_scrollbar(direction):
 	scrollbar.get_node("middle").set_position(Vector2(sc_start.x,scrollbar_offset))
 	scrollbar.get_node("bottom").set_position(Vector2(sc_start.x,scrollbar_offset+scrollbar_size))
 
+func _use_skill(chara):
+	print("Used ", buttons[focused].item_name, " on ", chara)
 
 func _instantiate_items():
 	for item in data:
@@ -147,41 +158,55 @@ func get_focused():
 func _get_item(ix):
 	return data_source.get(buttons[ix].item_name)
 
-
-
 func back():
-	if submenu:
+	if current_mode != Mode.Inactive:
+		if current_mode  == Mode.Character_Select:
+			battle_brain.character_party.deselect_current()
+		elif current_mode == Mode.Enemy_Select:
+			battle_brain.enemy_party.deselect_current()
+		current_mode = Mode.Inactive
+		base.show()
+	elif submenu:
 		submenu.back()
-#		menu.show() to show the icons.
 	else:
-		queue_free()
-		var menu = SceneManager.current_scene.dialogue_node.get_node("Menu")
+		menu.reset(false)
 		menu.show()
-		parent.submenu = null
+		queue_free()
+#		parent.submenu = null
 
 func accept():
-	if submenu:
+	if current_mode != Mode.Inactive:
+		var selected_character = null
+		if current_mode  == Mode.Character_Select:
+			selected_character = battle_brain.character_party.get_selected_character()
+			battle_brain.character_party.deselect_current()
+		elif current_mode == Mode.Enemy_Select:
+			selected_character = battle_brain.enemy_party.get_selected_enemy()
+			battle_brain.enemy_party.deselect_current()
+		#Use Skill, we can use a signal or something if we get an item manager of sorts ...
+		_use_skill(selected_character.screen_name)
+		#to get back to menu
+		back()
+		#reset the menu
+		#This time it will exit out of the submenu only used if one usage allowed per turn
+		# back()
+	elif submenu:
 		submenu.accept()
 	else:
-		submenu = load(popup_path).instance()
-		call_deferred("add_child", submenu)
-		var current_btn  = buttons[focused]
-		var container_pos = button_container.get_global_transform().get_origin()
-		var position_offset=null
-		#added vectors are eyeballed padding
-		if even(focused):
-			position_offset= current_btn.get_position() + Vector2(118,0)
+		base.hide()
+		if get_focused().get("Type") in party_item_types: #something like this
+			battle_brain.character_party.select_current()
+			current_mode = Mode.Character_Select
 		else:
-			position_offset = buttons[focused-1].get_position() + Vector2(52,0)
-		var submenu_pos = container_pos+position_offset
-		submenu.reposition(submenu_pos)
-		submenu.item = current_btn
-		submenu.layer = layer + 1
-		submenu.parent = self
+			battle_brain.enemy_party.select_current()
+			current_mode = Mode.Enemy_Select
+		menu.reset(false)
 
 
 func up():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_up()
+	elif submenu:
 		submenu.up()
 	else:
 		var next_focused = focused - num_cols
@@ -195,7 +220,9 @@ func up():
 
 
 func down():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_down()
+	elif submenu:
 		submenu.down()
 	else:
 		#is more complicated because it must deal with odd
@@ -217,7 +244,11 @@ func down():
 
 
 func left():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_left()
+	elif current_mode == Mode.Character_Select:
+		battle_brain.character_party.select_left()
+	elif submenu:
 		submenu.left()
 	elif num_cols>1:
 		var next_focused = focused - 1
@@ -226,7 +257,11 @@ func left():
 
 
 func right():
-	if submenu:
+	if current_mode == Mode.Enemy_Select:
+		battle_brain.enemy_party.select_right()
+	elif current_mode == Mode.Character_Select:
+		battle_brain.character_party.select_right()
+	elif submenu:
 		submenu.right()
 	elif num_cols>1:
 		var next_focused = focused + 1

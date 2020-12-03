@@ -130,6 +130,18 @@ func release_up():
 	
 func release_down():
 	held_actions.erase("down")
+	
+func r_trig():
+	if submenu:
+		submenu.r_trig()
+	else:
+		pass
+	
+func l_trig():
+	if submenu:
+		submenu.l_trig()
+	else:
+		pass
 
 
 

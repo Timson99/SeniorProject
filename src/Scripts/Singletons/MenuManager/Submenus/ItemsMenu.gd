@@ -11,7 +11,7 @@ var input_id = "Menu"
 var default_focused = 0
 var focused = default_focused
 var buttons = []
-var items = []
+var items = {}
 var scroll_level= 0
 var btn_ctnr_size = 12
 var button_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.tscn"
@@ -19,6 +19,7 @@ var popup_path = "res://Scripts/Singletons/MenuManager/Submenu_Modules/Lists/Ite
 
 var data_source=MenuManager.item_data
 var data = MenuManager.party.items
+
 
 var num_cols = 2
 
@@ -51,10 +52,11 @@ func unfocus():
 	focused = -1
 
 func update_description(item):
-	var description = item["Type"] + ": " + item["Description"]
-	#for val in item :
-		#description = str(description,"\t",val," : ", item[val])
-	description_container.text = description
+	pass
+#	var description = item["Type"] + ": " + item["Description"]
+#	#for val in item :
+#		#description = str(description,"\t",val," : ", item[val])
+#	description_container.text = description
 
 func even(num):# can adjust condition to fit any number of columns
 	return num%2 ==0
@@ -100,7 +102,10 @@ func _instantiate_items():
 		_add_item(item)
 
 func _add_item(item):
-	items.append(item)
+	if item in items:
+		items[item]+=1
+	else:
+		items[item]=1
 
 func _update_buttons():
 	buttons= []
@@ -108,14 +113,14 @@ func _update_buttons():
 		var item_ix = i+scroll_level
 #		print(item_ix)
 		if item_ix <len(items):
-			_add_item_button(items[item_ix])
+			_add_item_button(items.keys()[item_ix])
 		else:
 			break
 
 func _add_item_button(item):
 	var button = load(button_path).instance()
 	#print(item)
-	button._setup(item)
+	button._setup(str(item,items[item]))
 	buttons.append(button)
 
 
@@ -215,3 +220,15 @@ func right():
 		var next_focused = focused + 1
 		if not even(next_focused) and next_focused <= len(buttons)-1:
 			refocus(next_focused)
+
+func r_trig():
+	if submenu:
+		submenu.r_trig()
+	else:
+		pass
+	
+func l_trig():
+	if submenu:
+		submenu.l_trig()
+	else:
+		pass

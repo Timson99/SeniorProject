@@ -28,6 +28,12 @@ func _ready():
 #	for stat in gen_stats:
 #		get_node("Data/Stats/{s}".format({"s":stat})).text = str(stat,": ",char_params.get(stat))
 
+func _change_char(new_char):
+	curr_char = new_char
+	sprite = parent.sprites.get(new_char)
+	char_params = parent.stats.get(new_char)
+	_ready()
+	
 func back():
 	if submenu:
 		submenu.back()
@@ -65,8 +71,21 @@ func right():
 	else:
 		pass
 			
-
-
-
+func r_trig():
+	if submenu:
+		submenu.r_trig()
+	else:
+		var curr_index = parent.curr_party.find(curr_char,0)
+		curr_index = (curr_index +1) % len(parent.curr_party)
+		_change_char(parent.curr_party[curr_index])
+	
+	
+func l_trig():
+	if submenu:
+		submenu.r_trig()
+	else:
+		var curr_index = parent.curr_party.find(curr_char,0)
+		curr_index = (curr_index if curr_index>0 else len(parent.curr_party)) -1
+		_change_char(parent.curr_party[curr_index])
 
 
