@@ -12,62 +12,62 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "BaseStats",
 "language": "GDScript",
-"path": "res://Scripts/Resource_Scripts/BaseStats.gd"
+"path": "res://Classes/Directories/BaseStats.gd"
 }, {
 "base": "Resource",
 "class": "BattleBehaviors",
 "language": "GDScript",
-"path": "res://Scripts/Resource_Scripts/BattleBehaviors.gd"
+"path": "res://Classes/Directories/BattleBehaviors.gd"
 }, {
 "base": "Object",
 "class": "BattleMove",
 "language": "GDScript",
-"path": "res://Scripts/Classes/BattleMove.gd"
+"path": "res://Classes/Types/BattleMove.gd"
 }, {
 "base": "Object",
 "class": "Debugger",
 "language": "GDScript",
-"path": "res://Scripts/Classes/Global_Debug.gd"
+"path": "res://Classes/Global/Global_Debug.gd"
 }, {
 "base": "Object",
 "class": "EntityStats",
 "language": "GDScript",
-"path": "res://Scripts/Classes/EntityStats.gd"
+"path": "res://Classes/Types/EntityStats.gd"
 }, {
 "base": "Object",
 "class": "Enums",
 "language": "GDScript",
-"path": "res://Scripts/Classes/Global_Enums.gd"
+"path": "res://Classes/Global/Global_Enums.gd"
 }, {
 "base": "Node",
 "class": "ExploreRoot",
 "language": "GDScript",
-"path": "res://Scripts/Node_Scripts/GeneralExploreRoot.gd"
+"path": "res://Scenes/General/ExploreEnvironment/Scripts/GeneralExploreRoot.gd"
 }, {
 "base": "Node",
 "class": "Explore_Root",
 "language": "GDScript",
-"path": "res://Scripts/Tim_Test_Scripts/TestSceneRoot.gd"
+"path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/Tim_Test_Scripts/TestSceneRoot.gd"
 }, {
 "base": "Control",
 "class": "Item",
 "language": "GDScript",
-"path": "res://Scripts/Singletons/MenuManager/Submenu_Modules/Buttons/ItemButton.gd"
+"path": "res://Scenes/UI/MainMenuUI/SubmenuModules/Buttons/ItemButton.gd"
 }, {
 "base": "Resource",
 "class": "MainScenes",
 "language": "GDScript",
-"path": "res://Scripts/Resource_Scripts/MainScenes.gd"
+"path": "res://Classes/Directories/MainScenes.gd"
 }, {
 "base": "Node",
 "class": "PriorityQueue",
 "language": "GDScript",
-"path": "res://Scripts/Joe_Test_Scripts/PriorityQueue.gd"
+"path": "res://Scenes/_Test_Scenes/Joe_Test_Scenes/Joe_Test_Scripts/PriorityQueue.gd"
 }, {
 "base": "Node",
 "class": "TestPQ",
 "language": "GDScript",
-"path": "res://Scripts/Joe_Test_Scripts/test_PriorityQueue.gd"
+"path": "res://Scenes/_Test_Scenes/Joe_Test_Scenes/Joe_Test_Scripts/test_PriorityQueue.gd"
 } ]
 _global_script_class_icons={
 "BaseStats": "",
@@ -87,23 +87,27 @@ _global_script_class_icons={
 [application]
 
 config/name="SeniorProject"
-run/main_scene="res://Scenes/MiscMainScenes/SaveLoadScreen/LoadScreen.tscn"
-config/icon="res://Assets/Test_Art/icon.png"
+run/main_scene="res://Scenes/General/SaveLoadMenu/LoadScreen.tscn"
+config/icon="res://Assets/Art/Test_Art/icon.png"
+
+[audio]
+
+default_bus_layout="res://_defaults/default_bus_layout.tres"
 
 [autoload]
 
-Game="*res://Scripts/Singletons/Game.gd"
-SceneManager="*res://Scripts/Singletons/SceneManager/SceneManager.gd"
-SaveManager="*res://Scripts/Singletons/SaveManager.gd"
-InputEngine="*res://Scripts/Singletons/InputEngine.gd"
-CameraManager="*res://Scripts/Singletons/CameraManager.gd"
-PersistentData="*res://Scripts/Singletons/PersistentData.gd"
-ActorEngine="*res://Scripts/Singletons/ActorEngine.gd"
-DialogueEngine="*res://Scripts/Singletons/Dialogue_Engine/DialogueEngine.tscn"
-BgEngine="*res://Scripts/Singletons/BGAudioEngine/BGEngine.tscn"
-Sequencer="*res://Scripts/Singletons/Sequencer/Sequencer.gd"
-MenuManager="*res://Scripts/Singletons/MenuManager/MenuManager.gd"
-EnemyHandler="*res://Scripts/Singletons/EnemyHandler.gd"
+Game="*res://Singletons/Game.gd"
+SceneManager="*res://Singletons/SceneManager.gd"
+SaveManager="*res://Singletons/SaveManager.gd"
+InputEngine="*res://Singletons/InputEngine.gd"
+CameraManager="*res://Singletons/CameraManager.gd"
+PersistentData="*res://Singletons/PersistentData.gd"
+ActorEngine="*res://Singletons/ActorEngine.gd"
+DialogueEngine="*res://Singletons/DialogueEngine.tscn"
+BgEngine="*res://Singletons/BGEngine.tscn"
+Sequencer="*res://Singletons/Sequencer.gd"
+MenuManager="*res://Singletons/MenuManager.gd"
+EnemyHandler="*res://Singletons/EnemyHandler.gd"
 
 [debug]
 
@@ -267,5 +271,5 @@ size/test_height=false
 
 quality/2d/use_pixel_snap=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://_defaults/default_env.tres"
 quality/dynamic_fonts/use_oversampling=false

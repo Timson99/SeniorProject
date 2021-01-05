@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/Tim_Test_Scripts/House_TileSet.tres" type="TileSet" id=1]
+
+
+
+[node name="TileMap" type="TileMap"]
+tile_set = ExtResource( 1 )
+format = 1

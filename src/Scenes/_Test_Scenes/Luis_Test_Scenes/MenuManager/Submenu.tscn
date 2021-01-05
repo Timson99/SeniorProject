@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/_Test_Scenes/Luis_Test_Scenes/MenuManager/InvTab.tscn" type="PackedScene" id=2]
+
+
+
+[node name="Submenu" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 320.0
+margin_bottom = 118.0
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 320.0
+margin_bottom = 118.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+margin_bottom = 118.0
+size_flags_vertical = 3
+stretch_mode = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 4.0
+margin_right = 320.0
+margin_bottom = 118.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemTextFields" type="VBoxContainer" parent="MarginContainer/HBoxContainer/ScrollContainer"]
+margin_right = 316.0
+margin_bottom = 118.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="ItemName" type="Label" parent="MarginContainer/HBoxContainer/ScrollContainer/ItemTextFields"]
+margin_top = 26.0
+margin_right = 316.0
+margin_bottom = 57.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Items Name
+"
+valign = 1
+
+[node name="Item_Description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/ScrollContainer/ItemTextFields"]
+margin_top = 61.0
+margin_right = 316.0
+margin_bottom = 91.0
+size_flags_horizontal = 3
+text = "Item Description (i.e. : A bomb is a consumable that will allow you to demolish hard objects)"
+fit_content_height = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Categories" type="TabContainer" parent="."]
+margin_top = 122.0
+margin_right = 320.0
+margin_bottom = 240.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="consumables" parent="Categories" instance=ExtResource( 2 )]
+items = [ "Item 1", null, false ]
+
+[node name="weapons" parent="Categories" instance=ExtResource( 2 )]
+visible = false
+items = [ "Item 1", null, false ]

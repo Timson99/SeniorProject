@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/General/ExploreEnvironment/Scripts/EventTrigger.gd" type="Script" id=1]
+
+
+
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 727, 3.00001 )
+
+[node name="BullyEventTrigger" type="Area2D"]
+script = ExtResource( 1 )
+event_key = "Area01_Sequence02"
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )
