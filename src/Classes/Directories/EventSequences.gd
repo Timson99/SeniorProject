@@ -1,6 +1,8 @@
-extends Resource
+extends Node
 
-var sequences = {
+class_name EventSequences
+
+const data = {
 	
 	#Test Sequences
 	"test_seq1" : "res://Scenes/Test_Scenes/Tim_Test_Scenes/Tim_Test_Scripts/Sequences_Test/SequenceTest_01.gd",
@@ -17,6 +19,9 @@ var sequences = {
 	"Area01_Sequence04" : "res://Scenes/Area01/Sequences/Area01_Sequence04.gd",
 	
 }
+
+static func get_data():
+	return data
 
 
 

@@ -1,5 +1,7 @@
 extends Resource
 
+class_name SkillsDirectory
+
 var skills = {
 	"Test Skill" : {
 		"MAX LP" : 10,

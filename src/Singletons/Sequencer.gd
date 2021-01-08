@@ -3,7 +3,7 @@ extends Node
 var in_control = false
 
 
-var Events = preload("res://Classes/Directories/EventSequences.gd").new()
+var Events = EventSequences.get_data()
 
 var active_event = null
 var current_instruction = null

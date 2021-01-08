@@ -10,14 +10,8 @@ signal end()
 var current_area = "Area01"
 
 #MAKE INTO DIRECTORY FILE
-var dialogue_areas = {
-	"Area01" : 
-		{
-		 "res_path" : "res://Assets/Dialogue/Area01.res",
-		 "speakerDictionary": {},
-		 "dialogueDictionary": {},
-		}
-}
+var dialogue_areas = {}
+var dialogue_files = DialogueFiles.get_data()
 
 enum Mode {Message, Dialogue}
 var mode = null
@@ -55,6 +49,13 @@ onready var textTimer = get_node("Timer")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	for area_name in dialogue_files:
+		var file_path = dialogue_files[area_name]
+		dialogue_areas[area_name] = {}
+		dialogue_areas[area_name]["res_path"] = file_path
+		dialogue_areas[area_name]["speakerDictionary"] = {}
+		dialogue_areas[area_name]["dialogueDictionary"] = {}
+
 	dialogue_box.hide()
 	options_box.hide()
 	parse_res_file()

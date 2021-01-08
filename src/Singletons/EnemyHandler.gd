@@ -1,7 +1,7 @@
 extends Node
 
 #Every Type of Enemy
-onready var Enemies = preload("res://Classes/Directories/EnemyTypes.gd").new()
+onready var Enemies = EnemyTypes.new()
 
 onready var spawn_body = preload("res://Scenes/General/Enemies/SpawningScenes/SpawnPositionTester.tscn").instance()
 

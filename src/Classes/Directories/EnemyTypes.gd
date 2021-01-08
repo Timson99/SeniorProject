@@ -1,4 +1,11 @@
-extends Resource
+extends Object
+
+class_name EnemyTypes
+
+
+
+func get_data():
+	return enemy_types
 
 var enemy_types = {
 	

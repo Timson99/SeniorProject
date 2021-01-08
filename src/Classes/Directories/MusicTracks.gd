@@ -1,5 +1,7 @@
 extends Resource
 
+class_name MusicTracks
+
 const tracks: Dictionary = {
 	
 	# Placeholder songs for scenes
