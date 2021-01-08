@@ -4,19 +4,16 @@
 [ext_resource path="res://Assets/Art/Environments/Area1/Props_03.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Area01/Props/Scripts/Closet.gd" type="Script" id=3]
 
-
-
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": false,
-"name": "Full",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": false,
 "name": "Empty",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "Full",
 "speed": 5.0
 } ]
 

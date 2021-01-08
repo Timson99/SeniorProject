@@ -3,6 +3,7 @@ extends ExploreRoot
 
 var persistence_id = "Area01_Data"
 var actor_id = "Area01_House"
+export var current_attempt = 1
 
 
 onready var closet = $TileMap/YSort/Closet
@@ -18,13 +19,27 @@ func _ready():
 	
 	main_door_warp.monitoring = false
 	closet.connect("used", self, "open_main_door")
-	
 	#BgEngine.facilitate_track_changes(music_track_path)
+	
+func on_load():
+	"""
+	if !house_visited:
+		house_visited = true
+		PersistentData.update_entry(
+			{
+			"persistence_id" : "Area01_Closet",
+			"used" : false,
+			}
+		)
+	"""
  
 
 func open_main_door():
 	main_door_warp.monitoring = true
 	main_door_dialogue.disabled = true
+	
+func save():
+	return {}
 	
 
 

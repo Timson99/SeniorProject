@@ -17,8 +17,7 @@ onready var exit_door = $YSort/ExitDoor
 onready var glow = $Glow
 
 
-enum Attempt {One, Two, Three}
-export var current_attempt = Attempt.One
+export var current_attempt = 1
 
 var pre_fight = Vector2(-30,0)
 var post_fight = Vector2(-250,0)
@@ -32,13 +31,9 @@ func _ready():
 	
 func increment_attempt():
 	current_attempt += 1
-	current_attempt = min(current_attempt,Attempt.Three)
-
-func _process(delta):
-	if(Input.is_action_just_pressed("ui_test2")):
-		execute_glow()
-	if(Input.is_action_just_pressed("ui_test3")):
-		vanish_world()
+	current_attempt = min(current_attempt,3)
+	
+	PersistentData.update_entry({"persistence_id" : "Area01_Closet","used" : false})
 
 signal glow_complete()
 func execute_glow():
@@ -80,15 +75,15 @@ func fade_world():
 		collider.disabled = true
 
 func on_load():
-	if current_attempt == Attempt.One:
+	if current_attempt == 1:
 		exit_door.hide()
 		create_vertical_event_trigger("Area01_Sequence02", pre_fight)
 		create_vertical_event_trigger("Area01_Sequence03", post_fight)
-	elif current_attempt == Attempt.Two:
+	elif current_attempt == 2:
 		exit_door.hide()
 		create_vertical_event_trigger("Area01_Sequence02", pre_fight)
 		create_vertical_event_trigger("Area01_Sequence03", post_fight)
-	elif current_attempt == Attempt.Three:
+	elif current_attempt == 3:
 		exit_door.show()
 		create_vertical_event_trigger("Area01_Sequence02", pre_fight)
 		

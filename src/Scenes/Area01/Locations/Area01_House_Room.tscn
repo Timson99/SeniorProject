@@ -6,16 +6,6 @@
 [ext_resource path="res://Scenes/General/ExploreEnvironment/Warp.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Area01/Props/Bed.tscn" type="PackedScene" id=5]
 
-
-
-
-
-
-
-
-
-
-
 [sub_resource type="TileSet" id=1]
 0/name = "Inside_Map.png 0"
 0/texture = ExtResource( 1 )
@@ -45,7 +35,7 @@ extents = Vector2( 24, 8 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 56, 24 )
 
-[node name="Area01_House01" type="Node2D"]
+[node name="Area01_House_Room" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
@@ -79,6 +69,8 @@ position = Vector2( 128, 152 )
 
 [node name="Party" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( -14, -30 )
+C2_in_party = false
+C3_in_party = false
 
 [node name="Bed" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( -56, -78 )

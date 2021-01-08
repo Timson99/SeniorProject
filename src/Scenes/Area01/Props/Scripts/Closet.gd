@@ -10,17 +10,14 @@ signal used
 
 
 func _ready():
-	interact_area.connect("body_entered", self, "body_entered")
-	interact_area.connect("body_exited", self, "body_exit")
+	pass
 	
 func interact():
 	if (party.size() == 1 and
 		party[0].active_player.has_method("change_skin") and
 		party[0].active_player.persistence_id == "C1"):
 		party[0].active_player.change_skin("default")
-	emit_signal("used")
-	animations.play("Empty")
-	used = true
+	make_closet_used()
 	
 func body_entered(body):
 	if party.size() == 1 && body == party[0].active_player && !used:
@@ -39,10 +36,22 @@ func save():
 		}
 	else:
 		return {}
+		
+func make_closet_used():
+	animations.play("Empty")
+	interact_area.disconnect("body_entered", self, "body_entered")
+	interact_area.disconnect("body_exited", self, "body_exit")
+	emit_signal("used")
+	used = true
+	
+func make_closet_unused():
+	animations.play("Full")
+	interact_area.connect("body_entered", self, "body_entered")
+	interact_area.connect("body_exited", self, "body_exit")
+	used = false
 	
 func on_load():
 	if used:
-		animations.play("Empty")
-		interact_area.disconnect("body_entered", self, "body_entered")
-		interact_area.disconnect("body_exited", self, "body_exit")
-		emit_signal("used")
+		make_closet_used()
+	else:
+		make_closet_unused()

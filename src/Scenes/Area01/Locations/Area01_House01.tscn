@@ -11,17 +11,6 @@
 [ext_resource path="res://Scenes/General/ExploreEnvironment/Scripts/Interactable_Dialogue.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/General/ExploreEnvironment/Scripts/Radius_Dialogue.gd" type="Script" id=10]
 
-
-
-
-
-
-
-
-
-
-
-
 [sub_resource type="TileSet" id=1]
 0/name = "Inside_Map.png 0"
 0/texture = ExtResource( 1 )
@@ -174,7 +163,7 @@ position = Vector2( 208, 24 )
 polygon = PoolVector2Array( -129, 40, -68, 40, -68, 38, -44, 38, -44, 40, 16, 40, 16, -24, -128, -24 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World_Collider"]
-polygon = PoolVector2Array( 271, 80, 334, 80, 334, 78, 354, 78, 354, 80, 416, 80, 416, 64, 271, 64 )
+polygon = PoolVector2Array( 271, 80, 332, 80, 332, 78, 356, 78, 356, 80, 416, 80, 416, 64, 271, 64 )
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="World_Collider"]
 polygon = PoolVector2Array( 79, 64, -80, 117, -16, 64 )

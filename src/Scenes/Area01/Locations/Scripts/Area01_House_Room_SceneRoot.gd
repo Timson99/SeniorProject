@@ -2,6 +2,7 @@
 
 var persistence_id = "Area01_Data"
 var actor_id = "Area01_House_Room"
+export var current_attempt = 1
 
 var shaded_blue := Color("0500a0") 
 var normal_color := Color("ffffff")
@@ -32,5 +33,8 @@ func shade_tween(duration):
 func unshade():
 	map.modulate = normal_color
 	bed.modulate = normal_color
+	
+func save():
+	return {}
 
 

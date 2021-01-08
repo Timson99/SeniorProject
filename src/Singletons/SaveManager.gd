@@ -39,6 +39,9 @@ func update_persistent_data():
 			print("persistent node '%s' is missing a save() function, skipped" % node.name)
 			continue
 		var node_data = node.call("save")
+		if node_data.size() == 0:
+			print("persistent node '%s' save() returns no data, skipped" % node.name)
+			continue 
 		emit_signal("node_data_extracted", node_data)
 		#PersistentData.update_entry(node_data)
 

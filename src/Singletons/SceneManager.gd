@@ -57,7 +57,6 @@ func _deferred_goto_scene(path, warp_destination_id):
 	current_scene.queue_free() # Get rid of the old scene.
 	
 	loader = ResourceLoader.load_interactive(path)
-	print(path)
 	if loader == null: # Check for errors.
 		Debugger.dprint("Error Loading Scene")
 		return
