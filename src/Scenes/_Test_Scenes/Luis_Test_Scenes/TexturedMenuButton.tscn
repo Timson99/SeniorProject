@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/_Test_Scenes/Luis_Test_Scenes/Luis_Test_Scripts/TexturedMenuButton.gd" type="Script" id=1]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_05.png" type="Texture" id=2]
+
+
+
+[node name="TexturedMenuButton" type="TextureButton"]
+margin_right = 70.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 70, 20 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+texture_focused = ExtResource( 2 )
+expand = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 70.0
+margin_bottom = 14.0
+text = "Boy"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

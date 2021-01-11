@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/_Test_Scenes/Joe_Test_Scenes/BGEngineTestScene1.gd" type="Script" id=1]
+
+
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 161.0
+margin_bottom = 123.0
+text = "THIS IS SCENE 1"
+
+[node name="Button" type="Button" parent="."]
+margin_left = 59.0
+margin_top = 77.0
+margin_right = 219.0
+margin_bottom = 97.0
+text = "GO TO SCENE 2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="change_to_new_scene"]

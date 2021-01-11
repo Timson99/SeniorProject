@@ -1,0 +1,42 @@
+
+
+Group 7: [3 souls]
+   Luis Garcia, Timothy Herrmann, Joe Maiocco
+      synopsis:   Cosmonarium ~ 2D game pixel art using Godot Engine
+=====================================================================================
+
+Architectural Design Section:
+-----------------------------
+Another great effort on this deliverable!
+
+Your description is, of course, excellent.  I love the screen views at the
+start which show the coders a lot of detail of what is intended.  Your other
+diagrams at the end are also VERY useful.  Good for you for finding out how
+to do UML diagrams!  They look great.  You have handled the "manager" and
+"sequencer" parts very well.
+
+Another outstanding document from Team Triumverate!!  EXCELLENT!!
+
+Evaluation score:
+
+    10% out of 10% for this deliverable:  A-plus
+
+
+------------------------
+Detailed Design Section:
+------------------------
+Wow, another awesome work product from the team!  Your amount of detail is
+amazing and you have SO MANY parts to this project.  You've done a most
+admirable job of documenting EVERYTHING, and with this much to document,
+I've seen SO many teams [student AND professional] who will elide things
+from the design just to get through it.  You guys have the perseverence
+you need to be great software engineers!
+
+NICE JOB!
+
+Evaluation score:
+
+      15% out of 15% for this deliverable:   A-plus
+         Note that the "CDR presentation is folded into "ABCDR"
+            so the 15% reflects 10% for detail and 5% for CDR
+
