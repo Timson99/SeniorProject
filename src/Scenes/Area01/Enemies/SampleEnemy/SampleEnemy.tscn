@@ -1,12 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scenes/General/Enemies/ExploreEnemies/EnemyParent.tscn" type="PackedScene" id=1]
-
-
-
-
-
-
+[ext_resource path="res://Scenes/General/Enemies/EnemyParent.tscn" type="PackedScene" id=1]
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
 

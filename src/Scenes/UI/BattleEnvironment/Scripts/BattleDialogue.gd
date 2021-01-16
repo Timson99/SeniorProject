@@ -14,6 +14,7 @@ enum Mode {Input, Display}
 var mode = null
 
 signal begin()
+signal page_complete()
 signal page_over()
 signal end()	
 
@@ -74,6 +75,8 @@ func _advance_message():
 			
 		yield(get_tree().create_timer(new_scroll_time, false), "timeout")
 		#scrollAudio.stop()
+	emit_signal("page_complete")
+
 	
 func clear():
 	text_node.set_visible_characters(0)	

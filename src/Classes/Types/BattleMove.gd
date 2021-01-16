@@ -29,6 +29,11 @@ func to_dict():
 		"skill_id" : skill_id,
 		"item_id" : item_id,
 	}
+	
+func to_string():
+	return (self.agent.screen_name + " " + self.type + " " + 
+			self.skill_id + " " + 
+			("" if self.target== null else self.target.screen_name))
 		
 
 	

@@ -42,7 +42,7 @@ texture = ExtResource( 7 )
 
 [node name="EnemyParty" type="CanvasLayer" parent="."]
 script = ExtResource( 8 )
-enemies_debug_keys = [ "SampleEnemy", "SampleEnemy", "Bully", "SampleEnemy" ]
+enemies_debug_keys = [ "Bully" ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EnemyParty"]
 margin_left = 160.0

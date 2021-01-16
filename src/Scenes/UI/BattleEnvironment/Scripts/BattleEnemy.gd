@@ -4,7 +4,10 @@ extends Control
 var alive := true
 var selected = false
 
+signal move_effects_completed
+
 #Populated by Party
+var ai
 var stats := EntityStats.new()
 onready var temp_battle_stats = stats
 var selected_material : ShaderMaterial
@@ -34,7 +37,7 @@ func terminate_enemy():
 	party.enemies.erase(self)
 	
 func make_move() -> BattleMove:
-	var move = BattleMove.new(self, "Defend")
+	var move = ai.make_move()
 	return move
 	
 func take_damage(damage):
@@ -42,8 +45,8 @@ func take_damage(damage):
 	if stats.HP <= 0 and alive == true:
 		stats.HP = 0
 		terminate_enemy()
-	
-	
+	else:
+		emit_signal("move_effects_completed")
 	
 func select():
 	$Sprite.set_material(selected_material)

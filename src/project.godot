@@ -99,7 +99,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/_Test_Scenes/Joe_Test_Scenes/Joe_Test_Scripts/PriorityQueue.gd"
 }, {
-"base": "Resource",
+"base": "Object",
 "class": "SkillsDirectory",
 "language": "GDScript",
 "path": "res://Classes/Directories/SkillsDirectory.gd"
