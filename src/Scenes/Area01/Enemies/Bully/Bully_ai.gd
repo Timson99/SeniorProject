@@ -41,7 +41,7 @@ func _ready():
 	
 func make_move() -> BattleMove:
 	var characters = SceneManager.current_scene.characters
-	#var move = BattleMove.new(self, "Skills", characters[0], "Big Punch")
-	var move = BattleMove.new(battle_entity, "Defend")
+	var move = BattleMove.new(battle_entity, "Skills", characters[0], "Big Punch")
+	#var move = BattleMove.new(battle_entity, "Defend")
 	return move
 

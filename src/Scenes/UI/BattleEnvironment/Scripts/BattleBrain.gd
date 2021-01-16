@@ -7,7 +7,7 @@ onready var character_party = $BattleModules/Party_Modules
 onready var enemy_party = $EnemyParty
 onready var dialogue_node = $BattleDialogue/BattleDialogueBox
 onready var enemies = enemy_party.enemies
-onready var characters = character_party.get_children()
+var characters = null
 
 signal execution_complete
 
@@ -19,15 +19,16 @@ func _process(delta):
 		turn.call_func()
 	
 func battle_engine():
+	characters = character_party.get_children()
 	yield(get_tree().create_timer(1, false), "timeout")
 	character_party.begin_turn()
 	
 	var moves_made := []
 
 	#var enemies = enemy_party.enemies
-
 	for i in range(0, characters.size()):
 		var c = characters[i]
+		print(characters)
 		var move = yield(c, "move")
 		moves_made.append(move)
 		print("%s : %s" % [c.name, move.to_dict()])
@@ -60,8 +61,20 @@ func execute(moves_made : Array):
 		dialogue_node.display_message(move.to_string(), false, 0.1, 1)
 		yield(dialogue_node, "page_complete")
 		
-		var attack = move.agent.stats.ATTACK
-		if move.target:
+		if move.type == "Skills":
+			var attack = (move.agent.stats.ATTACK * 
+						(move.skill_ref["Power"] + 2))
+			randomize()
+			var hit = true if randf() < move.skill_ref["Hit_Rate"] else false
+			if hit:
+				move.target.take_damage(int(attack))
+				yield(move.target, "move_effects_completed")
+			else:
+				dialogue_node.display_message("Miss", false, 0.1, 1)
+				yield(dialogue_node, "page_complete")
+		
+		elif move.type == "Attack":
+			var attack = move.agent.stats.ATTACK
 			move.target.take_damage(int(attack) * 10)
 			yield(move.target, "move_effects_completed")
 			#print(attack)

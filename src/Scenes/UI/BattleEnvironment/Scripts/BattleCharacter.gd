@@ -42,13 +42,17 @@ func on_load():
 	var temp_battle_stats = stats
 	
 	
+func terminate_character():
+	pass	
+
 func take_damage(damage):
 	stats.HP -= damage
 	if stats.HP <= 0 and alive == true:
 		stats.HP = 0
 		Debugger.dprint("Character Dead")
-		#terminate_character()
+		terminate_character()
 	else:
+		yield(get_tree().create_timer(0.1, false), "timeout")
 		emit_signal("move_effects_completed")
 	
 	

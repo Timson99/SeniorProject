@@ -46,6 +46,7 @@ func take_damage(damage):
 		stats.HP = 0
 		terminate_enemy()
 	else:
+		yield(get_tree().create_timer(0.1, false), "timeout")
 		emit_signal("move_effects_completed")
 	
 func select():
