@@ -42,7 +42,7 @@ texture = ExtResource( 7 )
 
 [node name="EnemyParty" type="CanvasLayer" parent="."]
 script = ExtResource( 8 )
-enemies_debug_keys = [ "SampleEnemy", "SampleEnemy", "Bully", "SampleEnemy" ]
+enemies_debug_keys = [ "Bully" ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EnemyParty"]
 margin_left = 160.0
@@ -86,8 +86,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-C2_in_party = true
-C3_in_party = true
 
 [node name="C1_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 4 )]
 

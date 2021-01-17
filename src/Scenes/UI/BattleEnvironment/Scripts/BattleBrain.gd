@@ -7,7 +7,9 @@ onready var character_party = $BattleModules/Party_Modules
 onready var enemy_party = $EnemyParty
 onready var dialogue_node = $BattleDialogue/BattleDialogueBox
 onready var enemies = enemy_party.enemies
+var characters = null
 
+signal execution_complete
 
 func _process(delta):
 	if turn != null && turn.is_valid():
@@ -17,20 +19,21 @@ func _process(delta):
 		turn.call_func()
 	
 func battle_engine():
+	characters = character_party.get_children()
 	yield(get_tree().create_timer(1, false), "timeout")
 	character_party.begin_turn()
 	
 	var moves_made := []
 
 	#var enemies = enemy_party.enemies
-	var characters = character_party.get_children()
-	for c in characters:
+	for i in range(0, characters.size()):
+		var c = characters[i]
+		print(characters)
 		var move = yield(c, "move")
 		moves_made.append(move)
 		print("%s : %s" % [c.name, move.to_dict()])
 		#dialogue_node.display_message("%s : %s" % [c.name, move.to_dict()])
 		print(characters)
-		#move = yield(UI, character.move_made_signal)
 		#Add as queued character action
 	
 		
@@ -41,6 +44,7 @@ func battle_engine():
 		#dialogue_node.display_message("%s : %s" % [e.screen_name, move.to_dict()])
 
 	execute(moves_made)
+	yield(self, "execution_complete")
 	turn = null
 	
 	
@@ -54,11 +58,30 @@ func sort_by_speed(a,b):
 func execute(moves_made : Array):
 	moves_made.sort_custom(self, "sort_by_speed")
 	for move in moves_made:
-		var attack = move.agent.stats.ATTACK
-		if move.target:
+		dialogue_node.display_message(move.to_string(), false, 0.1, 1)
+		yield(dialogue_node, "page_complete")
+		
+		if move.type == "Skills":
+			var attack = (move.agent.stats.ATTACK * 
+						(move.skill_ref["Power"] + 2))
+			randomize()
+			var hit = true if randf() < move.skill_ref["Hit_Rate"] else false
+			if hit:
+				move.target.take_damage(int(attack))
+				yield(move.target, "move_effects_completed")
+			else:
+				dialogue_node.display_message("Miss", false, 0.1, 1)
+				yield(dialogue_node, "page_complete")
+		
+		elif move.type == "Attack":
+			var attack = move.agent.stats.ATTACK
 			move.target.take_damage(int(attack) * 10)
+			yield(move.target, "move_effects_completed")
 			#print(attack)
 			#print(move.target.stats.HP)
+			
+		yield(get_tree().create_timer(0.1, false), "timeout")
+	emit_signal("execution_complete")
 			
 func battle_victory():
 	character_party.terminate_input()

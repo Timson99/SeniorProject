@@ -4,6 +4,8 @@ extends Control
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 var input_id := "Battle_Menu"
 
+signal move_effects_completed
+
 onready var battle_brain = SceneManager.current_scene
 onready var menu = null
 onready var anim_player = $UI/AnimatedSprite
@@ -38,6 +40,20 @@ func on_load():
 	menu.hide()
 	
 	var temp_battle_stats = stats
+	
+	
+func terminate_character():
+	pass	
+
+func take_damage(damage):
+	stats.HP -= damage
+	if stats.HP <= 0 and alive == true:
+		stats.HP = 0
+		Debugger.dprint("Character Dead")
+		terminate_character()
+	else:
+		yield(get_tree().create_timer(0.1, false), "timeout")
+		emit_signal("move_effects_completed")
 	
 	
 	
