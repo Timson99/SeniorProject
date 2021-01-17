@@ -1,7 +1,7 @@
 extends Node
 
 # Every Type of Enemy
-onready var Enemies = preload("res://Scripts/Resource_Scripts/EnemyTypes.gd").new()
+onready var Enemies = EnemyTypes.new()
 
 onready var spawn_body = preload("res://Scenes/General/Enemies/SpawningScenes/SpawnPositionTester.tscn").instance()
 
@@ -26,8 +26,6 @@ onready var spawn_collider: CollisionPolygon2D
 onready var scene_world_space = CameraManager.viewport.get_world_2d().direct_space_state
 
 onready var scene_node: Node
-
-var random_num_generator = RandomNumberGenerator.new()
 
 var existing_enemy_data : Dictionary = {}
 var queued_battle_enemies: Array = []
