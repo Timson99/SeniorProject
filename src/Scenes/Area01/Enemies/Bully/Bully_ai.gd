@@ -40,7 +40,7 @@ func _ready():
 
 	
 func make_move() -> BattleMove:
-	var characters = SceneManager.current_scene.characters
+	var characters = SceneManager.current_scene.character_party.party_alive
 	var move = BattleMove.new(battle_entity, "Skills", characters[0], "Big Punch")
 	#var move = BattleMove.new(battle_entity, "Defend")
 	return move

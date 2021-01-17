@@ -34,6 +34,11 @@ func _ready():
 		enemy_container.add_child(enemy_scene)
 	enemies = enemy_container.get_children()
 	
+	
+func end_turn():
+	for e in enemies:
+		e.defending = false
+	
 func check_alive():
 	if terminated:
 		return

@@ -8,6 +8,7 @@ onready var enemy_party = $EnemyParty
 onready var dialogue_node = $BattleDialogue/BattleDialogueBox
 onready var enemies = enemy_party.enemies
 var characters = null
+var character_move_dict := {}
 
 signal execution_complete
 
@@ -17,25 +18,23 @@ func _process(delta):
 	else:
 		turn = funcref(self, "battle_engine")
 		turn.call_func()
+		
+func add_move(screen_name : String, move: BattleMove):
+	character_move_dict[screen_name] = move
+	
+func remove_move(screen_name : String):
+	pass
+	
 	
 func battle_engine():
+	character_move_dict = {}
 	characters = character_party.get_children()
 	yield(get_tree().create_timer(1, false), "timeout")
 	character_party.begin_turn()
 	
 	var moves_made := []
-
-	#var enemies = enemy_party.enemies
-	for i in range(0, characters.size()):
-		var c = characters[i]
-		print(characters)
-		var move = yield(c, "move")
-		moves_made.append(move)
-		print("%s : %s" % [c.name, move.to_dict()])
-		#dialogue_node.display_message("%s : %s" % [c.name, move.to_dict()])
-		print(characters)
-		#Add as queued character action
-	
+	yield(character_party, "all_moves_chosen")	
+	moves_made = character_move_dict.values()
 		
 	for e in enemies:
 		var move = e.make_move()
@@ -55,36 +54,55 @@ func sort_by_speed(a,b):
 		return true
 	return false
 	
+func sort_defends(a,_b):
+	if a.type != "Defend":
+		return false
+	return true
+	
 func execute(moves_made : Array):
 	moves_made.sort_custom(self, "sort_by_speed")
+	moves_made.sort_custom(self, "sort_defends")
 	for move in moves_made:
-		dialogue_node.display_message(move.to_string(), false, 0.01, 2)
+		dialogue_node.display_message(move.to_string(), false, 0.02, 2)
 		yield(dialogue_node, "page_complete")
-		yield(get_tree().create_timer(1, false), "timeout")
 		
-		if move.type == "Skills":
-			var attack = (move.agent.stats.ATTACK * 
+		if move.type == "Defend":
+			move.agent.defending = true
+		elif move.type == "Run":
+			#Run
+			pass
+		elif move.type == "Items":
+			#Run 
+			pass
+		elif move.type == "Skills":
+			var damage = (move.agent.stats.ATTACK * 
 						(move.skill_ref["Power"] + 2))
+			print(damage)
 			randomize()
 			var hit = true if randf() < move.skill_ref["Hit_Rate"] else false
 			if hit:
-				move.target.take_damage(int(attack))
+				print(move.target.defending)
+				damage = int(damage/2 if move.target.defending else damage )
+				move.target.take_damage(int(damage))
 				yield(move.target, "move_effects_completed")
 			else:
-				dialogue_node.display_message("Miss", false, 0.01, 2)
+				dialogue_node.display_message("Miss", false, 0.02, 2)
 				yield(dialogue_node, "page_complete")
 				yield(get_tree().create_timer(1, false), "timeout")
 		
 		elif move.type == "Attack":
-			var attack = move.agent.stats.ATTACK
-			move.target.take_damage(int(attack) * 10)
+			var damage = move.agent.stats.ATTACK
+			damage = int(damage/2 if move.target.defending else damage )
+			move.target.take_damage(int(damage) * 10)
 			yield(move.target, "move_effects_completed")
-			#print(attack)
-			#print(move.target.stats.HP)
 			
 		yield(get_tree().create_timer(0.1, false), "timeout")
 	dialogue_node.clear()
+	enemy_party.end_turn()
+	character_party.end_turn()
 	emit_signal("execution_complete")
+	
+
 			
 func battle_victory():
 	character_party.terminate_input()

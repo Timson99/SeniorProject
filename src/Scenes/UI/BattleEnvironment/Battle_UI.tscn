@@ -86,6 +86,8 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+C2_in_party = true
+C3_in_party = true
 
 [node name="C1_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 4 )]
 

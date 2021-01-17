@@ -1,19 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/UI/BattleEnvironment/Scripts/BattleEnemy.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Art/Enemy_Art/Bully/Battle_Bully.png" type="Texture" id=2]
 
-
-
-
-
-
-
-
-
-
-
-
+[sub_resource type="Animation" id=1]
+resource_name = "Hit"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.2, 0.35, 0.4 ),
+"transitions": PoolRealArray( 0, 0, 0, 1, 0 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Control" type="Control"]
 script = ExtResource( 1 )
@@ -24,3 +29,6 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 2, -30 )
 texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Hit = SubResource( 1 )
