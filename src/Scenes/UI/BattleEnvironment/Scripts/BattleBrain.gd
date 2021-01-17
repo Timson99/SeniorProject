@@ -58,8 +58,9 @@ func sort_by_speed(a,b):
 func execute(moves_made : Array):
 	moves_made.sort_custom(self, "sort_by_speed")
 	for move in moves_made:
-		dialogue_node.display_message(move.to_string(), false, 0.1, 1)
+		dialogue_node.display_message(move.to_string(), false, 0.01, 2)
 		yield(dialogue_node, "page_complete")
+		yield(get_tree().create_timer(1, false), "timeout")
 		
 		if move.type == "Skills":
 			var attack = (move.agent.stats.ATTACK * 
@@ -70,8 +71,9 @@ func execute(moves_made : Array):
 				move.target.take_damage(int(attack))
 				yield(move.target, "move_effects_completed")
 			else:
-				dialogue_node.display_message("Miss", false, 0.1, 1)
+				dialogue_node.display_message("Miss", false, 0.01, 2)
 				yield(dialogue_node, "page_complete")
+				yield(get_tree().create_timer(1, false), "timeout")
 		
 		elif move.type == "Attack":
 			var attack = move.agent.stats.ATTACK
@@ -81,6 +83,7 @@ func execute(moves_made : Array):
 			#print(move.target.stats.HP)
 			
 		yield(get_tree().create_timer(0.1, false), "timeout")
+	dialogue_node.clear()
 	emit_signal("execution_complete")
 			
 func battle_victory():
@@ -91,7 +94,7 @@ func battle_victory():
 	SceneManager.goto_saved()
 	
 func battle_failure():
-	pass
+	SceneManager.goto_scene("GameOver")
 	
 	
 	

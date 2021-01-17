@@ -1,6 +1,8 @@
 extends HBoxContainer
 
 #Carry Overs
+onready var battle_brain = SceneManager.current_scene
+
 export var persistence_id := "main_party"
 export var C2_in_party = false
 export var C3_in_party = false
@@ -21,6 +23,14 @@ func _ready():
 	$C3_Module.connect("move", self, "switch_characters")
 
 
+func check_alive():
+	if terminated:
+		return
+	for c in party:
+		if c.alive:
+			return
+	terminated = true
+	battle_brain.battle_failure()
 
 func terminate_input():
 	active_player.deactivate_player()

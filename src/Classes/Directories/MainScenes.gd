@@ -4,7 +4,7 @@ class_name MainScenes
 
 var explore_scenes := {
 		
-	
+	"GameOver" : "res://Scenes/General/Battle/GameOver.tscn",
 	"SaveScreen" : "res://Scenes/General/SaveLoadMenu/SaveScreen.tscn",
 	"LoadScreen" : "res://Scenes/General/SaveLoadMenu/LoadScreen.tscn",
 	

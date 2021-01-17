@@ -43,13 +43,16 @@ func on_load():
 	
 	
 func terminate_character():
-	pass	
+	alive = false	
+	#Graphics of Death
+	party.check_alive()	
+	
+
 
 func take_damage(damage):
 	stats.HP -= damage
 	if stats.HP <= 0 and alive == true:
 		stats.HP = 0
-		Debugger.dprint("Character Dead")
 		terminate_character()
 	else:
 		yield(get_tree().create_timer(0.1, false), "timeout")
