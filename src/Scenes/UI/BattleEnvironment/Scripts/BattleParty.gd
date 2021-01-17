@@ -1,6 +1,8 @@
 extends HBoxContainer
 
 #Carry Overs
+onready var battle_brain = SceneManager.current_scene
+
 export var persistence_id := "main_party"
 export var C2_in_party = false
 export var C3_in_party = false
@@ -9,6 +11,7 @@ var terminated = false
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
 
+signal all_moves_chosen
 
 var party = null
 var party_alive = null
@@ -16,31 +19,41 @@ var front_player = null
 var active_player = null
 
 func _ready():
-	$C1_Module.connect("move", self, "switch_characters")
-	$C2_Module.connect("move", self, "switch_characters")
-	$C3_Module.connect("move", self, "switch_characters")
+	pass
 
+func end_turn():
+	for c in party:
+		c.defending = false
+	for c in party:
+		if c.alive:
+			active_player = c
+			break
 
+func check_alive():
+	if terminated:
+		return
+	for c in party:
+		if c.alive:
+			return
+	terminated = true
+	battle_brain.battle_failure()
 
 func terminate_input():
 	active_player.deactivate_player()
 	terminated = true
 
-func switch_characters(_move):
+func switch_characters():
 	active_player.deactivate_player()
 
 	yield(get_tree().create_timer(0.1, false), "timeout")
-	for i in range(party.find(active_player) + 1 , party_alive.size()):
+	for i in range(party_alive.find(active_player) + 1 , party_alive.size()):
 		if(!party_alive[i].alive):
 			continue
 		active_player = party_alive[i]
 		active_player.activate_player()
 		return
+	emit_signal("all_moves_chosen")
 	#No more characters, Enemy Move
-	active_player = front_player
-	#yield(get_tree().create_timer(1, false), "timeout")
-	##############################
-	#active_player.activate_player()
 
 
 func sort_characters(a,b):
@@ -74,13 +87,11 @@ func on_load():
 	if(party.size() == 0 or party[0].alive == false):
 		print("Game Over")
 	else:
-		if front_player != null:
-			active_player.deactivate_player()
-		front_player = party[0]
-		active_player = front_player
-
+		for c in party:
+			if c.alive:
+				active_player = c
+				break
 		for i in range(party.size()):
-			if(party[i].alive):
 				party[i].set("party", self)
 
 func begin_turn():

@@ -6,8 +6,6 @@ var game_mode
 var active_player
 var playable = []
 
-var skills_directory = SkillsDirectory.new()
-
 """
 func _ready():
 	game_mode = Mode.Explore

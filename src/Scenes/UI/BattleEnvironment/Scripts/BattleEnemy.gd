@@ -8,12 +8,13 @@ signal move_effects_completed
 
 #Populated by Party
 var ai
-var stats := EntityStats.new()
-onready var temp_battle_stats = stats
+var stats
 var selected_material : ShaderMaterial
 var party = null
 var screen_name
 var tween : Tween
+onready var animation_player = $AnimationPlayer
+var defending = false
 
 
 var moveset = null
@@ -24,8 +25,8 @@ func _ready():
 	self.add_child(tween)
 	tween = $Tween
 	
-func on_load():
-	var temp_battle_stats #= stats
+func on_load():	
+	pass
 
 # Called upon enemy's defeat
 func terminate_enemy():
@@ -35,18 +36,22 @@ func terminate_enemy():
 	yield(tween, "tween_completed")
 	party.check_alive()
 	party.enemies.erase(self)
+
 	
 func make_move() -> BattleMove:
 	var move = ai.make_move()
 	return move
 	
 func take_damage(damage):
+	animation_player.play("Hit")
+	yield(animation_player, "animation_finished")
 	stats.HP -= damage
 	if stats.HP <= 0 and alive == true:
 		stats.HP = 0
-		terminate_enemy()
+		yield(terminate_enemy(), "completed")
+		if !party.terminated:
+			emit_signal("move_effects_completed")
 	else:
-		yield(get_tree().create_timer(0.1, false), "timeout")
 		emit_signal("move_effects_completed")
 	
 func select():

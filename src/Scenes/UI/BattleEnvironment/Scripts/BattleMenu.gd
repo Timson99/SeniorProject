@@ -126,6 +126,7 @@ func back():
 		submenu.back()
 	else:
 		pass
+		#GO BACK A CHARACTER
 
 func up():
 	if submenu:

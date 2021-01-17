@@ -8,16 +8,19 @@ signal move_effects_completed
 
 onready var battle_brain = SceneManager.current_scene
 onready var menu = null
-onready var anim_player = $UI/AnimatedSprite
+onready var animated_sprite = $UI/AnimatedSprite
+onready var animation_player = $UI/AnimationPlayer
+
 onready var name_label = $UI/Name
 onready var HP_Bar : ProgressBar = $UI/HP_Bar
 onready var SP_Bar : ProgressBar = $UI/SP_Bar
 
 var screen_name = "placeholder"
 export var alive := true
+var defending = false
 var skills = {} #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
-onready var temp_battle_stats = stats
+onready var battle_stats := EntityStats.new(BaseStats.get_for(persistence_id))
 
 
 
@@ -39,20 +42,25 @@ func on_load():
 	menu.selector = self
 	menu.hide()
 	
-	var temp_battle_stats = stats
 	
+func kill_character():
+	alive = false	
+	#Graphics of Death
+	party.party_alive.erase(self)
+	party.check_alive()	
 	
-func terminate_character():
-	pass	
+
 
 func take_damage(damage):
+	animation_player.play("Hit")
+	yield(animation_player, "animation_finished")
 	stats.HP -= damage
 	if stats.HP <= 0 and alive == true:
 		stats.HP = 0
-		Debugger.dprint("Character Dead")
-		terminate_character()
+		kill_character()
+		if !party.terminated:
+			emit_signal("move_effects_completed")
 	else:
-		yield(get_tree().create_timer(0.1, false), "timeout")
 		emit_signal("move_effects_completed")
 	
 	
@@ -81,11 +89,6 @@ func back():
 	elif current_mode == Mode.Enemy_Select:
 		battle_brain.enemy_party.deselect_current()
 		InputEngine.deactivate_receiver(self)
-		#Anim Menu Open (Menu Sprite Relocated)
-		#OLD anim_player.play("Display_To_Menu")
-		#OLD yield(anim_player, "animation_finished")
-		#anim_player.stop()
-		#anim_player.animation = "Menu"
 		menu.show()
 		current_mode = Mode.Menu
 		InputEngine.activate_receiver(self)
@@ -98,7 +101,8 @@ func accept():
 		#If accept didn't just open another submenu, and returned a command
 		if command != null:
 			if command in ["Run", "Defend"]:
-				emit_signal("move", BattleMove.new(self, command))
+				battle_brain.add_move(screen_name, BattleMove.new(self, command))
+				party.switch_characters()
 			elif command == "Attack":
 				saved_command = command
 				menu.hide()
@@ -119,13 +123,15 @@ func accept():
 	elif current_mode == Mode.Enemy_Select:
 		var selected_enemy = battle_brain.enemy_party.get_selected_enemy()
 		battle_brain.enemy_party.deselect_current()
-		emit_signal("move", BattleMove.new(self, saved_command, selected_enemy))
+		 
+		battle_brain.add_move(screen_name, BattleMove.new(self, saved_command, selected_enemy))
+		party.switch_characters()
 		
 	elif current_mode == Mode.Character_Select:
 		var selected_character = battle_brain.character_party.get_selected_character()
 		battle_brain.character_party.deselect_current()
-		emit_signal("move", BattleMove.new(self, saved_command, selected_character))
-	
+		battle_brain.add_move(screen_name, BattleMove.new(self, saved_command, selected_character))
+		party.switch_characters()
 	
 func up():
 	if current_mode == Mode.Menu:
@@ -174,11 +180,6 @@ func release_right():
 
 func activate_player():
 	$UI.position.y -= module_rise
-	#Animate enu, relocaed
-	#anim_player.play("Display_To_Menu")
-	#yield(anim_player, "animation_finished")
-	#anim_player.stop()
-	#anim_player.animation = "Menu"
 	menu.show()
 	current_mode = Mode.Menu
 	InputEngine.activate_receiver(self)
@@ -203,11 +204,11 @@ func save():
 	
 	
 func select():
-	anim_player.set_material(party.selected_material)
+	animated_sprite.set_material(party.selected_material)
 	battle_brain.dialogue_node.display_message(screen_name)
 	
 func deselect():
-	anim_player.material = null
+	animated_sprite.material = null
 	battle_brain.dialogue_node.clear()
 
 
