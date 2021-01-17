@@ -12,7 +12,7 @@ export var camera_bounds = {"is_static": false,
 
 export var enemies_spawnable: bool = true
 export var max_enemies = 6
-export var enemy_variations = ["Bully", "SampleEnemy"]
+export var enemy_variations = ["SampleEnemy"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

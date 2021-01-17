@@ -14,8 +14,8 @@ onready var skins  = {
 }
 onready var animations = skins["Boss"]["default"]
 
-onready var data = EnemyHandler.Enemies.enemy_types[persistence_id]
-onready var stats = data["battle_data"]
+onready var data = EnemyHandler.Enemies[persistence_id]
+#onready var stats = data["battle_data"]
 onready var battle_id = "battle"
 
 var dir_anims := {

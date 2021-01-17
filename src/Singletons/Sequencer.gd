@@ -73,7 +73,7 @@ func _process(_delta):
 		
 
 func execute_event(event_id : String):
-	if not event_id in Events.sequences :
+	if not event_id in Events :
 		Debugger.dprint("ERROR: Invalid Event")
 		return
 		
@@ -81,7 +81,7 @@ func execute_event(event_id : String):
 		Debugger.dprint("ERROR: Event Alredy Running")
 		return
 	
-	var event = load(Events.sequences[event_id])
+	var event = load(Events[event_id])
 	var instructions = event.instructions()
 	active_event = {"event_id" : event_id, 
 						  "instructions" : instructions,

@@ -75,26 +75,32 @@ func initialize_spawner_info():
 		tilemap_height = tilemap_dimensions.y
 	
 	
+func initialize_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2):
+	var new_enemy = load(Enemies[enemy_type]["enemy_scene_path"]).instance()
+	existing_enemy_data[id] = {}
+	existing_enemy_data[id]
+	new_enemy.key = enemy_type
+	new_enemy.data_id = id
+	new_enemy.position = spawn_position
+	existing_enemy_data[id]["position"] = spawn_position
+	existing_enemy_data[id]["type"] = enemy_type
+	existing_enemy_data[id]["body"] = new_enemy
+	return new_enemy
+
+	
 # Needs continued balancing 
 func spawn_enemy():
 	spawning_locked = true
 	random_num_generator.randomize()
 	var random_wait_time: int = random_num_generator.randi_range(1, 3)
 	var spawn_chance: float = random_num_generator.randf_range(0, 1)
-	
 	var spawn_position = get_spawn_position()
 	var view_buffer: int = 20
 	var within_view_x: bool = abs(spawn_position.x - target_player.position.x) < (player_view.x/2 + view_buffer)
 	var within_view_y: bool = abs(spawn_position.y - target_player.position.y) < (player_view.y/2 + view_buffer)
 	if spawn_chance > 0.5 && validate_spawn_position(spawn_position) && (!within_view_x && !within_view_y):
-		var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, 1)]
-		var new_enemy = load(Enemies.enemy_types[enemy_type]["enemy_scene_path"]).instance()
-		new_enemy.key = enemy_type
-		new_enemy.data_id = generated_enemy_id
-		new_enemy.position = spawn_position
-		existing_enemy_data[new_enemy.data_id] = {}
-		existing_enemy_data[new_enemy.data_id]["battle_data"] = Enemies.enemy_types[enemy_type]["battle_data"]
-		existing_enemy_data[new_enemy.data_id]["exploration_node"] = new_enemy
+		var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, enemy_variations.size()-1)]
+		var new_enemy = initialize_enemy_instance(generated_enemy_id, enemy_type, spawn_position)
 		scene_node.add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
@@ -129,7 +135,7 @@ func despawn_defeated_enemies(id: int):
 	for enemy in queued_battle_enemies:
 			# 1. despawning animation in the overworld
 			# yield for despawn anim to complete 
-			scene_node.remove_child(existing_enemy_data[enemy]["exloration_node"])
+			scene_node.remove_child(existing_enemy_data[enemy]["exploration_node"])
 	# 2. handling the despawn of multiple enemies who joined in a gang
 	num_of_enemies -= 1
 	can_spawn = true
