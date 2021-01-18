@@ -125,9 +125,9 @@ func back():
 	if submenu:
 		submenu.back()
 	else:
-		pass
-		#GO BACK A CHARACTER
-
+		var battle_party = SceneManager.current_scene.character_party
+		battle_party.cancel_previous_character_move()
+		
 func up():
 	if submenu:
 		submenu.up()
