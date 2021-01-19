@@ -22,7 +22,7 @@ class_name SkillsDirectory
 
 const skills = {
 	"Lil' Ice" : {
-		"LP" : INF,
+		"LP" : 5,
 		"Description" : "Just a Lil' Ice",
 		"Power" : Enums.SkillPower.Weak,
 		"Cost" : 5,

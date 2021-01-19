@@ -13,6 +13,8 @@ export var alive := true
 var exploring = true
 
 var skills = {"Skill1" : 0} #"Skill" : Num_LP
+var equipped_skill = ""
+
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 
 

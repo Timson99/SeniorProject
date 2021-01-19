@@ -74,7 +74,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/UI/MainMenuUI/SubmenuModules/Buttons/ItemButton.gd"
 }, {
-"base": "Node",
+"base": "Object",
 "class": "ItemsDirectory",
 "language": "GDScript",
 "path": "res://Classes/Directories/ItemsDirectory.gd"

@@ -116,8 +116,10 @@ func _move_scrollbar(direction):
 	scrollbar.get_node("middle").set_position(Vector2(sc_start.x,scrollbar_offset))
 	scrollbar.get_node("bottom").set_position(Vector2(sc_start.x,scrollbar_offset+scrollbar_size))
 
-func _use_skill(chara):
-	print("Used ", buttons[focused].item_name, " on ", chara)
+func _use_item(target):
+	var current_character = battle_brain.character_party.active_player
+	party.move_and_switch(BattleMove.new(current_character, "Items", target, buttons[focused].item_name))
+
 
 func _instantiate_items():
 	for item in data:
@@ -175,8 +177,8 @@ func back():
 	elif submenu:
 		submenu.back()
 	else:
-		menu.reset(false)
 		menu.show()
+		menu.reset(false)
 		queue_free()
 #		parent.submenu = null
 
@@ -192,12 +194,11 @@ func accept():
 			selected_character = battle_brain.enemy_party.get_selected_enemy()
 			battle_brain.enemy_party.deselect_current()
 		#Use Skill, we can use a signal or something if we get an item manager of sorts ...
-		_use_skill(selected_character.screen_name)
+		_use_item(selected_character)
 		#to get back to menu
-		back()
-		#reset the menu
-		#This time it will exit out of the submenu only used if one usage allowed per turn
-		# back()
+		menu.reset(false)
+		queue_free()
+		
 	elif submenu:
 		submenu.accept()
 	else:

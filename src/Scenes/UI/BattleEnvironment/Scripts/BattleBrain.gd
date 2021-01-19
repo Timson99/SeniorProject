@@ -3,6 +3,7 @@ extends Control
 onready var character_party = $BattleModules/Party_Modules
 onready var enemy_party = $EnemyParty
 onready var dialogue_node = $BattleDialogue/BattleDialogueBox
+onready var menu = dialogue_node.get_node("Menu")
 onready var enemies = enemy_party.enemies
 var characters = null
 var character_move_dict := {}
@@ -31,6 +32,7 @@ func battle_engine():
 	var moves_made := []
 	yield(character_party, "all_moves_chosen")	
 	moves_made = character_move_dict.values()
+	menu.hide()
 		
 	for e in enemies:
 		var move = e.make_move()

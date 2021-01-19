@@ -19,6 +19,7 @@ var stats = EntityStats.new({
 })
 
 var skill_ids = ["Big Punch"]
+var item_ids = []
 
 var custom_skills = {
 	"Say Something Mean" : {

@@ -31,11 +31,14 @@ func deactivate():
 	
 #Loads Item Data on Game Start, Accessed MenuManager.item_data
 func load_item_data():
+	"""
 	var itemdata_file = File.new()
 	itemdata_file.open(item_data_file, File.READ)
 	var itemdata_json = JSON.parse(itemdata_file.get_as_text())
 	itemdata_file.close()
 	item_data = itemdata_json.result
+	"""
+	item_data = ItemsDirectory.items
 	
 func load_skill_data():
 	"""
@@ -46,7 +49,7 @@ func load_skill_data():
 	skill_data = itemdata_json.result
 	"""
 	
-	skill_data = {}
+	skill_data = SkillsDirectory.skills
 	
 	
 

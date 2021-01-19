@@ -19,6 +19,8 @@ var screen_name = "placeholder"
 export var alive := true
 var defending = false
 export (Dictionary) var skills #"Skill" : Num_LP
+export var equipped_skill := ""
+
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 onready var battle_stats := EntityStats.new(BaseStats.get_for(persistence_id))
 
