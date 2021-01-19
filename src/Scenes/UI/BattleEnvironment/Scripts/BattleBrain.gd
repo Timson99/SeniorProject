@@ -109,7 +109,6 @@ func execute(moves_made : Array):
 			
 func battle_victory():
 	character_party.terminate_input()
-	print("Battle Victory")
 	dialogue_node.display_message(["You Win!", "X Exp Earned."], true, 0.1, 1)
 	yield(dialogue_node, "end")
 	SceneManager.goto_saved()

@@ -45,7 +45,7 @@ var stat_buffs
 var elemental_data = {
 	Enums.Elementals.Ice: 0.5,
 	Enums.Elementals.Fire: 0.5,
-	Enums.Elementals.Lightning: 0.5,
+	Enums.Elementals.Electric: 0.5,
 }
 
 
