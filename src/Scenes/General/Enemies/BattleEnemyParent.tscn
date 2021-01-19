@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/UI/BattleEnvironment/Scripts/BattleEnemy.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Art/Enemy_Art/Bully/Battle_Bully.png" type="Texture" id=2]
+[ext_resource path="res://Resources/Animations/BattleHit.tres" type="Animation" id=3]
+[ext_resource path="res://Resources/Animations/BattleHeal.tres" type="Animation" id=4]
+
+[node name="Control" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 2, -30 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/BattleHeal = ExtResource( 4 )
+anims/BattleHit = ExtResource( 3 )

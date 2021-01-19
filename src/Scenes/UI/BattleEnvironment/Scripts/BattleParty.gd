@@ -6,7 +6,8 @@ onready var battle_brain = SceneManager.current_scene
 export var persistence_id := "main_party"
 export var C2_in_party = false
 export var C3_in_party = false
-var items := ["Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea"]
+#export var items := ["Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea"]
+export var items := []
 var terminated = false
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
@@ -41,6 +42,11 @@ func check_alive():
 func terminate_input():
 	active_player.deactivate_player()
 	terminated = true
+
+
+func move_and_switch(move : BattleMove):
+	battle_brain.add_move(move.agent.screen_name, move)
+	switch_characters()
 
 func switch_characters():
 	active_player.deactivate_player()

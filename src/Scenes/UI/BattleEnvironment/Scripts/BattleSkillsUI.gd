@@ -18,14 +18,12 @@ var btn_ctnr_size = 12
 var button_path = "res://Scenes/UI/MainMenuUI/SubmenuModules/Buttons/ItemButton.tscn"
 var popup_path = "res://Scenes/UI/BattleEnvironment/Popups/EffectPopup_Battle.tscn"
 
-var party = null
-#Must set data sources to valid source
-#var data_source=MenuManager.item_data
-#var data = MenuManager.party.items
+var battle_brain = SceneManager.current_scene
+var party = battle_brain.character_party
 
-var data_source= MenuManager.skill_data
-var data = MenuManager.skill_data
 
+#var data_source= MenuManager.skill_data
+var data_source= SkillsDirectory.skills
 
 var num_cols = 2
 
@@ -38,7 +36,7 @@ var offset_size = max_sc_offset/5
 # const api_script = preload("res://Scripts/BattleScripts/BattleCharacter.gd")
 # const api = api_script.new()
 
-onready var battle_brain = SceneManager.current_scene
+
 var menu = null
 enum Mode {Inactive, Menu, Enemy_Select, Character_Select}
 var current_mode = Mode.Inactive
@@ -53,8 +51,9 @@ func _ready():
 	refocus(focused)
 	_update_scrollbar()
 
-func _use_skill(chara):
-	print("Used ", buttons[focused].item_name, " on ", chara)
+func _use_skill(target):
+	var current_character = battle_brain.character_party.active_player
+	party.move_and_switch(BattleMove.new(current_character, "Skills", target, buttons[focused].item_name))
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
@@ -93,16 +92,21 @@ func scroll(direction):
 
 
 func _update_scrollbar():
+	var num_items = len(items)
+	var num_buttons = len(buttons)
+	if len(items) == 0:
+		num_items = 1
+		num_buttons = 1
 	var middle = scrollbar.get_node("middle")
 	sc_start = middle.get_position()
 	scrollbar_offset = sc_start.y
-	var prop_size = (float(len(buttons))/len(items))*max_sc_offset
+	var prop_size = (float(num_buttons)/num_items)*max_sc_offset
 	middle.set_scale(Vector2(1,prop_size/scrollbar_size))
 	scrollbar_size = prop_size
-
+	
 	scrollbar.get_node("bottom").set_position(middle.get_position()+Vector2(0,scrollbar_size))
-	var hidden_rows= ((len(items)-btn_ctnr_size)/num_cols)
-	if num_cols>1 and not even(len(items)):
+	var hidden_rows= ((num_items-btn_ctnr_size)/num_cols)
+	if num_cols>1 and not even(num_items):
 		hidden_rows +=1
 	offset_size = float(max_sc_offset - scrollbar_size)/hidden_rows
 
@@ -115,7 +119,9 @@ func _move_scrollbar(direction):
 
 
 func _instantiate_items():
-	for item in data:
+	var current_character = battle_brain.character_party.active_player
+	var current_skills = current_character.skills.keys()
+	for item in current_skills:
 		_add_item(item)
 
 func _add_item(item):
@@ -176,6 +182,8 @@ func back():
 #		parent.submenu = null
 
 func accept():
+	if len(items) == 0:
+		return
 	if current_mode != Mode.Inactive:
 		var selected_character = null
 		if current_mode  == Mode.Character_Select:
@@ -185,12 +193,12 @@ func accept():
 			selected_character = battle_brain.enemy_party.get_selected_enemy()
 			battle_brain.enemy_party.deselect_current()
 		#Use Skill, we can use a signal or something if we get an item manager of sorts ...
-		_use_skill(selected_character.screen_name)
+		_use_skill(selected_character)
 		#to get back to menu
 		back()
 		#reset the menu
 		#This time it will exit out of the submenu only used if one usage allowed per turn
-		# back()
+		back()
 	elif submenu:
 		submenu.accept()
 	else:

@@ -90,16 +90,22 @@ func scroll(direction):
 
 
 func _update_scrollbar():
+	var num_items = len(items)
+	var num_buttons = len(buttons)
+	if len(items) == 0:
+		num_items = 1
+		num_buttons = 1
+	
 	var middle = scrollbar.get_node("middle")
 	sc_start = middle.get_position()
 	scrollbar_offset = sc_start.y
-	var prop_size = (float(len(buttons))/len(items))*max_sc_offset
+	var prop_size = (float(num_buttons)/num_items)*max_sc_offset
 	middle.set_scale(Vector2(1,prop_size/scrollbar_size))
 	scrollbar_size = prop_size
 
 	scrollbar.get_node("bottom").set_position(middle.get_position()+Vector2(0,scrollbar_size))
-	var hidden_rows= ((len(items)-btn_ctnr_size)/num_cols)
-	if num_cols>1 and not even(len(items)):
+	var hidden_rows= ((num_items-btn_ctnr_size)/num_cols)
+	if num_cols>1 and not even(num_items):
 		hidden_rows +=1
 	offset_size = float(max_sc_offset - scrollbar_size)/hidden_rows
 
@@ -175,6 +181,8 @@ func back():
 #		parent.submenu = null
 
 func accept():
+	if len(items) == 0:
+		return
 	if current_mode != Mode.Inactive:
 		var selected_character = null
 		if current_mode  == Mode.Character_Select:
