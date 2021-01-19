@@ -51,7 +51,6 @@ func take_damage(damage):
 		yield(terminate_enemy(), "completed")
 		if party.terminated:
 			yield()
-	print(damage)
 	
 func heal(damage):
 	if !alive:

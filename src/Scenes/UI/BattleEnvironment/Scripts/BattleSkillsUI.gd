@@ -18,14 +18,12 @@ var btn_ctnr_size = 12
 var button_path = "res://Scenes/UI/MainMenuUI/SubmenuModules/Buttons/ItemButton.tscn"
 var popup_path = "res://Scenes/UI/BattleEnvironment/Popups/EffectPopup_Battle.tscn"
 
-var party = null
-#Must set data sources to valid source
-#var data_source=MenuManager.item_data
-#var data = MenuManager.party.items
+var battle_brain = SceneManager.current_scene
+var party = battle_brain.character_party
 
-var data_source= MenuManager.skill_data
-var data = MenuManager.skill_data
 
+#var data_source= MenuManager.skill_data
+var data_source= SkillsDirectory.skills
 
 var num_cols = 2
 
@@ -38,7 +36,7 @@ var offset_size = max_sc_offset/5
 # const api_script = preload("res://Scripts/BattleScripts/BattleCharacter.gd")
 # const api = api_script.new()
 
-onready var battle_brain = SceneManager.current_scene
+
 var menu = null
 enum Mode {Inactive, Menu, Enemy_Select, Character_Select}
 var current_mode = Mode.Inactive
@@ -54,7 +52,6 @@ func _ready():
 	_update_scrollbar()
 
 func _use_skill(target):
-
 	var current_character = battle_brain.character_party.active_player
 	party.move_and_switch(BattleMove.new(current_character, "Skills", target, buttons[focused].item_name))
 
@@ -104,14 +101,9 @@ func _update_scrollbar():
 	sc_start = middle.get_position()
 	scrollbar_offset = sc_start.y
 	var prop_size = (float(num_buttons)/num_items)*max_sc_offset
-	
-	print(Vector2(1,prop_size/scrollbar_size))
-	
 	middle.set_scale(Vector2(1,prop_size/scrollbar_size))
 	scrollbar_size = prop_size
 	
-	print(scrollbar_size)
-
 	scrollbar.get_node("bottom").set_position(middle.get_position()+Vector2(0,scrollbar_size))
 	var hidden_rows= ((num_items-btn_ctnr_size)/num_cols)
 	if num_cols>1 and not even(num_items):
@@ -127,7 +119,9 @@ func _move_scrollbar(direction):
 
 
 func _instantiate_items():
-	for item in data:
+	var current_character = battle_brain.character_party.active_player
+	var current_skills = current_character.skills.keys()
+	for item in current_skills:
 		_add_item(item)
 
 func _add_item(item):
@@ -204,7 +198,7 @@ func accept():
 		back()
 		#reset the menu
 		#This time it will exit out of the submenu only used if one usage allowed per turn
-		# back()
+		back()
 	elif submenu:
 		submenu.accept()
 	else:

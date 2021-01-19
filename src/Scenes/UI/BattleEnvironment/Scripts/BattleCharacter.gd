@@ -18,7 +18,7 @@ onready var SP_Bar : ProgressBar = $UI/SP_Bar
 var screen_name = "placeholder"
 export var alive := true
 var defending = false
-var skills = {} #"Skill" : Num_LP
+export (Dictionary) var skills #"Skill" : Num_LP
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 onready var battle_stats := EntityStats.new(BaseStats.get_for(persistence_id))
 

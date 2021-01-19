@@ -10,7 +10,6 @@ var character_move_dict := {}
 func _ready():
 	turn()
 	
-	
 func turn():
 	yield(battle_engine(), "completed")
 	turn()
