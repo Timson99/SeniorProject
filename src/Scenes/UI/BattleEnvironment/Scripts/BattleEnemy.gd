@@ -43,7 +43,7 @@ func make_move() -> BattleMove:
 	return move
 	
 func take_damage(damage):
-	animation_player.play("Hit")
+	animation_player.play("BattleHit")
 	yield(animation_player, "animation_finished")
 	stats.HP -= damage
 	if stats.HP <= 0 and alive == true:
@@ -52,6 +52,14 @@ func take_damage(damage):
 		if party.terminated:
 			yield()
 	print(damage)
+	
+func heal(damage):
+	if !alive:
+		return
+	animation_player.play("BattleHeal")
+	yield(animation_player, "animation_finished")
+	stats.HP += damage
+	stats.HP = min(stats.HP, stats.MAX_HP)
 
 	
 func select():

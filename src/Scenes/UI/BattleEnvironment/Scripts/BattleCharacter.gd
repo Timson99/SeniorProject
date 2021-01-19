@@ -52,7 +52,7 @@ func kill_character():
 
 
 func take_damage(damage):
-	animation_player.play("Hit")
+	animation_player.play("BattleHit")
 	yield(animation_player, "animation_finished")
 	stats.HP -= damage
 	if stats.HP <= 0 and alive == true:
@@ -60,6 +60,14 @@ func take_damage(damage):
 		kill_character()
 		if party.terminated:
 			yield()
+			
+func heal(damage):
+	if !alive:
+		return
+	animation_player.play("BattleHeal")
+	yield(animation_player, "animation_finished")
+	stats.HP += damage
+	stats.HP = min(stats.HP, stats.MAX_HP)
 	
 	
 	
@@ -99,8 +107,7 @@ func accept():
 		#If accept didn't just open another submenu, and returned a command
 		if command != null:
 			if command in ["Run", "Defend"]:
-				battle_brain.add_move(screen_name, BattleMove.new(self, command))
-				party.switch_characters()
+				party.move_and_switch(BattleMove.new(self, command))
 			elif command == "Attack":
 				saved_command = command
 				menu.hide()
@@ -122,14 +129,12 @@ func accept():
 		var selected_enemy = battle_brain.enemy_party.get_selected_enemy()
 		battle_brain.enemy_party.deselect_current()
 		 
-		battle_brain.add_move(screen_name, BattleMove.new(self, saved_command, selected_enemy))
-		party.switch_characters()
+		party.move_and_switch(BattleMove.new(self, saved_command, selected_enemy))
 		
 	elif current_mode == Mode.Character_Select:
 		var selected_character = battle_brain.character_party.get_selected_character()
 		battle_brain.character_party.deselect_current()
-		battle_brain.add_move(screen_name, BattleMove.new(self, saved_command, selected_character))
-		party.switch_characters()
+		party.move_and_switch(BattleMove.new(self, saved_command, selected_character))
 	
 func up():
 	if current_mode == Mode.Menu:

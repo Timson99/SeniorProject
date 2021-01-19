@@ -21,6 +21,16 @@ Scan
 class_name SkillsDirectory
 
 const skills = {
+	"Lil' Ice" : {
+		"LP" : INF,
+		"Description" : "Just a Lil' Ice",
+		"Power" : Enums.SkillPower.Weak,
+		"Cost" : 5,
+		"Target_All": false,
+		"Hit_Rate": 0.95,
+		"Type": Enums.SkillType.Spell,
+		"Elemental" : Enums.Elementals.Ice,
+	},
 	"Big Punch" : {
 		"LP" : INF,
 		"Description" : "Test Description",

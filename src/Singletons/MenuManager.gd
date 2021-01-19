@@ -38,11 +38,15 @@ func load_item_data():
 	item_data = itemdata_json.result
 	
 func load_skill_data():
+	"""
 	var itemdata_file = File.new()
 	itemdata_file.open(skill_data_file, File.READ)
 	var itemdata_json = JSON.parse(itemdata_file.get_as_text())
 	itemdata_file.close()
 	skill_data = itemdata_json.result
+	"""
+	
+	skill_data = {}
 	
 	
 

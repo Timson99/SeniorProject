@@ -53,8 +53,10 @@ func _ready():
 	refocus(focused)
 	_update_scrollbar()
 
-func _use_skill(chara):
-	print("Used ", buttons[focused].item_name, " on ", chara)
+func _use_skill(target):
+
+	var current_character = battle_brain.character_party.active_player
+	party.move_and_switch(BattleMove.new(current_character, "Skills", target, buttons[focused].item_name))
 
 func refocus(to):
 	if to >=0 and to < len(buttons):
@@ -93,16 +95,26 @@ func scroll(direction):
 
 
 func _update_scrollbar():
+	var num_items = len(items)
+	var num_buttons = len(buttons)
+	if len(items) == 0:
+		num_items = 1
+		num_buttons = 1
 	var middle = scrollbar.get_node("middle")
 	sc_start = middle.get_position()
 	scrollbar_offset = sc_start.y
-	var prop_size = (float(len(buttons))/len(items))*max_sc_offset
+	var prop_size = (float(num_buttons)/num_items)*max_sc_offset
+	
+	print(Vector2(1,prop_size/scrollbar_size))
+	
 	middle.set_scale(Vector2(1,prop_size/scrollbar_size))
 	scrollbar_size = prop_size
+	
+	print(scrollbar_size)
 
 	scrollbar.get_node("bottom").set_position(middle.get_position()+Vector2(0,scrollbar_size))
-	var hidden_rows= ((len(items)-btn_ctnr_size)/num_cols)
-	if num_cols>1 and not even(len(items)):
+	var hidden_rows= ((num_items-btn_ctnr_size)/num_cols)
+	if num_cols>1 and not even(num_items):
 		hidden_rows +=1
 	offset_size = float(max_sc_offset - scrollbar_size)/hidden_rows
 
@@ -176,6 +188,8 @@ func back():
 #		parent.submenu = null
 
 func accept():
+	if len(items) == 0:
+		return
 	if current_mode != Mode.Inactive:
 		var selected_character = null
 		if current_mode  == Mode.Character_Select:
@@ -185,7 +199,7 @@ func accept():
 			selected_character = battle_brain.enemy_party.get_selected_enemy()
 			battle_brain.enemy_party.deselect_current()
 		#Use Skill, we can use a signal or something if we get an item manager of sorts ...
-		_use_skill(selected_character.screen_name)
+		_use_skill(selected_character)
 		#to get back to menu
 		back()
 		#reset the menu

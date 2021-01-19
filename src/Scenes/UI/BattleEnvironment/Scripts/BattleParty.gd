@@ -42,6 +42,11 @@ func terminate_input():
 	active_player.deactivate_player()
 	terminated = true
 
+
+func move_and_switch(move : BattleMove):
+	battle_brain.add_move(move.agent.screen_name, move)
+	switch_characters()
+
 func switch_characters():
 	active_player.deactivate_player()
 	
