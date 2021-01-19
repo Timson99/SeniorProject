@@ -4,7 +4,7 @@ extends Control
 export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
 var input_id := "Battle_Menu"
 
-signal move_effects_completed
+
 
 onready var battle_brain = SceneManager.current_scene
 onready var menu = null
@@ -58,10 +58,8 @@ func take_damage(damage):
 	if stats.HP <= 0 and alive == true:
 		stats.HP = 0
 		kill_character()
-		if !party.terminated:
-			emit_signal("move_effects_completed")
-	else:
-		emit_signal("move_effects_completed")
+		if party.terminated:
+			yield()
 	
 	
 	
