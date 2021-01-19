@@ -11,8 +11,8 @@ const enemy_types = {
 	
 	# Test enemies
 	"SampleEnemy": {
-		"enemy_scene_path": "res://Scenes/General/Enemies/ExploreEnemies/SampleEnemy.tscn",
-		'battle_sprite_scene': "res://Scenes/General/Enemies/BattleEnemies/BattleEnemyDemo.tscn",
+		"enemy_scene_path": "res://Scenes/Area01/Enemies/SampleEnemy/SampleEnemy.tscn",
+		'battle_sprite_scene': "res://Scenes/Area01/Enemies/SampleEnemy/BattleEnemyDemo.tscn",
 		"ai" : "res://Scenes/Area01/Enemies/SampleEnemy/SampleEnemy_ai.gd",
 	},
 

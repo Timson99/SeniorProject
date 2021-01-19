@@ -44,7 +44,7 @@ func terminate_input():
 
 func switch_characters():
 	active_player.deactivate_player()
-
+	
 	yield(get_tree().create_timer(0.1, false), "timeout")
 	for i in range(party_alive.find(active_player) + 1 , party_alive.size()):
 		if(!party_alive[i].alive):
@@ -55,6 +55,18 @@ func switch_characters():
 	emit_signal("all_moves_chosen")
 	#No more characters, Enemy Move
 
+
+func cancel_previous_character_move():
+	if party_alive.size() > 1 && active_player != party_alive[0]:
+		active_player.deactivate_player()
+		
+		yield(get_tree().create_timer(0.1, false), "timeout")
+		var previous_char_index = party_alive.find(active_player) - 1
+		active_player = party_alive[previous_char_index]
+		battle_brain.remove_move(active_player.screen_name)
+		active_player.activate_player()
+	return
+	
 
 func sort_characters(a,b):
 	if int(a.name.substr(1,1)) < int(b.name.substr(1,1)):

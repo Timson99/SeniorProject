@@ -12,17 +12,17 @@ static func instructions():
 				
 		["Actor-async", "C3", "change_follow", "split"],
 		
-		["Actor-sync", "C1", "move_to_position", 3, Vector2(-127, -15)],
+		["Actor-sync", "C1", "move_to_position", Vector2(-127, -15)],
 		
-		["Actor-sync", "C1", "move_to_position", 3, Vector2(0, -15)],
+		["Actor-sync", "C1", "move_to_position", Vector2(0, -15)],
 		
-		["Actor-sync", "C2", "move_to_position", 3, Vector2(-127, 5)],
+		["Actor-sync", "C2", "move_to_position", Vector2(-127, 5)],
 		
-		["Actor-sync", "C2", "move_to_position", 3, Vector2(0, 5)],
+		["Actor-sync", "C2", "move_to_position", Vector2(0, 5)],
 		
-		["Actor-sync", "C3", "move_to_position", 3, Vector2(-127, 25)],
+		["Actor-sync", "C3", "move_to_position", Vector2(-127, 25)],
 		
-		["Actor-sync", "C3", "move_to_position", 3, Vector2(0, 25)],
+		["Actor-sync", "C3", "move_to_position", Vector2(0, 25)],
 		
 		["Actor-async", "C1", "change_follow", "following"],
 		
@@ -30,6 +30,6 @@ static func instructions():
 		
 		["Actor-async", "C3", "change_follow", "following"],
 		
-		["Actor-sync", "C1", "move_to_position", 3, Vector2(-127, 30)],
+		["Actor-sync", "C1", "move_to_position", Vector2(-127, -45)],
 		
 	]

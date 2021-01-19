@@ -4,7 +4,6 @@ export var default_speed := 60
 export var alive := true
 export var persistence_id := "Bully"
 export var actor_id := "Bully"
-export var type := "Boss"
 var speed = 60
 var exploring = true
 
@@ -15,8 +14,8 @@ onready var skins  = {
 }
 onready var animations = skins["Boss"]["default"]
 
-onready var data = EnemyHandler.Enemies.enemy_types[persistence_id]
-onready var stats = data["battle_data"]
+onready var data = EnemyHandler.Enemies[persistence_id]
+#onready var stats = data["battle_data"]
 onready var battle_id = "battle"
 
 var dir_anims := {

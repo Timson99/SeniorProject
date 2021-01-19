@@ -5,17 +5,6 @@
 [ext_resource path="res://Scenes/General/Enemies/SpawningScenes/EnemySpawnArea.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/_Test_Scenes/Joe_Test_Scenes/Joe_Test_Scripts/Joe_Outside_Test_Root.gd" type="Script" id=4]
 
-
-
-
-
-
-
-
-
-
-
-
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 7, 16, 7 )
 
@@ -108,7 +97,7 @@ tile_data = PoolIntArray( 65527, 1, 0, 65528, 1, 0, 65529, 1, 0, 65530, 1, 0, 65
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Party" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 15.7649, 239.469 )
+position = Vector2( -49.6425, 251.136 )
 
 [node name="EnemySpawnArea" parent="." instance=ExtResource( 3 )]
 

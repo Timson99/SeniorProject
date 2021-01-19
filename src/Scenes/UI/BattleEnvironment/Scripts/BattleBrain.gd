@@ -21,8 +21,7 @@ func add_move(screen_name : String, move: BattleMove):
 	
 	
 func remove_move(screen_name : String):
-	pass
-	
+	character_move_dict.erase(screen_name)
 	
 func battle_engine():
 	character_move_dict = {}

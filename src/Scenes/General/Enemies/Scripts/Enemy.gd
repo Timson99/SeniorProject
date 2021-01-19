@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal enemy_hit_player()
+
 enum Mode {Stationary, Chase, Patrol, Battle}
 
 export var default_speed := 60
@@ -12,13 +14,7 @@ export var has_patrol_pattern := "patrol_erratic"
 var key := ""
 onready var player_party = null
 onready var target_player = EnemyHandler.target_player
-onready var skins  = {
-	"Enemy" : {
-		"default" : $AnimatedSprite,
-		"battle"  : "res://Assets/Enemy_Art/Bully/Battle_Bully.png"
-	}
-}
-onready var animations = skins["Enemy"]["default"]
+onready var animations = $AnimatedSprite
 
 const patrol_patterns := ["patrol_erratic", "patrol_linear", "patrol_circle", "patrol_box"]	
 
@@ -45,6 +41,7 @@ func _ready():
 	$DetectionRadius.connect("body_exited", self, "stop_chasing")
 	$DetectionRadius.connect("area_entered", self, "add_to_gang")
 	$DetectionRadius.connect("area_exited", self, "remove_from_gang")
+	self.connect("enemy_hit_player", self, "freeze_in_place")
 
 
 func _physics_process(delta):
@@ -69,9 +66,9 @@ func _physics_process(delta):
 	
 	var collision = move_and_collide(velocity * delta)
 	if collision and collision.collider.name == target_player.persistence_id: # Collides with party in general currently
+		emit_signal("enemy_hit_player")
 		EnemyHandler.queued_battle_enemies.append(key)
 		EnemyHandler.can_spawn = false
-		#print("ENEMY COLLIDED WITH %s" % target_player.persistence_id)
 		stop_chasing(player_party)
 		current_mode = Mode.Battle
 		$CollisionBox.disabled = true
@@ -118,25 +115,28 @@ func move_left():
 	
 func begin_chasing(body: Node):
 	if body.name == target_player.persistence_id:
-		#print("SHOULD CHASE CHARACTER")
 		player_party = body
 		current_mode = Mode.Chase
 	
 	
 func stop_chasing(body: Node):
 	if body.name == target_player.persistence_id:
-		#print("SHOULD STOP CHASING CHARACTER")
 		player_party = null
 		current_mode = initial_mode
 
 
+func freeze_in_place():
+	velocity = Vector2(0,0)
+	print("FROZEN")
+
+
 # Overlapping enemy Area2Ds throw enemies into array that may be instanced in battle later
-func add_to_gang():
+func add_to_gang(area: Area2D):
 	pass
 
 	
 # Corresponding removal function for "add_to_gang"
-func remove_from_gang():
+func remove_from_gang(area: Area2D):
 	pass
 
 
@@ -156,7 +156,6 @@ func patrol_erratic(current_movement: String):
 		rand_num_generator.randomize()
 		var movement_index = rand_num_generator.randi_range(0,3)
 		next_movement = movement_options[movement_index]
-		#print(next_movement)
 		patrol_timer = get_tree().create_timer(rand_num_generator.randf_range(0,1), false)
 		return self.call(next_movement)		
 

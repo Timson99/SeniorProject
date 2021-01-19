@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Node_Scripts/Save_Point.gd" type="Script" id=1]
+[ext_resource path="res://Assets/General/Chests/Chests_02.png" type="Texture" id=2]
+[ext_resource path="res://Assets/General/Chests/Chests_01.png" type="Texture" id=3]
+[ext_resource path="res://Assets/General/Chests/Chests_03.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "open",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": false,
+"name": "closed",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "closed_to_open",
+"speed": 20.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 5 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 13.0
+
+[node name="StaticBody2D" type="StaticBody2D" groups=[
+"Persistent",
+]]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1, -7 )
+frames = SubResource( 1 )
+animation = "closed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -5 )
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -8 )
+shape = SubResource( 3 )
