@@ -37,9 +37,31 @@ var status_effect
 var stat_buffs
 
 
-func _init(base_stats := stats_template):
+#0.0 Very Weak Against
+#0.5 Normal
+#1.0 Very Strong Against
+#INF Heals
+
+var elemental_data = {
+	Enums.Elementals.Ice: 0.5,
+	Enums.Elementals.Fire: 0.5,
+	Enums.Elementals.Electric: 0.5,
+}
+
+
+func _init(base_stats := stats_template, elemental_affinities={}):
 	_set_stats(base_stats)
+	_set_affinities(elemental_affinities)
+	
 		
+func _set_affinities(elemental_affinities):
+	if elemental_affinities != {}:
+		return
+	for e in elemental_affinities.keys():
+		if Enums.Elementals.size() <= e:
+			Debugger.dprint("ERROR INVALID ELEMENTALS")
+			return
+	elemental_data = elemental_affinities
 		
 	
 func _set_stats(new_stats):

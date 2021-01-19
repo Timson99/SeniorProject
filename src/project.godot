@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://Classes/Directories/BattleBehaviors.gd"
 }, {
 "base": "Object",
+"class": "BattleCalculations",
+"language": "GDScript",
+"path": "res://Classes/StaticClasses/BattleCalculations.gd"
+}, {
+"base": "Object",
 "class": "BattleMove",
 "language": "GDScript",
 "path": "res://Classes/Types/BattleMove.gd"
@@ -74,7 +79,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/UI/MainMenuUI/SubmenuModules/Buttons/ItemButton.gd"
 }, {
-"base": "Node",
+"base": "Object",
 "class": "ItemsDirectory",
 "language": "GDScript",
 "path": "res://Classes/Directories/ItemsDirectory.gd"
@@ -112,6 +117,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BaseStats": "",
 "BattleBehaviors": "",
+"BattleCalculations": "",
 "BattleMove": "",
 "BattleResourcePaths": "",
 "Debugger": "",

@@ -23,7 +23,7 @@ var party = battle_brain.character_party
 
 
 #var data_source= MenuManager.skill_data
-var data_source= SkillsDirectory.skills
+var data_source= MenuManager.skill_data
 
 var num_cols = 2
 
@@ -121,8 +121,10 @@ func _move_scrollbar(direction):
 func _instantiate_items():
 	var current_character = battle_brain.character_party.active_player
 	var current_skills = current_character.skills.keys()
-	for item in current_skills:
-		_add_item(item)
+	for skill in current_skills:
+		if (current_character.skills[skill] >= data_source[skill]["LP"] 
+		|| skill == current_character.equipped_skill): 
+			_add_item(skill)
 
 func _add_item(item):
 	items.append(item)
@@ -195,10 +197,10 @@ func accept():
 		#Use Skill, we can use a signal or something if we get an item manager of sorts ...
 		_use_skill(selected_character)
 		#to get back to menu
-		back()
-		#reset the menu
-		#This time it will exit out of the submenu only used if one usage allowed per turn
-		back()
+		menu.reset(false)
+		queue_free()
+		
+		
 	elif submenu:
 		submenu.accept()
 	else:

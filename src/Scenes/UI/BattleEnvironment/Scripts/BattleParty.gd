@@ -6,8 +6,8 @@ onready var battle_brain = SceneManager.current_scene
 export var persistence_id := "main_party"
 export var C2_in_party = false
 export var C3_in_party = false
-#export var items := ["Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea"]
-export var items := []
+export var items := ["Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea"]
+#export var items := []
 var terminated = false
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")

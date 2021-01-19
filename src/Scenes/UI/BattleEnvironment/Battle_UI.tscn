@@ -91,13 +91,19 @@ C3_in_party = true
 
 [node name="C1_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 4 )]
 skills = {
-"Lil' Ice": 0
+"Lil' Ice": 6
 }
 
 [node name="C2_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 1 )]
 margin_left = 96.0
 margin_right = 96.0
+skills = {
+"Lil' Ice": 6
+}
 
 [node name="C3_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 3 )]
 margin_left = 192.0
 margin_right = 192.0
+skills = {
+"Lil' Ice": 6
+}

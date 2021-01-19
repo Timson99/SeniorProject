@@ -3,6 +3,7 @@ extends Control
 onready var character_party = $BattleModules/Party_Modules
 onready var enemy_party = $EnemyParty
 onready var dialogue_node = $BattleDialogue/BattleDialogueBox
+onready var menu = dialogue_node.get_node("Menu")
 onready var enemies = enemy_party.enemies
 var characters = null
 var character_move_dict := {}
@@ -31,6 +32,7 @@ func battle_engine():
 	var moves_made := []
 	yield(character_party, "all_moves_chosen")	
 	moves_made = character_move_dict.values()
+	menu.hide()
 		
 	for e in enemies:
 		var move = e.make_move()
@@ -62,13 +64,23 @@ func execute(moves_made : Array):
 		
 		if move.type == "Defend":
 			move.agent.defending = true
+			
+			
 		elif move.type == "Run":
 			pass
+			
+			
 		elif move.type == "Items":
 			pass
+			
+			
 		elif move.type == "Skills":
+			
+			
 			var damage = (move.agent.stats.ATTACK * 
 						(move.skill_ref["Power"] + 2))
+						
+						
 			randomize()
 			var hit = true if randf() < move.skill_ref["Hit_Rate"] else false
 			if hit:
@@ -79,12 +91,16 @@ func execute(moves_made : Array):
 				yield(dialogue_node, "page_complete")
 				yield(get_tree().create_timer(1, false), "timeout")
 		
+		
+		
 		elif move.type == "Attack":
 			var damage = move.agent.stats.ATTACK
 			damage = int(damage/2 if move.target.defending else damage )
 			yield(move.target.take_damage(int(damage) * 10), "completed")
 			
 		yield(get_tree().create_timer(0.1, false), "timeout")
+		
+		
 	dialogue_node.clear()
 	enemy_party.end_turn()
 	character_party.end_turn()
@@ -93,7 +109,6 @@ func execute(moves_made : Array):
 			
 func battle_victory():
 	character_party.terminate_input()
-	print("Battle Victory")
 	dialogue_node.display_message(["You Win!", "X Exp Earned."], true, 0.1, 1)
 	yield(dialogue_node, "end")
 	SceneManager.goto_saved()
