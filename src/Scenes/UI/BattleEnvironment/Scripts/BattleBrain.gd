@@ -64,13 +64,23 @@ func execute(moves_made : Array):
 		
 		if move.type == "Defend":
 			move.agent.defending = true
+			
+			
 		elif move.type == "Run":
 			pass
+			
+			
 		elif move.type == "Items":
 			pass
+			
+			
 		elif move.type == "Skills":
+			
+			
 			var damage = (move.agent.stats.ATTACK * 
 						(move.skill_ref["Power"] + 2))
+						
+						
 			randomize()
 			var hit = true if randf() < move.skill_ref["Hit_Rate"] else false
 			if hit:
@@ -81,12 +91,16 @@ func execute(moves_made : Array):
 				yield(dialogue_node, "page_complete")
 				yield(get_tree().create_timer(1, false), "timeout")
 		
+		
+		
 		elif move.type == "Attack":
 			var damage = move.agent.stats.ATTACK
 			damage = int(damage/2 if move.target.defending else damage )
 			yield(move.target.take_damage(int(damage) * 10), "completed")
 			
 		yield(get_tree().create_timer(0.1, false), "timeout")
+		
+		
 	dialogue_node.clear()
 	enemy_party.end_turn()
 	character_party.end_turn()
