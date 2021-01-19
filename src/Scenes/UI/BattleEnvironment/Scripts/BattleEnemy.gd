@@ -4,7 +4,7 @@ extends Control
 var alive := true
 var selected = false
 
-signal move_effects_completed
+
 
 #Populated by Party
 var ai
@@ -49,10 +49,10 @@ func take_damage(damage):
 	if stats.HP <= 0 and alive == true:
 		stats.HP = 0
 		yield(terminate_enemy(), "completed")
-		if !party.terminated:
-			emit_signal("move_effects_completed")
-	else:
-		emit_signal("move_effects_completed")
+		if party.terminated:
+			yield()
+	print(damage)
+
 	
 func select():
 	$Sprite.set_material(selected_material)

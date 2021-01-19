@@ -1,8 +1,5 @@
 extends Control
 
-var turn = null 
-
-
 onready var character_party = $BattleModules/Party_Modules
 onready var enemy_party = $EnemyParty
 onready var dialogue_node = $BattleDialogue/BattleDialogueBox
@@ -10,17 +7,18 @@ onready var enemies = enemy_party.enemies
 var characters = null
 var character_move_dict := {}
 
-signal execution_complete
-
-func _process(delta):
-	if turn != null && turn.is_valid():
-		return
-	else:
-		turn = funcref(self, "battle_engine")
-		turn.call_func()
+func _ready():
+	turn()
+	
+	
+func turn():
+	yield(battle_engine(), "completed")
+	turn()
+		
 		
 func add_move(screen_name : String, move: BattleMove):
 	character_move_dict[screen_name] = move
+	
 	
 func remove_move(screen_name : String):
 	character_move_dict.erase(screen_name)
@@ -28,7 +26,7 @@ func remove_move(screen_name : String):
 func battle_engine():
 	character_move_dict = {}
 	characters = character_party.get_children()
-	yield(get_tree().create_timer(1, false), "timeout")
+	yield(get_tree().create_timer(0.5, false), "timeout")
 	character_party.begin_turn()
 	
 	var moves_made := []
@@ -41,9 +39,7 @@ func battle_engine():
 		#print("%s : %s" % [e.screen_name, move.to_dict()])
 		#dialogue_node.display_message("%s : %s" % [e.screen_name, move.to_dict()])
 
-	execute(moves_made)
-	yield(self, "execution_complete")
-	turn = null
+	yield(execute(moves_made), "completed")
 	
 	
 func sort_by_speed(a,b):
@@ -68,22 +64,17 @@ func execute(moves_made : Array):
 		if move.type == "Defend":
 			move.agent.defending = true
 		elif move.type == "Run":
-			#Run
 			pass
 		elif move.type == "Items":
-			#Run 
 			pass
 		elif move.type == "Skills":
 			var damage = (move.agent.stats.ATTACK * 
 						(move.skill_ref["Power"] + 2))
-			print(damage)
 			randomize()
 			var hit = true if randf() < move.skill_ref["Hit_Rate"] else false
 			if hit:
-				print(move.target.defending)
 				damage = int(damage/2 if move.target.defending else damage )
-				move.target.take_damage(int(damage))
-				yield(move.target, "move_effects_completed")
+				yield(move.target.take_damage(int(damage)), "completed")
 			else:
 				dialogue_node.display_message("Miss", false, 0.02, 2)
 				yield(dialogue_node, "page_complete")
@@ -92,14 +83,12 @@ func execute(moves_made : Array):
 		elif move.type == "Attack":
 			var damage = move.agent.stats.ATTACK
 			damage = int(damage/2 if move.target.defending else damage )
-			move.target.take_damage(int(damage) * 10)
-			yield(move.target, "move_effects_completed")
+			yield(move.target.take_damage(int(damage) * 10), "completed")
 			
 		yield(get_tree().create_timer(0.1, false), "timeout")
 	dialogue_node.clear()
 	enemy_party.end_turn()
 	character_party.end_turn()
-	emit_signal("execution_complete")
 	
 
 			
@@ -111,6 +100,7 @@ func battle_victory():
 	SceneManager.goto_saved()
 	
 func battle_failure():
+	dialogue_node.display_message("You Lose!", false, 0.1, 1)
 	SceneManager.goto_scene("GameOver")
 	
 	
