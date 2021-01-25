@@ -145,9 +145,7 @@ func despawn_off():
 	
 # Called for battle victory or fleeing
 func despawn_defeated_enemies():
-	print("DESPAWN")
 	for enemy in queued_battle_enemies:
-			print(existing_enemy_data)
 			existing_enemy_data[enemy]["body"].post_battle()
 			existing_enemy_data.erase(enemy)
 			#scene_node.remove_child(existing_enemy_data[enemy]["exploration_node"])

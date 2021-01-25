@@ -22,7 +22,6 @@ func end_control():
 	InputEngine.enable_all()
 	
 	
-	
 func _process(_delta):
 	if in_control and active_event == null:
 		end_control()
@@ -73,6 +72,9 @@ func _process(_delta):
 		
 
 func execute_event(event_id : String):
+	
+	print(event_id)
+	
 	if not event_id in Events :
 		Debugger.dprint("ERROR: Invalid Event")
 		return

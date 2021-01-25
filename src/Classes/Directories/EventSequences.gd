@@ -19,7 +19,6 @@ const data = {
 	"Area01_Sequence04" : "res://Scenes/Area01/Sequences/Area01_Sequence04.gd",
 	"Area01_Sequence05" : "res://Scenes/Area01/Sequences/Area01_Sequence05.gd",
 	"Area01_Sequence06" : "res://Scenes/Area01/Sequences/Area01_Sequence06.gd",
-	"Area01_Sequence07" : "res://Scenes/Area01/Sequences/Area01_Sequence07.gd",
 	
 }
 

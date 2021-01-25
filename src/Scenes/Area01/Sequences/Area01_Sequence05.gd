@@ -6,7 +6,10 @@ extends Resource
 
 static func instructions():
   return [
-		["Actor-sync", "C1", "move_to_position", Vector2(-24, 232), true],
+		["Actor-set", "Bully", "exploring", false],
+		["Actor-call", "Bully", "change_anim", "Sleep_Closed"],
+		["Signal", "SceneManager", "scene_fully_loaded"],
+		["Actor-sync", "C1", "move_to_position", Vector2(-24, 234), true],
 		["Actor-set", "C1", "exploring", false],
 		["Actor-call", "C1", "play_anim", "Idle_Up"],
 		["Delay", 0.5],
@@ -23,12 +26,12 @@ static func instructions():
 		
 		
 		["Actor-call", "Area01_Outside_Root", "execute_glow"],
-		["Delay", 0.25],
+		["Delay", 0.75],
 		["Actor-call", "C1", "flip_horizontal", false],
 		["Actor-call", "C1", "play_anim", "Idle_Down"],
 		#["Signal", "Area01_Outside_Root", "glow_complete"],
 		["Actor-set", "C1", "exploring", false],
-		["Delay", 0.5],
+		["Delay", 0.75],
 		["Actor-call", "C1", "play_anim", "Fall_Upright"],
 		
 		["Actor-call", "Camera", "grab_camera"],

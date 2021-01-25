@@ -25,10 +25,12 @@ var first_post_fight = Vector2(-200,0)
 signal faded_out()
 
 func _ready():
+	
 	add_to_group("Persistent")
 	add_to_group("Actor")
 	ActorEngine.update_actors()
-	
+
+
 func increment_attempt():
 	current_attempt += 1
 	current_attempt = min(current_attempt,3)
@@ -84,7 +86,7 @@ func on_load():
 		exit_door.show()
 		if bully.attempt_two_alive == true:
 			create_vertical_event_trigger("Area01_Sequence02", pre_fight, "pre_fight")
-		create_vertical_event_trigger("Area01_Sequence05", first_post_fight, "first_post_fight")
+		#create_vertical_event_trigger("Area01_Sequence05", first_post_fight, "first_post_fight")
 	elif current_attempt == 3:
 		exit_door.show()
 		create_vertical_event_trigger("Area01_Sequence02", pre_fight, "pre_fight")

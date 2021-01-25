@@ -39,8 +39,12 @@ func on_load():
 
 	if(!C2_in_party):
 		$YSort.remove_child($YSort/C2)
+	#else:
+		#$YSort/C2.show()
 	if(!C3_in_party):
 		$YSort.remove_child($YSort/C3)
+	#else:
+		#$YSort/C3.show()
 
 	party = $YSort.get_children()
 	$YSort.move_child($YSort/C1, party.size() - 1)

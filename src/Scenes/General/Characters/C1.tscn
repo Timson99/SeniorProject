@@ -36,6 +36,36 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 23 ) ],
+"loop": true,
+"name": "Idle_Left",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 29 ) ],
+"loop": true,
+"name": "Idle_Down",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 28 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 27 ) ],
+"loop": true,
+"name": "Walk_Left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 29 ), ExtResource( 18 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "Walk_Down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 26 ) ],
+"loop": true,
+"name": "Idle_Up",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 19 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "Walk_Up",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 32 ) ],
 "loop": true,
 "name": "Rest_Opened",
@@ -50,60 +80,10 @@ animations = [ {
 "loop": true,
 "name": "Fall_Upright",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 22 ), ExtResource( 29 ), ExtResource( 18 ), ExtResource( 20 ) ],
-"loop": true,
-"name": "Walk_Down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 23 ) ],
-"loop": true,
-"name": "Idle_Left",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 29 ) ],
-"loop": true,
-"name": "Idle_Down",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 19 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "Walk_Up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 26 ) ],
-"loop": true,
-"name": "Idle_Up",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 28 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 27 ) ],
-"loop": true,
-"name": "Walk_Left",
-"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 17 ), ExtResource( 16 ) ],
-"loop": true,
-"name": "Fall_Sideways",
-"speed": 9.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": false,
-"name": "Rest_Opened",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ) ],
-"loop": false,
-"name": "Rest_Closed",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "Walk_Down",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "Idle_Left",
@@ -114,9 +94,14 @@ animations = [ {
 "name": "Idle_Down",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 7 ) ],
 "loop": true,
-"name": "Walk_Up",
+"name": "Walk_Left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "Walk_Down",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ) ],
@@ -124,9 +109,24 @@ animations = [ {
 "name": "Idle_Up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "Walk_Left",
+"name": "Walk_Up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": false,
+"name": "Rest_Opened",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "Fall_Sideways",
+"speed": 9.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": false,
+"name": "Rest_Closed",
 "speed": 5.0
 } ]
 
@@ -134,11 +134,9 @@ animations = [ {
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 1 )
-animation = "Idle_Down"
 
 [node name="AtHome" type="AnimatedSprite" parent="." index="2"]
 visible = false
 position = Vector2( 0, -16 )
 frames = SubResource( 2 )
-animation = "Rest_Opened"
 playing = true

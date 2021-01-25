@@ -48,6 +48,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
+current_attempt = 2
 
 [node name="Pos_Tool" type="Position2D" parent="."]
 position = Vector2( -24, 150 )
@@ -84,7 +85,7 @@ __meta__ = {
 }
 
 [node name="Party" parent="YSort" instance=ExtResource( 3 )]
-position = Vector2( 232, 242 )
+position = Vector2( 232, 240 )
 C2_in_party = false
 C3_in_party = false
 
