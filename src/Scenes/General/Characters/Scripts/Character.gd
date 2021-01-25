@@ -66,7 +66,7 @@ func _physics_process(delta : float):
 	
 	
 func play_anim(anim_str):
-	if animations.has_animation(anim_str):
+	if animations.frames.has_animation(anim_str):
 		animations.play(anim_str)
 	else:
 		print("Character Error: Does not have Animation for play_anim() in " + str(persistence_id))

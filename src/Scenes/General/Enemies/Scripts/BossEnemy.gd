@@ -90,6 +90,9 @@ func move_to_position(new_position: Vector2, global = false):
 func _ready():
 	EnemyHandler.add_enemy_data(persistence_id, self)
 	
+func flip_horizontal(flip : bool):
+	animations.flip_h = flip
+	
 func initiate_battle():	
 	EnemyHandler.queued_battle_enemies.append(persistence_id)
 	SceneManager.goto_scene(battle_id, "", true)

@@ -6,7 +6,7 @@ var attempt_one_alive = true
 var attempt_two_alive = true
 
 var starting_pos = Vector2(-160,242)
-var faint_pos = Vector2(-38, 234)
+var faint_pos = Vector2(-50, 254)
 
 
 
@@ -29,10 +29,12 @@ func post_battle():
 		outside_root.remove_vertical_event_trigger("pre_fight")
 		attempt_one_alive = false
 		position = faint_pos
+		flip_horizontal(true)
 	elif attempt == 2:
 		outside_root.remove_vertical_event_trigger("pre_fight")
 		attempt_two_alive = false
 		position = faint_pos
+		flip_horizontal(true)
 	else:
 		Debugger.dprint("Error in Bully Boss Script")
 

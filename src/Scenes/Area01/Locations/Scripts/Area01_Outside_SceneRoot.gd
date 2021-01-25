@@ -84,7 +84,7 @@ func on_load():
 		exit_door.show()
 		if bully.attempt_two_alive == true:
 			create_vertical_event_trigger("Area01_Sequence02", pre_fight, "pre_fight")
-		create_vertical_event_trigger("Area01_Sequence03", first_post_fight, "first_post_fight")
+		create_vertical_event_trigger("Area01_Sequence05", first_post_fight, "first_post_fight")
 	elif current_attempt == 3:
 		exit_door.show()
 		create_vertical_event_trigger("Area01_Sequence02", pre_fight, "pre_fight")

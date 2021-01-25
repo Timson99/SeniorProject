@@ -50,7 +50,7 @@ __meta__ = {
 }
 
 [node name="Pos_Tool" type="Position2D" parent="."]
-position = Vector2( -13, 234 )
+position = Vector2( -24, 150 )
 
 [node name="Tween" type="Tween" parent="."]
 
