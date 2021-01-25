@@ -1,0 +1,1585 @@
+Folder PATH listing for volume Windows
+Volume serial number is C23D-61F6
+C:.
+|   .gitignore
+|   directory_contents_1_22.txt
+|   README.md
+|   
++---CMSI 401 Deliverables
+|       Assignment 1_ Article Summary.pdf
+|       HW2-feedback.txt
+|       Pilone & Miles Written Assignment.pdf
+|       Preliminary Schedule (Gantt Chart).png
+|       Preliminary Schedule (Spreadsheet format).pdf
+|       Project Proposal Presentation.pdf
+|       Project Proposal.pdf
+|       proposal-feedback.txt
+|       SDD[arch]-feedback.txt
+|       SDD[detail]-feedback.txt
+|       Software Design Description (Architecture Section).pdf
+|       Software Design Description (Detailed Design Section).pdf
+|       Software Requirements (SRS).docx
+|       SRS-feedback.txt
+|       User's Manual.pdf
+|       
+\---src
+    |   Assets_01_05_2021.zip
+    |   Assets_11_13_2020.zip
+    |   Assets_11_17_2020.zip
+    |   default_bus_layout.tres
+    |   export_presets.cfg
+    |   project.godot
+    |   zip_assets.bat
+    |   
+    +---.import
+    |       Battle_Bully.png-6d7dce1b406ef57ead7118c038ba32c6.md5
+    |       Battle_Bully.png-6d7dce1b406ef57ead7118c038ba32c6.stex
+    |       Battle_Bully.png-88d2579da5fc6930e4180b38dc01715f.md5
+    |       Battle_Bully.png-88d2579da5fc6930e4180b38dc01715f.stex
+    |       Battle_UI01.png-3949704cce4955dd69e5448e97629a33.md5
+    |       Battle_UI01.png-3949704cce4955dd69e5448e97629a33.stex
+    |       Battle_UI02.png-7a8dafbde6363a818504d8b55570d689.md5
+    |       Battle_UI02.png-7a8dafbde6363a818504d8b55570d689.stex
+    |       Battle_UI03.png-9630e785e1fd6191b09a418f32548fb3.md5
+    |       Battle_UI03.png-9630e785e1fd6191b09a418f32548fb3.stex
+    |       Battle_UI04.png-ab96330bc773b750ca2da0437a460472.md5
+    |       Battle_UI04.png-ab96330bc773b750ca2da0437a460472.stex
+    |       Battle_UI05.png-392426835ae5f491a8bc264faf586148.md5
+    |       Battle_UI05.png-392426835ae5f491a8bc264faf586148.stex
+    |       Battle_UI06.png-d69bfed18afe058ab45e808d9ef2b9a3.md5
+    |       Battle_UI06.png-d69bfed18afe058ab45e808d9ef2b9a3.stex
+    |       Battle_UI07.png-6940fbd68c30ac49d770ef14a51daf5b.md5
+    |       Battle_UI07.png-6940fbd68c30ac49d770ef14a51daf5b.stex
+    |       Battle_UI08.png-95a6d3bae25eea7ecde8232db8c2f4f1.md5
+    |       Battle_UI08.png-95a6d3bae25eea7ecde8232db8c2f4f1.stex
+    |       Battle_UI09.png-bbf2ee977320381174ec356f4b86f59f.md5
+    |       Battle_UI09.png-bbf2ee977320381174ec356f4b86f59f.stex
+    |       Battle_UI10.png-c63d8170665a6fcbba5cadda21beb2b4.md5
+    |       Battle_UI10.png-c63d8170665a6fcbba5cadda21beb2b4.stex
+    |       Battle_UI11.png-fff298484db4ce8be1c0298754613804.md5
+    |       Battle_UI11.png-fff298484db4ce8be1c0298754613804.stex
+    |       Battle_UI12.png-646c61b728a86f83533dd7e6b2eed173.md5
+    |       Battle_UI12.png-646c61b728a86f83533dd7e6b2eed173.stex
+    |       Battle_UI13.png-17e48f4010e1a04e01844fccf6e15beb.md5
+    |       Battle_UI13.png-17e48f4010e1a04e01844fccf6e15beb.stex
+    |       Battle_UI14.png-7ca21058eee43622660d56be23903464.md5
+    |       Battle_UI14.png-7ca21058eee43622660d56be23903464.stex
+    |       Battle_UI15.png-33a1b4be39580468cb44e8b1481afca8.md5
+    |       Battle_UI15.png-33a1b4be39580468cb44e8b1481afca8.stex
+    |       Battle_UI16.png-450bdd16c8fbb7647925f14f787bbf6c.md5
+    |       Battle_UI16.png-450bdd16c8fbb7647925f14f787bbf6c.stex
+    |       Battle_UI17.png-a43482464c5f5d6e4761dc8108af1f75.md5
+    |       Battle_UI17.png-a43482464c5f5d6e4761dc8108af1f75.stex
+    |       Battle_UI18.png-78aa4f062fa3b8e6af2a79439ab2d31b.md5
+    |       Battle_UI18.png-78aa4f062fa3b8e6af2a79439ab2d31b.stex
+    |       Battle_UI19.png-fbe17ea4f9432337e0fe1ad481e809a1.md5
+    |       Battle_UI19.png-fbe17ea4f9432337e0fe1ad481e809a1.stex
+    |       Battle_UI20.png-3b1adc0fe80c59181cb0f8495fbefaf8.md5
+    |       Battle_UI20.png-3b1adc0fe80c59181cb0f8495fbefaf8.stex
+    |       Battle_UI21.png-ba78db97a6e6178dcfca9ac5af8e01ab.md5
+    |       Battle_UI21.png-ba78db97a6e6178dcfca9ac5af8e01ab.stex
+    |       Battle_UI_v2_01.alpha.png-5513b0c8e7f7966154a537cfe17e6ebc.md5
+    |       Battle_UI_v2_01.alpha.png-5513b0c8e7f7966154a537cfe17e6ebc.stex
+    |       Battle_UI_v2_01.png-de139fb674d13da61c5b62291451830a.md5
+    |       Battle_UI_v2_01.png-de139fb674d13da61c5b62291451830a.stex
+    |       Battle_UI_v2_02.alpha.png-d6db6935727417e824652935bfbd9955.md5
+    |       Battle_UI_v2_02.alpha.png-d6db6935727417e824652935bfbd9955.stex
+    |       Battle_UI_v2_02.png-e84a26f9350eebd2e7fdf2831149c757.md5
+    |       Battle_UI_v2_02.png-e84a26f9350eebd2e7fdf2831149c757.stex
+    |       Battle_UI_v2_03.alpha.png-506666faefa309c18fa0935b2b769792.md5
+    |       Battle_UI_v2_03.alpha.png-506666faefa309c18fa0935b2b769792.stex
+    |       Battle_UI_v2_03.png-62ac075119ddc05c11d091f60b95b9eb.md5
+    |       Battle_UI_v2_03.png-62ac075119ddc05c11d091f60b95b9eb.stex
+    |       Battle_UI_v2_04.alpha.png-e95e82ff81fd2f62ef90b1b06fe15547.md5
+    |       Battle_UI_v2_04.alpha.png-e95e82ff81fd2f62ef90b1b06fe15547.stex
+    |       Battle_UI_v2_04.png-a04df498278d759d139f575349a6517e.md5
+    |       Battle_UI_v2_04.png-a04df498278d759d139f575349a6517e.stex
+    |       Battle_UI_v2_05.alpha.png-8f73ccb601fb3fc1624d94b6aaaacb31.md5
+    |       Battle_UI_v2_05.alpha.png-8f73ccb601fb3fc1624d94b6aaaacb31.stex
+    |       Battle_UI_v2_05.png-a373b1665b532075270873d22ba0afe9.md5
+    |       Battle_UI_v2_05.png-a373b1665b532075270873d22ba0afe9.stex
+    |       Battle_UI_v2_06.alpha.png-bc4794e844c081d0dfb69e6e02aa693c.md5
+    |       Battle_UI_v2_06.alpha.png-bc4794e844c081d0dfb69e6e02aa693c.stex
+    |       Battle_UI_v2_06.png-308c14eea738d97f336d96dbc6b80374.md5
+    |       Battle_UI_v2_06.png-308c14eea738d97f336d96dbc6b80374.stex
+    |       Battle_UI_v2_07.alpha.png-6376343f3c74daf3f930f6cb35e96a3b.md5
+    |       Battle_UI_v2_07.alpha.png-6376343f3c74daf3f930f6cb35e96a3b.stex
+    |       Battle_UI_v2_07.png-53d67d95bdc27a8e59c821de6e547d8b.md5
+    |       Battle_UI_v2_07.png-53d67d95bdc27a8e59c821de6e547d8b.stex
+    |       Battle_UI_v2_08.alpha.png-b26ae3891f19cecd28b5c8174c3730df.md5
+    |       Battle_UI_v2_08.alpha.png-b26ae3891f19cecd28b5c8174c3730df.stex
+    |       Battle_UI_v2_08.png-3318e8ef7b61e47f1d007aa210781d3c.md5
+    |       Battle_UI_v2_08.png-3318e8ef7b61e47f1d007aa210781d3c.stex
+    |       Battle_UI_v2_09.alpha.png-657cd977898f421d9f988037ea046a0b.md5
+    |       Battle_UI_v2_09.alpha.png-657cd977898f421d9f988037ea046a0b.stex
+    |       Battle_UI_v2_09.png-19661264fcc4f2cabf22be31225a022d.md5
+    |       Battle_UI_v2_09.png-19661264fcc4f2cabf22be31225a022d.stex
+    |       Battle_UI_v2_10.alpha.png-bdc929fea22ce19265586616390929d8.md5
+    |       Battle_UI_v2_10.alpha.png-bdc929fea22ce19265586616390929d8.stex
+    |       Battle_UI_v2_10.png-dad2d508bb21526e2291d7ffe0450efe.md5
+    |       Battle_UI_v2_10.png-dad2d508bb21526e2291d7ffe0450efe.stex
+    |       Battle_UI_v2_11.alpha.png-5f96f31aa93c3a49d3a94b6a4d1e63c4.md5
+    |       Battle_UI_v2_11.alpha.png-5f96f31aa93c3a49d3a94b6a4d1e63c4.stex
+    |       Battle_UI_v2_11.png-1991818785d1d472b9e261023a18140d.md5
+    |       Battle_UI_v2_11.png-1991818785d1d472b9e261023a18140d.stex
+    |       Battle_UI_v2_12.alpha.png-760223e7a5cf040c38db0a30a6499d84.md5
+    |       Battle_UI_v2_12.alpha.png-760223e7a5cf040c38db0a30a6499d84.stex
+    |       Battle_UI_v2_12.png-b75f890dc31e6c194d3d07fec7b00a59.md5
+    |       Battle_UI_v2_12.png-b75f890dc31e6c194d3d07fec7b00a59.stex
+    |       Battle_UI_v2_13.alpha.png-2a295af07f21762a407e4eba650e4964.md5
+    |       Battle_UI_v2_13.alpha.png-2a295af07f21762a407e4eba650e4964.stex
+    |       Battle_UI_v2_13.png-f859dde8159bf61a643d4bdad6121de1.md5
+    |       Battle_UI_v2_13.png-f859dde8159bf61a643d4bdad6121de1.stex
+    |       Battle_UI_v2_14.alpha.png-386dfa3311d3b5892a46a820b458c8ae.md5
+    |       Battle_UI_v2_14.alpha.png-386dfa3311d3b5892a46a820b458c8ae.stex
+    |       Battle_UI_v2_14.png-c9ad4edf2a9b7b6f6b872c17e45a9a60.md5
+    |       Battle_UI_v2_14.png-c9ad4edf2a9b7b6f6b872c17e45a9a60.stex
+    |       Bully_01.png-168ce4d70dbceac8541201153ae0bbfb.md5
+    |       Bully_01.png-168ce4d70dbceac8541201153ae0bbfb.stex
+    |       Bully_01.png-cdc6944536ff1ad77239e6ad442cdfa1.md5
+    |       Bully_01.png-cdc6944536ff1ad77239e6ad442cdfa1.stex
+    |       Bully_02.png-73605d78515aa86db3076c17beab942c.md5
+    |       Bully_02.png-73605d78515aa86db3076c17beab942c.stex
+    |       Bully_02.png-bc7b69851894a0c743973efea8399bb5.md5
+    |       Bully_02.png-bc7b69851894a0c743973efea8399bb5.stex
+    |       Bully_03.png-25d80c5dc7a56bed8753b80503a9f615.md5
+    |       Bully_03.png-25d80c5dc7a56bed8753b80503a9f615.stex
+    |       Bully_03.png-d7e664b585fcc5813a9621e7639791f5.md5
+    |       Bully_03.png-d7e664b585fcc5813a9621e7639791f5.stex
+    |       Bully_04.png-7cf3bca5859b3802a4c4c3227ca29e10.md5
+    |       Bully_04.png-7cf3bca5859b3802a4c4c3227ca29e10.stex
+    |       Bully_04.png-eebc09539a0b0ba3f830feeb1959e51f.md5
+    |       Bully_04.png-eebc09539a0b0ba3f830feeb1959e51f.stex
+    |       Bully_05.png-3d6ca028b723325b929e0dfdafc00d29.md5
+    |       Bully_05.png-3d6ca028b723325b929e0dfdafc00d29.stex
+    |       Bully_05.png-e5fef781674603ca98b2237d3d2a4f6b.md5
+    |       Bully_05.png-e5fef781674603ca98b2237d3d2a4f6b.stex
+    |       Bully_06.png-4d86414e6a88bcc18e685e0bdd67adbb.md5
+    |       Bully_06.png-4d86414e6a88bcc18e685e0bdd67adbb.stex
+    |       Bully_06.png-ecd99f7b4608cf2b1b13558d9abc16a4.md5
+    |       Bully_06.png-ecd99f7b4608cf2b1b13558d9abc16a4.stex
+    |       Bully_07.png-07f5158b9e7c0756445bb32e7beec04b.md5
+    |       Bully_07.png-07f5158b9e7c0756445bb32e7beec04b.stex
+    |       Bully_07.png-b3e418bd7ae2a79da4182f22878ef672.md5
+    |       Bully_07.png-b3e418bd7ae2a79da4182f22878ef672.stex
+    |       Bully_08.png-2c0e33b59116c2c496774b63ac9d0949.md5
+    |       Bully_08.png-2c0e33b59116c2c496774b63ac9d0949.stex
+    |       Bully_08.png-816b1d0daf9aca9236eea3014f595bc9.md5
+    |       Bully_08.png-816b1d0daf9aca9236eea3014f595bc9.stex
+    |       Bully_09.png-070396c0edae7e3cadedd3f339fe1bdc.md5
+    |       Bully_09.png-070396c0edae7e3cadedd3f339fe1bdc.stex
+    |       Bully_09.png-5715d4d26e428d68fce06effbab90c3a.md5
+    |       Bully_09.png-5715d4d26e428d68fce06effbab90c3a.stex
+    |       Bully_10.png-25aff546a0fd01ba72a5801a1f7218eb.md5
+    |       Bully_10.png-25aff546a0fd01ba72a5801a1f7218eb.stex
+    |       Bully_10.png-589be1c7a2c80425b638533d0fbb7e0d.md5
+    |       Bully_10.png-589be1c7a2c80425b638533d0fbb7e0d.stex
+    |       Bully_11.png-16f348eebca9d24d681a03483753de01.md5
+    |       Bully_11.png-16f348eebca9d24d681a03483753de01.stex
+    |       Bully_11.png-833e1b426153e63ceb1dfcfd60cebb52.md5
+    |       Bully_11.png-833e1b426153e63ceb1dfcfd60cebb52.stex
+    |       Bully_12.png-2e19fe87cf6de833069332478dd025b0.md5
+    |       Bully_12.png-2e19fe87cf6de833069332478dd025b0.stex
+    |       Bully_12.png-aacfbcabbbd70de099ac895f852e6dd4.md5
+    |       Bully_12.png-aacfbcabbbd70de099ac895f852e6dd4.stex
+    |       Bully_13.png-06345166647ae115e4b19a4c4ff2660f.md5
+    |       Bully_13.png-06345166647ae115e4b19a4c4ff2660f.stex
+    |       Bully_13.png-159fffb3f01cc54498a3a30fcb75c2ea.md5
+    |       Bully_13.png-159fffb3f01cc54498a3a30fcb75c2ea.stex
+    |       Bully_14.png-0f755072416b7f19f684cef443960c05.md5
+    |       Bully_14.png-0f755072416b7f19f684cef443960c05.stex
+    |       Bully_14.png-ddba480b341150303d7cb3372c6bae13.md5
+    |       Bully_14.png-ddba480b341150303d7cb3372c6bae13.stex
+    |       C101.png-1d5eec00d4604196ae5b586cda16d82d.md5
+    |       C102.png-9bb84546378c364756ce1c4fac167d4b.md5
+    |       C103.png-7cab97fd7b231d08129a7b74e3c0c101.md5
+    |       C104.png-9b4e033cef26eae83cee8d15550548f6.md5
+    |       C105.png-caf235f6e7688536a2d756ff2a115619.md5
+    |       C106.png-5224f136075b19af0f879a147c66cf67.md5
+    |       C107.png-26ce1a950e1d8e0dccb7aebabad3eb63.md5
+    |       C108.png-0ad7306cb40c2162e72cf175213e911c.md5
+    |       C109.png-5aef19afc754b4e94469bb17cb3fcd08.md5
+    |       C110.png-683e79acd7b015661ae4d4ea23a242da.md5
+    |       C111.png-3ec5650923ada0b0e7a8768dfb01a4df.md5
+    |       C112.png-289392e9f720095c7fc02f5b354c8f8d.md5
+    |       C113.png-bed08baf1a2fc32607c8bd69462515c4.md5
+    |       C114.png-6f1e41159b1b64dda92d3e0d976d2190.md5
+    |       C115.png-eb82e993fee856a4e625a3ee9a0051d6.md5
+    |       C116.png-a8236cd9de15b48cbd22a1fc4275cc1c.md5
+    |       C1_01.png-1c0714ffb241afcc036bfa9bd72cc811.md5
+    |       C1_01.png-1c0714ffb241afcc036bfa9bd72cc811.stex
+    |       C1_01.png-5b0e60449b03d0afe5cbf324cba13977.md5
+    |       C1_01.png-5b0e60449b03d0afe5cbf324cba13977.stex
+    |       C1_02.png-8f64170e2964aa06dda9a27a6539d9a4.md5
+    |       C1_02.png-8f64170e2964aa06dda9a27a6539d9a4.stex
+    |       C1_02.png-f0ee8b31516e1e4f993c299db8978828.md5
+    |       C1_02.png-f0ee8b31516e1e4f993c299db8978828.stex
+    |       C1_03.png-3b61bc0ad74ffbe0b85e2b6269ac16f6.md5
+    |       C1_03.png-3b61bc0ad74ffbe0b85e2b6269ac16f6.stex
+    |       C1_03.png-e217d4be29a9cf7438e0072422aca914.md5
+    |       C1_03.png-e217d4be29a9cf7438e0072422aca914.stex
+    |       C1_04.png-b983a1095a05ce5d52e7cbd65dc85622.md5
+    |       C1_04.png-b983a1095a05ce5d52e7cbd65dc85622.stex
+    |       C1_04.png-de3b00072cc2e7be1e29ec3cee173c75.md5
+    |       C1_04.png-de3b00072cc2e7be1e29ec3cee173c75.stex
+    |       C1_05.png-46e5f6d5c64d9ed72b97f69dce888e8e.md5
+    |       C1_05.png-46e5f6d5c64d9ed72b97f69dce888e8e.stex
+    |       C1_05.png-9ffd4bdd7016e743302920ff51b88192.md5
+    |       C1_05.png-9ffd4bdd7016e743302920ff51b88192.stex
+    |       C1_06.png-35e2054bbacf3aa53c994143fb771d70.md5
+    |       C1_06.png-35e2054bbacf3aa53c994143fb771d70.stex
+    |       C1_06.png-981f9a69be34fae1c17edbe753e024cc.md5
+    |       C1_06.png-981f9a69be34fae1c17edbe753e024cc.stex
+    |       C1_07.png-7b2fa81edebbee9e888347911e8cbf72.md5
+    |       C1_07.png-7b2fa81edebbee9e888347911e8cbf72.stex
+    |       C1_07.png-bf5a4b368bc54693e8c82c3c87b6b2ad.md5
+    |       C1_07.png-bf5a4b368bc54693e8c82c3c87b6b2ad.stex
+    |       C1_08.png-0cf12a3189f1eb2ae994cf677c163ad4.md5
+    |       C1_08.png-0cf12a3189f1eb2ae994cf677c163ad4.stex
+    |       C1_08.png-10f2bad93314e1d663c16e84905d43c8.md5
+    |       C1_08.png-10f2bad93314e1d663c16e84905d43c8.stex
+    |       C1_09.png-d40d61c19148db91575ebe9c62332607.md5
+    |       C1_09.png-d40d61c19148db91575ebe9c62332607.stex
+    |       C1_09.png-fff0f98c54da2baae451b4bcd5fd3ae1.md5
+    |       C1_09.png-fff0f98c54da2baae451b4bcd5fd3ae1.stex
+    |       C1_10.png-39399a89a782b7550c9898e6c4fc3b06.md5
+    |       C1_10.png-39399a89a782b7550c9898e6c4fc3b06.stex
+    |       C1_10.png-39e1f13b3955f3b5125abeeb33bad26b.md5
+    |       C1_10.png-39e1f13b3955f3b5125abeeb33bad26b.stex
+    |       C1_11.png-a43059793f5481b309200b89e073bba9.md5
+    |       C1_11.png-a43059793f5481b309200b89e073bba9.stex
+    |       C1_11.png-caa829fc128bb44944aebe4441329b36.md5
+    |       C1_11.png-caa829fc128bb44944aebe4441329b36.stex
+    |       C1_12.png-5351778d71826eef250699cd0d2b1962.md5
+    |       C1_12.png-5351778d71826eef250699cd0d2b1962.stex
+    |       C1_12.png-a144a69f8fc81009fb8e2d421c2f9140.md5
+    |       C1_12.png-a144a69f8fc81009fb8e2d421c2f9140.stex
+    |       C1_13.png-9ef5227df159f0fce9e77135edfbc331.md5
+    |       C1_13.png-9ef5227df159f0fce9e77135edfbc331.stex
+    |       C1_13.png-fa5a2d9cc15b7b343dedcfc132d6fe47.md5
+    |       C1_13.png-fa5a2d9cc15b7b343dedcfc132d6fe47.stex
+    |       C1_14.png-6f5f65344b45e0621420b33ab61423a2.md5
+    |       C1_14.png-6f5f65344b45e0621420b33ab61423a2.stex
+    |       C1_14.png-88945b22ff47f4366933054ef0852140.md5
+    |       C1_14.png-88945b22ff47f4366933054ef0852140.stex
+    |       C1_15.png-5f4deb3a0e09af198df29c47c5df0026.md5
+    |       C1_15.png-5f4deb3a0e09af198df29c47c5df0026.stex
+    |       C1_15.png-e4dcfbeaac93fe86eafc9dd59f79269a.md5
+    |       C1_15.png-e4dcfbeaac93fe86eafc9dd59f79269a.stex
+    |       C1_16.png-0c491be24cd8d9cb58b479da2dce079e.md5
+    |       C1_16.png-0c491be24cd8d9cb58b479da2dce079e.stex
+    |       C1_16.png-e2d54515eb3262fc57d65f708253cd22.md5
+    |       C1_16.png-e2d54515eb3262fc57d65f708253cd22.stex
+    |       C1_17.png-270031ac3c3d51e819f96af055034475.md5
+    |       C1_17.png-270031ac3c3d51e819f96af055034475.stex
+    |       C1_17.png-91d6f4146aa7cbc55bfeed300c38ceb0.md5
+    |       C1_17.png-91d6f4146aa7cbc55bfeed300c38ceb0.stex
+    |       C1_18.png-c04d1dea7806888f7b6c66dd5c2a3da7.md5
+    |       C1_18.png-c04d1dea7806888f7b6c66dd5c2a3da7.stex
+    |       C1_18.png-f345472938ea00a8d3cbcc099b9e067f.md5
+    |       C1_18.png-f345472938ea00a8d3cbcc099b9e067f.stex
+    |       C1_AtHome_01.png-43365deeaa7614873a5bcc74cb340711.md5
+    |       C1_AtHome_01.png-43365deeaa7614873a5bcc74cb340711.stex
+    |       C1_AtHome_01.png-5f512995193cdeb8b98959555b7a1019.md5
+    |       C1_AtHome_01.png-5f512995193cdeb8b98959555b7a1019.stex
+    |       C1_AtHome_02.png-88e2d6eed4df4198b91d1e625cea70d2.md5
+    |       C1_AtHome_02.png-88e2d6eed4df4198b91d1e625cea70d2.stex
+    |       C1_AtHome_02.png-d4522e034bf1eca02bf2396cb63485f4.md5
+    |       C1_AtHome_02.png-d4522e034bf1eca02bf2396cb63485f4.stex
+    |       C1_AtHome_03.png-9d7d272c080467cc9a58b1f68bf28926.md5
+    |       C1_AtHome_03.png-9d7d272c080467cc9a58b1f68bf28926.stex
+    |       C1_AtHome_03.png-d7deb833f3773b54c14c7634b887d98a.md5
+    |       C1_AtHome_03.png-d7deb833f3773b54c14c7634b887d98a.stex
+    |       C1_AtHome_04.png-4f4cbcaa0f592742c816ded3c8f349ca.md5
+    |       C1_AtHome_04.png-4f4cbcaa0f592742c816ded3c8f349ca.stex
+    |       C1_AtHome_04.png-cb736be2fa8a8c376534cfe6f25c8ca3.md5
+    |       C1_AtHome_04.png-cb736be2fa8a8c376534cfe6f25c8ca3.stex
+    |       C1_AtHome_05.png-1bc30ff8dd9d913596a280112b127cad.md5
+    |       C1_AtHome_05.png-1bc30ff8dd9d913596a280112b127cad.stex
+    |       C1_AtHome_05.png-c89ac5ed50eb60710b6899a87614f9a6.md5
+    |       C1_AtHome_05.png-c89ac5ed50eb60710b6899a87614f9a6.stex
+    |       C1_AtHome_06.png-2fe4e8892d89f5d4a81f598a95b1a4ee.md5
+    |       C1_AtHome_06.png-2fe4e8892d89f5d4a81f598a95b1a4ee.stex
+    |       C1_AtHome_06.png-fcbe4f6bf6aa7e1d3a580edc46d0b1e4.md5
+    |       C1_AtHome_06.png-fcbe4f6bf6aa7e1d3a580edc46d0b1e4.stex
+    |       C1_AtHome_07.png-01ba84e7d68ebd87a5d5f2a4b03f5703.md5
+    |       C1_AtHome_07.png-01ba84e7d68ebd87a5d5f2a4b03f5703.stex
+    |       C1_AtHome_07.png-fb17f5bf52c654d0197fab5c737a4c43.md5
+    |       C1_AtHome_07.png-fb17f5bf52c654d0197fab5c737a4c43.stex
+    |       C1_AtHome_08.png-8d5866811f05aeb32a6ba5468f643dbc.md5
+    |       C1_AtHome_08.png-8d5866811f05aeb32a6ba5468f643dbc.stex
+    |       C1_AtHome_08.png-bf004a558bf25f75795e6c3a01d98884.md5
+    |       C1_AtHome_08.png-bf004a558bf25f75795e6c3a01d98884.stex
+    |       C1_AtHome_09.png-779c050e772b0e43e7843adbf8970358.md5
+    |       C1_AtHome_09.png-779c050e772b0e43e7843adbf8970358.stex
+    |       C1_AtHome_09.png-7a088933d443cee12ea326955c4ded96.md5
+    |       C1_AtHome_09.png-7a088933d443cee12ea326955c4ded96.stex
+    |       C1_AtHome_10.png-89d8d184509a2c10d434a97195aba534.md5
+    |       C1_AtHome_10.png-89d8d184509a2c10d434a97195aba534.stex
+    |       C1_AtHome_10.png-d0722f49fdd76a9d6a61161ce2e105ef.md5
+    |       C1_AtHome_10.png-d0722f49fdd76a9d6a61161ce2e105ef.stex
+    |       C1_AtHome_11.png-6cd45152c3eae53eb7e56f4fca3deaa2.md5
+    |       C1_AtHome_11.png-6cd45152c3eae53eb7e56f4fca3deaa2.stex
+    |       C1_AtHome_11.png-d00f9fc26a56147c882ee0fa954261f0.md5
+    |       C1_AtHome_11.png-d00f9fc26a56147c882ee0fa954261f0.stex
+    |       C1_AtHome_12.png-f96469fa10a0d26835566bcdf945dac4.md5
+    |       C1_AtHome_12.png-f96469fa10a0d26835566bcdf945dac4.stex
+    |       C1_AtHome_12.png-fd9e87ea801f5ac995d0874ae7ba3ccb.md5
+    |       C1_AtHome_12.png-fd9e87ea801f5ac995d0874ae7ba3ccb.stex
+    |       C1_AtHome_13.png-77957c124c8f73252ef16d132d290878.md5
+    |       C1_AtHome_13.png-77957c124c8f73252ef16d132d290878.stex
+    |       C1_AtHome_13.png-ea90cff20a4341b5732b990daf8c27f4.md5
+    |       C1_AtHome_13.png-ea90cff20a4341b5732b990daf8c27f4.stex
+    |       C1_AtHome_14.png-3f0bdee35c0cd57916e13b52f35af638.md5
+    |       C1_AtHome_14.png-3f0bdee35c0cd57916e13b52f35af638.stex
+    |       C1_AtHome_14.png-5cbb25193fe265cf59bdfd160723b902.md5
+    |       C1_AtHome_14.png-5cbb25193fe265cf59bdfd160723b902.stex
+    |       C1_AtHome_15.png-32072a3d63c9f923fba9fae07945abe6.md5
+    |       C1_AtHome_15.png-32072a3d63c9f923fba9fae07945abe6.stex
+    |       C1_AtHome_15.png-abb5a485cfc884bb42737d80ef49514b.md5
+    |       C1_AtHome_15.png-abb5a485cfc884bb42737d80ef49514b.stex
+    |       C1_AtHome_16.png-1265424bd0c2a055494c7d025e33c1ab.md5
+    |       C1_AtHome_16.png-1265424bd0c2a055494c7d025e33c1ab.stex
+    |       C1_AtHome_16.png-ebd3f7708100451ad9027862bc95093c.md5
+    |       C1_AtHome_16.png-ebd3f7708100451ad9027862bc95093c.stex
+    |       C2_01.png-0b394599b8f879902df5912f557e90ce.md5
+    |       C2_01.png-0b394599b8f879902df5912f557e90ce.stex
+    |       C2_01.png-e9fb3ad1936812b1fed44fc58be18685.md5
+    |       C2_01.png-e9fb3ad1936812b1fed44fc58be18685.stex
+    |       C2_02.png-100b4016bd106ce7a51f09aa4a615f56.md5
+    |       C2_02.png-100b4016bd106ce7a51f09aa4a615f56.stex
+    |       C2_02.png-8bc290de5e8e9979c27c5cab60317549.md5
+    |       C2_02.png-8bc290de5e8e9979c27c5cab60317549.stex
+    |       C2_03.png-0907b963c57cf409be5017bf4f3652a0.md5
+    |       C2_03.png-0907b963c57cf409be5017bf4f3652a0.stex
+    |       C2_03.png-8b2c71a82ede01b0ade136146b3c7401.md5
+    |       C2_03.png-8b2c71a82ede01b0ade136146b3c7401.stex
+    |       C2_04.png-1db8650647d016a4ae5e079487b43a3e.md5
+    |       C2_04.png-1db8650647d016a4ae5e079487b43a3e.stex
+    |       C2_04.png-9be98d698e2347d3124fc8cca4ecfc74.md5
+    |       C2_04.png-9be98d698e2347d3124fc8cca4ecfc74.stex
+    |       C2_05.png-441c4979dd9edbb89a0b6e0a6329ffe6.md5
+    |       C2_05.png-441c4979dd9edbb89a0b6e0a6329ffe6.stex
+    |       C2_05.png-4df5a183213f67e339eea19110a0f76f.md5
+    |       C2_05.png-4df5a183213f67e339eea19110a0f76f.stex
+    |       C2_06.png-35a568fa2b1425bf290bcc12163f21fb.md5
+    |       C2_06.png-35a568fa2b1425bf290bcc12163f21fb.stex
+    |       C2_06.png-8a8568e3b367e5a9fe8804b6f061121d.md5
+    |       C2_06.png-8a8568e3b367e5a9fe8804b6f061121d.stex
+    |       C2_07.png-7e1e924ad7081a3da949ebf1e55db550.md5
+    |       C2_07.png-7e1e924ad7081a3da949ebf1e55db550.stex
+    |       C2_07.png-c6d7581fe8b6cd12d51ccf17a7cf0af4.md5
+    |       C2_07.png-c6d7581fe8b6cd12d51ccf17a7cf0af4.stex
+    |       C2_08.png-645c20a5a016d35934511c8e9e3406ee.md5
+    |       C2_08.png-645c20a5a016d35934511c8e9e3406ee.stex
+    |       C2_08.png-d3b6b15c27e1a98ecf9b400e00219080.md5
+    |       C2_08.png-d3b6b15c27e1a98ecf9b400e00219080.stex
+    |       C2_09.png-3de56552793b2cf1107be8f59f74e162.md5
+    |       C2_09.png-3de56552793b2cf1107be8f59f74e162.stex
+    |       C2_09.png-e330be3b75636f702723792db3ddedc0.md5
+    |       C2_09.png-e330be3b75636f702723792db3ddedc0.stex
+    |       C2_10.png-91d5aeac4709c7519f25c4a8fabf220f.md5
+    |       C2_10.png-91d5aeac4709c7519f25c4a8fabf220f.stex
+    |       C2_10.png-c376398f68b2b9891f0cb7ff0bb0dd85.md5
+    |       C2_10.png-c376398f68b2b9891f0cb7ff0bb0dd85.stex
+    |       C2_11.png-23c3d229851c422f57488ce1b83187e0.md5
+    |       C2_11.png-23c3d229851c422f57488ce1b83187e0.stex
+    |       C2_11.png-be423dd1e46ceab2d1d6e1eedc0301ad.md5
+    |       C2_11.png-be423dd1e46ceab2d1d6e1eedc0301ad.stex
+    |       C2_12.png-8772ae893b876786b6efa9708b60e025.md5
+    |       C2_12.png-8772ae893b876786b6efa9708b60e025.stex
+    |       C2_12.png-ce1d043799be13806b4ce4189e081f47.md5
+    |       C2_12.png-ce1d043799be13806b4ce4189e081f47.stex
+    |       C3_01.png-2b3c6211cbf3b4904da72ee733af7c67.md5
+    |       C3_01.png-2b3c6211cbf3b4904da72ee733af7c67.stex
+    |       C3_01.png-3489acc45457f4aaade2f096836abd55.md5
+    |       C3_01.png-3489acc45457f4aaade2f096836abd55.stex
+    |       C3_02.png-751cbd70ef8ff3f45632a55fe2df03bc.md5
+    |       C3_02.png-751cbd70ef8ff3f45632a55fe2df03bc.stex
+    |       C3_02.png-c09fd66ab74dc1243723ceda6b8dd8b6.md5
+    |       C3_02.png-c09fd66ab74dc1243723ceda6b8dd8b6.stex
+    |       C3_03.png-3af1a40a3a10600cdf419ad5709cde50.md5
+    |       C3_03.png-3af1a40a3a10600cdf419ad5709cde50.stex
+    |       C3_03.png-ebfd6512f6044ced766bb568e2f6bb13.md5
+    |       C3_03.png-ebfd6512f6044ced766bb568e2f6bb13.stex
+    |       C3_04.png-1c924c2efd22cd26cd86d5d9574f19f3.md5
+    |       C3_04.png-1c924c2efd22cd26cd86d5d9574f19f3.stex
+    |       C3_04.png-56ef22e403bfe4befc37051057355d49.md5
+    |       C3_04.png-56ef22e403bfe4befc37051057355d49.stex
+    |       C3_05.png-6fa9af4a63b16485b733e004e135df5e.md5
+    |       C3_05.png-6fa9af4a63b16485b733e004e135df5e.stex
+    |       C3_05.png-7ab1065a228bc5a1c4c53ef5544f0899.md5
+    |       C3_05.png-7ab1065a228bc5a1c4c53ef5544f0899.stex
+    |       C3_06.png-14e97211201d0c4edc436a6c0a88a75d.md5
+    |       C3_06.png-14e97211201d0c4edc436a6c0a88a75d.stex
+    |       C3_06.png-6c5b70d96534c02a54daf639c38bc43c.md5
+    |       C3_06.png-6c5b70d96534c02a54daf639c38bc43c.stex
+    |       C3_07.png-18316b3785eb53d1b232ddd4c8577290.md5
+    |       C3_07.png-18316b3785eb53d1b232ddd4c8577290.stex
+    |       C3_07.png-1f6f4a6e45002190c141c7808d74c630.md5
+    |       C3_07.png-1f6f4a6e45002190c141c7808d74c630.stex
+    |       C3_08.png-0e3acd644fa1a203c49e3a38b00662a6.md5
+    |       C3_08.png-0e3acd644fa1a203c49e3a38b00662a6.stex
+    |       C3_08.png-aca116c1f8dd8f12a6b67d92d5250f12.md5
+    |       C3_08.png-aca116c1f8dd8f12a6b67d92d5250f12.stex
+    |       C3_09.png-4a6798dd679008ae690165a0c4ff814e.md5
+    |       C3_09.png-4a6798dd679008ae690165a0c4ff814e.stex
+    |       C3_09.png-9ed899b7744307419e76d316cc1a71c6.md5
+    |       C3_09.png-9ed899b7744307419e76d316cc1a71c6.stex
+    |       C3_10.png-1961163efc79b381693bbc53acb0e8ff.md5
+    |       C3_10.png-1961163efc79b381693bbc53acb0e8ff.stex
+    |       C3_10.png-1ff40755fbaa8b62d2349acdad658b78.md5
+    |       C3_10.png-1ff40755fbaa8b62d2349acdad658b78.stex
+    |       C3_11.png-4c8e52f496114e2edbf6f91bfa5d0eda.md5
+    |       C3_11.png-4c8e52f496114e2edbf6f91bfa5d0eda.stex
+    |       C3_11.png-db7164ccce01ee257c87051e0c99d63e.md5
+    |       C3_11.png-db7164ccce01ee257c87051e0c99d63e.stex
+    |       C3_12.png-2c742000ea6007b9df935267592d70b9.md5
+    |       C3_12.png-2c742000ea6007b9df935267592d70b9.stex
+    |       C3_12.png-3438e58c775f542526d3094052f88538.md5
+    |       C3_12.png-3438e58c775f542526d3094052f88538.stex
+    |       Chests_01.png-72f93df4bb7816006e39b8b6801eec7e.md5
+    |       Chests_01.png-72f93df4bb7816006e39b8b6801eec7e.stex
+    |       Chests_01.png-77cd0bcf3c5211c81849f6d8db168782.md5
+    |       Chests_01.png-77cd0bcf3c5211c81849f6d8db168782.stex
+    |       Chests_02.png-cfd0377d0d8892e04b5acb289eb30671.md5
+    |       Chests_02.png-cfd0377d0d8892e04b5acb289eb30671.stex
+    |       Chests_02.png-e9d74379c5ac4a77a510e0c7c41f8a00.md5
+    |       Chests_02.png-e9d74379c5ac4a77a510e0c7c41f8a00.stex
+    |       Chests_03.png-b69ca568317774ea7d6c199ac8e960b5.md5
+    |       Chests_03.png-b69ca568317774ea7d6c199ac8e960b5.stex
+    |       Chests_03.png-b9668c7c87deddd32c4c00139079e30e.md5
+    |       Chests_03.png-b9668c7c87deddd32c4c00139079e30e.stex
+    |       Chillary_01.png-42aab212e862a0d6dda70d11e98bff88.md5
+    |       Chillary_01.png-42aab212e862a0d6dda70d11e98bff88.stex
+    |       Chillary_01.png-858dc13deb9246a02d0e1c3907cf25ea.md5
+    |       Chillary_01.png-858dc13deb9246a02d0e1c3907cf25ea.stex
+    |       Chillary_02.png-2d7798f1e2428ba925f4f9a32a86a895.md5
+    |       Chillary_02.png-2d7798f1e2428ba925f4f9a32a86a895.stex
+    |       Chillary_02.png-31883f41a1618f9ed70bd95e82f982fc.md5
+    |       Chillary_02.png-31883f41a1618f9ed70bd95e82f982fc.stex
+    |       Chillary_03.png-077318ef9957be7bbf1e3fe7f5136379.md5
+    |       Chillary_03.png-077318ef9957be7bbf1e3fe7f5136379.stex
+    |       Chillary_03.png-8a860e41b155b7582049691a404eac94.md5
+    |       Chillary_03.png-8a860e41b155b7582049691a404eac94.stex
+    |       Chillary_04.png-24dee4e00db165773d95160c079c5090.md5
+    |       Chillary_04.png-24dee4e00db165773d95160c079c5090.stex
+    |       Chillary_04.png-77f20ff890314c834ce89317eb738e5b.md5
+    |       Chillary_04.png-77f20ff890314c834ce89317eb738e5b.stex
+    |       Chillary_05.png-3f1317775cce07045998dafc1a5ed7b7.md5
+    |       Chillary_05.png-3f1317775cce07045998dafc1a5ed7b7.stex
+    |       Chillary_05.png-83bae72c93c9ef8105188ed53783a8aa.md5
+    |       Chillary_05.png-83bae72c93c9ef8105188ed53783a8aa.stex
+    |       Chillary_06.png-03b7356daa7a3d7e5f4f2ea4135bd06b.md5
+    |       Chillary_06.png-03b7356daa7a3d7e5f4f2ea4135bd06b.stex
+    |       Chillary_06.png-a9d8c108766f9938ce31dfbdcb7c61d3.md5
+    |       Chillary_06.png-a9d8c108766f9938ce31dfbdcb7c61d3.stex
+    |       Chillary_07.png-4b31941060f11c5e7df529be193241f2.md5
+    |       Chillary_07.png-4b31941060f11c5e7df529be193241f2.stex
+    |       Chillary_07.png-c2c0b5500e4b28158b1a26bd244bc236.md5
+    |       Chillary_07.png-c2c0b5500e4b28158b1a26bd244bc236.stex
+    |       Chillary_08.png-49279498dbdea8c1f4e9e2fffe1c4582.md5
+    |       Chillary_08.png-49279498dbdea8c1f4e9e2fffe1c4582.stex
+    |       Chillary_08.png-eba7b76816249800b2d5436c7b0b6f79.md5
+    |       Chillary_08.png-eba7b76816249800b2d5436c7b0b6f79.stex
+    |       Chillary_09.png-1943621c84e3aefa59aba0a056476410.md5
+    |       Chillary_09.png-1943621c84e3aefa59aba0a056476410.stex
+    |       Chillary_09.png-81008ba3c337f60116bcac3d67dc58ce.md5
+    |       Chillary_09.png-81008ba3c337f60116bcac3d67dc58ce.stex
+    |       Chillary_10.png-78e339f65247ac7818b6ee68df709e01.md5
+    |       Chillary_10.png-78e339f65247ac7818b6ee68df709e01.stex
+    |       Chillary_10.png-f0d609cbe77d90ed8b8d22f3d6e3e079.md5
+    |       Chillary_10.png-f0d609cbe77d90ed8b8d22f3d6e3e079.stex
+    |       Chillary_11.png-53181e121f473c815789ab57be08bc12.md5
+    |       Chillary_11.png-53181e121f473c815789ab57be08bc12.stex
+    |       Chillary_11.png-6a93ae802adb172c1f4e77696ef9900b.md5
+    |       Chillary_11.png-6a93ae802adb172c1f4e77696ef9900b.stex
+    |       Chillary_12.png-caa319ee8f04d78b3b32ee27919ca7a3.md5
+    |       Chillary_12.png-caa319ee8f04d78b3b32ee27919ca7a3.stex
+    |       Chillary_12.png-d82c9e1ef68c60d48a65bae837c819ba.md5
+    |       Chillary_12.png-d82c9e1ef68c60d48a65bae837c819ba.stex
+    |       Dark_Starman_large.png-c0ab6c926134ea8420ee39054fda9014.md5
+    |       Dark_Starman_large.png-c0ab6c926134ea8420ee39054fda9014.stex
+    |       Dark_Starman_large.png-ca4e47e767900c59312a85e544b5dea3.md5
+    |       Dark_Starman_large.png-ca4e47e767900c59312a85e544b5dea3.stex
+    |       Dialogue_Box_Mockup_01.png-960bb7a0ba58fe1feb33e2e93f4fadf1.md5
+    |       Dialogue_Box_Mockup_01.png-960bb7a0ba58fe1feb33e2e93f4fadf1.stex
+    |       Dialogue_Box_Mockup_02.png-4faa4f2d05c889fe3920960f1aa0507c.md5
+    |       Dialogue_Box_Mockup_02.png-4faa4f2d05c889fe3920960f1aa0507c.stex
+    |       House01.png-1e68e305be64a09a1eadc1df48fd9cc3.md5
+    |       House01.png-1e68e305be64a09a1eadc1df48fd9cc3.stex
+    |       House01.png-ad2ee04d2cbbfa2ecc308a4d9ee89ec6.md5
+    |       House01.png-ad2ee04d2cbbfa2ecc308a4d9ee89ec6.stex
+    |       icon.png-487276ed1e3a0c39cad0279d744ee560.md5
+    |       icon.png-487276ed1e3a0c39cad0279d744ee560.stex
+    |       icon.png-bdef8a7054a6f5d7355a306f1ec21813.md5
+    |       icon.png-bdef8a7054a6f5d7355a306f1ec21813.stex
+    |       icon.png-e79028255ff2dd8274b5d85ed85aee81.md5
+    |       icon.png-e79028255ff2dd8274b5d85ed85aee81.stex
+    |       icon.png-ec880de02d5dab0aa15458af9d6c53ed.md5
+    |       icon.png-ec880de02d5dab0aa15458af9d6c53ed.stex
+    |       Inside_Map.png-0089d307409cba9d8b0d456cfc1f3400.md5
+    |       Inside_Map.png-0089d307409cba9d8b0d456cfc1f3400.stex
+    |       Inside_Map.png-5bfb92fa0f8b2e2ff1dcf92fda0ffde6.md5
+    |       Inside_Map.png-5bfb92fa0f8b2e2ff1dcf92fda0ffde6.stex
+    |       Inside_Map.png-7d4a34c0c68c800234056a7108ab717d.md5
+    |       Inside_Map.png-7d4a34c0c68c800234056a7108ab717d.stex
+    |       Inside_Map.png-cb4daf9d8639deca3d29cc121d16bb87.md5
+    |       Inside_Map.png-cb4daf9d8639deca3d29cc121d16bb87.stex
+    |       Inside_Map_Old.png-00a5c2b3ca25119d763f85faea3be86b.md5
+    |       Inside_Map_Old.png-00a5c2b3ca25119d763f85faea3be86b.stex
+    |       Inside_Map_Old.png-93530e7c3a09a5fd2e0e15862c2f97e5.md5
+    |       Inside_Map_Old.png-93530e7c3a09a5fd2e0e15862c2f97e5.stex
+    |       Menu_Backdrop_01.png-c84b77ebca15dda535244ef1988a5367.md5
+    |       Menu_Backdrop_01.png-c84b77ebca15dda535244ef1988a5367.stex
+    |       Menu_Backdrop_02.png-a70c5a809202413f61a2594e341fc81d.md5
+    |       Menu_Backdrop_02.png-a70c5a809202413f61a2594e341fc81d.stex
+    |       Menu_Backdrop_03.png-0797c7d6cc9d0b6c61a9895787d762c9.md5
+    |       Menu_Backdrop_03.png-0797c7d6cc9d0b6c61a9895787d762c9.stex
+    |       Menu_Backdrop_04.png-9160acbe9b9df0965ebaccf25dc4d87b.md5
+    |       Menu_Backdrop_04.png-9160acbe9b9df0965ebaccf25dc4d87b.stex
+    |       Menu_Backdrop_05.png-532155279d3ea1c44ac58dea21c68287.md5
+    |       Menu_Backdrop_05.png-532155279d3ea1c44ac58dea21c68287.stex
+    |       Menu_Backdrop_06.png-3514230884e87d4478d3422a71dad87e.md5
+    |       Menu_Backdrop_06.png-3514230884e87d4478d3422a71dad87e.stex
+    |       Menu_Backdrop_07.png-4cf8a4469bfe551c787193dd6ea8b4bd.md5
+    |       Menu_Backdrop_07.png-4cf8a4469bfe551c787193dd6ea8b4bd.stex
+    |       Menu_Button_01.png-807b816a512ac9adbab5476ae07cc8cf.md5
+    |       Menu_Button_01.png-807b816a512ac9adbab5476ae07cc8cf.stex
+    |       Menu_Button_02.png-df90be96dee08d1bcfbd060bc84e45f6.md5
+    |       Menu_Button_02.png-df90be96dee08d1bcfbd060bc84e45f6.stex
+    |       Menu_Button_03.png-64447c271f82daec752cdcf9665529ae.md5
+    |       Menu_Button_03.png-64447c271f82daec752cdcf9665529ae.stex
+    |       Menu_Button_04.png-cfb0d553b833c2235d85b8f564d55883.md5
+    |       Menu_Button_04.png-cfb0d553b833c2235d85b8f564d55883.stex
+    |       Menu_Button_05.png-75715cf67ff02e092826e14aacef6cdd.md5
+    |       Menu_Button_05.png-75715cf67ff02e092826e14aacef6cdd.stex
+    |       Menu_Button_06.png-e7bf2a0a15944661a703811bec1aed1c.md5
+    |       Menu_Button_06.png-e7bf2a0a15944661a703811bec1aed1c.stex
+    |       Menu_Button_07.png-3e2499a379190d7b9b91e0a49a17143f.md5
+    |       Menu_Button_07.png-3e2499a379190d7b9b91e0a49a17143f.stex
+    |       Menu_Button_08.png-88358ab095d1b9daa434dca5b78d6604.md5
+    |       Menu_Button_08.png-88358ab095d1b9daa434dca5b78d6604.stex
+    |       Menu_Button_09.png-833cf80a8579c9004f2c748860ea84ab.md5
+    |       Menu_Button_09.png-833cf80a8579c9004f2c748860ea84ab.stex
+    |       Menu_Button_10.png-33ee204501a2ca400ac1971ca54cc25d.md5
+    |       Menu_Button_10.png-33ee204501a2ca400ac1971ca54cc25d.stex
+    |       Menu_Element_01.png-488211248333d658c2678aa445771d58.md5
+    |       Menu_Element_01.png-488211248333d658c2678aa445771d58.stex
+    |       Menu_Element_02.png-44b3e170c3ed8ed5ef52c1364ac2e172.md5
+    |       Menu_Element_02.png-44b3e170c3ed8ed5ef52c1364ac2e172.stex
+    |       Menu_Element_03.png-e0e6fc9768d69a45d027e4e1a66c0b51.md5
+    |       Menu_Element_03.png-e0e6fc9768d69a45d027e4e1a66c0b51.stex
+    |       Menu_Element_04.png-439d1833e403563dbb6667211d439694.md5
+    |       Menu_Element_04.png-439d1833e403563dbb6667211d439694.stex
+    |       Menu_Element_05.png-a0e0bfca0e626a1c316e7f599488985f.md5
+    |       Menu_Element_05.png-a0e0bfca0e626a1c316e7f599488985f.stex
+    |       Menu_Element_06.png-b48db2597b49f3604337155dda8df85b.md5
+    |       Menu_Element_06.png-b48db2597b49f3604337155dda8df85b.stex
+    |       Menu_Element_07.png-efe3e956ad6159d05961e2ec228f5aa3.md5
+    |       Menu_Element_07.png-efe3e956ad6159d05961e2ec228f5aa3.stex
+    |       Menu_Main_Backboard.png-0d6700131a2c874e8e39e8031d6c4120.md5
+    |       Menu_Main_Backboard.png-0d6700131a2c874e8e39e8031d6c4120.stex
+    |       Menu_Main_Button_01.png-51e883b30cbeadb7838b8a056d600312.md5
+    |       Menu_Main_Button_01.png-51e883b30cbeadb7838b8a056d600312.stex
+    |       Menu_Main_Button_02.png-15fcc0f8cad17bb95ff04136b855f64e.md5
+    |       Menu_Main_Button_02.png-15fcc0f8cad17bb95ff04136b855f64e.stex
+    |       Menu_Main_Button_03.png-4a7da781d638eeb486ad99b7644efb83.md5
+    |       Menu_Main_Button_03.png-4a7da781d638eeb486ad99b7644efb83.stex
+    |       Menu_Main_Button_04.png-148d0576e6f6ca80d169ce9c98a6eb7d.md5
+    |       Menu_Main_Button_04.png-148d0576e6f6ca80d169ce9c98a6eb7d.stex
+    |       Menu_Main_Button_05.png-7867a193f39cfbc5540b9e372ff95f77.md5
+    |       Menu_Main_Button_05.png-7867a193f39cfbc5540b9e372ff95f77.stex
+    |       Menu_Main_Button_06.png-0b52d13e844188b79b6a06abdd5560cf.md5
+    |       Menu_Main_Button_06.png-0b52d13e844188b79b6a06abdd5560cf.stex
+    |       Menu_Main_Button_07.png-16564dda7ab3bd8832574df183bd8fb1.md5
+    |       Menu_Main_Button_07.png-16564dda7ab3bd8832574df183bd8fb1.stex
+    |       Menu_Main_Button_08.png-adcdb7e2a7b779d299c2ba38bb5ebb57.md5
+    |       Menu_Main_Button_08.png-adcdb7e2a7b779d299c2ba38bb5ebb57.stex
+    |       Menu_Main_Button_09.png-10aaf69a46a74c3e1e30d64c71baab32.md5
+    |       Menu_Main_Button_09.png-10aaf69a46a74c3e1e30d64c71baab32.stex
+    |       Menu_Main_Button_10.png-e50516b57be8098e84df0269d32bd421.md5
+    |       Menu_Main_Button_10.png-e50516b57be8098e84df0269d32bd421.stex
+    |       Option_Arrow_Key_Pressed.wav-6bab88bc6455a4d25a9ddf9fbb92ee97.md5
+    |       Option_Arrow_Key_Pressed.wav-6bab88bc6455a4d25a9ddf9fbb92ee97.sample
+    |       Option_Arrow_Key_Pressed.wav-bd5b6e2c69abe093dfd5ff364e3e6aea.md5
+    |       Option_Arrow_Key_Pressed.wav-bd5b6e2c69abe093dfd5ff364e3e6aea.sample
+    |       Option_Arrow_Key_Pressed.wav-f308cdecd2e5256f1a6130828960a847.md5
+    |       Option_Arrow_Key_Pressed.wav-f308cdecd2e5256f1a6130828960a847.sample
+    |       Option_Selected.wav-566b2eef3be9970ac07d8d91ac34839e.md5
+    |       Option_Selected.wav-566b2eef3be9970ac07d8d91ac34839e.sample
+    |       Option_Selected.wav-7837968650571470bd12b8b22b2a2f0e.md5
+    |       Option_Selected.wav-7837968650571470bd12b8b22b2a2f0e.sample
+    |       Option_Selected.wav-caf0a48e08a080da7ecc60b1d4c274fb.md5
+    |       Option_Selected.wav-caf0a48e08a080da7ecc60b1d4c274fb.sample
+    |       Outside_Map.png-30c8d5ca1dbaadb2404b284bbf830c68.md5
+    |       Outside_Map.png-30c8d5ca1dbaadb2404b284bbf830c68.stex
+    |       Outside_Map.png-6184bf0d83be40a9fc6016dfb5d01aae.md5
+    |       Outside_Map.png-6184bf0d83be40a9fc6016dfb5d01aae.stex
+    |       Outside_Map.png-7b206c2e426d77b9c5b69f29e3864d8c.md5
+    |       Outside_Map.png-7b206c2e426d77b9c5b69f29e3864d8c.stex
+    |       Outside_Map.png-979b3c4e6950ad2b87c97c9be48bfe58.md5
+    |       Outside_Map.png-979b3c4e6950ad2b87c97c9be48bfe58.stex
+    |       Outside_Map.png-a2da25d8bc620da718eeb3860b0b4b55.md5
+    |       Outside_Map.png-a2da25d8bc620da718eeb3860b0b4b55.stex
+    |       Outside_Map.png-b6f0f875c494f7d76ac29cadf8a36766.md5
+    |       Outside_Map.png-b6f0f875c494f7d76ac29cadf8a36766.stex
+    |       Props_01.png-91a6beb4ff8af222c95da717a573b0ac.md5
+    |       Props_01.png-91a6beb4ff8af222c95da717a573b0ac.stex
+    |       Props_01.png-eb3c2a8341082de46fb82533480c03e1.md5
+    |       Props_01.png-eb3c2a8341082de46fb82533480c03e1.stex
+    |       Props_02.png-80c9eb63989a8f6be2c9ffa93685b8b1.md5
+    |       Props_02.png-80c9eb63989a8f6be2c9ffa93685b8b1.stex
+    |       Props_02.png-8a7fcb038f9ae9e7682532312fa75635.md5
+    |       Props_02.png-8a7fcb038f9ae9e7682532312fa75635.stex
+    |       Props_03.png-4e54bb75301cacdc2d1d9aee04ef5ec0.md5
+    |       Props_03.png-4e54bb75301cacdc2d1d9aee04ef5ec0.stex
+    |       Props_03.png-714c8ec72cbfaf57208f7820799c83c1.md5
+    |       Props_03.png-714c8ec72cbfaf57208f7820799c83c1.stex
+    |       Props_04.png-0f576798b5cbf9a28f37d3cf640c2ced.md5
+    |       Props_04.png-0f576798b5cbf9a28f37d3cf640c2ced.stex
+    |       Props_04.png-2390c2329f4791c968a2171816f7b39c.md5
+    |       Props_04.png-2390c2329f4791c968a2171816f7b39c.stex
+    |       Props_05.png-5be3db725c7dd98b941473b43c66259e.md5
+    |       Props_05.png-5be3db725c7dd98b941473b43c66259e.stex
+    |       Props_05.png-c4d76a4eb991999efa2b720544eef7a7.md5
+    |       Props_05.png-c4d76a4eb991999efa2b720544eef7a7.stex
+    |       Props_06.png-04f77d1b1f84c4fe54de52b23b9f7786.md5
+    |       Props_06.png-04f77d1b1f84c4fe54de52b23b9f7786.stex
+    |       Props_06.png-48a9bf312ca1846baa3d975012776b5f.md5
+    |       Props_06.png-48a9bf312ca1846baa3d975012776b5f.stex
+    |       Props_07.png-02ef0e3d5272778c99d51b19e2840860.md5
+    |       Props_07.png-02ef0e3d5272778c99d51b19e2840860.stex
+    |       Props_07.png-d8d098ad120baa3a93ccdeba2f8e0c75.md5
+    |       Props_07.png-d8d098ad120baa3a93ccdeba2f8e0c75.stex
+    |       Props_08.png-0276d78a1bff8f61a528c3901de4ebb9.md5
+    |       Props_08.png-0276d78a1bff8f61a528c3901de4ebb9.stex
+    |       Props_08.png-cbf2754cca8556a0990cb6ccf6788538.md5
+    |       Props_08.png-cbf2754cca8556a0990cb6ccf6788538.stex
+    |       Props_09.png-29c73860a5da52546402f42d86436057.md5
+    |       Props_09.png-29c73860a5da52546402f42d86436057.stex
+    |       Props_09.png-c000674354032dfdf41dacc515aadbc3.md5
+    |       Props_09.png-c000674354032dfdf41dacc515aadbc3.stex
+    |       Props_10.png-323765b33153ea65d631febc8e06227b.md5
+    |       Props_10.png-323765b33153ea65d631febc8e06227b.stex
+    |       Props_10.png-c1ae3aebf0f8334596e2890293222ea0.md5
+    |       Props_10.png-c1ae3aebf0f8334596e2890293222ea0.stex
+    |       Props_11.png-15974bb562aeadbeaec3a2be9d671972.md5
+    |       Props_11.png-15974bb562aeadbeaec3a2be9d671972.stex
+    |       Props_11.png-9d45a3a21814182cc9581471d5176cd8.md5
+    |       Props_11.png-9d45a3a21814182cc9581471d5176cd8.stex
+    |       Props_12.png-2d26b78f27aca56c582c67350aadb230.md5
+    |       Props_12.png-2d26b78f27aca56c582c67350aadb230.stex
+    |       Props_12.png-f28e3d5a1efaedd44e633ef4dd79677f.md5
+    |       Props_12.png-f28e3d5a1efaedd44e633ef4dd79677f.stex
+    |       Props_13.png-4fbf7b8b3278add53ce6526b333c34f8.md5
+    |       Props_13.png-4fbf7b8b3278add53ce6526b333c34f8.stex
+    |       Props_13.png-e0ba09cc905c08098da89ed87b6738a6.md5
+    |       Props_13.png-e0ba09cc905c08098da89ed87b6738a6.stex
+    |       Props_14.png-15c7efc62f2ab5b0c286ccb61b3c9bab.md5
+    |       Props_14.png-15c7efc62f2ab5b0c286ccb61b3c9bab.stex
+    |       Props_14.png-ef586b0ce55320621c212e23aefdaf6a.md5
+    |       Props_14.png-ef586b0ce55320621c212e23aefdaf6a.stex
+    |       Props_15.png-3aa1168be84b74ad487abc708730761b.md5
+    |       Props_15.png-3aa1168be84b74ad487abc708730761b.stex
+    |       Props_15.png-e98e13a3e81ef6144dc32344f641514d.md5
+    |       Props_15.png-e98e13a3e81ef6144dc32344f641514d.stex
+    |       Props_16.png-17cd8dc109ecb13e30f1006b11d353ff.md5
+    |       Props_16.png-17cd8dc109ecb13e30f1006b11d353ff.stex
+    |       Props_16.png-7aca255ecf02f5dc079eefe967255062.md5
+    |       Props_16.png-7aca255ecf02f5dc079eefe967255062.stex
+    |       Props_17.png-383eca22a18d86d820c65193ab96129d.md5
+    |       Props_17.png-383eca22a18d86d820c65193ab96129d.stex
+    |       Props_17.png-eace5d68bdaf4d336480f4325074641a.md5
+    |       Props_17.png-eace5d68bdaf4d336480f4325074641a.stex
+    |       Terryn01.png-3631c1565561698a81ce0cee2777f274.md5
+    |       Terryn02.png-1af9068127e3424b1eec09ad5350c403.md5
+    |       Terryn03.png-ef51bfcb389390bf7a66d744db99d139.md5
+    |       Terryn04.png-142a99f9f25c23df0a54bbf0047568dc.md5
+    |       Terryn05.png-9934a7a10fa149612c991f2f90cc5230.md5
+    |       Terryn06.png-27396a6286c13a6171e4a0c40483b8ab.md5
+    |       Terryn07.png-8f4a9179e0bee346bf9464cbd43310eb.md5
+    |       Terryn08.png-8b5708be8c5330c32b753c4950679332.md5
+    |       Terryn09.png-e14c5a9a44570da3a71891c8c1b90467.md5
+    |       Terryn10.png-a60004ff640ffcdb6785209a55b633b4.md5
+    |       Terryn11.png-752c1ab96fc803e60dfdb9dc19ff2b6c.md5
+    |       Terryn12.png-42a8c4674ad1a707e9b020ea07942e18.md5
+    |       Terryn13.png-a24c597685dea9e0ea97fb3d7943d35c.md5
+    |       Terryn14.png-7ff9e00f2ef01e86ceaa0c5db7362c3c.md5
+    |       Terryn15.png-bd678210f03f90a94e7f9d60ca48036e.md5
+    |       Terryn16.png-e14652503876b9d18dd1f01cf9db6a71.md5
+    |       Terryn_Walk.png-6b9a71660101d47829f80927dbbd279a.md5
+    |       Terryn_Walk.png-6b9a71660101d47829f80927dbbd279a.stex
+    |       TestTileMap.png-4a8566517a05524326af2d663bed1836.md5
+    |       TestTileMap.png-4a8566517a05524326af2d663bed1836.stex
+    |       TestTileMap.png-6c8eb7269f1bdaa515c34f020badb498.md5
+    |       TestTileMap.png-6c8eb7269f1bdaa515c34f020badb498.stex
+    |       Text_Scroll_SFX (1).wav-1d2dbc62d3dffb4cd7805431cc3947a1.md5
+    |       Text_Scroll_SFX (1).wav-1d2dbc62d3dffb4cd7805431cc3947a1.sample
+    |       Text_Scroll_SFX (1).wav-994745fab9bf31c39fc1ffa3f0261b7f.md5
+    |       Text_Scroll_SFX (1).wav-994745fab9bf31c39fc1ffa3f0261b7f.sample
+    |       Text_Scroll_SFX (1).wav-a2f13a2f119ff5d7e446943537bd43ba.md5
+    |       Text_Scroll_SFX (1).wav-a2f13a2f119ff5d7e446943537bd43ba.sample
+    |       Tree.png-4810f695c03dfae84fe313d3d79a8c9d.md5
+    |       Tree.png-4810f695c03dfae84fe313d3d79a8c9d.stex
+    |       Tree.png-ffe360b0bcd34831f5497738385e8a33.md5
+    |       Tree.png-ffe360b0bcd34831f5497738385e8a33.stex
+    |       UI_Mocks_01.png-a3d0c3fe240e89cfc9f639e91608f23c.md5
+    |       UI_Mocks_01.png-a3d0c3fe240e89cfc9f639e91608f23c.stex
+    |       UI_Mocks_02.png-9f91a67ebd152285c57ad867df0b8858.md5
+    |       UI_Mocks_02.png-9f91a67ebd152285c57ad867df0b8858.stex
+    |       UI_Mocks_03.png-f59394227beb3301fb944dfe062719c4.md5
+    |       UI_Mocks_03.png-f59394227beb3301fb944dfe062719c4.stex
+    |       UI_Mocks_04.png-11e1e93d797a8cfeeecf56025fcaf4d3.md5
+    |       UI_Mocks_04.png-11e1e93d797a8cfeeecf56025fcaf4d3.stex
+    |       UI_Mocks_05.png-23d82f9135c244044a63b527b97dd07a.md5
+    |       UI_Mocks_05.png-23d82f9135c244044a63b527b97dd07a.stex
+    |       UI_Mocks_06.png-1a00fac948038c553889226dded90cfc.md5
+    |       UI_Mocks_06.png-1a00fac948038c553889226dded90cfc.stex
+    |       UI_Mocks_07.png-87317d8d2c9bda934dddb097391b85df.md5
+    |       UI_Mocks_07.png-87317d8d2c9bda934dddb097391b85df.stex
+    |       UI_Mocks_08.png-813f7864eecfb1ff23248671b0f5bd1f.md5
+    |       UI_Mocks_08.png-813f7864eecfb1ff23248671b0f5bd1f.stex
+    |       UI_Mocks_09.png-26c3c45d85734a8686f7ac488100630b.md5
+    |       UI_Mocks_09.png-26c3c45d85734a8686f7ac488100630b.stex
+    |       UI_Mocks_10.png-930237824ba2a71e97461a647375e3c8.md5
+    |       UI_Mocks_10.png-930237824ba2a71e97461a647375e3c8.stex
+    |       UI_Mocks_11.png-73a3c127449e464687a9646e1b140adc.md5
+    |       UI_Mocks_11.png-73a3c127449e464687a9646e1b140adc.stex
+    |       UI_Mocks_12.png-c003d5be412af213fb1dd388d4c5aa91.md5
+    |       UI_Mocks_12.png-c003d5be412af213fb1dd388d4c5aa91.stex
+    |       UI_Mocks_13.png-9f04ee024ccd62c8071a7906236e8ba6.md5
+    |       UI_Mocks_13.png-9f04ee024ccd62c8071a7906236e8ba6.stex
+    |       UI_Mocks_14.png-fdd890714324915bb500fe32ca603d6e.md5
+    |       UI_Mocks_14.png-fdd890714324915bb500fe32ca603d6e.stex
+    |       UI_Mocks_15.png-9bc12f40c6600003c133e93fadece9d9.md5
+    |       UI_Mocks_15.png-9bc12f40c6600003c133e93fadece9d9.stex
+    |       UI_Mocks_16.png-0e8c5ec7a3ee402e9f4071870d7a1441.md5
+    |       UI_Mocks_16.png-0e8c5ec7a3ee402e9f4071870d7a1441.stex
+    |       UI_Mocks_17.png-e555a9ae2dd33b650e4ee9ac8efdaea8.md5
+    |       UI_Mocks_17.png-e555a9ae2dd33b650e4ee9ac8efdaea8.stex
+    |       
+    +---Assets
+    |   +---Art
+    |   |   +---Character_Art
+    |   |   |   +---C1
+    |   |   |   |       C1_01.png
+    |   |   |   |       C1_01.png.import
+    |   |   |   |       C1_02.png
+    |   |   |   |       C1_02.png.import
+    |   |   |   |       C1_03.png
+    |   |   |   |       C1_03.png.import
+    |   |   |   |       C1_04.png
+    |   |   |   |       C1_04.png.import
+    |   |   |   |       C1_05.png
+    |   |   |   |       C1_05.png.import
+    |   |   |   |       C1_06.png
+    |   |   |   |       C1_06.png.import
+    |   |   |   |       C1_07.png
+    |   |   |   |       C1_07.png.import
+    |   |   |   |       C1_08.png
+    |   |   |   |       C1_08.png.import
+    |   |   |   |       C1_09.png
+    |   |   |   |       C1_09.png.import
+    |   |   |   |       C1_10.png
+    |   |   |   |       C1_10.png.import
+    |   |   |   |       C1_11.png
+    |   |   |   |       C1_11.png.import
+    |   |   |   |       C1_12.png
+    |   |   |   |       C1_12.png.import
+    |   |   |   |       C1_13.png
+    |   |   |   |       C1_13.png.import
+    |   |   |   |       C1_14.png
+    |   |   |   |       C1_14.png.import
+    |   |   |   |       C1_15.png
+    |   |   |   |       C1_15.png.import
+    |   |   |   |       C1_16.png
+    |   |   |   |       C1_16.png.import
+    |   |   |   |       C1_17.png
+    |   |   |   |       C1_17.png.import
+    |   |   |   |       C1_18.png
+    |   |   |   |       C1_18.png.import
+    |   |   |   |       C1_AtHome_01.png
+    |   |   |   |       C1_AtHome_01.png.import
+    |   |   |   |       C1_AtHome_02.png
+    |   |   |   |       C1_AtHome_02.png.import
+    |   |   |   |       C1_AtHome_03.png
+    |   |   |   |       C1_AtHome_03.png.import
+    |   |   |   |       C1_AtHome_04.png
+    |   |   |   |       C1_AtHome_04.png.import
+    |   |   |   |       C1_AtHome_05.png
+    |   |   |   |       C1_AtHome_05.png.import
+    |   |   |   |       C1_AtHome_06.png
+    |   |   |   |       C1_AtHome_06.png.import
+    |   |   |   |       C1_AtHome_07.png
+    |   |   |   |       C1_AtHome_07.png.import
+    |   |   |   |       C1_AtHome_08.png
+    |   |   |   |       C1_AtHome_08.png.import
+    |   |   |   |       C1_AtHome_09.png
+    |   |   |   |       C1_AtHome_09.png.import
+    |   |   |   |       C1_AtHome_10.png
+    |   |   |   |       C1_AtHome_10.png.import
+    |   |   |   |       C1_AtHome_11.png
+    |   |   |   |       C1_AtHome_11.png.import
+    |   |   |   |       C1_AtHome_12.png
+    |   |   |   |       C1_AtHome_12.png.import
+    |   |   |   |       C1_AtHome_13.png
+    |   |   |   |       C1_AtHome_13.png.import
+    |   |   |   |       C1_AtHome_14.png
+    |   |   |   |       C1_AtHome_14.png.import
+    |   |   |   |       C1_AtHome_15.png
+    |   |   |   |       C1_AtHome_15.png.import
+    |   |   |   |       C1_AtHome_16.png
+    |   |   |   |       C1_AtHome_16.png.import
+    |   |   |   |       
+    |   |   |   +---C2
+    |   |   |   |       C2_01.png
+    |   |   |   |       C2_01.png.import
+    |   |   |   |       C2_02.png
+    |   |   |   |       C2_02.png.import
+    |   |   |   |       C2_03.png
+    |   |   |   |       C2_03.png.import
+    |   |   |   |       C2_04.png
+    |   |   |   |       C2_04.png.import
+    |   |   |   |       C2_05.png
+    |   |   |   |       C2_05.png.import
+    |   |   |   |       C2_06.png
+    |   |   |   |       C2_06.png.import
+    |   |   |   |       C2_07.png
+    |   |   |   |       C2_07.png.import
+    |   |   |   |       C2_08.png
+    |   |   |   |       C2_08.png.import
+    |   |   |   |       C2_09.png
+    |   |   |   |       C2_09.png.import
+    |   |   |   |       C2_10.png
+    |   |   |   |       C2_10.png.import
+    |   |   |   |       C2_11.png
+    |   |   |   |       C2_11.png.import
+    |   |   |   |       C2_12.png
+    |   |   |   |       C2_12.png.import
+    |   |   |   |       
+    |   |   |   +---C3
+    |   |   |   |       C3_01.png
+    |   |   |   |       C3_01.png.import
+    |   |   |   |       C3_02.png
+    |   |   |   |       C3_02.png.import
+    |   |   |   |       C3_03.png
+    |   |   |   |       C3_03.png.import
+    |   |   |   |       C3_04.png
+    |   |   |   |       C3_04.png.import
+    |   |   |   |       C3_05.png
+    |   |   |   |       C3_05.png.import
+    |   |   |   |       C3_06.png
+    |   |   |   |       C3_06.png.import
+    |   |   |   |       C3_07.png
+    |   |   |   |       C3_07.png.import
+    |   |   |   |       C3_08.png
+    |   |   |   |       C3_08.png.import
+    |   |   |   |       C3_09.png
+    |   |   |   |       C3_09.png.import
+    |   |   |   |       C3_10.png
+    |   |   |   |       C3_10.png.import
+    |   |   |   |       C3_11.png
+    |   |   |   |       C3_11.png.import
+    |   |   |   |       C3_12.png
+    |   |   |   |       C3_12.png.import
+    |   |   |   |       
+    |   |   |   \---Chillary
+    |   |   |           Chillary_01.png
+    |   |   |           Chillary_01.png.import
+    |   |   |           Chillary_02.png
+    |   |   |           Chillary_02.png.import
+    |   |   |           Chillary_03.png
+    |   |   |           Chillary_03.png.import
+    |   |   |           Chillary_04.png
+    |   |   |           Chillary_04.png.import
+    |   |   |           Chillary_05.png
+    |   |   |           Chillary_05.png.import
+    |   |   |           Chillary_06.png
+    |   |   |           Chillary_06.png.import
+    |   |   |           Chillary_07.png
+    |   |   |           Chillary_07.png.import
+    |   |   |           Chillary_08.png
+    |   |   |           Chillary_08.png.import
+    |   |   |           Chillary_09.png
+    |   |   |           Chillary_09.png.import
+    |   |   |           Chillary_10.png
+    |   |   |           Chillary_10.png.import
+    |   |   |           Chillary_11.png
+    |   |   |           Chillary_11.png.import
+    |   |   |           Chillary_12.png
+    |   |   |           Chillary_12.png.import
+    |   |   |           
+    |   |   +---Enemy_Art
+    |   |   |   \---Bully
+    |   |   |           Battle_Bully.png
+    |   |   |           Battle_Bully.png.import
+    |   |   |           Bully_01.png
+    |   |   |           Bully_01.png.import
+    |   |   |           Bully_02.png
+    |   |   |           Bully_02.png.import
+    |   |   |           Bully_03.png
+    |   |   |           Bully_03.png.import
+    |   |   |           Bully_04.png
+    |   |   |           Bully_04.png.import
+    |   |   |           Bully_05.png
+    |   |   |           Bully_05.png.import
+    |   |   |           Bully_06.png
+    |   |   |           Bully_06.png.import
+    |   |   |           Bully_07.png
+    |   |   |           Bully_07.png.import
+    |   |   |           Bully_08.png
+    |   |   |           Bully_08.png.import
+    |   |   |           Bully_09.png
+    |   |   |           Bully_09.png.import
+    |   |   |           Bully_10.png
+    |   |   |           Bully_10.png.import
+    |   |   |           Bully_11.png
+    |   |   |           Bully_11.png.import
+    |   |   |           Bully_12.png
+    |   |   |           Bully_12.png.import
+    |   |   |           Bully_13.png
+    |   |   |           Bully_13.png.import
+    |   |   |           Bully_14.png
+    |   |   |           Bully_14.png.import
+    |   |   |           
+    |   |   +---Environments
+    |   |   |   \---Area1
+    |   |   |       |   House01.png
+    |   |   |       |   House01.png.import
+    |   |   |       |   Inside_Map.pal
+    |   |   |       |   Inside_Map.png
+    |   |   |       |   Inside_Map.png.import
+    |   |   |       |   Inside_Map_Old.pal
+    |   |   |       |   Inside_Map_Old.png
+    |   |   |       |   Inside_Map_Old.png.import
+    |   |   |       |   Outside_Map.png
+    |   |   |       |   Outside_Map.png.import
+    |   |   |       |   Props_01.pal
+    |   |   |       |   Props_01.png
+    |   |   |       |   Props_01.png.import
+    |   |   |       |   Props_02.pal
+    |   |   |       |   Props_02.png
+    |   |   |       |   Props_02.png.import
+    |   |   |       |   Props_03.pal
+    |   |   |       |   Props_03.png
+    |   |   |       |   Props_03.png.import
+    |   |   |       |   Props_04.pal
+    |   |   |       |   Props_04.png
+    |   |   |       |   Props_04.png.import
+    |   |   |       |   Props_05.pal
+    |   |   |       |   Props_05.png
+    |   |   |       |   Props_05.png.import
+    |   |   |       |   Props_06.pal
+    |   |   |       |   Props_06.png
+    |   |   |       |   Props_06.png.import
+    |   |   |       |   Props_07.pal
+    |   |   |       |   Props_07.png
+    |   |   |       |   Props_07.png.import
+    |   |   |       |   Props_08.pal
+    |   |   |       |   Props_08.png
+    |   |   |       |   Props_08.png.import
+    |   |   |       |   Props_09.pal
+    |   |   |       |   Props_09.png
+    |   |   |       |   Props_09.png.import
+    |   |   |       |   Props_10.pal
+    |   |   |       |   Props_10.png
+    |   |   |       |   Props_10.png.import
+    |   |   |       |   Props_11.pal
+    |   |   |       |   Props_11.png
+    |   |   |       |   Props_11.png.import
+    |   |   |       |   Props_12.pal
+    |   |   |       |   Props_12.png
+    |   |   |       |   Props_12.png.import
+    |   |   |       |   Props_13.pal
+    |   |   |       |   Props_13.png
+    |   |   |       |   Props_13.png.import
+    |   |   |       |   Props_14.pal
+    |   |   |       |   Props_14.png
+    |   |   |       |   Props_14.png.import
+    |   |   |       |   Props_15.pal
+    |   |   |       |   Props_15.png
+    |   |   |       |   Props_15.png.import
+    |   |   |       |   Props_16.pal
+    |   |   |       |   Props_16.png
+    |   |   |       |   Props_16.png.import
+    |   |   |       |   Props_17.pal
+    |   |   |       |   Props_17.png
+    |   |   |       |   Props_17.png.import
+    |   |   |       |   Tree.png
+    |   |   |       |   Tree.png.import
+    |   |   |       |   
+    |   |   |       \---Temp_Saved
+    |   |   |               Inside_Map.png
+    |   |   |               Inside_Map.png.import
+    |   |   |               Outside_Map.png
+    |   |   |               Outside_Map.png.import
+    |   |   |               
+    |   |   +---General
+    |   |   |   \---Chests
+    |   |   |           Chests_01.png
+    |   |   |           Chests_01.png.import
+    |   |   |           Chests_02.png
+    |   |   |           Chests_02.png.import
+    |   |   |           Chests_03.png
+    |   |   |           Chests_03.png.import
+    |   |   |           
+    |   |   \---Test_Art
+    |   |       |   Dark_Starman_large.png
+    |   |       |   Dark_Starman_large.png.import
+    |   |       |   icon.png
+    |   |       |   icon.png.import
+    |   |       |   TestTileMap.png
+    |   |       |   TestTileMap.png.import
+    |   |       |   
+    |   |       \---Christian_Test_Assets
+    |   |               Fixed_Test.res
+    |   |               Option_Arrow_Key_Pressed.wav
+    |   |               Option_Arrow_Key_Pressed.wav.import
+    |   |               Option_Selected.wav
+    |   |               Option_Selected.wav.import
+    |   |               reactive_test.res
+    |   |               scene_3m4ai_ (1).res
+    |   |               Test_Project_Dialogue (1).res
+    |   |               Text_Scroll_SFX (1).wav
+    |   |               Text_Scroll_SFX (1).wav.import
+    |   |               
+    |   +---Audio
+    |   |   +---Music
+    |   |   |   \---Demos
+    |   |   \---SFX
+    |   |       \---Demos
+    |   +---Dialogue
+    |   |       Area01.res
+    |   |       Area02 (1).res
+    |   |       
+    |   +---Fonts
+    |   |       8-Bit Madness.ttf
+    |   |       8-BIT WONDER.TTF
+    |   |       apple_kid.ttf
+    |   |       ChunkyPixels.ttf
+    |   |       ChunkyPixelsNormal.tres
+    |   |       ThinPixels.ttf
+    |   |       Xolonium-Regular.ttf
+    |   |       
+    |   \---UI
+    |       +---Battle
+    |       |       Battle_UI01.png
+    |       |       Battle_UI01.png.import
+    |       |       Battle_UI02.png
+    |       |       Battle_UI02.png.import
+    |       |       Battle_UI03.png
+    |       |       Battle_UI03.png.import
+    |       |       Battle_UI04.png
+    |       |       Battle_UI04.png.import
+    |       |       Battle_UI05.png
+    |       |       Battle_UI05.png.import
+    |       |       Battle_UI06.png
+    |       |       Battle_UI06.png.import
+    |       |       Battle_UI07.png
+    |       |       Battle_UI07.png.import
+    |       |       Battle_UI08.png
+    |       |       Battle_UI08.png.import
+    |       |       Battle_UI09.png
+    |       |       Battle_UI09.png.import
+    |       |       Battle_UI10.png
+    |       |       Battle_UI10.png.import
+    |       |       Battle_UI11.png
+    |       |       Battle_UI11.png.import
+    |       |       Battle_UI12.png
+    |       |       Battle_UI12.png.import
+    |       |       Battle_UI13.png
+    |       |       Battle_UI13.png.import
+    |       |       Battle_UI14.png
+    |       |       Battle_UI14.png.import
+    |       |       Battle_UI15.png
+    |       |       Battle_UI15.png.import
+    |       |       Battle_UI16.png
+    |       |       Battle_UI16.png.import
+    |       |       Battle_UI17.png
+    |       |       Battle_UI17.png.import
+    |       |       Battle_UI18.png
+    |       |       Battle_UI18.png.import
+    |       |       Battle_UI19.png
+    |       |       Battle_UI19.png.import
+    |       |       Battle_UI20.png
+    |       |       Battle_UI20.png.import
+    |       |       Battle_UI21.png
+    |       |       Battle_UI21.png.import
+    |       |       Battle_UI_v2_01.png
+    |       |       Battle_UI_v2_01.png.import
+    |       |       Battle_UI_v2_02.png
+    |       |       Battle_UI_v2_02.png.import
+    |       |       Battle_UI_v2_03.png
+    |       |       Battle_UI_v2_03.png.import
+    |       |       Battle_UI_v2_04.png
+    |       |       Battle_UI_v2_04.png.import
+    |       |       Battle_UI_v2_05.png
+    |       |       Battle_UI_v2_05.png.import
+    |       |       Battle_UI_v2_06.png
+    |       |       Battle_UI_v2_06.png.import
+    |       |       Battle_UI_v2_07.png
+    |       |       Battle_UI_v2_07.png.import
+    |       |       Battle_UI_v2_08.png
+    |       |       Battle_UI_v2_08.png.import
+    |       |       Battle_UI_v2_09.png
+    |       |       Battle_UI_v2_09.png.import
+    |       |       Battle_UI_v2_10.png
+    |       |       Battle_UI_v2_10.png.import
+    |       |       Battle_UI_v2_11.png
+    |       |       Battle_UI_v2_11.png.import
+    |       |       Battle_UI_v2_12.png
+    |       |       Battle_UI_v2_12.png.import
+    |       |       Battle_UI_v2_13.png
+    |       |       Battle_UI_v2_13.png.import
+    |       |       Battle_UI_v2_14.png
+    |       |       Battle_UI_v2_14.png.import
+    |       |       
+    |       +---Dialogue
+    |       |       Dialogue_Box_Mockup_01.png
+    |       |       Dialogue_Box_Mockup_01.png.import
+    |       |       Dialogue_Box_Mockup_02.png
+    |       |       Dialogue_Box_Mockup_02.png.import
+    |       |       
+    |       \---Menu
+    |           |   Menu_Backdrop_01.pal
+    |           |   Menu_Backdrop_01.png
+    |           |   Menu_Backdrop_01.png.import
+    |           |   Menu_Backdrop_02.pal
+    |           |   Menu_Backdrop_02.png
+    |           |   Menu_Backdrop_02.png.import
+    |           |   Menu_Backdrop_03.pal
+    |           |   Menu_Backdrop_03.png
+    |           |   Menu_Backdrop_03.png.import
+    |           |   Menu_Backdrop_04.pal
+    |           |   Menu_Backdrop_04.png
+    |           |   Menu_Backdrop_04.png.import
+    |           |   Menu_Backdrop_05.pal
+    |           |   Menu_Backdrop_05.png
+    |           |   Menu_Backdrop_05.png.import
+    |           |   Menu_Backdrop_06.pal
+    |           |   Menu_Backdrop_06.png
+    |           |   Menu_Backdrop_06.png.import
+    |           |   Menu_Backdrop_07.pal
+    |           |   Menu_Backdrop_07.png
+    |           |   Menu_Backdrop_07.png.import
+    |           |   Menu_Button_01.png
+    |           |   Menu_Button_01.png.import
+    |           |   Menu_Button_02.png
+    |           |   Menu_Button_02.png.import
+    |           |   Menu_Button_03.png
+    |           |   Menu_Button_03.png.import
+    |           |   Menu_Button_04.png
+    |           |   Menu_Button_04.png.import
+    |           |   Menu_Button_05.png
+    |           |   Menu_Button_05.png.import
+    |           |   Menu_Button_06.png
+    |           |   Menu_Button_06.png.import
+    |           |   Menu_Button_07.png
+    |           |   Menu_Button_07.png.import
+    |           |   Menu_Button_08.png
+    |           |   Menu_Button_08.png.import
+    |           |   Menu_Button_09.png
+    |           |   Menu_Button_09.png.import
+    |           |   Menu_Button_10.png
+    |           |   Menu_Button_10.png.import
+    |           |   Menu_Element_01.png
+    |           |   Menu_Element_01.png.import
+    |           |   Menu_Element_02.png
+    |           |   Menu_Element_02.png.import
+    |           |   Menu_Element_03.png
+    |           |   Menu_Element_03.png.import
+    |           |   Menu_Element_04.png
+    |           |   Menu_Element_04.png.import
+    |           |   Menu_Element_05.png
+    |           |   Menu_Element_05.png.import
+    |           |   Menu_Element_06.png
+    |           |   Menu_Element_06.png.import
+    |           |   Menu_Element_07.png
+    |           |   Menu_Element_07.png.import
+    |           |   
+    |           \---Mockups
+    |                   UI_Mocks_01.png
+    |                   UI_Mocks_01.png.import
+    |                   UI_Mocks_02.png
+    |                   UI_Mocks_02.png.import
+    |                   UI_Mocks_03.png
+    |                   UI_Mocks_03.png.import
+    |                   UI_Mocks_04.png
+    |                   UI_Mocks_04.png.import
+    |                   UI_Mocks_05.png
+    |                   UI_Mocks_05.png.import
+    |                   UI_Mocks_06.png
+    |                   UI_Mocks_06.png.import
+    |                   UI_Mocks_07.png
+    |                   UI_Mocks_07.png.import
+    |                   UI_Mocks_08.png
+    |                   UI_Mocks_08.png.import
+    |                   UI_Mocks_09.png
+    |                   UI_Mocks_09.png.import
+    |                   UI_Mocks_10.png
+    |                   UI_Mocks_10.png.import
+    |                   UI_Mocks_11.png
+    |                   UI_Mocks_11.png.import
+    |                   UI_Mocks_12.png
+    |                   UI_Mocks_12.png.import
+    |                   UI_Mocks_13.png
+    |                   UI_Mocks_13.png.import
+    |                   UI_Mocks_14.png
+    |                   UI_Mocks_14.png.import
+    |                   UI_Mocks_15.png
+    |                   UI_Mocks_15.png.import
+    |                   UI_Mocks_16.png
+    |                   UI_Mocks_16.png.import
+    |                   UI_Mocks_17.png
+    |                   UI_Mocks_17.png.import
+    |                   
+    +---Classes
+    |   +---Directories
+    |   |       BaseStats.gd
+    |   |       BattleBehaviors.gd
+    |   |       BattleResourcePaths.gd
+    |   |       DialogueFiles.gd
+    |   |       EnemyTypes.gd
+    |   |       EventSequences.gd
+    |   |       ItemData.json
+    |   |       ItemsDirectory.gd
+    |   |       MainScenes.gd
+    |   |       MenuResourcePaths.gd
+    |   |       MusicTracks.gd
+    |   |       SkillsDirectory.gd
+    |   |       
+    |   +---Global
+    |   |       Global_Debug.gd
+    |   |       Global_Enums.gd
+    |   |       
+    |   +---StaticClasses
+    |   |       BattleCalculations.gd
+    |   |       
+    |   \---Types
+    |           BattleMove.gd
+    |           EntityStats.gd
+    |           
+    +---Resources
+    |   +---Animations
+    |   |       BattleHeal.tres
+    |   |       BattleHit.tres
+    |   |       
+    |   +---Dialogue
+    |   \---Shaders
+    |           DynamicColorAdditive.shader
+    |           DynamicColorAdditive.tres
+    |           DynamicColorSet.shader
+    |           DynamicColorSet.tres
+    |           HighlightGreen.tres
+    |           Illuminate.shader
+    |           Illumination.tres
+    |           
+    +---Scenes
+    |   +---Area01
+    |   |   +---Enemies
+    |   |   |   +---Bully
+    |   |   |   |       BattleBully.tscn
+    |   |   |   |       Bully.tscn
+    |   |   |   |       Bully_ai.gd
+    |   |   |   |       
+    |   |   |   \---SampleEnemy
+    |   |   |           BattleEnemyDemo.tscn
+    |   |   |           SampleEnemy.tscn
+    |   |   |           SampleEnemy_ai.gd
+    |   |   |           
+    |   |   +---Locations
+    |   |   |   |   Area01_House01.tscn
+    |   |   |   |   Area01_House_Room.tscn
+    |   |   |   |   Area01_Opening.tscn
+    |   |   |   |   Area01_Outside01.tscn
+    |   |   |   |   
+    |   |   |   \---Scripts
+    |   |   |           Area01_House_Room_SceneRoot.gd
+    |   |   |           Area01_House_SceneRoot.gd
+    |   |   |           Area01_Opening.gd
+    |   |   |           Area01_Outside_SceneRoot.gd
+    |   |   |           
+    |   |   +---Props
+    |   |   |   |   Bed.tscn
+    |   |   |   |   Closet.tscn
+    |   |   |   |   Couch.tscn
+    |   |   |   |   DeadTree01.tscn
+    |   |   |   |   DeadTree02.tscn
+    |   |   |   |   House01.tscn
+    |   |   |   |   House03.tscn
+    |   |   |   |   MainHouse.tscn
+    |   |   |   |   Painting.tscn
+    |   |   |   |   Table01.tscn
+    |   |   |   |   
+    |   |   |   \---Scripts
+    |   |   |           Closet.gd
+    |   |   |           
+    |   |   +---Sequences
+    |   |   |       Area01_Sequence01.gd
+    |   |   |       Area01_Sequence02.gd
+    |   |   |       Area01_Sequence03.gd
+    |   |   |       Area01_Sequence04.gd
+    |   |   |       
+    |   |   \---Triggers
+    |   |       |   BullyEventTrigger.tscn
+    |   |       |   
+    |   |       \---Scripts
+    |   |               ExitDoor.gd
+    |   |               
+    |   +---Area02
+    |   |   +---Locations
+    |   |   +---Props
+    |   |   \---Sequences
+    |   +---Area03
+    |   |   +---Locations
+    |   |   +---Props
+    |   |   \---Sequences
+    |   +---General
+    |   |   +---Battle
+    |   |   |       GameOver.gd
+    |   |   |       GameOver.tscn
+    |   |   |       
+    |   |   +---Characters
+    |   |   |   |   C1.tscn
+    |   |   |   |   C2.tscn
+    |   |   |   |   C3.tscn
+    |   |   |   |   CharacterParent.tscn
+    |   |   |   |   Party.tscn
+    |   |   |   |   
+    |   |   |   \---Scripts
+    |   |   |           Character.gd
+    |   |   |           Party.gd
+    |   |   |           
+    |   |   +---Enemies
+    |   |   |   |   BattleEnemyParent.tscn
+    |   |   |   |   EnemyParent.tscn
+    |   |   |   |   
+    |   |   |   +---Scripts
+    |   |   |   |       BossEnemy.gd
+    |   |   |   |       Enemy.gd
+    |   |   |   |       
+    |   |   |   \---SpawningScenes
+    |   |   |           EnemySpawnArea.tscn
+    |   |   |           SpawnPositionTester.tscn
+    |   |   |           
+    |   |   +---ExploreEnvironment
+    |   |   |   |   Checkable.tscn
+    |   |   |   |   Chests.tscn
+    |   |   |   |   Opening_v01.tscn
+    |   |   |   |   SavePoint.tscn
+    |   |   |   |   Warp.tscn
+    |   |   |   |   
+    |   |   |   \---Scripts
+    |   |   |           AreaEnteredDialogue.gd
+    |   |   |           Chests.gd
+    |   |   |           EventTrigger.gd
+    |   |   |           GeneralExploreRoot.gd
+    |   |   |           Interactable_Dialogue.gd
+    |   |   |           Radius_Dialogue.gd
+    |   |   |           Save_Point.gd
+    |   |   |           Warp.gd
+    |   |   |           
+    |   |   \---SaveLoadMenu
+    |   |           LoadScreen.tscn
+    |   |           SaveFile.gd
+    |   |           SaveFile.tscn
+    |   |           SaveLoadScreen.gd
+    |   |           SaveScreen.tscn
+    |   |           
+    |   +---UI
+    |   |   +---BattleEnvironment
+    |   |   |   |   BattleItems_Submenu.tscn
+    |   |   |   |   BattleSkills_Submenu.tscn
+    |   |   |   |   Battle_UI.tscn
+    |   |   |   |   
+    |   |   |   +---Modules
+    |   |   |   |       C1_Module.tscn
+    |   |   |   |       C2_Module.tscn
+    |   |   |   |       C3_Module.tscn
+    |   |   |   |       Message_Module.tscn
+    |   |   |   |       ModuleParent.tscn
+    |   |   |   |       
+    |   |   |   +---Popups
+    |   |   |   |       EffectPopup_Battle.gd
+    |   |   |   |       EffectPopup_Battle.tscn
+    |   |   |   |       ItemPopup.gd
+    |   |   |   |       ItemPopup.tscn
+    |   |   |   |       
+    |   |   |   \---Scripts
+    |   |   |           BattleBoss.gd
+    |   |   |           BattleBrain.gd
+    |   |   |           BattleCharacter.gd
+    |   |   |           BattleDialogue.gd
+    |   |   |           BattleEnemy.gd
+    |   |   |           BattleEnemyParty.gd
+    |   |   |           BattleItemsUI.gd
+    |   |   |           BattleMenu.gd
+    |   |   |           BattleMenuOLD.gd
+    |   |   |           BattleParty.gd
+    |   |   |           BattleSkillsUI.gd
+    |   |   |           
+    |   |   \---MainMenuUI
+    |   |       |   MainMenu.gd
+    |   |       |   MainMenu.tscn
+    |   |       |   
+    |   |       +---SubmenuModules
+    |   |       |   |   InfoPanel.tscn
+    |   |       |   |   Scrollbar.tscn
+    |   |       |   |   Scrollbar_UNUSED.gd
+    |   |       |   |   
+    |   |       |   +---Buttons
+    |   |       |   |       CharacterBtn.gd
+    |   |       |   |       CharacterBtn.tscn
+    |   |       |   |       ItemButton.gd
+    |   |       |   |       ItemButton.tscn
+    |   |       |   |       
+    |   |       |   \---Lists
+    |   |       |           EffectPopup.gd
+    |   |       |           EffectPopup.tscn
+    |   |       |           EquipList.gd
+    |   |       |           EquipList.tscn
+    |   |       |           ItemList.tscn
+    |   |       |           ItemList_UNUSED.gd
+    |   |       |           ItemPopup.gd
+    |   |       |           ItemPopup.tscn
+    |   |       |           
+    |   |       \---Submenus
+    |   |               CharacterChoice.gd
+    |   |               CharacterChoice.tscn
+    |   |               ConfigMenu.gd
+    |   |               ConfigMenu.tscn
+    |   |               ConfimationMenu.tscn
+    |   |               EquipMenu.gd
+    |   |               EquipMenu.tscn
+    |   |               ItemsMenu.gd
+    |   |               ItemsMenu.tscn
+    |   |               SkillsMenu.gd
+    |   |               SkillsMenu.tscn
+    |   |               StatusMenu.gd
+    |   |               StatusMenu.tscn
+    |   |               
+    |   \---_Test_Scenes
+    |       +---CB_Test_Scene
+    |       |   |   DialoguePlayground.tscn
+    |       |   |   
+    |       |   \---CB_Test_Scripts
+    |       |           Character_Dialogue_Manager.gd
+    |       |           Character_Dialogue_Reactive.gd
+    |       |           
+    |       +---Joe_Test_Scenes
+    |       |   |   BGEngineTestScene1.gd
+    |       |   |   BGEngineTestScene1.tscn
+    |       |   |   BGEngineTestScene2.gd
+    |       |   |   BGEngineTestScene2.tscn
+    |       |   |   Joe_Demo_Battle.tscn
+    |       |   |   Joe_Outside_Test_Scene.tscn
+    |       |   |   TestTileMap_Joe.tscn
+    |       |   |   UnitTester.tscn
+    |       |   |   
+    |       |   \---Joe_Test_Scripts
+    |       |       |   GameSoundtrack.json
+    |       |       |   Joe_Outside_Test_Root.gd
+    |       |       |   PriorityQueue.gd
+    |       |       |   test_PriorityQueue.gd
+    |       |       |   UnitTestButton.gd
+    |       |       |   
+    |       |       \---Sequence_Tests
+    |       |               ActorSequenceTest_01.gd
+    |       |               ActorSequenceTest_02.gd
+    |       |               ActorSequenceTest_03.gd
+    |       |               ActorSequenceTest_04.gd
+    |       |               AudioSequenceTest_01.gd
+    |       |               
+    |       +---Luis_Test_Scenes
+    |       |   |   ItemsSubmenu.tscn
+    |       |   |   TexturedMenuButton.tscn
+    |       |   |   
+    |       |   +---Data
+    |       |   |       Item Table - Sheet1.json
+    |       |   |       Skill Table - Sheet1.json
+    |       |   |       
+    |       |   +---Luis_Test_Scripts
+    |       |   |   |   ExitButton.gd
+    |       |   |   |   item.gd
+    |       |   |   |   ItemList.gd
+    |       |   |   |   Menu.gd
+    |       |   |   |   MenuButton.gd
+    |       |   |   |   Menu_Test_Party.gd
+    |       |   |   |   Options.gd
+    |       |   |   |   ScrollableList.gd
+    |       |   |   |   StatusData.gd
+    |       |   |   |   TexturedMenuButton.gd
+    |       |   |   |   
+    |       |   |   \---PixelWave
+    |       |   |           PixelWave.gd
+    |       |   |           
+    |       |   +---MenuManager
+    |       |   |       ExitButton.tscn
+    |       |   |       Inventory.tscn
+    |       |   |       InvTab.tscn
+    |       |   |       MenuButton.tscn
+    |       |   |       Menu_Test.tscn
+    |       |   |       Submenu.tscn
+    |       |   |       
+    |       |   +---PixelWave
+    |       |   |       PixelWave.tscn
+    |       |   |       
+    |       |   \---Themes
+    |       |           button_selected.tres
+    |       |           button_unselected.tres
+    |       |           
+    |       \---Tim_Test_Scenes
+    |           |   BattleRoughMock.tscn
+    |           |   LoadButton.tscn
+    |           |   PartyTest.tscn
+    |           |   SaveLoad.tscn
+    |           |   TestTileMap.tscn
+    |           |   Test_House1_Map_Delay.tscn
+    |           |   WinButton.tscn
+    |           |   
+    |           +---Character
+    |           \---Tim_Test_Scripts
+    |               |   CharacterTest.gd
+    |               |   House_TileSet.tres
+    |               |   Load.gd
+    |               |   PartyTest.gd
+    |               |   TestBeginBattle.gd
+    |               |   TestSceneRoot.gd
+    |               |   Test_Fade_Signal_Delay.gd
+    |               |   WinButton.gd
+    |               |   
+    |               \---Sequences_Test
+    |                       SequenceTest_01.gd
+    |                       SequenceTest_02.gd
+    |                       
+    +---Singletons
+    |   |   ActorEngine.gd
+    |   |   BGEngine.tscn
+    |   |   CameraManager.gd
+    |   |   DialogueEngine.tscn
+    |   |   EnemyHandler.gd
+    |   |   Game.gd
+    |   |   InputEngine.gd
+    |   |   MenuManager.gd
+    |   |   PersistentData.gd
+    |   |   SaveManager.gd
+    |   |   SceneManager.gd
+    |   |   Sequencer.gd
+    |   |   
+    |   +---BGAudioEngine
+    |   |       BGAudioEngine.gd
+    |   |       
+    |   +---DialogueEngine
+    |   |       Dialogue_Management.gd
+    |   |       
+    |   +---SceneManager
+    |   |       FadeScreen.tscn
+    |   |       
+    |   \---Sequencer
+    |           SequencerOG.gd
+    |           
+    \---_defaults
+            default_bus_layout.tres
+            default_env.tres
+            

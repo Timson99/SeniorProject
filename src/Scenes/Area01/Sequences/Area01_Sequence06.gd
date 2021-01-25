@@ -1,8 +1,8 @@
-#Initiate Battle with Bully
+#Resets back to Room
 
 extends Resource
 
-#Bully Encounter, Attempt 1
+#Beginning of Attempt 3
 
 static func instructions():
   return [
@@ -28,4 +28,3 @@ static func instructions():
 		###["Signal", "DialogueEngine", "end"],
 		["Actor-call", "Bully", "initiate_battle"]
   ]
-

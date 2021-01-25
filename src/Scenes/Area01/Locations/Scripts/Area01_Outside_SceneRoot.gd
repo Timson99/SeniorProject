@@ -4,7 +4,7 @@ var persistence_id = "Area01_Data"
 var actor_id = "Area01_Outside_Root"
 
 var event_trigger_scene = preload('res://Scenes/Area01/Triggers/BullyEventTrigger.tscn')
-var event_trigger = null
+var event_triggers := {}
 
 onready var map = $TileMap
 onready var houses = $YSort/Houses
@@ -19,8 +19,8 @@ onready var glow = $Glow
 
 export var current_attempt = 1
 
-var pre_fight = Vector2(-30,0)
-var post_fight = Vector2(-250,0)
+var pre_fight = Vector2(64,0)
+var first_post_fight = Vector2(-200,0)
 
 signal faded_out()
 
@@ -77,21 +77,29 @@ func fade_world():
 func on_load():
 	if current_attempt == 1:
 		exit_door.hide()
-		create_vertical_event_trigger("Area01_Sequence02", pre_fight)
-		create_vertical_event_trigger("Area01_Sequence03", post_fight)
+		if bully.attempt_one_alive == true:
+			create_vertical_event_trigger("Area01_Sequence02", pre_fight, "pre_fight")
+		create_vertical_event_trigger("Area01_Sequence03", first_post_fight, "first_post_fight")
 	elif current_attempt == 2:
-		exit_door.hide()
-		create_vertical_event_trigger("Area01_Sequence02", pre_fight)
-		create_vertical_event_trigger("Area01_Sequence03", post_fight)
+		exit_door.show()
+		if bully.attempt_two_alive == true:
+			create_vertical_event_trigger("Area01_Sequence02", pre_fight, "pre_fight")
+		create_vertical_event_trigger("Area01_Sequence03", first_post_fight, "first_post_fight")
 	elif current_attempt == 3:
 		exit_door.show()
-		create_vertical_event_trigger("Area01_Sequence02", pre_fight)
+		create_vertical_event_trigger("Area01_Sequence02", pre_fight, "pre_fight")
 		
-func create_vertical_event_trigger(event_key, position):
-	event_trigger = event_trigger_scene.instance()
+func create_vertical_event_trigger(event_key, position, id):
+	var event_trigger = event_trigger_scene.instance()
 	add_child(event_trigger)
 	event_trigger.position = position
 	event_trigger.event_key = event_key
+	event_triggers[id] = event_trigger
+	
+func remove_vertical_event_trigger(id):
+	var event_trigger = event_triggers[id]
+	event_triggers.erase(id)
+	event_trigger.queue_free()
 		
 		
 func save():

@@ -35,6 +35,7 @@ var LUCK
 
 var status_effect
 var stat_buffs
+var experience_points
 
 
 #0.0 Very Weak Against

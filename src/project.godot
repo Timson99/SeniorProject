@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Directories/BattleResourcePaths.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "BossEnemy",
+"language": "GDScript",
+"path": "res://Scenes/General/Enemies/Scripts/BossEnemy.gd"
+}, {
 "base": "Object",
 "class": "Debugger",
 "language": "GDScript",
@@ -120,6 +125,7 @@ _global_script_class_icons={
 "BattleCalculations": "",
 "BattleMove": "",
 "BattleResourcePaths": "",
+"BossEnemy": "",
 "Debugger": "",
 "DialogueFiles": "",
 "EnemyTypes": "",

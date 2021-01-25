@@ -14,6 +14,8 @@ var exploring = true
 
 var skills = {"Skill1" : 0} #"Skill" : Num_LP
 var equipped_skill = ""
+var equipped_wpn
+var equipeed_arm 
 
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 
@@ -64,7 +66,10 @@ func _physics_process(delta : float):
 	
 	
 func play_anim(anim_str):
-	animations.play(anim_str)
+	if animations.has_animation(anim_str):
+		animations.play(anim_str)
+	else:
+		print("Character Error: Does not have Animation for play_anim() in " + str(persistence_id))
 	
 func set_anim(anim_str):
 	animations.animation = anim_str

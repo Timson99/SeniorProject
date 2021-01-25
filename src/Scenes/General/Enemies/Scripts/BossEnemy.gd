@@ -1,9 +1,11 @@
 extends KinematicBody2D
 
+class_name BossEnemy
+
 export var default_speed := 60
 export var alive := true
-export var persistence_id := "Bully"
-export var actor_id := "Bully"
+export (String) var persistence_id
+export (String) var actor_id
 var speed = 60
 var exploring = true
 
@@ -17,6 +19,10 @@ onready var animations = skins["Boss"]["default"]
 onready var data = EnemyHandler.Enemies[persistence_id]
 #onready var stats = data["battle_data"]
 onready var battle_id = "battle"
+
+
+func post_battle():
+	return
 
 var dir_anims := {
 	Enums.Dir.Up: ["Idle_Up", "Walk_Up"],
@@ -80,14 +86,11 @@ func move_to_position(new_position: Vector2, global = false):
 	if current_position == new_position:
 		emit_signal("command_completed")
 
-
+	
 func _ready():
-	pass
+	EnemyHandler.add_enemy_data(persistence_id, self)
 	
-func initiate_battle():
-	
-	print("RAN")
-	
+func initiate_battle():	
 	EnemyHandler.queued_battle_enemies.append(persistence_id)
 	SceneManager.goto_scene(battle_id, "", true)
 

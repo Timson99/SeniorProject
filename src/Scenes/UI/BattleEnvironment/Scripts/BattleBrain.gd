@@ -59,6 +59,10 @@ func execute(moves_made : Array):
 	moves_made.sort_custom(self, "sort_by_speed")
 	moves_made.sort_custom(self, "sort_defends")
 	for move in moves_made:
+		if !move.agent.alive || (move.target && !move.target.alive):
+			continue
+		
+		
 		dialogue_node.display_message(move.to_string(), false, 0.02, 2)
 		yield(dialogue_node, "page_complete")
 		
@@ -77,9 +81,20 @@ func execute(moves_made : Array):
 		elif move.type == "Skills":
 			
 			
-			var damage = (move.agent.stats.ATTACK * 
-						(move.skill_ref["Power"] + 2))
-						
+			var agent_attack = move.agent.stats.ATTACK
+			var agent_willpower = move.agent.stats.WILLPOWER
+			var agent_luck = move.agent.stats.LUCK
+			
+			var target_defense = move.target.stats.DEFENSE
+			var target_willpower = move.target.stats.WILLPOWER
+			var target_luck = move.target.stats.LUCK
+			
+			
+			var base_damage = move.agent.stats.ATTACK * 1.5 * (move.skill_ref["Power"] + 1)
+			var attack_variation = rand_range(0.75, 1.25)
+			var damage = max(0, int(base_damage) * attack_variation)
+			print("Agent Attack: %d, Target Defence %d, Variation %d" %
+			 [agent_attack, target_defense, attack_variation])		
 						
 			randomize()
 			var hit = true if randf() < move.skill_ref["Hit_Rate"] else false
@@ -94,9 +109,28 @@ func execute(moves_made : Array):
 		
 		
 		elif move.type == "Attack":
-			var damage = move.agent.stats.ATTACK
+			
+			
+			
+			var agent_attack = move.agent.stats.ATTACK
+			var agent_willpower = move.agent.stats.WILLPOWER
+			var agent_luck = move.agent.stats.LUCK
+			
+			var target_defense = move.target.stats.DEFENSE
+			var target_willpower = move.target.stats.WILLPOWER
+			var target_luck = move.target.stats.LUCK
+			
+			var base_damage = agent_attack - target_defense 
+			 
+			randomize()
+			var attack_variation = rand_range(0.75, 1.25)
+			var damage = max(1, int(base_damage * attack_variation))
+			
+			#Defending Halves Damage from Attacks
 			damage = int(damage/2 if move.target.defending else damage )
-			yield(move.target.take_damage(int(damage) * 10), "completed")
+			print("Agent Attack: %d, Target Defence %d, Variation %d" % [agent_attack, target_defense, attack_variation])
+			
+			yield(move.target.take_damage(int(damage * 100)), "completed")
 			
 		yield(get_tree().create_timer(0.1, false), "timeout")
 		

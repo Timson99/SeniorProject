@@ -2,7 +2,7 @@
 
 extends Resource
 
-#End of Attempt 1
+#End  of Attempt 2
 
 static func instructions():
   return [

@@ -41,6 +41,7 @@ func goto_scene(scene_id : String, warp_destination_id := "", save_path = false)
 	
 func goto_saved(): 
 	emit_signal("goto_called")
+	EnemyHandler.despawn_on()
 	call_deferred("_deferred_goto_scene", saved_scene_path, "")
 
 # Switches Scenes only when it is safe to do so

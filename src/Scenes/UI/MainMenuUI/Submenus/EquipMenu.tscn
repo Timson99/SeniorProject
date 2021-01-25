@@ -59,12 +59,11 @@ frames = SubResource( 1 )
 animation = "unfocused"
 
 [node name="Current" type="Label" parent="Categories/Weapon"]
-margin_left = 5.65547
-margin_top = 0.38855
-margin_right = 93.6555
-margin_bottom = 15.3885
+margin_left = 6.0
+margin_right = 112.0
+margin_bottom = 15.0
 custom_fonts/font = SubResource( 2 )
-text = "Weapon: WP1"
+text = "WPN: WP1"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -82,12 +81,11 @@ frames = SubResource( 1 )
 animation = "unfocused"
 
 [node name="Current" type="Label" parent="Categories/Armor"]
-margin_left = 5.65547
-margin_top = 0.38855
-margin_right = 93.6555
-margin_bottom = 15.3885
+margin_left = 6.0
+margin_right = 112.0
+margin_bottom = 15.0
 custom_fonts/font = SubResource( 2 )
-text = "Armor: AR1"
+text = "ARM: AR1"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -105,12 +103,11 @@ frames = SubResource( 1 )
 animation = "unfocused"
 
 [node name="Current" type="Label" parent="Categories/Skill"]
-margin_left = 5.65547
-margin_top = 0.38855
-margin_right = 93.6555
-margin_bottom = 15.3885
+margin_left = 6.0
+margin_right = 112.0
+margin_bottom = 15.0
 custom_fonts/font = SubResource( 2 )
-text = "Skill: Ice (1/25)"
+text = "SKILL: Ice (1/25)"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false

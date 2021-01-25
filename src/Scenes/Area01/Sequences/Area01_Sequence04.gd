@@ -1,3 +1,6 @@
+#Makes Bully get Knocked Out
+
+
 extends Resource
 
 static func instructions():
