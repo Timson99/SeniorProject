@@ -65,12 +65,12 @@ func vanish_world():
 	for collider in world_body.get_children():
 		collider.disabled = true
 	
-func fade_world():
-	tween.interpolate_property(map, "modulate:a", null, 0.0, 1.0)
-	tween.interpolate_property(trees, "modulate:a", null, 0.0, 1.0)
-	tween.interpolate_property(main_house, "modulate:a", null, 0.0, 1.0)
-	tween.interpolate_property(houses, "modulate:a", null, 0.0, 1.0)
-	tween.interpolate_property(bully, "modulate:a", null, 0.0, 1.0)
+func fade_world(fade_time = 1.0):
+	tween.interpolate_property(map, "modulate:a", null, 0.0, fade_time)
+	tween.interpolate_property(trees, "modulate:a", null, 0.0, fade_time)
+	tween.interpolate_property(main_house, "modulate:a", null, 0.0, fade_time)
+	tween.interpolate_property(houses, "modulate:a", null, 0.0, fade_time)
+	tween.interpolate_property(bully, "modulate:a", null, 0.0, fade_time)
 	tween.start()
 	yield(tween, "tween_all_completed")
 	for collider in world_body.get_children():
@@ -89,7 +89,7 @@ func on_load():
 		#create_vertical_event_trigger("Area01_Sequence05", first_post_fight, "first_post_fight")
 	elif current_attempt == 3:
 		exit_door.show()
-		create_vertical_event_trigger("Area01_Sequence02", pre_fight, "pre_fight")
+		create_vertical_event_trigger("Area01_Sequence06", pre_fight, "pre_fight")
 		
 func create_vertical_event_trigger(event_key, position, id):
 	var event_trigger = event_trigger_scene.instance()

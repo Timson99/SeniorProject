@@ -34,6 +34,11 @@ var current_dir = Enums.Dir.Down
 var isMoving := false
 var velocity = Vector2(0,0)
 
+
+func set_speed(new_speed: float):
+	speed = new_speed
+	
+
 func on_load():
 	if !alive:
 		exploring = false
