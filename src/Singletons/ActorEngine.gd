@@ -76,6 +76,14 @@ func call_command(id, func_name, params):
 		actor.call_deferred("callv", func_name, params)
 	else:
 		Debugger.dprint("Actor %s does not have method %s" % [id, func_name])
+		
+func call_sync_command(id, func_name, params):
+	actor = actors_dict[id]
+	if actor.has_method(func_name):
+		var function_ref = funcref(actor, func_name)
+		yield(  function_ref.call_funcv(params)  , "completed"  )
+	else:
+		Debugger.dprint("Actor %s does not have method %s" % [id, func_name])
 
 
 func async_or_sync_command(params: Array):

@@ -6,9 +6,14 @@ extends Resource
 
 static func instructions():
   return [
-		["Actor-sync", "C1", "move_to_position", Vector2(-24, 234), true],
-		#["Delay", 0.5],
+		["Actor-call-sync", "C1", "move_to_position_routine", Vector2(-24, 234), true],
 		["Actor-sync", "Bully", "move_to_position", Vector2(-58, 234), true],
+	
+	
+	
+		#["Actor-sync", "C1", "move_to_position", Vector2(-24, 234), true],
+		#["Delay", 0.5],
+		#["Actor-sync", "Bully", "move_to_position", Vector2(-58, 234), true],
 		###["Dialogue", "Darren"],
 		["Delay", 1.0],
 		["Actor-call", "C1", "set_speed", 120],

@@ -40,7 +40,7 @@ func _process(_delta):
 		return
 		
 	var instruction = event["instructions"].pop_front()
-	if instruction.size() >= 2 && (instruction[0] in ["Actor-sync", "Actor-async", "Actor-call", "Actor-set"]):	
+	if instruction.size() >= 2 && (instruction[0] in ["Actor-sync", "Actor-async", "Actor-call", "Actor-call-sync", "Actor-set"]):	
 		event["current_instruction"] = funcref(self, "actor_instruction")
 		event["current_instruction"].call_func(instruction)
 	elif instruction.size() >= 2 && instruction[0] == "BG_Audio":
@@ -111,6 +111,12 @@ func actor_instruction(params: Array):
 	elif command_type == "Actor-call":
 		if params.size() >= 3:
 			ActorEngine.call_command(params[1], params[2], params.slice(3, params.size()))
+		else:
+			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
+			
+	elif command_type == "Actor-call-sync":
+		if params.size() >= 3:
+			ActorEngine.call_sync_command(params[1], params[2], params.slice(3, params.size()))
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
 	
