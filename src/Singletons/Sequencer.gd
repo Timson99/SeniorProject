@@ -116,7 +116,7 @@ func actor_instruction(params: Array):
 			
 	elif command_type == "Actor-call-sync":
 		if params.size() >= 3:
-			ActorEngine.call_sync_command(params[1], params[2], params.slice(3, params.size()))
+			yield(ActorEngine.call_sync_command(params[1], params[2], params.slice(3, params.size())), "completed")
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
 	
