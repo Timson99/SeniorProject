@@ -7,7 +7,7 @@ extends Resource
 static func instructions():
   return [
 		["Actor-sync", "C1", "move_to_position", Vector2(-24, 234), true],
-		["Delay", 0.5],
+		#["Delay", 0.5],
 		["Actor-sync", "Bully", "move_to_position", Vector2(-58, 234), true],
 		###["Dialogue", "Darren"],
 		["Delay", 1.0],
@@ -15,7 +15,8 @@ static func instructions():
 		["Actor-call", "Bully","set_speed", 120],
 		
 		["Actor-async", "Bully", "move_to_position", Vector2(-24, 222), true],
-		["Actor-sync", "C1", "move_to_position", Vector2(-24, 192), true],
+		["Actor-async", "C1", "move_to_position", Vector2(-24, 192), true],
+		["Delay", 1.0],
 		["Actor-set", "C1", "exploring", false],
 		["Actor-call", "C1", "play_anim", "Idle_Down"],
 		["Delay", 1.0],
