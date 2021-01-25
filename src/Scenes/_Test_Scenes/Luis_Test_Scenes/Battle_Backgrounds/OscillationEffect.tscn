@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Assets/Art/Test_Art/icon.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Area01/Locations/Area01_House_Room.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/_Test_Scenes/Luis_Test_Scenes/Battle_Backgrounds/OscillationEffect.shader" type="Shader" id=3]
+[ext_resource path="res://Scenes/_Test_Scenes/Luis_Test_Scenes/Battle_Backgrounds/Shader.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/_Test_Scenes/Luis_Test_Scenes/Battle_Backgrounds/mistake.shader" type="Shader" id=5]
+[ext_resource path="res://Assets/Art/Test_Art/Dark_Starman_large.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_04.png" type="Texture" id=7]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 3 )
+shader_param/blue_tint = null
+shader_param/sprite_scale = null
+shader_param/scale_x = 0.67
+shader_param/alpha = 1.0
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/blue_tint = null
+shader_param/sprite_scale = null
+shader_param/scale_x = 0.67
+shader_param/alpha = 0.8
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 5 )
+shader_param/blue_tint = null
+shader_param/sprite_scale = null
+shader_param/scale_x = 0.67
+shader_param/alpha = 0.75
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Area01_House_Room" parent="." instance=ExtResource( 2 )]
+position = Vector2( 44.5031, 44.3199 )
+
+[node name="Menu_Element_04" type="Sprite" parent="."]
+position = Vector2( 187.914, 154.844 )
+scale = Vector2( 0.561898, 0.468101 )
+texture = ExtResource( 7 )
+
+[node name="Menu_Element_05" type="Sprite" parent="Menu_Element_04"]
+position = Vector2( -14.4255, -13.2433 )
+texture = ExtResource( 7 )
+
+[node name="Menu_Element_06" type="Sprite" parent="Menu_Element_04"]
+position = Vector2( -26.7227, -27.8109 )
+texture = ExtResource( 7 )
+
+[node name="Shader" type="Sprite" parent="."]
+material = SubResource( 2 )
+position = Vector2( 159.794, 172.611 )
+scale = Vector2( 1.7835, 1.16742 )
+texture = ExtResource( 1 )
+script = ExtResource( 4 )
+
+[node name="Shader4" type="Sprite" parent="."]
+visible = false
+material = SubResource( 4 )
+position = Vector2( 162.908, 123.88 )
+scale = Vector2( 3.95275, 3.29428 )
+texture = ExtResource( 1 )
+script = ExtResource( 4 )
+
+[node name="Shader2" type="Sprite" parent="."]
+material = SubResource( 3 )
+position = Vector2( 128.732, 141.411 )
+scale = Vector2( 1.63468, 1.19843 )
+texture = ExtResource( 1 )
+script = ExtResource( 4 )
+
+[node name="Shader3" type="Sprite" parent="."]
+material = SubResource( 3 )
+position = Vector2( 220.194, 134.512 )
+scale = Vector2( 1.41765, 1.21703 )
+texture = ExtResource( 1 )
+script = ExtResource( 4 )
+
+[node name="Dark_Starman_large" type="Sprite" parent="."]
+position = Vector2( 157.928, 156.14 )
+scale = Vector2( 0.384739, 0.384739 )
+texture = ExtResource( 6 )
