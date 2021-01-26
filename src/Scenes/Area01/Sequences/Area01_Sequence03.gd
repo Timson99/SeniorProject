@@ -7,7 +7,8 @@ extends Resource
 static func instructions():
   return [
 		["Actor-call", "Area01_Outside_Root", "execute_glow"],
-		["Actor-async", "C1", "move_left", 1.5],
+		#["Actor-async", "C1", "move_left", 1.5],
+		["Actor-sync", "C1", "move_to_position", Vector2(-80, 0), false],
 		["Signal", "Area01_Outside_Root", "glow_complete"],
 		["Actor-set", "C1", "exploring", false],
 		["Actor-call", "C1", "flip_horizontal", true],
@@ -44,7 +45,7 @@ static func instructions():
 		["Delay", 0.8],
 		["Actor-call", "C1", "flip_horizontal", false],
 		["Actor-set", "C1", "exploring", true],
-		["Actor-call-sync", "C1", "move_to_position", Vector2(0, 40)],
+		["Actor-sync", "C1", "move_to_position", Vector2(0, 40)],
 		["Actor-call", "C1", "set_collision", true],
 		["Dialogue", "Monologue"],
 		["Signal", "DialogueEngine", "end"],

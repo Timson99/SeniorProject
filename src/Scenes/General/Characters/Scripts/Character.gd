@@ -209,18 +209,13 @@ func change_skin(skin_id):
 		
 		
 		
-func move_to_position(new_position: Vector2, global = false):
-	#var fps = 60
-	#var frame_time = 1/fps
-	#print("frame_time %d" % frame_time)
-	#print(1/Engine.get_frames_per_second())
-	var current_position
+func move_to_position(new_position: Vector2, global = true):
+	var current_position = self.get_global_position().round()
+	if !global:
+			new_position = current_position + new_position
 	while current_position != new_position:
 		yield(get_tree().create_timer(0, false), "timeout")
-		if global:
-		 current_position = self.get_global_position().round()
-		else:
-			current_position = position
+		current_position = self.get_global_position().round()
 			
 		var x_delta = round(new_position.x - current_position.x)
 		var y_delta = round(new_position.y - current_position.y)

@@ -33,7 +33,6 @@ func _ready():
 
 
 func increment_attempt():
-	print("INCREMENT")
 	current_attempt += 1
 	current_attempt = min(current_attempt,3)
 	PersistentData.update_entry({"persistence_id" : "Area01_Closet","used" : false})
@@ -107,7 +106,6 @@ func remove_vertical_event_trigger(id):
 		
 		
 func save():
-	print(current_attempt)
 	return {
 		"persistence_id" : persistence_id,
 		"current_attempt" : current_attempt,

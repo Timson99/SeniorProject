@@ -22,13 +22,15 @@ func end_control():
 	InputEngine.enable_all()
 	
 func execute_instructions(event):
-	yield(get_tree().create_timer(0, false), "timeout")
 	for instruction in event["instructions"]:
 		
 		var instruction_type = instruction[0]
 
-		if instruction.size() >= 2 && (instruction_type in ["Actor-async", "Actor-call", "Actor-set", "Actor-call-sync"]  ):
-			yield( actor_instruction(instruction), "completed")
+		if instruction.size() >= 2 && (instruction_type == "Actor-sync" ):
+			yield( actor_sync_instruction(instruction), "completed")
+			
+		elif instruction.size() >= 2 && (instruction_type in ["Actor-async", "Actor-call", "Actor-set"]  ):
+			yield( actor_async_instruction(instruction), "completed")
 			
 		elif instruction.size() >= 2 && instruction_type == "BG_Audio":
 			yield( bg_audio_instruction(instruction) , "completed")
@@ -70,19 +72,10 @@ func execute_event(event_id : String):
 	yield(execute_instructions(active_event), "completed")
 	end_control()
 	
-		
-func actor_instruction(params: Array):
+
+func actor_async_instruction(params: Array):
 	yield(get_tree().create_timer(0, false), "timeout")
 	var command_type = params[0]
-	# If an instruction is called for an actor already executing a command,
-	# the new instruction will NOT be processed by the Actor Engine until 
-	# ALL asynchronous actions have finished.
-	if ActorEngine.actors_dict[params[1]] in ActorEngine.asynchronous_actors_dict:
-		if ActorEngine.asynchronous_delay_time > 0:
-			yield(get_tree().create_timer(ActorEngine.asynchronous_delay_time, false), "timeout")
-			ActorEngine.asynchronous_delay_time = 0.0
-			
-	# Note: params unpacked here to simplify code for process_command()
 	if command_type == "Actor-set":
 		if params.size() == 4:
 			ActorEngine.set_command(params[1], params[2], params[3])
@@ -94,17 +87,21 @@ func actor_instruction(params: Array):
 			ActorEngine.call_command(params[1], params[2], params.slice(3, params.size()))
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
-			
-	elif command_type == "Actor-call-sync":
+	elif command_type == "Actor-async":
 		if params.size() >= 3:
-			yield(ActorEngine.call_sync_command(params[1], params[2], params.slice(3, params.size())), "completed")
+			ActorEngine.async_command(params[1], params[2], params.slice(3, params.size()))
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
-	
-	elif command_type == "Actor-async" || command_type == "Actor-sync":
-		ActorEngine.async_or_sync_command(params)
-		if command_type == "Actor-sync":
-			yield(ActorEngine, "sync_command_complete")
+			
+			
+func actor_sync_instruction(params: Array):
+	yield(get_tree().create_timer(0, false), "timeout")
+	var command_type = params[0]
+	if command_type == "Actor-sync":
+		if params.size() >= 3:
+			yield(ActorEngine.sync_command(params[1], params[2], params.slice(3, params.size())), "completed")
+		else:
+			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
 
 	
 

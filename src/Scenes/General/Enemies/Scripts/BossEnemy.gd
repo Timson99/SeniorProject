@@ -67,16 +67,13 @@ func explore(delta : float):
 	var collision = move_and_collide(velocity * delta)
 	velocity = Vector2()
 			
-func move_to_position(new_position: Vector2, global = false):
-	var fps = Engine.get_frames_per_second()
-	var frame_time = 1/fps
-	var current_position
+func move_to_position(new_position: Vector2, global = true):
+	var current_position = self.get_global_position().round()
+	if !global:
+			new_position = current_position + new_position
 	while current_position != new_position:
 		yield(get_tree().create_timer(0, false), "timeout")
-		if global:
-		 current_position = self.get_global_position().round()
-		else:
-			current_position = position
+		current_position = self.get_global_position().round()
 			
 		var x_delta = round(new_position.x - current_position.x)
 		var y_delta = round(new_position.y - current_position.y)
