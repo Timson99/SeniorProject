@@ -82,7 +82,6 @@ func call_sync_command(id, func_name, params):
 	if actor.has_method(func_name):
 		var function_ref = funcref(actor, func_name)
 		yield(  function_ref.call_funcv(params)  , "completed"  )
-		print("COMPLETE")
 	else:
 		Debugger.dprint("Actor %s does not have method %s" % [id, func_name])
 

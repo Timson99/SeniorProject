@@ -31,10 +31,11 @@ func _ready():
 	ActorEngine.update_actors()
 
 
+
 func increment_attempt():
+	print("INCREMENT")
 	current_attempt += 1
 	current_attempt = min(current_attempt,3)
-	
 	PersistentData.update_entry({"persistence_id" : "Area01_Closet","used" : false})
 
 signal glow_complete()
@@ -77,6 +78,7 @@ func fade_world(fade_time = 1.0):
 		collider.disabled = true
 
 func on_load():
+	bully.reload()
 	if current_attempt == 1:
 		exit_door.hide()
 		if bully.attempt_one_alive == true:
@@ -105,6 +107,7 @@ func remove_vertical_event_trigger(id):
 		
 		
 func save():
+	print(current_attempt)
 	return {
 		"persistence_id" : persistence_id,
 		"current_attempt" : current_attempt,

@@ -13,7 +13,7 @@ var faint_pos = Vector2(-50, 254)
 func _ready():
 	._ready()
 	
-func on_load():
+func reload():
 	#Only For When Backtracking from House
 	if !attempt_one_alive and SceneManager.current_scene.current_attempt == 1: 
 		Sequencer.execute_event("Area01_Sequence04")

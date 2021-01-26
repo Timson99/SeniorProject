@@ -6,8 +6,8 @@ extends Resource
 
 static func instructions():
   return [
-		["Actor-call-sync", "C1", "move_to_position_routine", Vector2(-8, 234), true],
-		["Actor-call-sync", "Bully", "move_to_position_routine", Vector2(-38, 234), true],
+		["Actor-call-sync", "C1", "move_to_position", Vector2(-8, 234), true],
+		["Actor-call-sync", "Bully", "move_to_position", Vector2(-38, 234), true],
 		["Actor-call", "Camera", "grab_camera"],
 		["Actor-call", "Camera", "move_to_position", Vector2(-80, 234), 0.5],
 		["Signal", "CameraManager", "complete"],
@@ -15,18 +15,6 @@ static func instructions():
 		["Actor-call", "Camera", "move_to_party", 0.5],
 		["Signal", "CameraManager", "complete"],
 		["Actor-call", "Camera", "release_camera"],
-	
-	
-	
-		#["Actor-sync", "C1", "move_to_position", Vector2(-8, 234), true],
-		#["Actor-sync", "Bully", "move_to_position", Vector2(-38, 234), true],
-		#["Actor-call", "Camera", "grab_camera"],
-		#["Actor-call", "Camera", "move_to_position", Vector2(-80, 234), 0.5],
-		#["Signal", "CameraManager", "complete"],
-		#["Delay", 0.5],
-		#["Actor-call", "Camera", "move_to_party", 0.5],
-		#["Signal", "CameraManager", "complete"],
-		#["Actor-call", "Camera", "release_camera"],
 		
 		###["Dialogue", "Darren"],
 		###["Signal", "DialogueEngine", "page_over"],

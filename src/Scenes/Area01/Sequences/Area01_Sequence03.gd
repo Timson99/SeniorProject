@@ -21,6 +21,7 @@ static func instructions():
 		["Signal", "Party", "tween_pos_completed"],
 		
 		["Actor-call", "Area01_Outside_Root", "increment_attempt"],
+
 		["Scene", "Area01_House_Room", "Reentry"],
 		["Actor-set", "Camera", "position", Vector2(72,-300)],
 		["Actor-call", "C1", "change_skin", "AtHome"],
@@ -43,7 +44,7 @@ static func instructions():
 		["Delay", 0.8],
 		["Actor-call", "C1", "flip_horizontal", false],
 		["Actor-set", "C1", "exploring", true],
-		["Actor-sync", "C1", "move_to_position", Vector2(0, 40)],
+		["Actor-call-sync", "C1", "move_to_position", Vector2(0, 40)],
 		["Actor-call", "C1", "set_collision", true],
 		["Dialogue", "Monologue"],
 		["Signal", "DialogueEngine", "end"],

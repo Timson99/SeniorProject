@@ -207,39 +207,16 @@ func change_skin(skin_id):
 	else:
 		Debugger.dprint("Skin id %s not found in Character %s" % [skin_id, persistence_id])
 		
-
-#Sequener Method
+		
+		
 func move_to_position(new_position: Vector2, global = false):
-	var current_position
-	if global:
-	 current_position = self.get_global_position().round()
-	else:
-		current_position = position
-		
-	var x_delta = round(new_position.x - current_position.x)
-	var y_delta = round(new_position.y - current_position.y)
-	
-	if y_delta != 0:
-		if current_position.y > new_position.y:
-			move_up()
-		else:
-			move_down()
-	elif y_delta <= 0 && x_delta != 0:
-		if current_position.x > new_position.x:
-			move_left()
-		else:
-			move_right()
-	if current_position == new_position:
-		emit_signal("command_completed")
-		
-		
-func move_to_position_routine(new_position: Vector2, global = false):
-	var fps = 60
-	#var fps = OS.get_frames_per_second()
-	var frame_time = 1/fps
+	#var fps = 60
+	#var frame_time = 1/fps
+	#print("frame_time %d" % frame_time)
+	#print(1/Engine.get_frames_per_second())
 	var current_position
 	while current_position != new_position:
-		yield(get_tree().create_timer(frame_time, false), "timeout")
+		yield(get_tree().create_timer(0, false), "timeout")
 		if global:
 		 current_position = self.get_global_position().round()
 		else:
