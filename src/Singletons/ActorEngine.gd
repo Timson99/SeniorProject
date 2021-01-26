@@ -52,7 +52,6 @@ func async_command(id, func_name, params):
 		
 		while(id in async_actors):
 			yield(self, "updated_async_actors")
-		print("Execute Async")
 		
 		async_actors.append(id)
 		var function_ref = funcref(actor, func_name)

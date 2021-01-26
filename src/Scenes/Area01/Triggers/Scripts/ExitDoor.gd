@@ -18,7 +18,6 @@ func close():
 	anim.play("closed")
 	
 func open():
-	print("OPEN CALLED")
 	anim.play("open")
 
 
