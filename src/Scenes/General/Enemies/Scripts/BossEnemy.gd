@@ -1,9 +1,11 @@
 extends KinematicBody2D
 
+class_name BossEnemy
+
 export var default_speed := 60
 export var alive := true
-export var persistence_id := "Bully"
-export var actor_id := "Bully"
+export (String) var persistence_id
+export (String) var actor_id
 var speed = 60
 var exploring = true
 
@@ -18,6 +20,10 @@ onready var data = EnemyHandler.Enemies[persistence_id]
 #onready var stats = data["battle_data"]
 onready var battle_id = "battle"
 
+
+func post_battle():
+	return
+
 var dir_anims := {
 	Enums.Dir.Up: ["Idle_Up", "Walk_Up"],
 	Enums.Dir.Down: ["Idle_Down", "Walk_Down"],
@@ -27,6 +33,11 @@ var dir_anims := {
 var current_dir = Enums.Dir.Down
 var isMoving := false
 var velocity = Vector2(0,0)
+
+
+func set_speed(new_speed: float):
+	speed = new_speed
+	
 
 func on_load():
 	if !alive:
@@ -56,38 +67,36 @@ func explore(delta : float):
 	var collision = move_and_collide(velocity * delta)
 	velocity = Vector2()
 			
-
-signal command_completed
-func move_to_position(new_position: Vector2, global = false):
-	var current_position
-	if global:
-	 current_position = self.get_global_position()
-	else:
-		current_position = position
+func move_to_position(new_position: Vector2, global = true):
+	var current_position = self.get_global_position().round()
+	if !global:
+			new_position = current_position + new_position
+	while current_position != new_position:
+		yield(get_tree().create_timer(0, false), "timeout")
+		current_position = self.get_global_position().round()
+			
+		var x_delta = round(new_position.x - current_position.x)
+		var y_delta = round(new_position.y - current_position.y)
 		
-	var x_delta = new_position.x - current_position.x
-	var y_delta = new_position.y - current_position.y
-	if y_delta != 0:
-		if current_position.y > new_position.y:
-			move_up()
-		else:
-			move_down()
-	elif y_delta <= 0 && x_delta != 0:
-		if current_position.x > new_position.x:
-			move_left()
-		else:
-			move_right()
-	if current_position == new_position:
-		emit_signal("command_completed")
+		if y_delta != 0:
+			if current_position.y > new_position.y:
+				move_up()
+			else:
+				move_down()
+		elif y_delta <= 0 && x_delta != 0:
+			if current_position.x > new_position.x:
+				move_left()
+			else:
+				move_right()
 
-
+	
 func _ready():
-	pass
+	EnemyHandler.add_enemy_data(persistence_id, self)
 	
-func initiate_battle():
+func flip_horizontal(flip : bool):
+	animations.flip_h = flip
 	
-	print("RAN")
-	
+func initiate_battle():	
 	EnemyHandler.queued_battle_enemies.append(persistence_id)
 	SceneManager.goto_scene(battle_id, "", true)
 

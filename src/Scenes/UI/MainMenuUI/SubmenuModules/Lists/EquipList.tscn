@@ -6,11 +6,6 @@
 [ext_resource path="res://Scenes/UI/MainMenuUI/SubmenuModules/Lists/EquipList.gd" type="Script" id=4]
 [ext_resource path="res://Assets/UI/Menu/Menu_Backdrop_04.png" type="Texture" id=5]
 
-
-
-
-
-
 [sub_resource type="Theme" id=1]
 
 [node name="CanvasLayer" type="CanvasLayer"]
@@ -57,12 +52,12 @@ __meta__ = {
 }
 
 [node name="ItemButton" parent="ItemList/VBoxContainer" instance=ExtResource( 1 )]
-margin_right = 115.0
+margin_right = 114.0
 theme = SubResource( 1 )
 
 [node name="ItemButton2" parent="ItemList/VBoxContainer" instance=ExtResource( 1 )]
 margin_top = 17.0
-margin_right = 115.0
+margin_right = 114.0
 margin_bottom = 17.0
 theme = SubResource( 1 )
 

@@ -12,13 +12,14 @@ onready var anim = $AnimatedSprite
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group("Actor")
-	anim.play("Closed")
+	anim.play("closed")
 	
 func close():
-	anim.play("Closed")
+	anim.play("closed")
 	
 func open():
-	anim.play("Open")
+	print("OPEN CALLED")
+	anim.play("open")
 
 
 

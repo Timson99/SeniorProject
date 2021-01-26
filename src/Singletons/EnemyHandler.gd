@@ -35,6 +35,9 @@ var spawning_locked := false
 var valid_pos_flag := false
 
 
+func clear():
+	queued_battle_enemies = []
+
 func _ready():
 	SceneManager.connect("goto_called", self, "block_spawning")
 	SceneManager.connect("scene_fully_loaded", self, "check_if_spawning_possible")
@@ -73,6 +76,11 @@ func initialize_spawner_info():
 		tilemap_dimensions = scene_node.get_node("TileMap").map_to_world(tilemap_rect.size)
 		tilemap_width = tilemap_dimensions.x
 		tilemap_height = tilemap_dimensions.y
+
+
+func add_enemy_data(id, enemy_obj):
+	existing_enemy_data[id] = {}
+	existing_enemy_data[id]["body"] = enemy_obj
 	
 	
 func initialize_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2):
@@ -129,17 +137,23 @@ func validate_spawn_position(possible_location: Vector2):
 func freeze_on_contact():
 	get_tree().call_group("Enemy", "freeze_in_place")
 
+#called if goto_saved is used
+func despawn_on():
+	SceneManager.connect("scene_loaded", self, "despawn_defeated_enemies")
+func despawn_off():
+	SceneManager.disconnect("scene_loaded", self, "despawn_defeated_enemies")
+	
 # Called for battle victory or fleeing
-func despawn_defeated_enemies(id: int):
-	yield(SceneManager, "scene_fully_loaded")
+func despawn_defeated_enemies():
 	for enemy in queued_battle_enemies:
-			# 1. despawning animation in the overworld
-			# yield for despawn anim to complete 
-			scene_node.remove_child(existing_enemy_data[enemy]["exploration_node"])
+			existing_enemy_data[enemy]["body"].post_battle()
+			existing_enemy_data.erase(enemy)
+			#scene_node.remove_child(existing_enemy_data[enemy]["exploration_node"])
 	# 2. handling the despawn of multiple enemies who joined in a gang
 	num_of_enemies -= 1
 	can_spawn = true
-	pass
+	clear()
+	despawn_off()
 
 
 func _physics_process(delta):

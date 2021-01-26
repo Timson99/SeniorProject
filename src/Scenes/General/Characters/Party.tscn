@@ -5,13 +5,6 @@
 [ext_resource path="res://Scenes/General/Characters/Scripts/Party.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/General/Characters/C3.tscn" type="PackedScene" id=4]
 
-
-
-
-
-
-
-
 [node name="Party" type="YSort" groups=[
 "Actor",
 "Party",
@@ -27,9 +20,11 @@ __meta__ = {
 }
 
 [node name="C3" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 0, -2 )
 actor_id = "C3"
 
 [node name="C2" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 0, -1 )
 actor_id = "C2"
 
 [node name="C1" parent="YSort" instance=ExtResource( 2 )]

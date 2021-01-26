@@ -1,11 +1,13 @@
+#Initiate Battle with Bully
+
 extends Resource
 
 #Bully Encounter, Attempt 1
 
 static func instructions():
   return [
-		["Actor-sync", "C1", "move_to_position", Vector2(-65, 234), true],
-		["Actor-sync", "Bully", "move_to_position", Vector2(-95, 234), true],
+		["Actor-sync", "C1", "move_to_position", Vector2(-8, 234), true],
+		["Actor-sync", "Bully", "move_to_position", Vector2(-38, 234), true],
 		["Actor-call", "Camera", "grab_camera"],
 		["Actor-call", "Camera", "move_to_position", Vector2(-80, 234), 0.5],
 		["Signal", "CameraManager", "complete"],

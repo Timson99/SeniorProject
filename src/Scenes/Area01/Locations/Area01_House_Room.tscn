@@ -68,7 +68,7 @@ one_way = true
 position = Vector2( 128, 152 )
 
 [node name="Party" parent="YSort" instance=ExtResource( 3 )]
-position = Vector2( -14, -30 )
+position = Vector2( -8, -30 )
 C2_in_party = false
 C3_in_party = false
 
