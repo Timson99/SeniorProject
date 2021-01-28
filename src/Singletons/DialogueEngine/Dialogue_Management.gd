@@ -146,6 +146,9 @@ func parse_res_file():
 			
 			#add entry with key of msgID and value as metadata subdirectory
 			dialogueDictionary[metaArray[2]] = toInsert
+			
+	#print(dialogueDictionary)
+	#print(speakerDictionary)
 	
 
 #either skips scroll, advances to next line, or selects option
@@ -158,7 +161,9 @@ func ui_accept_pressed():
 		clear_options()
 		_advance()
 	elif textNode.get_visible_characters() < textNode.get_text().length():
-		textNode.set_visible_characters(textNode.get_text().length() - 1)
+		var string_stripped = textNode.text.replace("`", "")
+		textNode.text = string_stripped
+		textNode.set_visible_characters(string_stripped.length() - 1)
 	elif mode == Mode.Dialogue:
 		_advance()
 		emit_signal("page_over")

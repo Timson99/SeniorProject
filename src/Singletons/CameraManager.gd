@@ -48,8 +48,6 @@ func screen_resize():
 	var scale_y = round(window_size.y / viewport.size.y)
 	#Disable Y Cutoff
 	#var scale_y = floor(window_size.y / viewport.size.y)
-	#Allow Y Cutoff
-	#var scale_y = round(window_size.y / viewport.size.y)
 	
 	
 	var scale = max(1, min(scale_x, scale_y))
@@ -59,13 +57,15 @@ func screen_resize():
 	var diffhalf = (diff * 0.5).floor()
 	# attach the viewport to the rect we calculated
 	
+
+	
+	y_cutoff = abs(min(0, int(window_size.y - viewport.size.y * scale)))
+	vp_scale = scale
 	
 	#print("Window Size: %s" % str(window_size))
 	#print("Viewport Scaled To: %s"  % str(viewport.size * scale))
-	#print(Scale X: %s , Scale Y: %s" % [  str(scale_x), str(scale_y)]   )
+	#print("Scale X: %s , Scale Y: %s" % [  str(scale_x), str(scale_y)]   )
 	#print(y_cutoff)
-	y_cutoff = abs(min(0, int(window_size.y - viewport.size.y * scale)))
-	vp_scale = scale
 	
 	var scaled_screen_size = viewport.size * scale
 	viewport.set_attach_to_screen_rect(Rect2(diffhalf, scaled_screen_size))
@@ -136,7 +136,7 @@ func move_to_party(time : float):
 	var party = get_tree().get_nodes_in_group("Party")
 	if party.size() == 1:
 		destination = party[0].active_player.get_global_position()
-	move_to_position(destination, time)
+	yield(move_to_position(destination, time), "completed")
 
 
 func release_camera():

@@ -15,6 +15,7 @@ const data = {
 	#Area01 Sequences
 	"Area01_Sequence01" : "res://Scenes/Area01/Sequences/Area01_Sequence01.gd",
 	"Area01_Sequence02" : "res://Scenes/Area01/Sequences/Area01_Sequence02.gd",
+	"Area01_Sequence025" : "res://Scenes/Area01/Sequences/Area01_Sequence025.gd",
 	"Area01_Sequence03" : "res://Scenes/Area01/Sequences/Area01_Sequence03.gd",
 	"Area01_Sequence04" : "res://Scenes/Area01/Sequences/Area01_Sequence04.gd",
 	"Area01_Sequence05" : "res://Scenes/Area01/Sequences/Area01_Sequence05.gd",

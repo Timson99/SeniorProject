@@ -48,6 +48,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
+current_attempt = 3
 
 [node name="Pos_Tool" type="Position2D" parent="."]
 position = Vector2( -24, 211 )
