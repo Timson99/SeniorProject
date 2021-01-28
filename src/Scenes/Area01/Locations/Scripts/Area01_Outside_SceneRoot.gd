@@ -25,10 +25,8 @@ var first_post_fight = Vector2(-200,0)
 signal faded_out()
 
 func _ready():
-	
 	add_to_group("Persistent")
-	add_to_group("Actor")
-	ActorEngine.update_actors()
+	ActorEngine.register_actor(self)
 
 
 

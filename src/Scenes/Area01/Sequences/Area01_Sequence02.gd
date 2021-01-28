@@ -6,26 +6,28 @@ extends Resource
 
 static func instructions():
   return [
+		["Actor-async", "Bully", "move_to_position", Vector2(-38, 234), true],
 		["Actor-sync", "C1", "move_to_position", Vector2(-8, 234), true],
-		["Actor-sync", "Bully", "move_to_position", Vector2(-38, 234), true],
 		["Actor-call", "Camera", "grab_camera"],
-		["Actor-call", "Camera", "move_to_position", Vector2(-80, 234), 0.5],
-		["Signal", "CameraManager", "complete"],
+		["Actor-sync", "Camera", "move_to_position", Vector2(-24, 234), 0.5],
 		["Delay", 0.5],
-		["Actor-call", "Camera", "move_to_party", 0.5],
-		["Signal", "CameraManager", "complete"],
-		["Actor-call", "Camera", "release_camera"],
 		
-		###["Dialogue", "Darren"],
-		###["Signal", "DialogueEngine", "page_over"],
-		###["Actor-async", "Bully", "move_up", 0.5],
-		###["Actor-async", "Bully", "move_right", 0.8],
-		###["Signal", "DialogueEngine", "page_over"],
-		###["Actor-async", "Bully", "move_down", 0.8],
-		###["Actor-async", "Bully", "move_left", 0.5],
-		###["Signal", "DialogueEngine", "page_over"],
+		["Dialogue", "Bully"],
+		["Signal", "DialogueEngine", "page_over"],
 		
-		###["Signal", "DialogueEngine", "end"],
+		#Circle Around Player
+		["Actor-async", "Bully", "move_to_position", Vector2(0, -20), false],
+		["Actor-async", "Bully", "move_to_position", Vector2(50, 0), false],
+		["Actor-async", "Bully", "move_to_position", Vector2(0, 40), false],
+		["Actor-async", "Bully", "move_to_position", Vector2(-50, 0), false],
+		["Actor-async", "Bully", "move_to_position", Vector2(0, -20), false],
+		["Actor-async", "Bully", "move_to_position", Vector2(1, 0), false],
+		
+		["Signal", "DialogueEngine", "page_over"],
+		
+		["Signal", "DialogueEngine", "end"],
+		["Actor-sync", "Bully", "move_to_position", Vector2(8, 0), false],
+		["Delay", 0.5],
 		["Actor-call", "Bully", "initiate_battle"]
   ]
 

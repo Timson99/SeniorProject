@@ -5,7 +5,7 @@ signal sync_command_complete
 var actors_dict: Dictionary = {}
 var actors_array: Array = []
 
-
+signal updated_async_actors	
 var async_actors = []
 
 
@@ -13,12 +13,18 @@ func _ready():
 	SceneManager.connect("scene_loaded", self, "update_actors")
 	update_actors()
 	
-func update_actors(actor_group_array = null):
-	if actor_group_array == null:
-		actors_array = get_tree().get_nodes_in_group("Actor")
+func register_actor(actor):
+	actor.add_to_group("Actor")
+	ActorEngine.update_actors()
+	
+func get_party():
+	if ("Party" in actors_dict.keys()):
+		return actors_dict["Party"]
 	else:
-		actors_array = actor_group_array
-
+		return null
+	
+func update_actors():
+	actors_array = get_tree().get_nodes_in_group("Actor")
 	for actor_body in actors_array:
 		var key: String = actor_body.actor_id
 		actors_dict[key] = actor_body
@@ -40,12 +46,16 @@ func set_command(id : String, property : String, new_value):
 func sync_command(id, func_name, params):
 	var actor = actors_dict[id]
 	if actor.has_method(func_name):
+		
+		while(id in async_actors):
+			yield(self, "updated_async_actors")
+			
 		var function_ref = funcref(actor, func_name)
 		yield(  function_ref.call_funcv(params)  , "completed"  )
 	else:
 		Debugger.dprint("Actor %s does not have method %s" % [id, func_name])
 
-signal updated_async_actors		
+	
 func async_command(id, func_name, params):
 	var actor = actors_dict[id]
 	if actor.has_method(func_name):
