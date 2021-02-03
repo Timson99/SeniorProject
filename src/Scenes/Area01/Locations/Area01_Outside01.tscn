@@ -51,7 +51,7 @@ __meta__ = {
 current_attempt = 3
 
 [node name="Pos_Tool" type="Position2D" parent="."]
-position = Vector2( 8, 211 )
+position = Vector2( -24, 211 )
 
 [node name="Tween" type="Tween" parent="."]
 

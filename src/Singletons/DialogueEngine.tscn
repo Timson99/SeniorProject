@@ -7,10 +7,6 @@
 [ext_resource path="res://Assets/UI/Menu/Menu_Element_05.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Art/Test_Art/Christian_Test_Assets/Option_Selected.wav" type="AudioStream" id=6]
 
-
-
-
-
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 4 )
 

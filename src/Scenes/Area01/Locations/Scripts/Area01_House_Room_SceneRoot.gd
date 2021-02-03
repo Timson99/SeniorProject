@@ -13,8 +13,7 @@ onready var tween = $Tween
 
 func _ready():
 	add_to_group("Persistent")
-	add_to_group("Actor")
-	ActorEngine.update_actors()
+	ActorEngine.register_actor(self)
 	unshade()
 	
 func shade():

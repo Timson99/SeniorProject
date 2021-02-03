@@ -18,6 +18,7 @@ var vp_scale : int = 1
 
 
 func _ready():
+	SceneManager.connect("scene_loaded", self, "release_camera")
 	camera.process_mode = Camera2D.CAMERA2D_PROCESS_PHYSICS
 	add_child(camera)
 	camera.current = true
@@ -28,18 +29,16 @@ func _ready():
 	#Disbale if Fullscreen Stretch is allowed
 	screen_resize()
 	get_tree().connect("screen_resized", self, "screen_resize")
-	add_to_group("Actor")
+	ActorEngine.register_actor(self)
 
 
 func screen_resize():
 	
 	#Code settings required for below to work, may be set in project.godot
-	#############################
-	#get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT,
-	#							SceneTree.STRETCH_ASPECT_IGNORE,
-	#							Vector2(320,240)
-	#							)
-	###############################
+	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT,
+								SceneTree.STRETCH_ASPECT_IGNORE,
+								Vector2(320,240)
+								)
 	
 	var window_size = OS.get_window_size()
 	
@@ -49,8 +48,6 @@ func screen_resize():
 	var scale_y = round(window_size.y / viewport.size.y)
 	#Disable Y Cutoff
 	#var scale_y = floor(window_size.y / viewport.size.y)
-	#Allow Y Cutoff
-	#var scale_y = round(window_size.y / viewport.size.y)
 	
 	
 	var scale = max(1, min(scale_x, scale_y))
@@ -60,13 +57,15 @@ func screen_resize():
 	var diffhalf = (diff * 0.5).floor()
 	# attach the viewport to the rect we calculated
 	
+
+	
+	y_cutoff = abs(min(0, int(window_size.y - viewport.size.y * scale)))
+	vp_scale = scale
 	
 	#print("Window Size: %s" % str(window_size))
 	#print("Viewport Scaled To: %s"  % str(viewport.size * scale))
-	#print(Scale X: %s , Scale Y: %s" % [  str(scale_x), str(scale_y)]   )
+	#print("Scale X: %s , Scale Y: %s" % [  str(scale_x), str(scale_y)]   )
 	#print(y_cutoff)
-	y_cutoff = abs(min(0, int(window_size.y - viewport.size.y * scale)))
-	vp_scale = scale
 	
 	var scaled_screen_size = viewport.size * scale
 	viewport.set_attach_to_screen_rect(Rect2(diffhalf, scaled_screen_size))
@@ -84,8 +83,8 @@ func screen_resize():
 #Run camera movement in physics process?
 # Use signals for state changes rather than process constant checks
 func _physics_process(_delta):
-	var party = get_tree().get_nodes_in_group("Party")
-	if party.size() != 1:
+	var party = ActorEngine.get_party()
+	if !party:
 		if state != State.Static and state != State.Sequenced: state_to_static()
 	else:
 		if state != State.OnParty and state != State.Sequenced: state_to_party()
@@ -94,9 +93,9 @@ func _physics_process(_delta):
 	if state == State.Static:
 		return
 	elif state == State.OnParty:
-		if party[0].active_player == null:
+		if party.active_player == null:
 			return
-		var party_pos = party[0].active_player.get_global_position()	
+		var party_pos = party.active_player.get_global_position()	
 		position = Vector2(party_pos.x, party_pos.y)
 		if "camera_bounds" in SceneManager.current_scene:
 			var bounds = SceneManager.current_scene.camera_bounds
@@ -137,7 +136,7 @@ func move_to_party(time : float):
 	var party = get_tree().get_nodes_in_group("Party")
 	if party.size() == 1:
 		destination = party[0].active_player.get_global_position()
-	move_to_position(destination, time)
+	yield(move_to_position(destination, time), "completed")
 
 
 func release_camera():

@@ -19,6 +19,10 @@ var equipeed_arm
 
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 
+func _ready():
+	ActorEngine.register_actor(self)
+	add_to_group("Persistent")
+
 
 onready var skins  = {
 	"C1" : {
