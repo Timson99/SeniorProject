@@ -2,7 +2,7 @@ extends Node
 
 onready var Enemies = EnemyTypes.get_data()
 
-onready var spawn_body = preload("res://Scenes/General/Enemies/SpawningScenes/SpawnPositionTester.tscn").instance()
+signal spawn_func_completed
 
 var random_num_generator = RandomNumberGenerator.new()
 
@@ -14,25 +14,18 @@ export var enemy_variations := []
 onready var target_player: KinematicBody2D 
 onready var player_view: Vector2
 
-onready var tilemap_rect: Rect2 
-onready var tilemap_reference_point: Vector2
-onready var tilemap_dimensions 
-onready var tilemap_width: int
-onready var tilemap_height: int 
-
-onready var spawn_area: Area2D 
-onready var spawn_locations := []
-onready var spawn_collider: CollisionPolygon2D
-onready var scene_world_space = CameraManager.viewport.get_world_2d().direct_space_state
-
 onready var scene_node: Node
+onready var spawn_locations := []
+onready var spawner_balancer := {}
+
 
 var existing_enemy_data : Dictionary = {}
 var queued_battle_enemies: Array = []
-var current_battle_stats : Dictionary
 var can_spawn := true
+var spawning_launched := false
 var spawning_locked := false
-var valid_pos_flag := false
+var enemy_spawner_ratio: float
+
 
 
 func _ready():
@@ -61,6 +54,19 @@ func initialize_spawner_info():
 		max_enemies = scene_node.get("max_enemies")
 		enemy_variations = scene_node.get("enemy_variations")
 		spawn_locations = get_tree().get_nodes_in_group("SpawnLocation")
+		enemy_spawner_ratio = float(max_enemies) / spawn_locations.size()
+		for spawn_location_id in range(spawn_locations.size()):
+			spawner_balancer[spawn_location_id] = 0
+
+
+# If enemies can be spawned and the target player character has been located,
+# loops indefinitely to spawn a balanced distribution of enemies in overworld.
+func launch_spawning_loop():
+	while can_spawn:
+		var random_wait_time: int = random_num_generator.randf_range(0, 1)
+		yield(get_tree().create_timer(random_wait_time, false), "timeout")
+		if !spawning_locked && num_of_enemies < max_enemies:
+			spawn_enemy()
 
 
 func block_spawning():
@@ -74,20 +80,18 @@ func get_enemy_data(id: int):
 func spawn_enemy():
 	spawning_locked = true
 	random_num_generator.randomize()
-	var random_wait_time: int = random_num_generator.randi_range(1, 3)
-	var spawn_chance: float = random_num_generator.randf_range(0, 1)
-	var spawn_position = get_spawn_position()
-	var view_buffer: int = 20
-	var within_view_x: bool = abs(spawn_position.x - target_player.position.x) < (player_view.x/2 + view_buffer)
-	var within_view_y: bool = abs(spawn_position.y - target_player.position.y) < (player_view.y/2 + view_buffer)
-	if spawn_chance > 0.5 && (!within_view_x && !within_view_y):
-		var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, enemy_variations.size()-1)]
-		var new_enemy = initialize_enemy_instance(generated_enemy_id, enemy_type, spawn_position)
-		scene_node.add_child(new_enemy)
-		generated_enemy_id += 1
-		num_of_enemies += 1
-		print("New enemy added")
+	var spawn_position = get_spawn_position() 
+	if spawn_position != null:
+			var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, enemy_variations.size()-1)]
+			var new_enemy = initialize_enemy_instance(generated_enemy_id, enemy_type, spawn_position)
+			scene_node.add_child(new_enemy)
+			generated_enemy_id += 1
+			num_of_enemies += 1
+			print("New enemy added")
+			print(spawner_balancer)
 	spawning_locked = false
+	return 
+	
 
 
 func add_enemy_data(id, enemy_obj):
@@ -97,8 +101,17 @@ func add_enemy_data(id, enemy_obj):
 
 func get_spawn_position():
 	random_num_generator.randomize()
-	var chosen_location = random_num_generator.randi_range(0, spawn_locations.size()-1)
-	return spawn_locations[chosen_location].position
+	var chosen_location: int = random_num_generator.randi_range(0, spawn_locations.size()-1)
+	var spawn_position: Vector2 = spawn_locations[chosen_location].position
+	var player_view_buffer: int = 60
+	var within_view_x: bool = abs(spawn_position.x - target_player.position.x) < (player_view.x/2 + player_view_buffer)
+	var within_view_y: bool = abs(spawn_position.y - target_player.position.y) < (player_view.y/2 + player_view_buffer)
+	if (!within_view_x && !within_view_y) && (spawner_balancer[chosen_location] < enemy_spawner_ratio):
+		spawner_balancer[chosen_location] += 1
+		print(spawn_locations[chosen_location].position)
+		return spawn_locations[chosen_location].position
+	else:
+		return null
 
 
 func initialize_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2):
@@ -173,5 +186,6 @@ func _physics_process(delta):
 	if scene_node != null && party.size() == 1:
 		target_player = party[0].active_player
 		player_view = CameraManager.viewport_size
-		if can_spawn && num_of_enemies < max_enemies && !spawning_locked:			
-			spawn_enemy()
+		if !spawning_launched:
+			spawning_launched = !spawning_launched
+			launch_spawning_loop()
