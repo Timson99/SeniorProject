@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "Idle_up",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Idle_down",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Walk_down",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Walk_up",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Walk_left",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Walk_right",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Idle_right",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "Idle_left",
+"speed": 5.0
+} ]
+
+[node name="NPC_Parent" type="KinematicBody2D"]
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+animation = "Idle_down"

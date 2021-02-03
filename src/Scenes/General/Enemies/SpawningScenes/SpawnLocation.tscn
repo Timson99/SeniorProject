@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20.5008, 18.3651 )
+
+[node name="SpawnLocation" type="Area2D" groups=[
+"SpawnLocation",
+]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+disabled = true

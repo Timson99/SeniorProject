@@ -127,7 +127,10 @@ func stop_chasing(body: Node):
 
 func freeze_in_place():
 	velocity = Vector2(0,0)
-	print("FROZEN")
+
+
+func post_battle():
+	pass
 
 
 # Overlapping enemy Area2Ds throw enemies into array that may be instanced in battle later
