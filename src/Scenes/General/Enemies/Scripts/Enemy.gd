@@ -5,7 +5,6 @@ signal enemy_hit_player()
 enum Mode {Stationary, Chase, Patrol, Battle}
 
 export var default_speed := 60
-export var chase_factor := 0.8
 export var alive := true
 export var current_mode := Mode.Patrol
 export var data_id := 1
@@ -41,13 +40,13 @@ func _ready():
 	$DetectionRadius.connect("body_exited", self, "stop_chasing")
 	$DetectionRadius.connect("area_entered", self, "add_to_gang")
 	$DetectionRadius.connect("area_exited", self, "remove_from_gang")
-	self.connect("enemy_hit_player", self, "freeze_in_place")
 
 
 func _physics_process(delta):
+	target_player = EnemyHandler.target_player
 	position = Vector2(round(position.x), round(position.y))
 	if current_mode == Mode.Stationary:
-		velocity = velocity.normalized() * default_speed
+		velocity = velocity.normalized() * 0
 	elif player_party && current_mode == Mode.Chase:
 		velocity = move_toward_player()
 	elif current_mode == Mode.Patrol:
@@ -65,16 +64,22 @@ func _physics_process(delta):
 		isMoving = false
 	
 	var collision = move_and_collide(velocity * delta)
-	if collision and collision.collider.name == target_player.persistence_id: # Collides with party in general currently
-		emit_signal("enemy_hit_player")
-		EnemyHandler.queued_battle_enemies.append(key)
-		EnemyHandler.can_spawn = false
-		stop_chasing(player_party)
-		current_mode = Mode.Battle
-		$CollisionBox.disabled = true
-		SceneManager.goto_scene("battle", "", true)
+	if collision && target_player && collision.collider.name == target_player.persistence_id:
+		launch_battle()
 	velocity = Vector2(0,0)
 	
+	
+func launch_battle():
+	EnemyHandler.freeze_all_enemies()
+	$CollisionBox.disabled = true
+	EnemyHandler.retain_enemy_data()
+	EnemyHandler.collect_battle_enemy_ids(data_id)
+	EnemyHandler.add_to_battle_queue(key)
+	print(EnemyHandler.queued_battle_enemies)
+	print(EnemyHandler.existing_enemy_data)
+	print(player_party)
+	SceneManager.goto_scene("battle", "", true)	
+
 
 func move_toward_player():
 	var party_position = player_party.get_global_position()
@@ -90,7 +95,7 @@ func move_toward_player():
 		current_dir = Enums.Dir.Right
 	else:
 		current_dir = Enums.Dir.Left
-	return Vector2(x_diff, y_diff).normalized() * default_speed * chase_factor
+	return Vector2(x_diff, y_diff).normalized() * default_speed
 	
 	
 func move_up():
@@ -114,19 +119,21 @@ func move_left():
 	
 	
 func begin_chasing(body: Node):
-	if body.name == target_player.persistence_id:
+	if target_player && body.name == target_player.persistence_id:
 		player_party = body
 		current_mode = Mode.Chase
 	
 	
 func stop_chasing(body: Node):
-	if body.name == target_player.persistence_id:
+	if target_player && body.name == target_player.persistence_id:
 		player_party = null
 		current_mode = initial_mode
 
 
 func freeze_in_place():
+	$DetectionRadius.disconnect("body_entered", self, "begin_chasing")
 	velocity = Vector2(0,0)
+	current_mode = Mode.Battle
 
 
 func post_battle():

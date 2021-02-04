@@ -21,6 +21,7 @@ onready var spawner_balancer := {}
 
 var existing_enemy_data : Dictionary = {}
 var queued_battle_enemies: Array = []
+var queued_battle_ids: Array = []
 var can_spawn := true
 var spawning_launched := false
 var spawning_locked := false
@@ -59,22 +60,12 @@ func initialize_spawner_info():
 			spawner_balancer[spawn_location_id] = 0
 
 
-# If enemies can be spawned and the target player character has been located,
-# loops indefinitely to spawn a balanced distribution of enemies in overworld.
-func launch_spawning_loop():
-	while can_spawn:
-		var random_wait_time: int = random_num_generator.randf_range(0, 1)
-		yield(get_tree().create_timer(random_wait_time, false), "timeout")
-		if !spawning_locked && num_of_enemies < max_enemies:
-			spawn_enemy()
-
-
 func block_spawning():
 	can_spawn = false
+	
 
-
-func get_enemy_data(id: int):
-	return existing_enemy_data.get(id)
+func enable_spawning():
+	can_spawn = true
 
 
 func spawn_enemy():
@@ -83,7 +74,7 @@ func spawn_enemy():
 	var spawn_position = get_spawn_position() 
 	if spawn_position != null:
 			var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, enemy_variations.size()-1)]
-			var new_enemy = initialize_enemy_instance(generated_enemy_id, enemy_type, spawn_position)
+			var new_enemy = create_enemy_instance(generated_enemy_id, enemy_type, spawn_position)
 			scene_node.add_child(new_enemy)
 			generated_enemy_id += 1
 			num_of_enemies += 1
@@ -92,12 +83,6 @@ func spawn_enemy():
 	spawning_locked = false
 	return 
 	
-
-
-func add_enemy_data(id, enemy_obj):
-	existing_enemy_data[id] = {}
-	existing_enemy_data[id]["body"] = enemy_obj
-
 
 func get_spawn_position():
 	random_num_generator.randomize()
@@ -114,7 +99,7 @@ func get_spawn_position():
 		return null
 
 
-func initialize_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2):
+func create_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2):
 	var new_enemy = load(Enemies[enemy_type]["enemy_scene_path"]).instance()
 	add_enemy_data(id, new_enemy)
 	existing_enemy_data[id]["position"] = spawn_position
@@ -123,6 +108,23 @@ func initialize_enemy_instance(id: int, enemy_type: String, spawn_position: Vect
 	new_enemy.data_id = id
 	new_enemy.position = spawn_position
 	return new_enemy
+	
+	
+func add_enemy_data(id, enemy_obj):
+	existing_enemy_data[id] = {}
+	existing_enemy_data[id]["body"] = enemy_obj
+	
+	
+func get_enemy_data(id: int):
+	return existing_enemy_data.get(id)	
+	
+	
+func add_to_battle_queue(enemy_type: String):
+	queued_battle_enemies.append(enemy_type)
+	
+
+func collect_battle_enemy_ids(id: int):
+	queued_battle_ids.append(id)	
 	
 	
 # Non-boss enemies are not persistent; existing enemies must be preserved 
@@ -135,24 +137,24 @@ func retain_enemy_data():
 	block_spawning()
 
 
-func freeze_on_contact():
+func freeze_all_enemies():
 	get_tree().call_group("Enemy", "freeze_in_place")
 
 
 # After a battle concludes, all enemies are returned to the overworld in their
 # pre-battle positions. Defeated enemies are deleted after playing death animations.
 func readd_previously_instanced_enemies():
-	yield(SceneManager, "scene_loaded")
-	for enemy in existing_enemy_data:
-		var enemy_type = (existing_enemy_data[enemy]["type"])
-		var saved_position = existing_enemy_data[enemy]["position"]
-		var readded_enemy = initialize_enemy_instance(enemy, enemy_type, saved_position)
-		if readded_enemy in queued_battle_enemies:
+	scene_node = SceneManager.current_scene
+	for enemy_id in existing_enemy_data:
+		var enemy_type = (existing_enemy_data[enemy_id]["type"])
+		var saved_position = existing_enemy_data[enemy_id]["position"]
+		var readded_enemy = create_enemy_instance(enemy_id, enemy_type, saved_position)
+		if enemy_id in queued_battle_ids:
 			readded_enemy.alive = false
-			readded_enemy.get_node("CollisionBox").queue_free()
+			readded_enemy.get_node("CollisionBox").disabled = true
 			readded_enemy.get_node("DetectionRadius").queue_free()
 		scene_node.add_child(readded_enemy)
-	yield(get_tree().create_timer(1.0, false), "timeout")
+	yield(SceneManager, "scene_fully_loaded")
 	
 	
 
@@ -165,20 +167,23 @@ func despawn_off():
 	
 func clear_queued_enemies():
 	queued_battle_enemies = []	
+	queued_battle_ids = []
 	
 	
 # Called for battle victory or fleeing
 func despawn_defeated_enemies():
 	readd_previously_instanced_enemies()
-	for enemy in queued_battle_enemies:
-		existing_enemy_data[enemy]["body"].post_battle()
-		existing_enemy_data.erase(enemy)
-		#scene_node.remove_child(existing_enemy_data[enemy]["exploration_node"])
+	print(existing_enemy_data)
+	print(queued_battle_ids)
+	for enemy_id in queued_battle_ids:
+		existing_enemy_data[enemy_id]["body"].post_battle()
+		scene_node.remove_child(existing_enemy_data[enemy_id]["body"])
+		existing_enemy_data.erase(enemy_id)
 		num_of_enemies -= 1
 	# 2. handling the despawn of multiple enemies who joined in a gang
-	can_spawn = true
 	clear_queued_enemies()
 	despawn_off()
+	enable_spawning()
 
 
 func _physics_process(delta):
@@ -189,3 +194,16 @@ func _physics_process(delta):
 		if !spawning_launched:
 			spawning_launched = !spawning_launched
 			launch_spawning_loop()
+		
+			
+# If enemies can be spawned and the target player character has been located,
+# loops indefinitely to spawn a balanced distribution of enemies in overworld.
+func launch_spawning_loop():
+	while can_spawn:
+		var random_wait_time: int = random_num_generator.randf_range(0, 1)
+		yield(get_tree().create_timer(random_wait_time, false), "timeout")
+		if !spawning_locked && num_of_enemies < max_enemies:
+			spawn_enemy()
+			
+
+
