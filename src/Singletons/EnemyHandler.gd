@@ -130,10 +130,8 @@ func collect_battle_enemy_ids(id: int):
 # Non-boss enemies are not persistent; existing enemies must be preserved 
 # whenever the player engages in a battle.	
 func retain_enemy_data():
-	if can_spawn:
-		for enemy in existing_enemy_data:
-			existing_enemy_data[enemy]["position"] = existing_enemy_data[enemy]["body"].position
-		print("RETAIN ENEMY DATA ")
+	for enemy in existing_enemy_data:
+		existing_enemy_data[enemy]["position"] = existing_enemy_data[enemy]["body"].position
 	block_spawning()
 
 
@@ -173,8 +171,6 @@ func clear_queued_enemies():
 # Called for battle victory or fleeing
 func despawn_defeated_enemies():
 	readd_previously_instanced_enemies()
-	print(existing_enemy_data)
-	print(queued_battle_ids)
 	for enemy_id in queued_battle_ids:
 		existing_enemy_data[enemy_id]["body"].post_battle()
 		scene_node.remove_child(existing_enemy_data[enemy_id]["body"])

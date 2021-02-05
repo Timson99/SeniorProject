@@ -1,14 +1,11 @@
 extends KinematicBody2D
 
-signal enemy_hit_player()
-
 enum Mode {Stationary, Chase, Patrol, Battle}
 
 export var default_speed := 60
 export var alive := true
 export var current_mode := Mode.Patrol
 export var data_id := 1
-export var enemy_type := "Regular"
 export var has_patrol_pattern := "patrol_erratic"
 var key := ""
 onready var player_party = null

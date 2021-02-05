@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/Art/Environments/Area1/Outside_Map.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/General/Characters/Party.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/General/NPCs/NPC_Parent.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/_Test_Scenes/Joe_Test_Scenes/Joe_Test_Scripts/Joe_Outside_Test_Root.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/General/Enemies/SpawningScenes/SpawnLocation.tscn" type="PackedScene" id=5]
 
@@ -135,3 +136,6 @@ position = Vector2( 433.32, 174.282 )
 
 [node name="SpawnLocation5" parent="Area Enemy Spawner" instance=ExtResource( 5 )]
 position = Vector2( 135.082, 401.537 )
+
+[node name="NPC_Parent" parent="." instance=ExtResource( 3 )]
+position = Vector2( -52.4435, 140.379 )
