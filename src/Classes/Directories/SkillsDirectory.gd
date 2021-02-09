@@ -21,6 +21,16 @@ Scan
 class_name SkillsDirectory
 
 const skills = {
+	"Waste Time": {
+		"LP": INF,
+		"Description": "Sample Enemy move",
+		"Power": Enums.SkillPower.Weak,
+		"Cost": 0,
+		"Target_All": false,
+		"Hit_Rate": 1.0,
+		"Type": Enums.SkillType.Force,
+		"Elemental": null
+	},
 	"Lil' Ice" : {
 		"LP" : 5,
 		"Description" : "Just a Lil' Ice",
