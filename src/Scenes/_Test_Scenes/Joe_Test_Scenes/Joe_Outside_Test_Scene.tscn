@@ -138,4 +138,6 @@ position = Vector2( 433.32, 174.282 )
 position = Vector2( 135.082, 401.537 )
 
 [node name="NPC_Parent" parent="." instance=ExtResource( 3 )]
-position = Vector2( -52.4435, 140.379 )
+position = Vector2( -120, 140 )
+pathing_coordinates = [ Vector2( 52, 140 ), Vector2( -120, 140 ) ]
+current_mode = 1

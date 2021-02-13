@@ -73,13 +73,13 @@ func spawn_enemy():
 	random_num_generator.randomize()
 	var spawn_position = get_spawn_position() 
 	if spawn_position != null:
-			var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, enemy_variations.size()-1)]
-			var new_enemy = create_enemy_instance(generated_enemy_id, enemy_type, spawn_position)
-			scene_node.add_child(new_enemy)
-			generated_enemy_id += 1
-			num_of_enemies += 1
-			print("New enemy added")
-			print(spawner_balancer)
+		var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, enemy_variations.size()-1)]
+		var new_enemy = create_enemy_instance(generated_enemy_id, enemy_type, spawn_position)
+		scene_node.add_child(new_enemy)
+		generated_enemy_id += 1
+		num_of_enemies += 1
+		print("New enemy added")
+		print(spawner_balancer)
 	spawning_locked = false
 	return 
 	
@@ -135,8 +135,12 @@ func retain_enemy_data():
 	block_spawning()
 
 
-func freeze_all_enemies():
-	get_tree().call_group("Enemy", "freeze_in_place")
+func freeze_all_nonplayers():
+	get_tree().call_group("Non-player", "freeze_in_place")
+
+
+func unfreeze_all_nonplayers():
+	get_tree().call_group("Non-player", "unfreeze")
 
 
 # After a battle concludes, all enemies are returned to the overworld in their

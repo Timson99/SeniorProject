@@ -25,7 +25,7 @@ var current_dir = Enums.Dir.Down
 var isMoving := false
 
 var rand_num_generator = RandomNumberGenerator.new()
-var initial_mode = current_mode
+var initial_mode
 var velocity = Vector2(0,0)
 var patrol_timer: SceneTreeTimer
 var wait_timer: SceneTreeTimer
@@ -37,6 +37,7 @@ func _ready():
 	$DetectionRadius.connect("body_exited", self, "stop_chasing")
 	$DetectionRadius.connect("area_entered", self, "add_to_gang")
 	$DetectionRadius.connect("area_exited", self, "remove_from_gang")
+	initial_mode = current_mode
 
 
 func _physics_process(delta):
@@ -67,7 +68,7 @@ func _physics_process(delta):
 	
 	
 func launch_battle():
-	EnemyHandler.freeze_all_enemies()
+	EnemyHandler.freeze_all_nonplayers()
 	$CollisionBox.disabled = true
 	EnemyHandler.retain_enemy_data()
 	EnemyHandler.collect_battle_enemy_ids(data_id)
@@ -131,6 +132,13 @@ func freeze_in_place():
 	$DetectionRadius.disconnect("body_entered", self, "begin_chasing")
 	velocity = Vector2(0,0)
 	current_mode = Mode.Battle
+
+
+func unfreeze():
+	$DetectionRadius.connect("body_entered", self, "begin_chasing")
+	current_mode = initial_mode
+	if $DetectionRadius.overlaps_body(target_player):
+		current_mode = Mode.Chase
 
 
 func post_battle():
