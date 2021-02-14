@@ -3,14 +3,11 @@ extends "res://Scenes/General/Non-Player (Both Enemies & NPCs)/Non-Player.gd"
 onready var player_party = null
 onready var target_player = EnemyHandler.target_player
 
-enum Mode {Stationary, Chase, Patrol, Battle}
+enum Mode {Stationary, Chase, Wander, Patrol, Battle}
 
-export var alive := true
-export var current_mode := Mode.Patrol
+export(Mode) var current_mode := Mode.Wander
 export var data_id := 1
-export var has_patrol_pattern := "wander"
-
-const patrol_patterns := ["wander", "patrol_linear", "patrol_circle", "patrol_box"]	
+export var alive := true
 
 var battle_sprite
 var key := ""
@@ -31,8 +28,10 @@ func _physics_process(delta):
 		velocity = velocity.normalized() * 0
 	elif player_party && current_mode == Mode.Chase:
 		velocity = move_toward_player()
-	elif current_mode == Mode.Patrol:
-		velocity = self.call(has_patrol_pattern, next_movement).normalized() * default_speed
+	elif current_mode == Mode.Wander:
+		velocity = self.call("wander", next_movement).normalized() * default_speed
+	elif current_mode == Mode.Patrol && pathing_coordinates.size() > 1:
+		velocity = self.call("follow_path", pathing_coordinates).normalized() * default_speed
 	
 	animate_movement()
 	
@@ -110,15 +109,3 @@ func add_allies_to_gang(area: Area2D):
 func remove_allies_from_gang(area: Area2D):
 	if area.name == "DetectionRadius":
 		allies.erase(area.get_parent())
-
-
-func patrol_linear():
-	pass
-	
-	
-func patrol_box():
-	pass
-
-
-func patrol_circle():
-	pass

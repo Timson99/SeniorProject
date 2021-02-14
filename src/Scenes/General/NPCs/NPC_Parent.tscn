@@ -24,6 +24,11 @@ animations = [ {
 "name": "Idle_Left",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "Walk_Left",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "Idle_Down",
@@ -39,11 +44,6 @@ animations = [ {
 "name": "Idle_Up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "Walk_Left",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "Walk_Up",
@@ -56,6 +56,7 @@ height = 16.7406
 
 [node name="NPC_Parent" type="KinematicBody2D" groups=[
 "Actor",
+"NPC",
 "Non-player",
 "Persistent",
 ]]

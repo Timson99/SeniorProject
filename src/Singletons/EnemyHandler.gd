@@ -37,9 +37,24 @@ func _ready():
 	check_if_spawning_possible()
 
 
+# Enemies may be instanced apart from random spawning, i.e. patrolling enemies.
+# Preinstanced enemies need to be including in existing_enemy_data.
+func check_for_preinstanced_enemies():
+	var preinstanced_enemies = get_tree().get_nodes_in_group("Enemy")
+	if !preinstanced_enemies.empty():
+		for enemy in preinstanced_enemies:
+			existing_enemy_data[generated_enemy_id] = {}
+			existing_enemy_data[generated_enemy_id]["body"] = enemy
+			existing_enemy_data[generated_enemy_id]["type"] = enemy.name
+			existing_enemy_data[generated_enemy_id]["preinstanced"] = true
+			enemy.key = enemy.name
+			generated_enemy_id += 1
+
+
 # Called whenever a new scene is loaded; checks if explore root of the 
 # new scene permits enemy spawning (i.e. in exploration mode).	
 func check_if_spawning_possible():
+	check_for_preinstanced_enemies()
 	scene_node = SceneManager.current_scene
 	if scene_node.get("enemies_spawnable") != null:
 		can_spawn = scene_node.get("enemies_spawnable")
@@ -127,6 +142,8 @@ func add_to_battle_queue(enemy_type: String):
 
 func collect_battle_enemy_ids(id: int):
 	queued_battle_ids.append(id)	
+	if "preinstanced" in existing_enemy_data[id]:
+		existing_enemy_data[id]["alive"] = !existing_enemy_data[id]["body"].alive 
 	
 	
 # Non-boss enemies are not persistent; existing enemies must be preserved 
@@ -150,13 +167,14 @@ func unfreeze_all_nonplayers():
 func readd_previously_instanced_enemies():
 	scene_node = SceneManager.current_scene
 	for enemy_id in existing_enemy_data:
+		if "alive" in existing_enemy_data[enemy_id] && !existing_enemy_data[enemy_id]["alive"]:
+			continue
 		var enemy_type = (existing_enemy_data[enemy_id]["type"])
 		var saved_position = existing_enemy_data[enemy_id]["position"]
 		var readded_enemy = create_enemy_instance(enemy_id, enemy_type, saved_position, true)
 		if enemy_id in queued_battle_ids:
-			readded_enemy.alive = false
 			readded_enemy.get_node("CollisionBox").disabled = true
-			readded_enemy.get_node("DetectionRadius").queue_free()
+			readded_enemy.get_node("DetectionRadius").queue_free()			
 		scene_node.add_child(readded_enemy)
 	yield(SceneManager, "scene_fully_loaded")
 	
@@ -180,7 +198,8 @@ func despawn_defeated_enemies():
 	for enemy_id in queued_battle_ids:
 		existing_enemy_data[enemy_id]["body"].post_battle()
 		scene_node.remove_child(existing_enemy_data[enemy_id]["body"])
-		spawner_balancer[existing_enemy_data[enemy_id]["spawn_locale"]] -= 1
+		if "spawn_locale" in existing_enemy_data[enemy_id]:
+			spawner_balancer[existing_enemy_data[enemy_id]["spawn_locale"]] -= 1
 		existing_enemy_data.erase(enemy_id)
 		num_of_enemies -= 1
 	clear_queued_enemies()

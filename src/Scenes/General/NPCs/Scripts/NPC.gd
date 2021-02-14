@@ -24,7 +24,7 @@ func _physics_process(delta):
 		velocity = velocity.normalized() * 0.0
 	elif current_mode == Mode.Wandering:
 		velocity = self.call("wander", next_movement).normalized() * default_speed
-	elif current_mode == Mode.Pathing:
+	elif current_mode == Mode.Pathing && pathing_coordinates.size() > 1:
 		velocity = self.call("follow_path", pathing_coordinates).normalized() * default_speed
 		
 	animate_movement()
