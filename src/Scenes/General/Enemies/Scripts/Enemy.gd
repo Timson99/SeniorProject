@@ -14,19 +14,19 @@ const patrol_patterns := ["wander", "patrol_linear", "patrol_circle", "patrol_bo
 
 var battle_sprite
 var key := ""
-
+var spawn_balancer_id: int
+var allies := []
 
 func _ready():
 	$DetectionRadius.connect("body_entered", self, "begin_chasing")
 	$DetectionRadius.connect("body_exited", self, "stop_chasing")
-	$DetectionRadius.connect("area_entered", self, "add_to_gang")
-	$DetectionRadius.connect("area_exited", self, "remove_from_gang")
+	$DetectionRadius.connect("area_entered", self, "add_allies_to_gang")
+	$DetectionRadius.connect("area_exited", self, "remove_allies_from_gang")
 	initial_mode = current_mode
 
 
 func _physics_process(delta):
 	target_player = EnemyHandler.target_player
-	position = Vector2(round(position.x), round(position.y))
 	if current_mode == Mode.Stationary:
 		velocity = velocity.normalized() * 0
 	elif player_party && current_mode == Mode.Chase:
@@ -48,6 +48,9 @@ func launch_battle():
 	EnemyHandler.retain_enemy_data()
 	EnemyHandler.collect_battle_enemy_ids(data_id)
 	EnemyHandler.add_to_battle_queue(key)
+	for other_enemy in allies:
+		EnemyHandler.collect_battle_enemy_ids(other_enemy.data_id)
+		EnemyHandler.add_to_battle_queue(other_enemy.key)
 	SceneManager.goto_scene("battle", "", true)	
 
 
@@ -98,13 +101,15 @@ func post_battle():
 
 
 # Overlapping enemy Area2Ds throw enemies into array that may be instanced in battle later
-func add_to_gang(area: Area2D):
-	pass
+func add_allies_to_gang(area: Area2D):
+	if area.name == "DetectionRadius":
+		allies.append(area.get_parent())
 
 	
 # Corresponding removal function for "add_to_gang"
-func remove_from_gang(area: Area2D):
-	pass
+func remove_allies_from_gang(area: Area2D):
+	if area.name == "DetectionRadius":
+		allies.erase(area.get_parent())
 
 
 func patrol_linear():

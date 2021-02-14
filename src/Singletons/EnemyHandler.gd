@@ -15,6 +15,7 @@ onready var target_player: KinematicBody2D
 onready var player_view: Vector2
 
 onready var scene_node: Node
+onready var spawn_points := []
 onready var spawn_locations := []
 onready var spawner_balancer := {}
 
@@ -23,13 +24,14 @@ var existing_enemy_data : Dictionary = {}
 var queued_battle_enemies: Array = []
 var queued_battle_ids: Array = []
 var can_spawn := true
-var spawning_launched := false
+var spawning_launched
 var spawning_locked := false
 var enemy_spawner_ratio: float
 
 
 
 func _ready():
+	spawning_launched = false
 	SceneManager.connect("goto_called", self, "block_spawning")
 	SceneManager.connect("scene_fully_loaded", self, "check_if_spawning_possible")
 	check_if_spawning_possible()
@@ -54,10 +56,13 @@ func initialize_spawner_info():
 	if can_spawn:
 		max_enemies = scene_node.get("max_enemies")
 		enemy_variations = scene_node.get("enemy_variations")
-		spawn_locations = get_tree().get_nodes_in_group("SpawnLocation")
-		enemy_spawner_ratio = float(max_enemies) / spawn_locations.size()
-		for spawn_location_id in range(spawn_locations.size()):
-			spawner_balancer[spawn_location_id] = 0
+		if spawner_balancer.empty():
+			spawn_points = get_tree().get_nodes_in_group("SpawnLocation")
+			for point in spawn_points:
+				spawn_locations.append(point.position)
+			enemy_spawner_ratio = float(max_enemies) / spawn_locations.size()
+			for spawn_location_id in range(spawn_points.size()):
+				spawner_balancer[spawn_location_id] = 0
 
 
 func block_spawning():
@@ -74,7 +79,7 @@ func spawn_enemy():
 	var spawn_position = get_spawn_position() 
 	if spawn_position != null:
 		var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, enemy_variations.size()-1)]
-		var new_enemy = create_enemy_instance(generated_enemy_id, enemy_type, spawn_position)
+		var new_enemy = create_enemy_instance(generated_enemy_id, enemy_type, spawn_position, false)
 		scene_node.add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
@@ -87,32 +92,29 @@ func spawn_enemy():
 func get_spawn_position():
 	random_num_generator.randomize()
 	var chosen_location: int = random_num_generator.randi_range(0, spawn_locations.size()-1)
-	var spawn_position: Vector2 = spawn_locations[chosen_location].position
+	var spawn_position: Vector2 = spawn_locations[chosen_location]
 	var player_view_buffer: int = 60
 	var within_view_x: bool = abs(spawn_position.x - target_player.position.x) < (player_view.x/2 + player_view_buffer)
 	var within_view_y: bool = abs(spawn_position.y - target_player.position.y) < (player_view.y/2 + player_view_buffer)
 	if (!within_view_x && !within_view_y) && (spawner_balancer[chosen_location] < enemy_spawner_ratio):
 		spawner_balancer[chosen_location] += 1
-		print(spawn_locations[chosen_location].position)
-		return spawn_locations[chosen_location].position
+		return spawn_locations[chosen_location]
 	else:
 		return null
 
 
-func create_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2):
+func create_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2, respawn: bool):
 	var new_enemy = load(Enemies[enemy_type]["enemy_scene_path"]).instance()
-	add_enemy_data(id, new_enemy)
+	if !respawn:
+		existing_enemy_data[id] = {}
+		existing_enemy_data[id]["spawn_locale"] = spawn_locations.find(spawn_position)
+	existing_enemy_data[id]["body"] = new_enemy
 	existing_enemy_data[id]["position"] = spawn_position
 	existing_enemy_data[id]["type"] = enemy_type
 	new_enemy.key = enemy_type
 	new_enemy.data_id = id
 	new_enemy.position = spawn_position
 	return new_enemy
-	
-	
-func add_enemy_data(id, enemy_obj):
-	existing_enemy_data[id] = {}
-	existing_enemy_data[id]["body"] = enemy_obj
 	
 	
 func get_enemy_data(id: int):
@@ -150,7 +152,7 @@ func readd_previously_instanced_enemies():
 	for enemy_id in existing_enemy_data:
 		var enemy_type = (existing_enemy_data[enemy_id]["type"])
 		var saved_position = existing_enemy_data[enemy_id]["position"]
-		var readded_enemy = create_enemy_instance(enemy_id, enemy_type, saved_position)
+		var readded_enemy = create_enemy_instance(enemy_id, enemy_type, saved_position, true)
 		if enemy_id in queued_battle_ids:
 			readded_enemy.alive = false
 			readded_enemy.get_node("CollisionBox").disabled = true
@@ -178,12 +180,14 @@ func despawn_defeated_enemies():
 	for enemy_id in queued_battle_ids:
 		existing_enemy_data[enemy_id]["body"].post_battle()
 		scene_node.remove_child(existing_enemy_data[enemy_id]["body"])
+		spawner_balancer[existing_enemy_data[enemy_id]["spawn_locale"]] -= 1
 		existing_enemy_data.erase(enemy_id)
 		num_of_enemies -= 1
-	# 2. handling the despawn of multiple enemies who joined in a gang
 	clear_queued_enemies()
 	despawn_off()
 	enable_spawning()
+	yield(SceneManager, "scene_fully_loaded")
+	launch_spawning_loop()
 
 
 func _physics_process(delta):
@@ -205,5 +209,3 @@ func launch_spawning_loop():
 		if !spawning_locked && num_of_enemies < max_enemies:
 			spawn_enemy()
 			
-
-
