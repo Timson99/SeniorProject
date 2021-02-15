@@ -15,6 +15,7 @@ func _ready():
 	add_to_group("Persistent")
 	ActorEngine.register_actor(self)
 	unshade()
+	BgEngine.facilitate_track_changes("res://Assets/Audio/Music/Demos/No_Place_Like_Home.ogg")
 	
 func shade():
 	map.modulate = shaded_blue

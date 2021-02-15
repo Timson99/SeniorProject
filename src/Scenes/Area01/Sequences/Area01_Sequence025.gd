@@ -12,6 +12,7 @@ static func instructions():
 		["Actor-sync", "Camera", "move_to_position", Vector2(-24, 234), 0.5],
 		["Delay", 0.5],
 		
+		#["BG_Audio", "facilitate_track_changes", bully_encounter_theme?]
 		["Dialogue", "Bully_Attempt2_1"],
 		["Signal", "DialogueEngine", "end"],
 		["Actor-call", "C1","set_speed", 30],
@@ -27,5 +28,6 @@ static func instructions():
 		["Signal", "DialogueEngine", "end"],
 		["Actor-sync", "Bully", "move_to_position", Vector2(8, 0), false],
 		["Actor-call", "Bully", "initiate_battle"]
+		#["BG_Audio", "swap_songs_abrupt", bully_boss_theme]
   ]
 

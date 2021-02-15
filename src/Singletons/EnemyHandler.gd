@@ -40,15 +40,16 @@ func _ready():
 # Enemies may be instanced apart from random spawning, i.e. patrolling enemies.
 # Preinstanced enemies need to be including in existing_enemy_data.
 func check_for_preinstanced_enemies():
-	var preinstanced_enemies = get_tree().get_nodes_in_group("Enemy")
-	if !preinstanced_enemies.empty():
-		for enemy in preinstanced_enemies:
-			existing_enemy_data[generated_enemy_id] = {}
-			existing_enemy_data[generated_enemy_id]["body"] = enemy
-			existing_enemy_data[generated_enemy_id]["type"] = enemy.name
-			existing_enemy_data[generated_enemy_id]["preinstanced"] = true
-			enemy.key = enemy.name
-			generated_enemy_id += 1
+	pass
+#	var preinstanced_enemies = get_tree().get_nodes_in_group("Enemy")
+#	if !preinstanced_enemies.empty():
+#		for enemy in preinstanced_enemies:
+#			existing_enemy_data[generated_enemy_id] = {}
+#			existing_enemy_data[generated_enemy_id]["body"] = enemy
+#			existing_enemy_data[generated_enemy_id]["type"] = enemy.name
+#			existing_enemy_data[generated_enemy_id]["preinstanced"] = true
+#			enemy.key = enemy.name
+#			generated_enemy_id += 1
 
 
 # Called whenever a new scene is loaded; checks if explore root of the 
@@ -131,7 +132,12 @@ func create_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2,
 	new_enemy.position = spawn_position
 	return new_enemy
 	
-	
+
+func add_enemy_data(id, enemy_obj):
+	existing_enemy_data[id] = {}
+	existing_enemy_data[id]["body"] = enemy_obj
+
+
 func get_enemy_data(id: int):
 	return existing_enemy_data.get(id)	
 	

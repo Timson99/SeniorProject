@@ -27,6 +27,7 @@ signal faded_out()
 func _ready():
 	add_to_group("Persistent")
 	ActorEngine.register_actor(self)
+	#BgEngine.facilitate_track_changes(hometown_theme)
 
 
 
