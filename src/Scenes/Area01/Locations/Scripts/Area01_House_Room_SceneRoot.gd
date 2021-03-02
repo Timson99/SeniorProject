@@ -1,5 +1,6 @@
  extends ExploreRoot
 
+
 var persistence_id = "Area01_Data"
 var actor_id = "Area01_House_Room"
 export var current_attempt = 1
@@ -11,11 +12,18 @@ onready var map = $TileMap
 onready var bed = $YSort/Bed
 onready var tween = $Tween
 
+# Music & sounds
+var track_1 = MusicTracks.get_track("Opening Curtain...")
+var track_2 = MusicTracks.get_track("No Place Like Home")
+var door_sound = SoundEffects.get_sound("EnterDoor01")
+
 func _ready():
 	add_to_group("Persistent")
 	ActorEngine.register_actor(self)
 	unshade()
-	BgEngine.facilitate_track_changes("res://Assets/Audio/Music/Demos/No_Place_Like_Home.ogg")
+	BgEngine.play_with_intro(track_1, track_2)
+	SceneManager.connect("goto_called", BgEngine, "play_sound", [door_sound])
+	
 	
 func shade():
 	map.modulate = shaded_blue

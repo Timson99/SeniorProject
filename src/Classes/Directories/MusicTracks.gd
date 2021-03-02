@@ -4,11 +4,21 @@ class_name MusicTracks
 
 const tracks: Dictionary = {
 	
-	# Placeholder songs for scenes
-	"res://Scenes/Joe_Test_Scenes/BGEngineTestScene1.tscn": "res://Assets/Music/End_of_Days.ogg",
-	"res://Scenes/Joe_Test_Scenes/BGEngineTestScene2.tscn": "res://Assets/Music/The_Void_Beckons.ogg",
-	"res://Scenes/Explore_Scenes/Area01/Area01_Outside01.tscn": "res://Assets/Music/No_Place_Like_Home (temp).ogg",
+	# General
+	"Battle Commence": "res://Assets/Audio/Music/General/Battle Commence!.wav", # Regular Battle Intro
+	"Cosmic Explorers": null, # Regular Battle Theme
+	"Galactic Barrier": null, # Boss Battle Theme
 	
+	# Area 01
+	"Opening Curtain...": "res://Assets/Audio/Music/Area01/Opening Curtain....wav",
+	"No Place Like Home": "res://Assets/Audio/Music/Area01/No Place Like Home.wav",
+	"Bully Encounter!": null, #WIP
+	"Smooth Player (Bully Boss Fight)": null, # WIP
+	# Short track for falling back into bed?
+	# Short track after opening door w/ title card?
+	
+	# Area 02 
+	"Foreign Hallways": null,
 	
 	# Placeholder songs for midscene song changes
 	"Test Scene Switch": "res://Assets/Music/Cosmic_Explorers (temp).ogg"

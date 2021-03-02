@@ -1,12 +1,9 @@
 extends Node
 
-# Sountrack resource file set aside for now; scenes currently will hold their own
-# music tracks
-#const SOUNDTRACK = preload("res://Scripts/Resource_Scripts/GameSoundtrack.gd")
-
 signal audio_finished()
 
 onready var _music_player: AudioStreamPlayer = get_node("BackgroundMusic")
+onready var _sound_player: AudioStreamPlayer = get_node("SoundEffects")
 onready var tween_fade_out: Tween = get_node("FadeOut")
 onready var tween_fade_in: Tween = get_node("FadeIn")
 
@@ -14,7 +11,7 @@ var transition_type_in: int = 0 # LINEAR
 var transition_type_out: int = 0 # SINE
 
 const min_volume_value: float = -80.0 # in dB
-const max_volume_value: float = 0.0 # in dB
+const max_volume_value: float = -20.0 # in dB
 var current_song: String
 
 
@@ -72,3 +69,22 @@ func swap_songs_abrupt(new_song: String) -> void:
 	_music_player.play()
 	emit_signal("audio_finished")
 
+
+func play_with_intro(intro_song: String, looped_song: String):
+	facilitate_track_changes(intro_song)
+	yield(_music_player, "finished")
+	_music_player.stream = load(looped_song)
+	_music_player.play()
+
+
+func play_battle_music(intro_song: String, battle_song: String):
+	swap_songs_abrupt(intro_song)
+	yield(_music_player, "finished")
+	_music_player.stream = load(battle_song)
+	_music_player.play()
+	
+	
+func play_sound(sound_sample: String):
+	_sound_player.stream = load(sound_sample)
+	_sound_player.play()
+	

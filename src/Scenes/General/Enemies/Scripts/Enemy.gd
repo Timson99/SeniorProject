@@ -42,6 +42,7 @@ func _physics_process(delta):
 	
 	
 func launch_battle():
+	BgEngine.play_battle_music("res://Assets/Audio/Music/Demos/Battle Commence!.wav", "res://Assets/Audio/Music/Demos/Smooth_Player_(Synth_only).ogg")
 	EnemyHandler.freeze_all_nonplayers()
 	$CollisionBox.disabled = true
 	EnemyHandler.retain_enemy_data()

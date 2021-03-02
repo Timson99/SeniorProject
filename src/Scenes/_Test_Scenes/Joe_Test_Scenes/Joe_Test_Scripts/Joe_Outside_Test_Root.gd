@@ -16,7 +16,7 @@ export var enemy_variations = ["SampleEnemy"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#BgEngine.facilitate_track_changes(music_track_path)
+	BgEngine.facilitate_track_changes("res://Assets/Audio/Music/Demos/No Place Like Home.wav")
 	pass
 
 	
