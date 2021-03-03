@@ -18,6 +18,7 @@ func _ready():
 func interact():
 	if !opened:
 		animations.play("closed_to_open")
+		#BgEngine.play_sound(SoundEffects.get_sound("OpenBox"))
 		yield(animations, "animation_finished")
 		animations.play("open")
 		opened = true

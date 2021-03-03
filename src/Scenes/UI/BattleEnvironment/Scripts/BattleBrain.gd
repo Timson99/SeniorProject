@@ -145,12 +145,13 @@ func battle_victory():
 	character_party.terminate_input()
 	dialogue_node.display_message(["You Win!", "X Exp Earned."], true, 0.1, 1)
 	yield(dialogue_node, "end")
+	BgEngine.return_from_battle()
 	SceneManager.goto_saved()
 	
 func battle_failure():
 	dialogue_node.display_message("You Lose!", false, 0.1, 1)
 	SceneManager.goto_scene("GameOver")
-	
+	# Game Over music
 	
 	
 	

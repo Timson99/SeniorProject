@@ -21,7 +21,8 @@ func _ready():
 	add_to_group("Persistent")
 	ActorEngine.register_actor(self)
 	unshade()
-	BgEngine.play_with_intro(track_1, track_2)
+	if not BgEngine._music_player.is_playing():
+		BgEngine.play_with_intro(track_1, track_2)
 	SceneManager.connect("goto_called", BgEngine, "play_sound", [door_sound])
 	
 	

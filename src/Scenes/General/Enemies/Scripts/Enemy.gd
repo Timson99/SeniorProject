@@ -37,12 +37,12 @@ func _physics_process(delta):
 	
 	var collision = move_and_collide(velocity * delta)
 	if collision && target_player && collision.collider.name == target_player.persistence_id:
-		launch_battle()
+		initiate_battle()
 	velocity = pause_movement()
 	
 	
-func launch_battle():
-	BgEngine.play_battle_music("res://Assets/Audio/Music/Demos/Battle Commence!.wav", "res://Assets/Audio/Music/Demos/Smooth_Player_(Synth_only).ogg")
+func initiate_battle():
+	BgEngine.play_battle_music("res://Assets/Audio/Music/General/Battle Commence!.wav", "res://Assets/Audio/Music/Demos/Smooth_Player_(Synth_only).ogg")
 	EnemyHandler.freeze_all_nonplayers()
 	$CollisionBox.disabled = true
 	EnemyHandler.retain_enemy_data()
