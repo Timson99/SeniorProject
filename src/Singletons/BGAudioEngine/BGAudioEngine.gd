@@ -7,8 +7,8 @@ onready var _sound_player: AudioStreamPlayer = get_node("SoundEffects")
 onready var tween_fade_out: Tween = get_node("FadeOut")
 onready var tween_fade_in: Tween = get_node("FadeIn")
 
-var transition_type_in: int = 1 # LINEAR
-var transition_type_out: int = 1 # SINE
+var transition_type_in: int = 0 
+var transition_type_out: int = 0 
 
 const min_volume_value: float = -80.0 # in dB
 const max_volume_value: float = -10.0 # in dB
@@ -16,25 +16,25 @@ var current_song: String
 export var saved_song: String
 var paused_position: float
 
+
 func _ready():
 	pass
 
 
-func facilitate_track_changes(possible_new_song: String):
+func facilitate_track_changes(possible_new_track: String):
 	yield(get_tree(), "idle_frame")
+	saved_song = possible_new_track
+	var track = MusicTracks.get_track(possible_new_track)
 	if _music_player.is_playing():
 		request_playback_paused()
-	request_playback(possible_new_song)
+	request_playback(track)
 
 	
-# Asymmetric playback/pausing code currently due to abrupt stopping that occurs
-# when a song is called to stop WITHIN the playback paused method
 func request_playback(new_song: String, fadein_blocked=false, fadein_duration=2.0) -> void:
 	_music_player.stream = load(new_song)
+	_music_player.play(paused_position)
 	if paused_position > 0.0:
-		_music_player.seek(paused_position)
-	else:
-		_music_player.play()
+		paused_position = 0.0
 	if not fadein_blocked:
 		fade_in(fadein_duration)
 	current_song = new_song
@@ -65,7 +65,7 @@ func fade_in(fadein_time=2.0) -> void:
 	
 func swap_songs_abrupt(new_song: String) -> void:
 	_music_player.stop()
-	_music_player.stream = load(new_song)
+	_music_player.stream = load(MusicTracks.get_track(new_song))
 	_music_player.play()
 	emit_signal("audio_finished")
 
@@ -76,7 +76,6 @@ func play_with_intro(intro_song: String, looped_song: String):
 
 
 func play_battle_music(intro_song: String, battle_song: String):
-	saved_song = current_song
 	paused_position = _music_player.get_playback_position()
 	print(paused_position)
 	_music_player.stop()
@@ -86,7 +85,7 @@ func play_battle_music(intro_song: String, battle_song: String):
 	
 func play_next(song: String):
 	yield(_music_player, "finished")
-	_music_player.stream = load(song)
+	_music_player.stream = load(MusicTracks.get_track(song))
 	_music_player.play()
 	
 	
@@ -97,6 +96,7 @@ func return_from_battle():
 		
 	
 func play_sound(sound_sample: String):
-	_sound_player.stream = load(sound_sample)
+	var sound = SoundEffects.get_sound(sound_sample)
+	_sound_player.stream = load(sound)
 	_sound_player.play()
 	

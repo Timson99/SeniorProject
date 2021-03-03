@@ -5,6 +5,9 @@ var persistence_id = "Area01_Data"
 var actor_id = "Area01_House_Room"
 export var current_attempt = 1
 
+export var track_1 = "Opening Curtain..."
+export var track_2 = "No Place Like Home"
+
 var shaded_blue := Color("0500a0") 
 var normal_color := Color("ffffff")
 
@@ -12,10 +15,6 @@ onready var map = $TileMap
 onready var bed = $YSort/Bed
 onready var tween = $Tween
 
-# Music & sounds
-var track_1 = MusicTracks.get_track("Opening Curtain...")
-var track_2 = MusicTracks.get_track("No Place Like Home")
-var door_sound = SoundEffects.get_sound("EnterDoor01")
 
 func _ready():
 	add_to_group("Persistent")
@@ -23,7 +22,6 @@ func _ready():
 	unshade()
 	if not BgEngine._music_player.is_playing():
 		BgEngine.play_with_intro(track_1, track_2)
-	SceneManager.connect("goto_called", BgEngine, "play_sound", [door_sound])
 	
 	
 func shade():

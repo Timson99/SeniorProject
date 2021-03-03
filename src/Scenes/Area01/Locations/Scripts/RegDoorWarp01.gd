@@ -1,6 +1,6 @@
 extends "res://Scenes/General/ExploreEnvironment/Scripts/Warp.gd"
 
-onready var transition_sound = SoundEffects.get_sound("EnterDoor01")
+export var transition_sound = "EnterDoor01"
 
 func _ready():
 	pass 

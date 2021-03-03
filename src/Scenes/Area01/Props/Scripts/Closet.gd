@@ -16,7 +16,7 @@ func interact():
 	if (party.size() == 1 and
 		party[0].active_player.has_method("change_skin") and
 		party[0].active_player.persistence_id == "C1"):
-		BgEngine.play_sound(SoundEffects.get_sound("PutOnCoat01"))
+		BgEngine.play_sound("PutOnCoat01")
 		party[0].active_player.change_skin("default")
 	make_closet_used()
 	

@@ -3,7 +3,7 @@ extends "res://Scenes/General/Non-Player (Both Enemies & NPCs)/Non-Player.gd"
 onready var player_party = null
 onready var target_player = EnemyHandler.target_player
 
-enum Mode {Stationary, Chase, Wander, Patrol, Battle}
+enum Mode {Stationary, Chase, Wander, Patrol, Battle, Defeated}
 
 export(Mode) var current_mode := Mode.Wander
 export var data_id := 1
@@ -42,7 +42,7 @@ func _physics_process(delta):
 	
 	
 func initiate_battle():
-	BgEngine.play_battle_music("res://Assets/Audio/Music/General/Battle Commence!.wav", "res://Assets/Audio/Music/Demos/Smooth_Player_(Synth_only).ogg")
+	BgEngine.play_battle_music("Battle Commence", "Test Battle")
 	EnemyHandler.freeze_all_nonplayers()
 	$CollisionBox.disabled = true
 	EnemyHandler.retain_enemy_data()
@@ -97,7 +97,8 @@ func unfreeze():
 
 
 func post_battle():
-	pass
+	current_mode = Mode.Defeated
+	velocity = Vector2(0,0)
 
 
 # Overlapping enemy Area2Ds throw enemies into array that may be instanced in battle later

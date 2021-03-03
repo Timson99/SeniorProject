@@ -21,8 +21,9 @@ const tracks: Dictionary = {
 	"Foreign Hallways": null,
 	
 	# Placeholder songs for midscene song changes
-	"Test Scene Switch": "res://Assets/Music/Cosmic_Explorers (temp).ogg"
+	"Test Scene Switch": "res://Assets/Music/Cosmic_Explorers (temp).ogg",
+	"Test Battle": "res://Assets/Audio/Music/Demos/Smooth_Player_(Synth_only).ogg"
 	}
 	
-static func get_track(scene_path):
-	return tracks[scene_path]
+static func get_track(track_title):
+	return tracks[track_title]

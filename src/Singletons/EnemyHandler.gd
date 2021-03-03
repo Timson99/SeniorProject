@@ -179,7 +179,7 @@ func readd_previously_instanced_enemies():
 		var saved_position = existing_enemy_data[enemy_id]["position"]
 		var readded_enemy = create_enemy_instance(enemy_id, enemy_type, saved_position, true)
 		if enemy_id in queued_battle_ids:
-			readded_enemy.get_node("CollisionBox").disabled = true
+			readded_enemy.get_node("CollisionBox").queue_free()
 			readded_enemy.get_node("DetectionRadius").queue_free()			
 		scene_node.add_child(readded_enemy)
 	yield(SceneManager, "scene_fully_loaded")
@@ -203,6 +203,7 @@ func despawn_defeated_enemies():
 	readd_previously_instanced_enemies()
 	for enemy_id in queued_battle_ids:
 		existing_enemy_data[enemy_id]["body"].post_battle()
+		#yield(get_tree().create_timer(2), "timeout")
 		scene_node.remove_child(existing_enemy_data[enemy_id]["body"])
 		if "spawn_locale" in existing_enemy_data[enemy_id]:
 			spawner_balancer[existing_enemy_data[enemy_id]["spawn_locale"]] -= 1
