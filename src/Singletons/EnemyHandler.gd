@@ -173,7 +173,9 @@ func unfreeze_all_nonplayers():
 func readd_previously_instanced_enemies():
 	scene_node = SceneManager.current_scene
 	for enemy_id in existing_enemy_data:
-		if "alive" in existing_enemy_data[enemy_id] && !existing_enemy_data[enemy_id]["alive"]:
+		#if "alive" in existing_enemy_data[enemy_id] && !existing_enemy_data[enemy_id]["alive"]:
+		#	continue
+		if "persistence_id" in existing_enemy_data[enemy_id]["body"]:
 			continue
 		var enemy_type = (existing_enemy_data[enemy_id]["type"])
 		var saved_position = existing_enemy_data[enemy_id]["position"]
@@ -208,7 +210,7 @@ func despawn_defeated_enemies():
 		if "spawn_locale" in existing_enemy_data[enemy_id]:
 			spawner_balancer[existing_enemy_data[enemy_id]["spawn_locale"]] -= 1
 		existing_enemy_data.erase(enemy_id)
-		num_of_enemies -= 1
+		num_of_enemies -= 1	
 	clear_queued_enemies()
 	despawn_off()
 	enable_spawning()

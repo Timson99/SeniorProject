@@ -26,6 +26,7 @@ static func instructions():
 		
 		
 		["Actor-call", "Area01_Outside_Root", "execute_glow"],
+		["BG_Audio", "fade_out", 0.5],
 		["Delay", 0.75],
 		["Actor-call", "C1", "flip_horizontal", false],
 		["Actor-call", "C1", "play_anim", "Idle_Down"],
@@ -33,7 +34,8 @@ static func instructions():
 		["Actor-set", "C1", "exploring", false],
 		["Delay", 0.75],
 		["Actor-call", "C1", "play_anim", "Fall_Upright"],
-		
+		["BG_Audio", "play_sound", "Falling02"],
+				
 		["Actor-call", "Camera", "grab_camera"],
 		["Actor-call", "Party", "tween_pos_relative", Vector2(0, 320), 0.5],
 		["Signal", "Party", "tween_pos_completed"],
@@ -51,6 +53,7 @@ static func instructions():
 		["Actor-call", "Camera", "move_to_position", Vector2(-61 + 128, -67 + 152), 0.75],
 		["Actor-call", "Party", "tween_pos", Vector2(-61, -67), 1.0],
 		["Signal", "Party", "tween_pos_completed"],
+		["BG_Audio", "play_sound", "HitBed02"],
 		["Actor-call", "Camera", "release_camera"],
 		["Actor-call", "C1", "play_anim", "Rest_Closed"],
 		["Delay", 0.5],
@@ -63,6 +66,7 @@ static func instructions():
 		["Actor-set", "C1", "exploring", true],
 		["Actor-sync", "C1", "move_to_position", Vector2(0, 40), false],
 		["Actor-call", "C1", "set_collision", true],
+		["BG_Audio", "play_with_intro", "Opening Curtain...", "No Place Like Home"],
 		["Dialogue", "Monologue"],
 		["Signal", "DialogueEngine", "end"],
   ]

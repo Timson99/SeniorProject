@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 class_name BossEnemy
 
+export var is_boss := true
 export var default_speed := 60
 export var alive := true
 export (String) var persistence_id
@@ -17,7 +18,6 @@ onready var skins  = {
 onready var animations = skins["Boss"]["default"]
 
 onready var data = EnemyHandler.Enemies[persistence_id]
-#onready var stats = data["battle_data"]
 onready var battle_id = "battle"
 
 
@@ -98,6 +98,7 @@ func flip_horizontal(flip : bool):
 	
 func initiate_battle():	
 	EnemyHandler.queued_battle_enemies.append(persistence_id)
+	EnemyHandler.queued_battle_ids.append(persistence_id)
 	SceneManager.goto_scene(battle_id, "", true)
 
 # Physics process kept in just in case we want to sequence boss movement prior

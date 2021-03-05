@@ -17,6 +17,11 @@ const effects: Dictionary = {
 	"EnterDoor01": "res://Assets/Audio/SFX/Area01/walk_transition_01.wav",
 	"PutOnCoat01": "res://Assets/Audio/SFX/Area01/coat01.wav",
 	"PickUpPaper01": "res://Assets/Audio/SFX/Area01/paper01.wav",
+	"SimulationGlow01": null,
+	"Falling01": "res://Assets/Audio/SFX/Area01/falling01.wav",
+	"HitBed01": "res://Assets/Audio/SFX/Area01/bed_hit01.wav",
+	"HitBed02": "res://Assets/Audio/SFX/Area01/bed_hit02.wav",
+	"Falling02": "res://Assets/Audio/SFX/Area01/falling02.wav",
 	"MetalDoorSlam01": "res://Assets/Audio/SFX/Area01/metal_door_slam.wav"
 
 	}

@@ -8,6 +8,7 @@ enum Mode {Stationary, Chase, Wander, Patrol, Battle, Defeated}
 export(Mode) var current_mode := Mode.Wander
 export var data_id := 1
 export var alive := true
+export var is_boss := false
 
 var battle_sprite
 var key := ""
@@ -42,6 +43,7 @@ func _physics_process(delta):
 	
 	
 func initiate_battle():
+	BgEngine.save_song()
 	BgEngine.play_battle_music("Battle Commence", "Test Battle")
 	EnemyHandler.freeze_all_nonplayers()
 	$CollisionBox.disabled = true

@@ -1,6 +1,4 @@
 extends BossEnemy
-
-	
 	
 var attempt_one_alive = true
 var attempt_two_alive = true

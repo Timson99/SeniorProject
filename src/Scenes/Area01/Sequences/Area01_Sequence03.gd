@@ -8,6 +8,7 @@ static func instructions():
   return [
 		["Actor-call", "Area01_Outside_Root", "execute_glow"],
 		#["Actor-async", "C1", "move_left", 1.5],
+		["BG_Audio", "fade_out"],
 		["Actor-sync", "C1", "move_to_position", Vector2(-80, 0), false],
 		["Signal", "Area01_Outside_Root", "glow_complete"],
 		["Actor-set", "C1", "exploring", false],
@@ -16,7 +17,7 @@ static func instructions():
 		["Actor-call", "C1", "flip_horizontal", false],
 		["Delay", 1.0],
 		["Actor-call", "C1", "play_anim", "Fall_Upright"],
-		
+		["BG_Audio", "play_sound", "Falling01"],
 		["Actor-call", "Camera", "grab_camera"],
 		["Actor-call", "Party", "tween_pos_relative", Vector2(0, 320), 1.0],
 		["Signal", "Party", "tween_pos_completed"],
@@ -35,6 +36,7 @@ static func instructions():
 		["Actor-call", "Camera", "move_to_position", Vector2(-61 + 128, -67 + 152), 1.5],
 		["Actor-call", "Party", "tween_pos", Vector2(-61, -67), 2.0],
 		["Signal", "Party", "tween_pos_completed"],
+		["BG_Audio", "play_sound", "HitBed01"],
 		["Actor-call", "Camera", "release_camera"],
 		["Actor-call", "C1", "play_anim", "Rest_Closed"],
 		["Delay", 1.0],
@@ -47,6 +49,7 @@ static func instructions():
 		["Actor-set", "C1", "exploring", true],
 		["Actor-sync", "C1", "move_to_position", Vector2(0, 40), false],
 		["Actor-call", "C1", "set_collision", true],
+		["BG_Audio", "play_with_intro", "Opening Curtain...", "No Place Like Home"],
 		["Dialogue", "Monologue"],
 		["Signal", "DialogueEngine", "end"],
   ]

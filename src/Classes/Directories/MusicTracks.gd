@@ -12,9 +12,9 @@ const tracks: Dictionary = {
 	# Area 01
 	"Opening Curtain...": "res://Assets/Audio/Music/Area01/Opening Curtain....wav",
 	"No Place Like Home": "res://Assets/Audio/Music/Area01/No Place Like Home.wav",
-	"Bully Encounter!": null, #WIP
-	"Smooth Player (Bully Boss Fight)": null, # WIP
-	# Short track for falling back into bed?
+	"Bully Encounter": "res://Assets/Audio/Music/Area01/Bully Encounter.wav",
+	"Smooth Player Intro": "res://Assets/Audio/Music/Area01/Smooth Player Intro.wav",
+	"Smooth Player": "res://Assets/Audio/Music/Area01/Smooth Player.wav",
 	# Short track after opening door w/ title card?
 	
 	# Area 02 

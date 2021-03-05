@@ -23,15 +23,14 @@ func _ready():
 
 func facilitate_track_changes(possible_new_track: String):
 	yield(get_tree(), "idle_frame")
-	saved_song = possible_new_track
-	var track = MusicTracks.get_track(possible_new_track)
 	if _music_player.is_playing():
 		request_playback_paused()
-	request_playback(track)
+	request_playback(possible_new_track)
 
 	
-func request_playback(new_song: String, fadein_blocked=false, fadein_duration=2.0) -> void:
-	_music_player.stream = load(new_song)
+func request_playback(new_song: String, fadein_blocked=false, fadein_duration=1.0) -> void:
+	var track = MusicTracks.get_track(new_song)
+	_music_player.stream = load(track)
 	_music_player.play(paused_position)
 	if paused_position > 0.0:
 		paused_position = 0.0
@@ -41,9 +40,10 @@ func request_playback(new_song: String, fadein_blocked=false, fadein_duration=2.
 	emit_signal("audio_finished")
 	
 	
-func request_playback_paused(fadeout_blocked=false, fadeout_duration=2.0) -> void:
+func request_playback_paused(fadeout_blocked=false, fadeout_duration=1.0) -> void:
 	if not fadeout_blocked:
 		fade_out(fadeout_duration)
+	_music_player.stop()
 
 
 func fade_out(fadeout_time=2.0) -> void:
@@ -76,8 +76,8 @@ func play_with_intro(intro_song: String, looped_song: String):
 
 
 func play_battle_music(intro_song: String, battle_song: String):
+	save_song()
 	paused_position = _music_player.get_playback_position()
-	print(paused_position)
 	_music_player.stop()
 	swap_songs_abrupt(intro_song)
 	play_next(battle_song)
@@ -86,13 +86,17 @@ func play_battle_music(intro_song: String, battle_song: String):
 func play_next(song: String):
 	yield(_music_player, "finished")
 	_music_player.stream = load(MusicTracks.get_track(song))
+	current_song = song
 	_music_player.play()
 	
+func save_song(song_to_save=""):
+	if song_to_save:
+		saved_song = song_to_save
+	else:
+		saved_song = current_song	
 	
 func return_from_battle():
-	print(saved_song)
 	facilitate_track_changes(saved_song)
-	print(_music_player.is_playing())
 		
 	
 func play_sound(sound_sample: String):
