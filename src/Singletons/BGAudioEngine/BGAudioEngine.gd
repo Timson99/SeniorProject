@@ -10,8 +10,8 @@ onready var tween_fade_in: Tween = get_node("FadeIn")
 var transition_type_in: int = 0 
 var transition_type_out: int = 0 
 
-const min_volume_value: float = -80.0 # in dB
-const max_volume_value: float = -10.0 # in dB
+var min_volume_value: float = -80.0 # in dB
+var max_volume_value: float = -15.0 # in dB
 var current_song: String
 export var saved_song: String
 var paused_position: float
@@ -99,4 +99,13 @@ func play_sound(sound_sample: String):
 	var sound = SoundEffects.get_sound(sound_sample)
 	_sound_player.stream = load(sound)
 	_sound_player.play()
+	
+
+func play_item_jingle():
+	var temp_min = min_volume_value
+	min_volume_value = -30
+	fade_out()	
+	play_sound("ItemJingle")
+	fade_in()
+	min_volume_value = temp_min
 	

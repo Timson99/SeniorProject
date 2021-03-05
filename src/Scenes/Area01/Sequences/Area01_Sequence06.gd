@@ -46,6 +46,8 @@ static func instructions():
 		["Actor-call", "C1", "play_anim", "Idle_Down"],
 		["Delay", 0.5],
 		["Actor-call", "exit_door", "close"],
+		["BG_Audio", "play_sound", "MetalDoorSlam01"],
+		["BG_Audio", "request_playback_paused"],
 		["Delay", 0.5],
 		["Actor-call", "Area01_Outside_Root", "hide"],
   ]
