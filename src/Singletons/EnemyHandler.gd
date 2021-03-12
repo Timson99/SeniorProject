@@ -173,9 +173,7 @@ func unfreeze_all_nonplayers():
 func readd_previously_instanced_enemies():
 	scene_node = SceneManager.current_scene
 	for enemy_id in existing_enemy_data:
-		#if "alive" in existing_enemy_data[enemy_id] && !existing_enemy_data[enemy_id]["alive"]:
-		#	continue
-		if "persistence_id" in existing_enemy_data[enemy_id]["body"]:
+		if existing_enemy_data[enemy_id]["body"] && "persistence_id" in existing_enemy_data[enemy_id]["body"]:
 			continue
 		var enemy_type = (existing_enemy_data[enemy_id]["type"])
 		var saved_position = existing_enemy_data[enemy_id]["position"]

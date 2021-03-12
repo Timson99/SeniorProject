@@ -2,6 +2,7 @@ extends Object
 #Bully Spec
 
 var battle_entity 
+var vary_stats := false
 
 var stats = EntityStats.new({
 	"LEVEL" : 1,

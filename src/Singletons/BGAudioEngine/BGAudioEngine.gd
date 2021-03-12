@@ -2,6 +2,11 @@ extends Node
 
 signal audio_finished()
 
+#--------- Common Songs ----------
+var regular_battle_song = preload("res://Assets/Audio/Music/General/Cosmic Explorers.ogg")
+var game_over = preload("res://Assets/Audio/Music/General/Game Over.ogg")
+#---------------------------------
+
 onready var _music_player: AudioStreamPlayer = get_node("BackgroundMusic")
 onready var _sound_player: AudioStreamPlayer = get_node("SoundEffects")
 onready var tween_fade_out: Tween = get_node("FadeOut")
@@ -11,14 +16,48 @@ var transition_type_in: int = 0
 var transition_type_out: int = 0 
 
 var min_volume_value: float = -80.0 # in dB
-var max_volume_value: float = -15.0 # in dB
+var max_volume_value: float = 0.0 # in dB
 var current_song: String
 export var saved_song: String
 var paused_position: float
 
+var music_offset := 8
+var se_offset := 12
+var baseline_music_volume := max_volume_value - music_offset
+var baseline_se_volume := max_volume_value - se_offset
+var new_music_volume: float
+var new_se_volume: float
+
 
 func _ready():
-	pass
+	change_music_volume(baseline_music_volume)
+	change_sound_effects_volume(baseline_se_volume)
+
+# Helpful if you know the exact decibal value that you want
+func change_music_volume(new_db: float):
+	_music_player.set_volume_db(new_db)
+	
+
+func change_sound_effects_volume(new_db: float):
+	_sound_player.set_volume_db(new_db)
+
+
+# Better if you just want to minutely change the decibal values
+func increase_music_volume(increment: float):
+	new_music_volume = _music_player.volume_db + increment
+	change_music_volume(new_music_volume)
+	
+func decrease_music_volume(decrement: float):
+	new_music_volume = _music_player.volume_db + decrement
+	change_music_volume(new_music_volume)
+	
+func increase_se_volume(increment: float):
+	new_se_volume = _sound_player.volume_db + increment
+	change_music_volume(new_music_volume)
+	
+func decrease_se_volume(decrement: float):
+	new_se_volume = _sound_player.volume_db + decrement
+	change_music_volume(new_music_volume)
 
 
 func facilitate_track_changes(possible_new_track: String):
@@ -69,18 +108,17 @@ func swap_songs_abrupt(new_song: String) -> void:
 	_music_player.play()
 	emit_signal("audio_finished")
 
-
-func play_with_intro(intro_song: String, looped_song: String):
-	facilitate_track_changes(intro_song)
-	play_next(looped_song)
-
-
-func play_battle_music(intro_song: String, battle_song: String):
+func play_battle_music():
 	save_song()
-	paused_position = _music_player.get_playback_position()
 	_music_player.stop()
-	swap_songs_abrupt(intro_song)
-	play_next(battle_song)
+	_music_player.stream = regular_battle_song
+	_music_player.play()
+	
+	
+func play_game_over():
+	_music_player.stop()
+	_music_player.stream = game_over
+	_music_player.play()	
 	
 	
 func play_next(song: String):
@@ -89,11 +127,15 @@ func play_next(song: String):
 	current_song = song
 	_music_player.play()
 	
-func save_song(song_to_save=""):
+	
+func save_song(song_to_save="", save_pos=true):
+	if save_pos:
+		paused_position = _music_player.get_playback_position()
 	if song_to_save:
 		saved_song = song_to_save
 	else:
 		saved_song = current_song	
+	
 	
 func return_from_battle():
 	facilitate_track_changes(saved_song)

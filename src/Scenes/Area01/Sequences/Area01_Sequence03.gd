@@ -49,7 +49,7 @@ static func instructions():
 		["Actor-set", "C1", "exploring", true],
 		["Actor-sync", "C1", "move_to_position", Vector2(0, 40), false],
 		["Actor-call", "C1", "set_collision", true],
-		["BG_Audio", "play_with_intro", "Opening Curtain...", "No Place Like Home"],
+		["BG_Audio", "request_playback","No Place Like Home"],
 		["Dialogue", "Monologue"],
 		["Signal", "DialogueEngine", "end"],
   ]

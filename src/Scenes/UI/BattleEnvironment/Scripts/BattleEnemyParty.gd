@@ -25,9 +25,11 @@ func _ready():
 		var enemy_data = EnemyHandler.Enemies[e]
 		var enemy_scene = load(enemy_data["battle_sprite_scene"]).instance()
 		enemy_scene.ai = load(enemy_data["ai"]).new()
-		enemy_scene.stats = enemy_scene.ai.stats
+		if enemy_scene.ai.vary_stats:
+			enemy_scene.stats = enemy_scene.ai.get_stat_variations(enemy_scene.ai.stats, enemy_scene.ai.stat_variance) 
+		else:
+			enemy_scene.stats = enemy_scene.ai.stats
 		enemy_scene.ai.battle_entity = enemy_scene
-		
 		enemy_scene.party = self
 		enemy_scene.screen_name = e
 		enemy_scene.selected_material = selected_material

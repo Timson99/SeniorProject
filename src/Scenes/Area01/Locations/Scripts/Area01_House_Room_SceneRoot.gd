@@ -5,8 +5,7 @@ var persistence_id = "Area01_Data"
 var actor_id = "Area01_House_Room"
 export var current_attempt = 1
 
-export var track_1 = "Opening Curtain..."
-export var track_2 = "No Place Like Home"
+export var track_1 = "No Place Like Home"
 
 var shaded_blue := Color("0500a0") 
 var normal_color := Color("ffffff")
@@ -20,8 +19,8 @@ func _ready():
 	add_to_group("Persistent")
 	ActorEngine.register_actor(self)
 	unshade()
-	if not BgEngine._music_player.is_playing():
-		BgEngine.play_with_intro(track_1, track_2)
+	if current_attempt == 1 && !BgEngine._music_player.is_playing():
+		BgEngine.facilitate_track_changes(track_1)
 	
 	
 func shade():

@@ -151,7 +151,7 @@ func battle_victory():
 func battle_failure():
 	dialogue_node.display_message("You Lose!", false, 0.1, 1)
 	SceneManager.goto_scene("GameOver")
-	# Game Over music
+	BgEngine.play_game_over()
 	
 	
 	
