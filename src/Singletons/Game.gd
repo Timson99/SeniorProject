@@ -6,6 +6,8 @@ var game_mode
 var active_player
 var playable = []
 
+var leveling = LevelUpSystem.new()
+
 """
 func _ready():
 	game_mode = Mode.Explore

@@ -3,6 +3,7 @@ extends Object
 
 var battle_entity 
 var vary_stats := false
+var base_xp := 50
 
 var stats = EntityStats.new({
 	"LEVEL" : 1,

@@ -10,14 +10,14 @@ export var persistence_id := "C1" #Can't be a number or mistakeable for a non st
 export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
-var exploring = true
+var exploring := true
 
 var skills = {"Skill1" : 0} #"Skill" : Num_LP
 var equipped_skill = ""
 var equipped_wpn
 var equipeed_arm 
 
-onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
+onready var stats = Game.leveling.get_stats(persistence_id) if Game.leveling.stats[persistence_id] else EntityStats.new(BaseStats.get_for(persistence_id))
 
 func _ready():
 	ActorEngine.register_actor(self)
@@ -75,8 +75,10 @@ func play_anim(anim_str):
 	else:
 		print("Character Error: Does not have Animation for play_anim() in " + str(persistence_id))
 	
+	
 func set_anim(anim_str):
 	animations.animation = anim_str
+	
 	
 func flip_horizontal(flip : bool):
 	animations.flip_h = flip

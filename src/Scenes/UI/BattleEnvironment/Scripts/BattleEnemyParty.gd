@@ -9,6 +9,7 @@ var enemies := []
 var selected_enemy_index = 0
 onready var battle_brain = SceneManager.current_scene
 var terminated = false
+var xp_payout := 0
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
 
@@ -34,6 +35,7 @@ func _ready():
 		enemy_scene.screen_name = e
 		enemy_scene.selected_material = selected_material
 		enemy_container.add_child(enemy_scene)
+		xp_payout += enemy_scene.ai.base_xp
 	enemies = enemy_container.get_children()
 	
 	
