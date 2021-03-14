@@ -16,11 +16,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Idle_Left",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "Idle_Down",
@@ -31,9 +26,9 @@ animations = [ {
 "name": "Walk_Left",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 13 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 12 ) ],
 "loop": true,
-"name": "Walk_Down",
+"name": "Walk_Up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
@@ -41,13 +36,19 @@ animations = [ {
 "name": "Idle_Up",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "Walk_Up",
+"name": "Idle_Left",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Walk_Down",
 "speed": 5.0
 } ]
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
+screen_name = "Stella"
 persistence_id = "C2"
 actor_id = "PChar2"
 
