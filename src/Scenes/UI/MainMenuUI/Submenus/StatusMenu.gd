@@ -5,16 +5,19 @@ var parent = null
 
 #The following information should be stored in game state
 const gen_stats = ["ATTACK","DEFENSE","LUCK","WILLPOWER","SPEED","WAVE_ATTACK","WAVE_DEFENSE"]
-var curr_char = "C1"
+var curr_char = ""
+var curr_id = ""
 var char_params ={}
 var sprite = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 #	print(char_params)
+	curr_id = parent.curr_party[parent.curr_party_names.find(curr_char)]
 	$Data/Name.text = curr_char
 	$Data/Character.set_texture(sprite)
 	$Data/Level.text = str("Level: ", char_params.get("LEVEL"))
+	$Data/XP_to_Next.text = str("XP to Next: ", Game.leveling.calculate_needed_xp(curr_id))
 	$Data/Bars/Max_HP.text = str("HP: ", char_params.get("HP"),"/",char_params.get("MAX_HP"))
 	$Data/Bars/Max_SP.text = str("SP: ", char_params.get("SP"),"/",char_params.get("MAX_SP"))
 	$Data/Stats/Attack.text = str("Attack: ", char_params.get("ATTACK"))

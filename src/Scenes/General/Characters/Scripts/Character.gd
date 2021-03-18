@@ -25,11 +25,9 @@ func _ready():
 	add_to_group("Persistent")
 	if Game.leveling.stats[persistence_id]:
 		stats = Game.leveling.get_stats(persistence_id)
-		print("UPGRADED")
 	else:
 		stats = EntityStats.new(BaseStats.get_for(persistence_id))
-		print("BASE")
-		print(stats)
+
 
 onready var skins  = {
 	"C1" : {

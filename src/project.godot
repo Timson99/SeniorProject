@@ -109,11 +109,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Directories/MusicTracks.gd"
 }, {
-"base": "Node",
-"class": "PriorityQueue",
-"language": "GDScript",
-"path": "res://Scenes/_Test_Scenes/Joe_Test_Scenes/Joe_Test_Scripts/PriorityQueue.gd"
-}, {
 "base": "Object",
 "class": "SkillsDirectory",
 "language": "GDScript",
@@ -150,7 +145,6 @@ _global_script_class_icons={
 "MainScenes": "",
 "MenuResourcePaths": "",
 "MusicTracks": "",
-"PriorityQueue": "",
 "SkillsDirectory": "",
 "SoundEffects": "",
 "TestPQ": ""
@@ -317,6 +311,7 @@ ui_debug={
 ui_fullscreen={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
 ui_test2={

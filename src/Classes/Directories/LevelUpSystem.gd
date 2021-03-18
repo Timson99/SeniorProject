@@ -132,3 +132,6 @@ func get_xp_for(id: String) -> int:
 	
 func get_to_next_lv_for(id: String) -> int:
 	return to_next_level[id]
+
+func calculate_needed_xp(id: String) -> int:
+	return to_next_level[id] - xp[id]

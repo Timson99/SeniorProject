@@ -155,6 +155,7 @@ func calculate_xp_payout(base_xp: int):
 			
 func battle_victory():
 	character_party.terminate_input()
+	BgEngine.play_battle_victory()
 	var adjusted_xp_payout = calculate_xp_payout(enemy_party.xp_payout)
 	dialogue_node.display_message(["You Win!", "%d Exp Earned." % adjusted_xp_payout], true, 0.1, 1)
 	yield(dialogue_node, "end")
@@ -165,7 +166,6 @@ func battle_victory():
 		Game.leveling.give_xp(id, adjusted_xp_payout)
 		if Game.leveling.crossed_lv_xp_threshold(id):
 			character.stats = Game.leveling.level_up(id)
-			#print(character.stats.to_dict())
 			var char_name = character.screen_name
 			var new_level = character.stats.to_dict()["LEVEL"]
 			dialogue_node.display_message(["%s grew to level %d!" % [char_name, new_level]], true, 0.1, 1)

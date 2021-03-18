@@ -6,7 +6,8 @@ const tracks: Dictionary = {
 	
 	# General
 	"Cosmic Explorers": "res://Assets/Audio/Music/General/Cosmic Explorers.ogg", # Regular Battle Theme
-	"Game Over": "res://Assets/Audio/Music/General/Game Over.ogg", # Game Over Theme
+	"Battle Victory (Regular)": "res://Assets/Audio/Music/General/Battle Victory (Regular).ogg", 
+	"Game Over": "res://Assets/Audio/Music/General/Game Over.ogg",
 	"Galactic Barrier": null, # Boss Battle Theme
 	
 	# Area 01

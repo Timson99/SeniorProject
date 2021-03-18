@@ -54,11 +54,9 @@ func _populate_party():
 		
 
 func _init_stats():
-	print(curr_party)
 	for character in curr_party:
 		stats[character] =  curr_party_stats[curr_party.find(character)].to_dict()
 		_add_item_button(character)
-#	print(stats)
 
 func _add_item_button(item):
 	var button = load(button_path).instance()
