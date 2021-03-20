@@ -16,13 +16,13 @@ onready var tween_fade_in: Tween = get_node("FadeIn")
 var transition_type_in: int = 0 
 var transition_type_out: int = 0 
 
-var min_volume_value: float = -80.0 # in dB
+var min_volume_value: float = -63.0 # in dB
 var max_volume_value: float = 0.0 # in dB
 var current_song: String
 export var saved_song: String
 var paused_position: float
 
-var music_offset := 8
+var music_offset := 6
 var se_offset := 12
 var baseline_music_volume := max_volume_value - music_offset
 var baseline_se_volume := max_volume_value - se_offset
@@ -32,33 +32,21 @@ var new_se_volume: float
 
 func _ready():
 	change_music_volume(baseline_music_volume)
-	change_sound_effects_volume(baseline_se_volume)
+	change_sfx_volume(baseline_se_volume)
 
-# Helpful if you know the exact decibal value that you want
+
 func change_music_volume(new_db: float):
-	_music_player.set_volume_db(new_db)
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Music"), 
+		clamp(min_volume_value, new_db, max_volume_value)
+	)
 	
 
-func change_sound_effects_volume(new_db: float):
-	_sound_player.set_volume_db(new_db)
-
-
-# Better if you just want to minutely change the decibal values
-func increase_music_volume(increment: float):
-	new_music_volume = _music_player.volume_db + increment
-	change_music_volume(new_music_volume)
-	
-func decrease_music_volume(decrement: float):
-	new_music_volume = _music_player.volume_db + decrement
-	change_music_volume(new_music_volume)
-	
-func increase_se_volume(increment: float):
-	new_se_volume = _sound_player.volume_db + increment
-	change_music_volume(new_music_volume)
-	
-func decrease_se_volume(decrement: float):
-	new_se_volume = _sound_player.volume_db + decrement
-	change_music_volume(new_music_volume)
+func change_sfx_volume(new_db: float):
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("SFX"), 
+		clamp(min_volume_value, new_db, max_volume_value)
+	)
 
 
 func facilitate_track_changes(possible_new_track: String):

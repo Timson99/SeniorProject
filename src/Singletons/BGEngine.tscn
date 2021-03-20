@@ -6,11 +6,13 @@
 script = ExtResource( 1 )
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+bus = "Music"
+
+[node name="SoundEffects" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+bus = "SFX"
 
 [node name="FadeOut" type="Tween" parent="."]
 
 [node name="FadeIn" type="Tween" parent="."]
-
-[node name="SoundEffects" type="AudioStreamPlayer" parent="."]
-volume_db = -10.0
 [connection signal="tween_completed" from="FadeOut" to="." method="_on_FadeOut_tween_completed"]

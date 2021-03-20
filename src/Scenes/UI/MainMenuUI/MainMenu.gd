@@ -25,7 +25,7 @@ onready var buttons = {
 	},
 	 Button.Config : {
 		"anim" : $Background/MenuOptions/Config/Config,
-		"submenu" : preload("res://Scenes/UI/MainMenuUI/Submenus/ConfigMenu.tscn")
+		"submenu" : preload("res://Scenes/UI/MainMenuUI/Submenus/ConfigMenu/ConfigMenu.tscn")
 	}
 }
 
