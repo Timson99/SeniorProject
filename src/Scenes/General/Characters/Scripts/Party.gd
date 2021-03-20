@@ -12,6 +12,7 @@ var incapacitated := []
 #var items := ["Bomb","Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea","Leaf Bag"]
 var items := []
 var money : int = 0
+
 var spacing := 16.0
 var persistence_id := "main_party"
 onready var tween = $Tween
