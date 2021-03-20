@@ -11,6 +11,7 @@ var explore_scenes := {
 	#Tim Test Articles
 	"TileMapTest" : "res://Scenes/Test_Scenes/Tim_Test_Scenes/TestTileMap.tscn",
 	
+	
 	#Area 1 	
 	"Area01_Opening" : "res://Scenes/Area01/Locations/Area01_Opening.tscn",
 	"Area01_House_Room" : "res://Scenes/Area01/Locations/Area01_House_Room.tscn",

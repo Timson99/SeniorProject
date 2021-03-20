@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Fonts/ThinPixels.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Art/Character_Art/C1/C1_02.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/UI/MainMenuUI/Submenus/EquipMenu.gd" type="Script" id=3]
 [ext_resource path="res://Assets/UI/Menu/Menu_Element_03.png" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/Menu/Menu_Backdrop_04.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/Icons/Icons_01.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/Icons/Icons_02.png" type="Texture" id=7]
+[ext_resource path="res://Assets/UI/Icons/Icons_03.png" type="Texture" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -58,12 +61,16 @@ scale = Vector2( 1.23102, 0.98 )
 frames = SubResource( 1 )
 animation = "unfocused"
 
+[node name="Icons_01" type="Sprite" parent="Categories/Weapon"]
+position = Vector2( 12, 11 )
+texture = ExtResource( 6 )
+
 [node name="Current" type="Label" parent="Categories/Weapon"]
-margin_left = 6.0
-margin_right = 112.0
+margin_left = 15.0
+margin_right = 111.0
 margin_bottom = 15.0
 custom_fonts/font = SubResource( 2 )
-text = "WPN: WP1"
+text = "WP1"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -80,12 +87,16 @@ scale = Vector2( 1.23233, 0.98 )
 frames = SubResource( 1 )
 animation = "unfocused"
 
+[node name="Icons_02" type="Sprite" parent="Categories/Armor"]
+position = Vector2( 12, 11 )
+texture = ExtResource( 7 )
+
 [node name="Current" type="Label" parent="Categories/Armor"]
-margin_left = 6.0
-margin_right = 112.0
+margin_left = 15.0
+margin_right = 111.0
 margin_bottom = 15.0
 custom_fonts/font = SubResource( 2 )
-text = "ARM: AR1"
+text = "AR1"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -102,12 +113,16 @@ scale = Vector2( 1.23262, 0.98 )
 frames = SubResource( 1 )
 animation = "unfocused"
 
+[node name="Icons_03" type="Sprite" parent="Categories/Skill"]
+position = Vector2( 12, 11 )
+texture = ExtResource( 8 )
+
 [node name="Current" type="Label" parent="Categories/Skill"]
-margin_left = 6.0
-margin_right = 112.0
+margin_left = 15.0
+margin_right = 111.0
 margin_bottom = 15.0
 custom_fonts/font = SubResource( 2 )
-text = "SKILL: Ice (1/25)"
+text = "Ice"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false

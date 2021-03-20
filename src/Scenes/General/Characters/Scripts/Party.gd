@@ -8,8 +8,10 @@ export var C3_in_party = true
 var active_player = null
 var party := []
 var incapacitated := []
+
 #var items := ["Bomb","Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea","Leaf Bag"]
 var items := []
+var money : int = 0
 var spacing := 16.0
 var persistence_id := "main_party"
 onready var tween = $Tween
@@ -102,6 +104,7 @@ func save():
 		"C2_in_party" : C2_in_party,
 		"C3_in_party" : C3_in_party,
 		"items" : items,
+		"money" : money
 	}
 	return save_dict
 
