@@ -21,15 +21,15 @@ Scan
 class_name SkillsDirectory
 
 const skills = {
-	"Waste Time": {
-		"LP": INF,
-		"Description": "Sample Enemy move",
-		"Power": Enums.SkillPower.Weak,
-		"Cost": 0,
+	"Big Punch" : {
+		"LP" : INF,
+		"Description" : "Test Description",
+		"Power" : Enums.SkillPower.Weak,
+		"Cost" : 10,
 		"Target_All": false,
-		"Hit_Rate": 1.0,
+		"Hit_Rate": 0.8,
 		"Type": Enums.SkillType.Force,
-		"Elemental": null
+		"Elemental" : null,
 	},
 	"Lil' Ice" : {
 		"LP" : 5,
@@ -41,14 +41,34 @@ const skills = {
 		"Type": Enums.SkillType.Spell,
 		"Elemental" : Enums.Elementals.Ice,
 	},
-	"Big Punch" : {
+	"Minor Self-Heal": {
 		"LP" : INF,
-		"Description" : "Test Description",
+		"Description" : "Phew, that's a little better",
+		"Power" : null,
+		"Cost" : 5,
+		"Target_All": false,
+		"Hit_Rate": 1.00,
+		"Type": Enums.SkillType.Healing,
+		"Elemental" : null,
+	},
+	"Smack" : {
+		"LP" : INF,
+		"Description" : "Just a light smack",
 		"Power" : Enums.SkillPower.Weak,
 		"Cost" : 10,
 		"Target_All": false,
-		"Hit_Rate": 0.8,
+		"Hit_Rate": 0.9,
 		"Type": Enums.SkillType.Force,
 		"Elemental" : null,
+	},
+	"Waste Time": {
+		"LP": INF,
+		"Description": "Sample Enemy move",
+		"Power": Enums.SkillPower.Weak,
+		"Cost": 0,
+		"Target_All": false,
+		"Hit_Rate": 1.0,
+		"Type": Enums.SkillType.Force,
+		"Elemental": null
 	},
 }

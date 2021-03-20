@@ -20,7 +20,7 @@
 [ext_resource path="res://Assets/UI/Battle/Battle_UI_v2_12.png" type="Texture" id=24]
 [ext_resource path="res://Assets/Fonts/ChunkyPixelsNormal.tres" type="DynamicFont" id=25]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
@@ -38,10 +38,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 4 )
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 12 ) ],
 "loop": true,
@@ -54,7 +54,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
@@ -67,7 +67,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
@@ -80,7 +80,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ ExtResource( 11 ) ],
 "loop": true,
@@ -93,7 +93,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=8]
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -106,16 +106,16 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.211765, 0.92549, 0.0666667, 1 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0, 0.764706, 1, 1 )
 
-[sub_resource type="StyleBoxFlat" id=12]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0, 0, 0, 1 )
 
 [node name="Module" type="Control" groups=[
@@ -134,7 +134,7 @@ anims/BattleHit = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="UI"]
 position = Vector2( 112, -64 )
-frames = SubResource( 2 )
+frames = SubResource( 1 )
 animation = "Display2Wave"
 
 [node name="Battle_UI_v2_12" type="Sprite" parent="UI"]
@@ -146,7 +146,7 @@ margin_left = -40.0
 margin_top = -6.0
 margin_right = 27.0
 margin_bottom = 40.0
-custom_fonts/normal_font = SubResource( 3 )
+custom_fonts/normal_font = SubResource( 2 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 text = "HP"
 scroll_active = false
@@ -159,7 +159,7 @@ margin_left = -40.0
 margin_top = 8.0
 margin_right = -26.0
 margin_bottom = 20.0
-custom_fonts/normal_font = SubResource( 3 )
+custom_fonts/normal_font = SubResource( 2 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 text = "SP"
 scroll_active = false
@@ -172,7 +172,7 @@ margin_left = -19.0
 margin_top = -21.0
 margin_right = 48.0
 margin_bottom = 25.0
-custom_fonts/normal_font = SubResource( 3 )
+custom_fonts/normal_font = SubResource( 2 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 text = "Name"
 scroll_active = false
@@ -193,7 +193,7 @@ __meta__ = {
 
 [node name="Attack" type="AnimatedSprite" parent="UI/MainMenu/Attack"]
 position = Vector2( 117, -120 )
-frames = SubResource( 4 )
+frames = SubResource( 3 )
 animation = "off"
 
 [node name="Skills" type="Control" parent="UI/MainMenu"]
@@ -205,7 +205,7 @@ __meta__ = {
 
 [node name="Skills" type="AnimatedSprite" parent="UI/MainMenu/Skills"]
 position = Vector2( 117, -120 )
-frames = SubResource( 5 )
+frames = SubResource( 4 )
 animation = "off"
 
 [node name="Items" type="Control" parent="UI/MainMenu"]
@@ -217,7 +217,7 @@ __meta__ = {
 
 [node name="Items" type="AnimatedSprite" parent="UI/MainMenu/Items"]
 position = Vector2( 117, -120 )
-frames = SubResource( 6 )
+frames = SubResource( 5 )
 animation = "off"
 
 [node name="Defend" type="Control" parent="UI/MainMenu"]
@@ -229,7 +229,7 @@ __meta__ = {
 
 [node name="Defend" type="AnimatedSprite" parent="UI/MainMenu/Defend"]
 position = Vector2( 117, -120 )
-frames = SubResource( 7 )
+frames = SubResource( 6 )
 animation = "off"
 
 [node name="Run" type="Control" parent="UI/MainMenu"]
@@ -241,7 +241,7 @@ __meta__ = {
 
 [node name="Run" type="AnimatedSprite" parent="UI/MainMenu/Run"]
 position = Vector2( 117, -120 )
-frames = SubResource( 8 )
+frames = SubResource( 7 )
 animation = "off"
 
 [node name="HP_Bar" type="ProgressBar" parent="UI"]
@@ -249,8 +249,8 @@ margin_left = -23.0
 margin_top = 2.0
 margin_right = 40.0
 margin_bottom = 5.0
-custom_styles/fg = SubResource( 9 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 8 )
+custom_styles/bg = SubResource( 9 )
 step = 1.0
 value = 100.0
 rounded = true
@@ -275,8 +275,8 @@ margin_left = -23.0
 margin_top = 16.0
 margin_right = 40.0
 margin_bottom = 19.0
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
 value = 100.0
 rounded = true
 percent_visible = false
@@ -286,7 +286,7 @@ __meta__ = {
 
 [node name="SP_Num" type="RichTextLabel" parent="UI/SP_Bar"]
 margin_left = 43.0
-margin_top = -12.0
+margin_top = -13.0
 margin_right = 83.0
 margin_bottom = 28.0
 custom_fonts/normal_font = ExtResource( 25 )

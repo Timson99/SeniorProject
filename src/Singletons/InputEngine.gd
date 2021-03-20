@@ -1,5 +1,7 @@
 extends Node
 
+signal control_scheme_gathered()
+
 var to_player_commands := {
 	"pressed": 
 		{"ui_up" : "move_up",
@@ -100,12 +102,26 @@ var curr_input_receivers = []
 
 var disabled = []
 
-
+var current_controls = {}
+var control_mapping = {
+	"ui_accept": "Accept",
+	"ui_cancel": "Cancel",
+	"ui_down": "Move Down",
+	"ui_up": "Move Up",
+	"ui_left": "Move Left",
+	"ui_right": "Move Right",
+	"ui_left_trigger": "Left Menu Shift",
+	"ui_right_trigger": "Right Menu Shift",
+	"ui_fullscreen": "Toggle Fullscreen",
+	"ui_menu": "Open Menu"	
+}
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	define_control_inputs(get_input_event_type())
+	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	SceneManager.connect("goto_called", self, "disable_input")
 	SceneManager.connect("scene_loaded", self, "update_and_sort_receivers")
 	SceneManager.connect("scene_fully_loaded", self, "enable_input")
@@ -207,3 +223,31 @@ func translate_and_execute(input_translator):
 			if input_target.has_method(command):
 				input_target.call_deferred(command)
 
+
+func get_input_event_type():
+	var input_type
+	var external_controllers = Input.get_connected_joypads()
+	input_type = InputEventJoypadButton if external_controllers else InputEventKey
+	return input_type
+
+	
+func define_control_inputs(input_type):
+	var actions = InputMap.get_actions()
+	for action in actions:
+		var list_of_inputs = InputMap.get_action_list(str(action))
+		var legal_current_inputs = []
+		for input in list_of_inputs:
+			if input is input_type:
+				legal_current_inputs.append(input)
+		if legal_current_inputs && action in control_mapping:
+			current_controls[control_mapping[action]] = legal_current_inputs
+	emit_signal("control_scheme_gathered")
+	
+func get_current_controls():
+	return current_controls	
+	
+func get_control_mapping():
+	return control_mapping
+
+func _on_joy_connection_changed(device_id, connected):
+	define_control_inputs(get_input_event_type())

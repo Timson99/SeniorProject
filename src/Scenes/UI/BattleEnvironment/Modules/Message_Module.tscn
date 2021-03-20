@@ -11,17 +11,6 @@
 [ext_resource path="res://Assets/UI/Battle/Battle_UI_v2_11.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/UI/BattleEnvironment/Scripts/BattleMenu.gd" type="Script" id=10]
 
-
-
-
-
-
-
-
-
-
-
-
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 2 )
 

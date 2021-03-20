@@ -18,7 +18,6 @@ func _ready():
 	
 	main_door_warp.monitoring = false
 	closet.connect("used", self, "open_main_door")
-	#BgEngine.facilitate_track_changes(music_track_path)
 	
 func on_load():
 	"""
