@@ -18,6 +18,7 @@ func _ready():
 
 func activate():	
 	party = get_tree().get_nodes_in_group("Party")[0]
+	EnemyHandler.freeze_all_nonplayers()
 	main_menu = main_menu_scene.instance()
 	call_deferred("add_child", main_menu)
 	main_menu.parent = self
@@ -27,6 +28,7 @@ func deactivate():
 	party = null
 	main_menu = null
 	active = false
+	EnemyHandler.unfreeze_all_nonplayers()
 	
 	
 #Loads Item Data on Game Start, Accessed MenuManager.item_data

@@ -5,16 +5,19 @@ var parent = null
 
 #The following information should be stored in game state
 const gen_stats = ["ATTACK","DEFENSE","LUCK","WILLPOWER","SPEED","WAVE_ATTACK","WAVE_DEFENSE"]
-var curr_char = "C1"
+var curr_char = ""
+var curr_id = ""
 var char_params ={}
 var sprite = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 #	print(char_params)
+	curr_id = parent.curr_party[parent.curr_party_names.find(curr_char)]
 	$Data/Name.text = curr_char
 	$Data/Character.set_texture(sprite)
 	$Data/Level.text = str("Level: ", char_params.get("LEVEL"))
+	$Data/XP_to_Next.text = str("XP to Next: ", Game.leveling.calculate_needed_xp(curr_id))
 	$Data/Bars/Max_HP.text = str("HP: ", char_params.get("HP"),"/",char_params.get("MAX_HP"))
 	$Data/Bars/Max_SP.text = str("SP: ", char_params.get("SP"),"/",char_params.get("MAX_SP"))
 	$Data/Stats/Attack.text = str("Attack: ", char_params.get("ATTACK"))
@@ -29,7 +32,7 @@ func _ready():
 #		get_node("Data/Stats/{s}".format({"s":stat})).text = str(stat,": ",char_params.get(stat))
 
 func _change_char(new_char):
-	curr_char = new_char
+	curr_char = parent.curr_party_names[parent.curr_party.find(new_char)]
 	sprite = parent.sprites.get(new_char)
 	char_params = parent.stats.get(new_char)
 	_ready()
@@ -75,16 +78,16 @@ func r_trig():
 	if submenu:
 		submenu.r_trig()
 	else:
-		var curr_index = parent.curr_party.find(curr_char,0)
+		var curr_index = parent.curr_party_names.find(curr_char,0)
 		curr_index = (curr_index +1) % len(parent.curr_party)
 		_change_char(parent.curr_party[curr_index])
 	
 	
 func l_trig():
 	if submenu:
-		submenu.r_trig()
+		submenu.l_trig()
 	else:
-		var curr_index = parent.curr_party.find(curr_char,0)
+		var curr_index = parent.curr_party_names.find(curr_char,0)
 		curr_index = (curr_index if curr_index>0 else len(parent.curr_party)) -1
 		_change_char(parent.curr_party[curr_index])
 

@@ -29,7 +29,6 @@ func _ready():
 	ActorEngine.register_actor(self)
 
 
-
 func increment_attempt():
 	current_attempt += 1
 	current_attempt = min(current_attempt,3)

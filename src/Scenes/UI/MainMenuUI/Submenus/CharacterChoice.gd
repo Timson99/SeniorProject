@@ -18,6 +18,8 @@ var stats ={}
 #the character ids here are persistence ids
 onready var party_group := get_tree().get_nodes_in_group("Party")
 var curr_party = ["C1","C2","C3"]
+var curr_party_names := []
+var curr_party_stats := []
 var buttons = []
 var focused = 0
 
@@ -42,19 +44,23 @@ func unfocus():
 func _populate_party():
 	if len(party_group)>0:
 		curr_party = []
+		curr_party_names = []
+		curr_party_stats = []
 		for x in party_group[0].party:
 			curr_party.append(x.persistence_id)
+			curr_party_names.append(x.screen_name)
+			curr_party_stats.append(x.stats)
+			
 		
 
 func _init_stats():
 	for character in curr_party:
-		stats[character] =  EntityStats.new(BaseStats.get_for(character)).to_dict()
+		stats[character] =  curr_party_stats[curr_party.find(character)].to_dict()
 		_add_item_button(character)
-#	print(stats)
 
 func _add_item_button(item):
 	var button = load(button_path).instance()
-	button._setup(item,stats[item],sprites[item])
+	button._setup(curr_party_names[curr_party.find(item)],stats[item],sprites[item])
 	buttons.append(button)
 	button_container.add_child(button)
 
@@ -77,7 +83,7 @@ func accept():
 	else:
 		submenu = forward.instance()
 		call_deferred("add_child", submenu)
-		submenu.curr_char = curr_party[focused]
+		submenu.curr_char = curr_party_names[focused]
 		submenu.char_params = stats[curr_party[focused]]
 		submenu.sprite = sprites[curr_party[focused]]
 		submenu.layer = layer + 1

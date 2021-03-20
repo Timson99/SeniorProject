@@ -9,6 +9,7 @@ var enemies := []
 var selected_enemy_index = 0
 onready var battle_brain = SceneManager.current_scene
 var terminated = false
+var xp_payout := 0
 
 var selected_material = preload("res://Resources/Shaders/Illumination.tres")
 
@@ -25,13 +26,16 @@ func _ready():
 		var enemy_data = EnemyHandler.Enemies[e]
 		var enemy_scene = load(enemy_data["battle_sprite_scene"]).instance()
 		enemy_scene.ai = load(enemy_data["ai"]).new()
-		enemy_scene.stats = enemy_scene.ai.stats
+		if enemy_scene.ai.vary_stats:
+			enemy_scene.stats = enemy_scene.ai.get_stat_variations(enemy_scene.ai.stats, enemy_scene.ai.stat_variance) 
+		else:
+			enemy_scene.stats = enemy_scene.ai.stats
 		enemy_scene.ai.battle_entity = enemy_scene
-		
 		enemy_scene.party = self
 		enemy_scene.screen_name = e
 		enemy_scene.selected_material = selected_material
 		enemy_container.add_child(enemy_scene)
+		xp_payout += enemy_scene.ai.base_xp
 	enemies = enemy_container.get_children()
 	
 	

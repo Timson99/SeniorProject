@@ -1,9 +1,8 @@
 extends Node
 
-#Every Type of Enemy
 onready var Enemies = EnemyTypes.get_data()
 
-onready var spawn_body = preload("res://Scenes/General/Enemies/SpawningScenes/SpawnPositionTester.tscn").instance()
+signal spawn_func_completed
 
 var random_num_generator = RandomNumberGenerator.new()
 
@@ -15,145 +14,206 @@ export var enemy_variations := []
 onready var target_player: KinematicBody2D 
 onready var player_view: Vector2
 
-onready var tilemap_rect: Rect2 
-onready var tilemap_reference_point: Vector2
-onready var tilemap_dimensions 
-onready var tilemap_width: int
-onready var tilemap_height: int 
-
-onready var spawn_area: Area2D 
-onready var spawn_collider: CollisionPolygon2D
-onready var scene_world_space = CameraManager.viewport.get_world_2d().direct_space_state
-
 onready var scene_node: Node
+onready var spawn_points := []
+onready var spawn_locations := []
+onready var spawner_balancer := {}
+
 
 var existing_enemy_data : Dictionary = {}
 var queued_battle_enemies: Array = []
-var current_battle_stats : Dictionary
+var queued_battle_ids: Array = []
 var can_spawn := true
+var spawning_launched
 var spawning_locked := false
-var valid_pos_flag := false
+var enemy_spawner_ratio: float
 
 
-func clear():
-	queued_battle_enemies = []
 
 func _ready():
+	spawning_launched = false
 	SceneManager.connect("goto_called", self, "block_spawning")
 	SceneManager.connect("scene_fully_loaded", self, "check_if_spawning_possible")
 	check_if_spawning_possible()
 
 
-func block_spawning():
-	can_spawn = false
+# Enemies may be instanced apart from random spawning, i.e. patrolling enemies.
+# Preinstanced enemies need to be including in existing_enemy_data.
+func check_for_preinstanced_enemies():
+	pass
+#	var preinstanced_enemies = get_tree().get_nodes_in_group("Enemy")
+#	if !preinstanced_enemies.empty():
+#		for enemy in preinstanced_enemies:
+#			existing_enemy_data[generated_enemy_id] = {}
+#			existing_enemy_data[generated_enemy_id]["body"] = enemy
+#			existing_enemy_data[generated_enemy_id]["type"] = enemy.name
+#			existing_enemy_data[generated_enemy_id]["preinstanced"] = true
+#			enemy.key = enemy.name
+#			generated_enemy_id += 1
 
-	
+
+# Called whenever a new scene is loaded; checks if explore root of the 
+# new scene permits enemy spawning (i.e. in exploration mode).	
 func check_if_spawning_possible():
+	check_for_preinstanced_enemies()
 	scene_node = SceneManager.current_scene
 	if scene_node.get("enemies_spawnable") != null:
 		can_spawn = scene_node.get("enemies_spawnable")
 		if can_spawn:
 			initialize_spawner_info()
 	else: 
-		can_spawn = false
+		block_spawning()
 
 
-func get_enemy_data(id: int):
-	return existing_enemy_data.get(id)
-
-
+# If enemies can be spawned, information about where enemies can spawn is
+# gathered from the children nodes of the current explore scene.
 func initialize_spawner_info():
 	scene_node = SceneManager.current_scene
 	if can_spawn:
 		max_enemies = scene_node.get("max_enemies")
 		enemy_variations = scene_node.get("enemy_variations")
-		spawn_area = scene_node.get_node("EnemySpawnArea")
-		spawn_collider = scene_node.get_node("EnemySpawnArea/SpawnAreaCollider")
-		spawn_area.connect("body_entered", EnemyHandler, "set_valid_pos_flag")
-		spawn_area.connect("body_exited", EnemyHandler, "reset_valid_pos_flag")
-		tilemap_rect = scene_node.get_node("TileMap").get_used_rect()
-		tilemap_reference_point = scene_node.get_node("TileMap").map_to_world(tilemap_rect.position)
-		tilemap_dimensions = scene_node.get_node("TileMap").map_to_world(tilemap_rect.size)
-		tilemap_width = tilemap_dimensions.x
-		tilemap_height = tilemap_dimensions.y
+		if spawner_balancer.empty():
+			spawn_points = get_tree().get_nodes_in_group("SpawnLocation")
+			for point in spawn_points:
+				spawn_locations.append(point.position)
+			enemy_spawner_ratio = float(max_enemies) / spawn_locations.size()
+			for spawn_location_id in range(spawn_points.size()):
+				spawner_balancer[spawn_location_id] = 0
 
 
-func add_enemy_data(id, enemy_obj):
-	existing_enemy_data[id] = {}
-	existing_enemy_data[id]["body"] = enemy_obj
+func block_spawning():
+	can_spawn = false
 	
-	
-func initialize_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2):
-	var new_enemy = load(Enemies[enemy_type]["enemy_scene_path"]).instance()
-	existing_enemy_data[id] = {}
-	existing_enemy_data[id]
-	new_enemy.key = enemy_type
-	new_enemy.data_id = id
-	new_enemy.position = spawn_position
-	existing_enemy_data[id]["position"] = spawn_position
-	existing_enemy_data[id]["type"] = enemy_type
-	existing_enemy_data[id]["body"] = new_enemy
-	return new_enemy
 
-	
-# Needs continued balancing 
+func enable_spawning():
+	can_spawn = true
+
+
 func spawn_enemy():
 	spawning_locked = true
 	random_num_generator.randomize()
-	var random_wait_time: int = random_num_generator.randi_range(1, 3)
-	var spawn_chance: float = random_num_generator.randf_range(0, 1)
-	var spawn_position = get_spawn_position()
-	var view_buffer: int = 20
-	var within_view_x: bool = abs(spawn_position.x - target_player.position.x) < (player_view.x/2 + view_buffer)
-	var within_view_y: bool = abs(spawn_position.y - target_player.position.y) < (player_view.y/2 + view_buffer)
-	if spawn_chance > 0.5 && validate_spawn_position(spawn_position) && (!within_view_x && !within_view_y):
+	var spawn_position = get_spawn_position() 
+	if spawn_position != null:
 		var enemy_type: String = enemy_variations[random_num_generator.randi_range(0, enemy_variations.size()-1)]
-		var new_enemy = initialize_enemy_instance(generated_enemy_id, enemy_type, spawn_position)
+		var new_enemy = create_enemy_instance(generated_enemy_id, enemy_type, spawn_position, false)
 		scene_node.add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
 		print("New enemy added")
+		print(spawner_balancer)
 	spawning_locked = false
-
+	return 
+	
 
 func get_spawn_position():
 	random_num_generator.randomize()
-	var spawn_position_x = (tilemap_reference_point.x + random_num_generator.randi_range(0, tilemap_width)) 
-	var spawn_position_y = (tilemap_reference_point.x + random_num_generator.randi_range(0, tilemap_height)) 
-	return Vector2(spawn_position_x, spawn_position_y)
+	var chosen_location: int = random_num_generator.randi_range(0, spawn_locations.size()-1)
+	var spawn_position: Vector2 = spawn_locations[chosen_location]
+	var player_view_buffer: int = 60
+	var within_view_x: bool = abs(spawn_position.x - target_player.position.x) < (player_view.x/2 + player_view_buffer)
+	var within_view_y: bool = abs(spawn_position.y - target_player.position.y) < (player_view.y/2 + player_view_buffer)
+	if (!within_view_x && !within_view_y) && (spawner_balancer[chosen_location] < enemy_spawner_ratio):
+		spawner_balancer[chosen_location] += 1
+		return spawn_locations[chosen_location]
+	else:
+		return null
 
 
-func validate_spawn_position(possible_location: Vector2):
-	# .intersect_point() args: point, max_results, exclude, collision_layer, collide_with_bodies, collide_with_areas
-	var area_interesections: Array = scene_world_space.intersect_point(possible_location, 32, [], 2147483647, false, true)
-	var intersected_area_names := []
-	for area in area_interesections: 
-		intersected_area_names.append(area["collider"].name)
-	if intersected_area_names.has("DetectionRadius"):
-		return false
-	return intersected_area_names.has("EnemySpawnArea")
+func create_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2, respawn: bool):
+	var new_enemy = load(Enemies[enemy_type]["enemy_scene_path"]).instance()
+	if !respawn:
+		existing_enemy_data[id] = {}
+		existing_enemy_data[id]["spawn_locale"] = spawn_locations.find(spawn_position)
+	existing_enemy_data[id]["body"] = new_enemy
+	existing_enemy_data[id]["position"] = spawn_position
+	existing_enemy_data[id]["type"] = enemy_type
+	new_enemy.key = enemy_type
+	new_enemy.data_id = id
+	new_enemy.position = spawn_position
+	return new_enemy
+	
+
+func add_enemy_data(id, enemy_obj):
+	existing_enemy_data[id] = {}
+	existing_enemy_data[id]["body"] = enemy_obj
+
+
+func get_enemy_data(id: int):
+	return existing_enemy_data.get(id)	
 	
 	
-func freeze_on_contact():
-	get_tree().call_group("Enemy", "freeze_in_place")
+func add_to_battle_queue(enemy_type: String):
+	queued_battle_enemies.append(enemy_type)
+	
 
-#called if goto_saved is used
+func collect_battle_enemy_ids(id: int):
+	queued_battle_ids.append(id)	
+	if "preinstanced" in existing_enemy_data[id]:
+		existing_enemy_data[id]["alive"] = !existing_enemy_data[id]["body"].alive 
+	
+	
+# Non-boss enemies are not persistent; existing enemies must be preserved 
+# whenever the player engages in a battle.	
+func retain_enemy_data():
+	for enemy in existing_enemy_data:
+		existing_enemy_data[enemy]["position"] = existing_enemy_data[enemy]["body"].position
+	block_spawning()
+
+
+func freeze_all_nonplayers():
+	get_tree().call_group("Non-player", "freeze_in_place")
+
+
+func unfreeze_all_nonplayers():
+	get_tree().call_group("Non-player", "unfreeze")
+
+
+# After a battle concludes, all enemies are returned to the overworld in their
+# pre-battle positions. Defeated enemies are deleted after playing death animations.
+func readd_previously_instanced_enemies():
+	scene_node = SceneManager.current_scene
+	for enemy_id in existing_enemy_data:
+		if existing_enemy_data[enemy_id]["body"] && "persistence_id" in existing_enemy_data[enemy_id]["body"]:
+			continue
+		var enemy_type = (existing_enemy_data[enemy_id]["type"])
+		var saved_position = existing_enemy_data[enemy_id]["position"]
+		var readded_enemy = create_enemy_instance(enemy_id, enemy_type, saved_position, true)
+		if enemy_id in queued_battle_ids:
+			readded_enemy.get_node("CollisionBox").queue_free()
+			readded_enemy.get_node("DetectionRadius").queue_free()			
+		scene_node.add_child(readded_enemy)
+	yield(SceneManager, "scene_fully_loaded")
+	
+	
+
+# Called if goto_saved is used
 func despawn_on():
 	SceneManager.connect("scene_loaded", self, "despawn_defeated_enemies")
 func despawn_off():
 	SceneManager.disconnect("scene_loaded", self, "despawn_defeated_enemies")
 	
+	
+func clear_queued_enemies():
+	queued_battle_enemies = []	
+	queued_battle_ids = []
+	
+	
 # Called for battle victory or fleeing
 func despawn_defeated_enemies():
-	for enemy in queued_battle_enemies:
-			existing_enemy_data[enemy]["body"].post_battle()
-			existing_enemy_data.erase(enemy)
-			#scene_node.remove_child(existing_enemy_data[enemy]["exploration_node"])
-	# 2. handling the despawn of multiple enemies who joined in a gang
-	num_of_enemies -= 1
-	can_spawn = true
-	clear()
+	readd_previously_instanced_enemies()
+	for enemy_id in queued_battle_ids:
+		existing_enemy_data[enemy_id]["body"].post_battle()
+		#yield(get_tree().create_timer(2), "timeout")
+		scene_node.remove_child(existing_enemy_data[enemy_id]["body"])
+		if "spawn_locale" in existing_enemy_data[enemy_id]:
+			spawner_balancer[existing_enemy_data[enemy_id]["spawn_locale"]] -= 1
+		existing_enemy_data.erase(enemy_id)
+		num_of_enemies -= 1	
+	clear_queued_enemies()
 	despawn_off()
+	enable_spawning()
+	yield(SceneManager, "scene_fully_loaded")
+	launch_spawning_loop()
 
 
 func _physics_process(delta):
@@ -161,5 +221,17 @@ func _physics_process(delta):
 	if scene_node != null && party.size() == 1:
 		target_player = party[0].active_player
 		player_view = CameraManager.viewport_size
-		if can_spawn && num_of_enemies < max_enemies && !spawning_locked:			
+		if !spawning_launched:
+			spawning_launched = !spawning_launched
+			launch_spawning_loop()
+		
+			
+# If enemies can be spawned and the target player character has been located,
+# loops indefinitely to spawn a balanced distribution of enemies in overworld.
+func launch_spawning_loop():
+	while can_spawn:
+		var random_wait_time: int = random_num_generator.randf_range(0, 1)
+		yield(get_tree().create_timer(random_wait_time, false), "timeout")
+		if !spawning_locked && num_of_enemies < max_enemies:
 			spawn_enemy()
+			

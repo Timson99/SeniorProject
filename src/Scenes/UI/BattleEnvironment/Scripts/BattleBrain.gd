@@ -139,18 +139,44 @@ func execute(moves_made : Array):
 	enemy_party.end_turn()
 	character_party.end_turn()
 	
-
+	
+# Basic XP calculator ~ should likely be tweaked for game balance!	
+func calculate_xp_payout(base_xp: int):
+	var cumul_char_lvs := 0
+	var cumul_enem_lvs := 0
+	for character in characters:
+		if !is_instance_valid(character):
+			continue
+		cumul_char_lvs += character.stats.to_dict()["LEVEL"]
+	for enemy in enemies:
+		cumul_enem_lvs += enemy.stats.to_dict()["LEVEL"]
+	return floor(base_xp * pow(1.2, (cumul_enem_lvs - cumul_char_lvs)))
+	
 			
 func battle_victory():
 	character_party.terminate_input()
-	dialogue_node.display_message(["You Win!", "X Exp Earned."], true, 0.1, 1)
+	BgEngine.play_battle_victory()
+	var adjusted_xp_payout = calculate_xp_payout(enemy_party.xp_payout)
+	dialogue_node.display_message(["You Win!", "%d Exp Earned." % adjusted_xp_payout], true, 0.1, 1)
 	yield(dialogue_node, "end")
+	for character in characters:
+		if !is_instance_valid(character):
+			continue
+		var id = character.persistence_id
+		Game.leveling.give_xp(id, adjusted_xp_payout)
+		if Game.leveling.crossed_lv_xp_threshold(id):
+			character.stats = Game.leveling.level_up(id)
+			var char_name = character.screen_name
+			var new_level = character.stats.to_dict()["LEVEL"]
+			dialogue_node.display_message(["%s grew to level %d!" % [char_name, new_level]], true, 0.1, 1)
+			yield(dialogue_node, "end")
+	BgEngine.return_from_battle()
 	SceneManager.goto_saved()
 	
 func battle_failure():
 	dialogue_node.display_message("You Lose!", false, 0.1, 1)
 	SceneManager.goto_scene("GameOver")
-	
+	BgEngine.play_game_over()
 	
 	
 	

@@ -18,10 +18,12 @@ func _ready():
 func interact():
 	if !opened:
 		animations.play("closed_to_open")
+		BgEngine.play_sound("OpenBox")
 		yield(animations, "animation_finished")
 		animations.play("open")
 		opened = true
 		if(item_id != ""):
+			BgEngine.play_item_jingle()
 			DialogueEngine.item_message(item_id)
 			if party.size() == 1:
 				party[0].items.append(item_id)
