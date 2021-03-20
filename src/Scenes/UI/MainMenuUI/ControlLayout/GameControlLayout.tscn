@@ -1,0 +1,156 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Fonts/ThinPixels.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/UI/MainMenuUI/ControlLayout/ControlLayout.gd" type="Script" id=2]
+[ext_resource path="res://Assets/UI/Menu/Menu_Backdrop_07.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Fonts/ChunkyPixelsNormal.tres" type="DynamicFont" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = 0
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -171.0
+margin_top = -121.5
+margin_right = 157.0
+margin_bottom = 120.5
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ControlMenu" type="Control" parent="TextureRect"]
+margin_left = 41.616
+margin_top = 37.2577
+margin_right = 295.616
+margin_bottom = 197.258
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerControls" type="Label" parent="TextureRect/ControlMenu"]
+margin_left = 69.265
+margin_top = 4.74069
+margin_right = 186.265
+margin_bottom = 18.7407
+custom_fonts/font = ExtResource( 4 )
+text = "Basic Game Controls"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="TextureRect/ControlMenu"]
+margin_left = 4.0
+margin_top = 44.0
+margin_right = 252.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxLeft" type="VBoxContainer" parent="TextureRect/ControlMenu/HBox"]
+margin_right = 116.0
+margin_bottom = 76.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accept" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxLeft"]
+margin_right = 116.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+text = "Accept / Confirm:     "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cancel" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxLeft"]
+margin_top = 18.0
+margin_right = 116.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 1 )
+text = "Cancel / Reject: "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveUp" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxLeft"]
+margin_top = 36.0
+margin_right = 116.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 1 )
+text = "Move Up: "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveLeft" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxLeft"]
+margin_top = 54.0
+margin_right = 116.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 1 )
+text = "Move Left: "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxRight" type="VBoxContainer" parent="TextureRect/ControlMenu/HBox"]
+margin_left = 120.0
+margin_right = 217.0
+margin_bottom = 76.0
+
+[node name="OpenMenu" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxRight"]
+margin_right = 97.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+text = "Open Menu: "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ToggleFullscreen" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxRight"]
+margin_top = 18.0
+margin_right = 97.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 1 )
+text = "Toggle Fullscreen: "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveDown" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxRight"]
+margin_top = 36.0
+margin_right = 97.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 1 )
+text = "Move Up: "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveRight" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxRight"]
+margin_top = 54.0
+margin_right = 97.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 1 )
+text = "Move Right:    "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

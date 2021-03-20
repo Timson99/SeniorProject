@@ -13,6 +13,7 @@ static func instructions():
 		["Actor-sync", "Bully", "move_to_position", Vector2(-58, 234), true],
 		["Actor-call", "C1", "play_anim", "Idle_Left"],
 		["Delay", 0.5],
+
 		["Dialogue", "Bully_Attempt3_1"],
 		["Signal", "DialogueEngine", "page_over"],
 		["Actor-call", "C1", "play_anim", "Idle_Up"],
@@ -45,6 +46,8 @@ static func instructions():
 		["Actor-call", "C1", "play_anim", "Idle_Down"],
 		["Delay", 0.5],
 		["Actor-call", "exit_door", "close"],
+		["BG_Audio", "play_sound", "MetalDoorSlam01"],
+		["BG_Audio", "request_playback_paused"],
 		["Delay", 0.5],
 		["Actor-call", "Area01_Outside_Root", "hide"],
   ]

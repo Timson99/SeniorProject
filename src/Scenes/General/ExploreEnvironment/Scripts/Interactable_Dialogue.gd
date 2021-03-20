@@ -2,6 +2,7 @@ extends Node
 
 # member variables
 export var speakerID = ""
+export var interact_sound = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,6 +10,8 @@ func _ready():
 	connect("body_exited", self, "body_exit")
 	
 func interact():
+	if interact_sound:
+		BgEngine.play_sound(interact_sound)
 	DialogueEngine._beginTransmit(speakerID, "")
 
 func body_entered(body):

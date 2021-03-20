@@ -29,14 +29,14 @@ animations = [ {
 "name": "Walk_Left",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "Idle_Down",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 6 ), ExtResource( 13 ), ExtResource( 2 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "Walk_Down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 1 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "Walk_Up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ) ],
@@ -44,9 +44,9 @@ animations = [ {
 "name": "Idle_Up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 1 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "Idle_Down",
+"name": "Walk_Up",
 "speed": 5.0
 }, {
 "frames": [  ],
@@ -65,6 +65,7 @@ radius = 61.377
 
 [node name="KinematicBody2D" type="KinematicBody2D" groups=[
 "Enemy",
+"Non-player",
 ]]
 script = ExtResource( 12 )
 

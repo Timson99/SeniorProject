@@ -4,15 +4,25 @@ class_name MusicTracks
 
 const tracks: Dictionary = {
 	
-	# Placeholder songs for scenes
-	"res://Scenes/Joe_Test_Scenes/BGEngineTestScene1.tscn": "res://Assets/Music/End_of_Days.ogg",
-	"res://Scenes/Joe_Test_Scenes/BGEngineTestScene2.tscn": "res://Assets/Music/The_Void_Beckons.ogg",
-	"res://Scenes/Explore_Scenes/Area01/Area01_Outside01.tscn": "res://Assets/Music/No_Place_Like_Home (temp).ogg",
+	# General
+	"Cosmic Explorers": "res://Assets/Audio/Music/General/Cosmic Explorers.ogg", # Regular Battle Theme
+	"Battle Victory (Regular)": "res://Assets/Audio/Music/General/Battle Victory (Regular).ogg", 
+	"Game Over": "res://Assets/Audio/Music/General/Game Over.ogg",
+	"Galactic Barrier": null, # Boss Battle Theme
 	
+	# Area 01
+	"No Place Like Home": "res://Assets/Audio/Music/Area01/No Place Like Home.ogg",
+	"Bully Encounter": "res://Assets/Audio/Music/Area01/Bully Encounter.ogg",
+	"Smooth Player": "res://Assets/Audio/Music/Area01/Smooth Player.ogg",
+	# Short track after opening door w/ title card?
+	
+	# Area 02 
+	"Foreign Hallways": "res://Assets/Audio/Music/Area02/Foreign Hallways.ogg",
 	
 	# Placeholder songs for midscene song changes
-	"Test Scene Switch": "res://Assets/Music/Cosmic_Explorers (temp).ogg"
+	"Test Scene Switch": "res://Assets/Music/Cosmic_Explorers (temp).ogg",
+	"Test Battle": "res://Assets/Audio/Music/Demos/Cosmic Explorers.wav"
 	}
 	
-static func get_track(scene_path):
-	return tracks[scene_path]
+static func get_track(track_title):
+	return tracks[track_title]

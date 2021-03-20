@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/Art/Environments/Area1/Inside_Map.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Area01/Locations/Scripts/Area01_House_SceneRoot.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scenes/Area01/Props/Table01.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/General/ExploreEnvironment/Scripts/Interactable_Dialogue.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/General/ExploreEnvironment/Scripts/Radius_Dialogue.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/Area01/Locations/Scripts/RegDoorWarp01.gd" type="Script" id=11]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Inside_Map.png 0"
@@ -65,15 +66,17 @@ __meta__ = {
 
 [node name="Warp_Room" parent="TileMap" instance=ExtResource( 4 )]
 position = Vector2( 344, 71 )
-warp_id = "House_To_Room"
-warp_destination_id = "Room_To_House"
+script = ExtResource( 11 )
+warp_id = "House_to_Room"
+warp_destination_id = "Room_to_House"
 warp_scene_id = "Area01_House_Room"
 exit_direction = 1
 
 [node name="Warp_Outside" parent="TileMap" instance=ExtResource( 4 )]
 position = Vector2( 152, 55 )
-warp_id = "House_To_Outside"
-warp_destination_id = "Outside_To_House"
+script = ExtResource( 11 )
+warp_id = "House_to_Outside"
+warp_destination_id = "Outside_to_House"
 warp_scene_id = "Area01_Outside01"
 exit_direction = 1
 
@@ -140,6 +143,7 @@ position = Vector2( 152, 136 )
 [node name="Radius" type="Area2D" parent="TileMap/YSort/Table01"]
 script = ExtResource( 9 )
 speakerID = "Note"
+interact_sound = "PickUpPaper01"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/YSort/Table01/Radius"]
 position = Vector2( 24, -11 )

@@ -12,6 +12,8 @@ static func instructions():
 		["Actor-sync", "Camera", "move_to_position", Vector2(-24, 234), 0.5],
 		["Delay", 0.5],
 		
+		["BG_Audio", "save_song", "No Place Like Home"],
+		["BG_Audio", "swap_songs_abrupt", "Bully Encounter"],
 		["Dialogue", "Bully_Attempt1_1"],
 		["Signal", "DialogueEngine", "page_over"],
 		["Signal", "DialogueEngine", "page_over"],
@@ -30,6 +32,7 @@ static func instructions():
 		["Signal", "DialogueEngine", "end"],
 		["Actor-call", "Bully","set_speed", 60],
 		["Actor-sync", "Bully", "move_to_position", Vector2(8, 0), false],
-		["Actor-call", "Bully", "initiate_battle"]
+		["Actor-call", "Bully", "initiate_battle"],
+		["BG_Audio", "swap_songs_abrupt", "Smooth Player"],
   ]
 
