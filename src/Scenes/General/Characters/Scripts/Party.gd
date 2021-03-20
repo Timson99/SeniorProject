@@ -8,13 +8,11 @@ export var C3_in_party = true
 var active_player = null
 var party := []
 var incapacitated := []
-<<<<<<< HEAD
-var items := ["Bomb","Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea","Leaf Bag"]
-var money : int = 0
-=======
+
 #var items := ["Bomb","Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea","Leaf Bag"]
 var items := []
->>>>>>> 726ad1ad776ad778f900d144e0e7286f935920eb
+var money : int = 0
+
 var spacing := 16.0
 var persistence_id := "main_party"
 onready var tween = $Tween

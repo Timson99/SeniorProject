@@ -14,12 +14,10 @@ func _ready():
 	load_skill_data()
 
 func activate():	
-<<<<<<< HEAD
+
 	party = ActorEngine.get_party()
-=======
-	party = get_tree().get_nodes_in_group("Party")[0]
 	EnemyHandler.freeze_all_nonplayers()
->>>>>>> 726ad1ad776ad778f900d144e0e7286f935920eb
+
 	main_menu = main_menu_scene.instance()
 	call_deferred("add_child", main_menu)
 	main_menu.parent = self
