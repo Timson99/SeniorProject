@@ -975,10 +975,13 @@ shape = SubResource( 9 )
 position = Vector2( 51.9131, 196.326 )
 
 [node name="SpawnLocation2" parent="Area Enemy Spawner" instance=ExtResource( 6 )]
-position = Vector2( 269.004, 45.306 )
+position = Vector2( 241.64, 29.9553 )
 
 [node name="SpawnLocation3" parent="Area Enemy Spawner" instance=ExtResource( 6 )]
 position = Vector2( 469.106, 170.841 )
+
+[node name="SpawnLocation4" parent="Area Enemy Spawner" instance=ExtResource( 6 )]
+position = Vector2( 252.194, 161.497 )
 
 [node name="NPC_Parent" parent="." instance=ExtResource( 5 )]
 position = Vector2( 622, -15 )
