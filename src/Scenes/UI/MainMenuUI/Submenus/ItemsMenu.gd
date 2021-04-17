@@ -144,6 +144,7 @@ func back():
 	if submenu:
 		submenu.back()
 	else:
+		BgEngine.play_sound("MenuButtonReturn")
 		queue_free()
 		parent.submenu = null
 
@@ -151,6 +152,7 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
+		BgEngine.play_sound("MenuButtonSelect")
 		submenu = load(popup_path).instance()
 		call_deferred("add_child", submenu)
 		var current_btn  = buttons[focused]

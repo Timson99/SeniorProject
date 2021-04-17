@@ -97,5 +97,6 @@ func accept():
 
 func back():
 	if !is_intro_screen:
+		BgEngine.play_sound("MenuButtonReturn")		
 		queue_free()
 		

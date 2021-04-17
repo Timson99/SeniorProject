@@ -66,6 +66,7 @@ func quick_scroll(action, start_time):
 		quick_scroll(action, start_time)
 	else:
 		quick_scrolling.erase(action)
+		
 func show_char_menu():
 	choice_menu= character_choice.instance()
 	call_deferred("add_child", choice_menu)
@@ -82,6 +83,7 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
+		BgEngine.play_sound("MenuButtonSelect")
 		if not(focused == Button.Items or focused == Button.Config):
 			submenu = choice_menu
 			submenu.forward = buttons[focused]["submenu"]

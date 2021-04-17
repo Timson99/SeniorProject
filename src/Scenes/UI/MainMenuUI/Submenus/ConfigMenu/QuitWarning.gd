@@ -42,6 +42,7 @@ func right():
 	pass
 
 func back():
+	BgEngine.play_sound("MenuButtonSelect")
 	reset_parent_button()
 	queue_free()
 

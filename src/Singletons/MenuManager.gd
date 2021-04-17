@@ -17,7 +17,8 @@ func activate():
 
 	party = ActorEngine.get_party()
 	EnemyHandler.freeze_all_nonplayers()
-
+	
+	BgEngine.play_sound("OpenMenu")
 	main_menu = main_menu_scene.instance()
 	call_deferred("add_child", main_menu)
 	main_menu.parent = self
@@ -27,6 +28,7 @@ func deactivate():
 	party = null
 	main_menu = null
 	active = false
+	BgEngine.play_sound("CloseMenu")
 	EnemyHandler.unfreeze_all_nonplayers()
 	
 	
