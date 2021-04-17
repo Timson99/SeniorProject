@@ -27,10 +27,10 @@ __meta__ = {
 }
 
 [node name="ControlMenu" type="Control" parent="TextureRect"]
-margin_left = 41.616
-margin_top = 37.2577
-margin_right = 295.616
-margin_bottom = 197.258
+margin_left = 42.0
+margin_top = 37.0
+margin_right = 296.0
+margin_bottom = 152.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -47,12 +47,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBox" type="HBoxContainer" parent="TextureRect/ControlMenu"]
+[node name="HBox" type="HSplitContainer" parent="TextureRect/ControlMenu"]
 margin_left = 4.0
 margin_top = 44.0
 margin_right = 252.0
 margin_bottom = 120.0
-size_flags_horizontal = 3
+rect_min_size = Vector2( 248, 76 )
+size_flags_horizontal = 7
+size_flags_vertical = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -108,12 +110,12 @@ __meta__ = {
 }
 
 [node name="VBoxRight" type="VBoxContainer" parent="TextureRect/ControlMenu/HBox"]
-margin_left = 120.0
-margin_right = 217.0
+margin_left = 128.0
+margin_right = 248.0
 margin_bottom = 76.0
 
 [node name="OpenMenu" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxRight"]
-margin_right = 97.0
+margin_right = 120.0
 margin_bottom = 14.0
 custom_fonts/font = SubResource( 1 )
 text = "Open Menu: "
@@ -124,7 +126,7 @@ __meta__ = {
 
 [node name="ToggleFullscreen" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxRight"]
 margin_top = 18.0
-margin_right = 97.0
+margin_right = 120.0
 margin_bottom = 32.0
 custom_fonts/font = SubResource( 1 )
 text = "Toggle Fullscreen: "
@@ -135,7 +137,7 @@ __meta__ = {
 
 [node name="MoveDown" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxRight"]
 margin_top = 36.0
-margin_right = 97.0
+margin_right = 120.0
 margin_bottom = 50.0
 custom_fonts/font = SubResource( 1 )
 text = "Move Up: "
@@ -146,11 +148,23 @@ __meta__ = {
 
 [node name="MoveRight" type="Label" parent="TextureRect/ControlMenu/HBox/VBoxRight"]
 margin_top = 54.0
-margin_right = 97.0
+margin_right = 120.0
 margin_bottom = 68.0
 custom_fonts/font = SubResource( 1 )
 text = "Move Right:    "
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RemappingText" type="RichTextLabel" parent="TextureRect/ControlMenu"]
+margin_left = 4.0
+margin_top = 115.0
+margin_right = 248.0
+margin_bottom = 142.0
+custom_fonts/normal_font = ExtResource( 4 )
+text = "To remap a button input, press the currently mapped button."
+scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }

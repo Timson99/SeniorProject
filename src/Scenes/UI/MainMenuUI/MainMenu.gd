@@ -145,6 +145,9 @@ func l_trig():
 	else:
 		pass
 
+func open_menu():
+	if submenu && submenu.has_method("open_menu"):
+		submenu.open_menu()
 
 
 

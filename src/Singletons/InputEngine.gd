@@ -40,7 +40,8 @@ var to_menu_commands: Dictionary = {
 		"ui_left": "left",
 		"ui_right": "right",
 		"ui_right_trigger":"r_trig",
-		"ui_left_trigger":"l_trig"
+		"ui_left_trigger":"l_trig",
+		"ui_menu" : "open_menu",
 		},
 	"just_released": {
 		"ui_up" : "release_up",
@@ -112,7 +113,7 @@ var control_mapping = {
 	"ui_right": "Move Right",
 	"ui_left_trigger": "Left Menu Shift",
 	"ui_right_trigger": "Right Menu Shift",
-	"ui_fullscreen": "Toggle Fullscreen",
+	"ui_fullscreen": "Fullscreen On/Off",
 	"ui_menu": "Open Menu"	
 }
 
@@ -251,3 +252,10 @@ func get_control_mapping():
 
 func _on_joy_connection_changed(device_id, connected):
 	define_control_inputs(get_input_event_type())
+	
+# Placeholder for now...remapped control schemes should be persistent
+func save():
+	var save_dict = {
+		"current_controls" : current_controls,
+	}
+	return save_dict

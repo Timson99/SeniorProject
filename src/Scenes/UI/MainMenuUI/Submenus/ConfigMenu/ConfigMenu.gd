@@ -69,6 +69,9 @@ func right():
 	if submenu:
 		submenu.right()
 			
+func open_menu():
+	if submenu && submenu.has_method("open_menu"):
+		submenu.open_menu()
 
 
 
