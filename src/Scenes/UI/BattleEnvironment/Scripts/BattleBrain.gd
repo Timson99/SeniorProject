@@ -7,6 +7,8 @@ onready var menu = dialogue_node.get_node("Menu")
 onready var enemies = enemy_party.enemies
 var characters = null
 var character_move_dict := {}
+var escaped = false
+var attempted_escapes = 0
 
 func _ready():
 	turn()
@@ -71,8 +73,15 @@ func execute(moves_made : Array):
 			
 			
 		elif move.type == "Run":
-			pass
-			
+			escaped = calculate_escape_chance(move, enemies, moves_made)
+			if escaped:
+				dialogue_node.display_message("The party safely skedaddled!", true, 0.05, 1)
+				yield(dialogue_node, "end")
+				break
+			else:
+				attempted_escapes += 1
+				dialogue_node.display_message("Couldn't escape!", true, 0.01, 1)
+				yield(dialogue_node, "end")
 			
 		elif move.type == "Items":
 			pass
@@ -134,6 +143,8 @@ func execute(moves_made : Array):
 			
 		yield(get_tree().create_timer(0.1, false), "timeout")
 		
+	if escaped:
+		battle_escape()
 		
 	dialogue_node.clear()
 	enemy_party.end_turn()
@@ -179,6 +190,25 @@ func battle_failure():
 	BgEngine.play_game_over()
 	
 	
+func battle_escape():
+	character_party.terminate_input()
+	BgEngine.return_from_battle()
+	SceneManager.goto_saved()
 	
+
+func calculate_escape_chance(move: BattleMove, enemies: Array, moves_made: Array):
+	var player_speed = move.agent.stats.SPEED 
+	var max_enemy_speed = 0
+	var summed_enemy_speed = 0
 	
+	for e in enemies:
+		var e_speed = e.stats.SPEED
+		max_enemy_speed = max(max_enemy_speed, e_speed)
+		summed_enemy_speed += e_speed
+	if player_speed > max_enemy_speed:
+		return true
 	
+	randomize()
+	var escape_result = (player_speed > 
+		(summed_enemy_speed / (characters.size() + 4.0 * attempted_escapes))) 	
+	return escape_result	
