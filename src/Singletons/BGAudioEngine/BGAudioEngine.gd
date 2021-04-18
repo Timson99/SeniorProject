@@ -1,11 +1,11 @@
 extends Node
 
 signal audio_finished()
-
+"""
 #--------- Common Songs ----------
-var regular_battle_song = preload("res://Assets/Audio/Music/General/Cosmic Explorers.ogg")
-var regular_battle_victory = preload("res://Assets/Audio/Music/General/Battle Victory (Regular).ogg")
-var game_over = preload("res://Assets/Audio/Music/General/Game Over.ogg")
+#var regular_battle_song = preload("res://Assets/Audio/Music/General/Cosmic Explorers.ogg")
+#var regular_battle_victory = preload("res://Assets/Audio/Music/General/Battle Victory (Regular).ogg")
+#var game_over = preload("res://Assets/Audio/Music/General/Game Over.ogg")
 #---------------------------------
 
 onready var _music_player: AudioStreamPlayer = get_node("BackgroundMusic")
@@ -99,16 +99,18 @@ func swap_songs_abrupt(new_song: String) -> void:
 
 
 func play_battle_music():
-	save_song()
-	_music_player.stop()
-	_music_player.stream = regular_battle_song
-	_music_player.play()
+	pass
+	#save_song()
+	#_music_player.stop()
+	#_music_player.stream = regular_battle_song
+	#_music_player.play()
 	
 	
 func play_game_over():
-	_music_player.stop()
-	_music_player.stream = game_over
-	_music_player.play()	
+	pass
+	#_music_player.stop()
+	#_music_player.stream = game_over
+	#_music_player.play()	
 	
 	
 func play_battle_victory():
@@ -150,4 +152,4 @@ func play_item_jingle():
 	play_sound("ItemJingle")
 	fade_in()
 	min_volume_value = temp_min
-	
+"""

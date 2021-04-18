@@ -4,6 +4,6 @@
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/blue = 0.2
+shader_param/blue = 0.0
 shader_param/red = 0.2
-shader_param/green = 0.2
+shader_param/green = 0.0
