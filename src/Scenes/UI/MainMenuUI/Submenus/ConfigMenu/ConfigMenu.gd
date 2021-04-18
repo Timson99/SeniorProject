@@ -34,12 +34,14 @@ func back():
 	if submenu:
 		submenu.back()
 	else:
+		BgEngine.play_sound("MenuButtonReturn")
 		queue_free()
 		
 func accept():
 	if submenu:
 		submenu.accept()
 	else:
+		BgEngine.play_sound("MenuButtonSelect")
 		submenu = buttons[focused]["submenu"].instance()
 		call_deferred("add_child", submenu)
 		submenu.layer = layer + 1
@@ -67,6 +69,9 @@ func right():
 	if submenu:
 		submenu.right()
 			
+func open_menu():
+	if submenu && submenu.has_method("open_menu"):
+		submenu.open_menu()
 
 
 

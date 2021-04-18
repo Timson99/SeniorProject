@@ -109,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Directories/MusicTracks.gd"
 }, {
+"base": "Node",
+"class": "PriorityQueue",
+"language": "GDScript",
+"path": "res://Scenes/_Test_Scenes/Joe_Test_Scenes/Joe_Test_Scripts/PriorityQueue.gd"
+}, {
 "base": "Object",
 "class": "SkillsDirectory",
 "language": "GDScript",
@@ -145,6 +150,7 @@ _global_script_class_icons={
 "MainScenes": "",
 "MenuResourcePaths": "",
 "MusicTracks": "",
+"PriorityQueue": "",
 "SkillsDirectory": "",
 "SoundEffects": "",
 "TestPQ": ""
@@ -152,8 +158,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="SeniorProject"
-run/main_scene="res://Scenes/General/SaveLoadMenu/LoadScreen.tscn"
+config/name="Cosmonarium"
+run/main_scene="res://Scenes/UI/MainMenuUI/ControlLayout/GameControlLayout.tscn"
 config/icon="res://Assets/Art/Test_Art/icon.png"
 
 [audio]

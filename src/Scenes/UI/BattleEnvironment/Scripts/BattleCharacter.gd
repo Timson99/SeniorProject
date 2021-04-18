@@ -15,7 +15,6 @@ onready var name_label = $UI/Name
 onready var HP_Bar : ProgressBar = $UI/HP_Bar
 onready var SP_Bar : ProgressBar = $UI/SP_Bar
 
-var screen_name = "placeholder"
 export var alive := true
 var defending = false
 export (Dictionary) var skills #"Skill" : Num_LP
@@ -23,12 +22,11 @@ export var equipped_skill := ""
 
 onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
 onready var battle_stats := EntityStats.new(BaseStats.get_for(persistence_id))
+onready var screen_name = "placeholder"
 
 
 
-
-
-var module_rise := 2
+var module_rise := 12
 
 var party = null
 

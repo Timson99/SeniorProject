@@ -73,6 +73,7 @@ func back():
 		else:
 			submenu.back()
 	else:
+		BgEngine.play_sound("MenuButtonReturn")
 		unfocus()
 		parent.submenu = null
 #		queue_free()
@@ -81,6 +82,7 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
+		BgEngine.play_sound("MenuButtonSelect")
 		submenu = forward.instance()
 		call_deferred("add_child", submenu)
 		submenu.curr_char = curr_party_names[focused]

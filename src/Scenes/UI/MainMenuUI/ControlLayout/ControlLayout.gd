@@ -2,12 +2,19 @@ extends CanvasLayer
 
 export var is_intro_screen := true
 onready var dialogue_node = $CanvasLayer/Control
+onready var remapping_text = $TextureRect/ControlMenu/RemappingText.text
 onready var input_type = InputEngine.get_input_event_type()
 
 var submenu = null
 var parent = null
 var intro_layer = 0
 var menu_layer = 3
+var uic = null
+var remapping = false
+var correct_input = true
+var confirm_cancel = -1
+
+signal remapping_complete()
 
 func _ready():
 	InputEngine.connect("control_scheme_gathered", self, "change_control_layout")
@@ -16,6 +23,7 @@ func _ready():
 		is_intro_screen = false
 		adjust_margins(parent)
 	elif is_intro_screen:
+		$TextureRect/ControlMenu/RemappingText.visible = false
 		yield(get_tree().create_timer(5.0, false), "timeout")
 		DialogueEngine.custom_message("Please press 'Confirm' or 'Cancel' when you are ready to continue.")
 		yield(DialogueEngine, "end")
@@ -24,7 +32,7 @@ func _ready():
 
 func change_control_layout():
 	var mapping = InputEngine.get_control_mapping()
-	var controls = InputEngine.get_current_controls()
+	var controls = InputEngine.get_current_controls() 
 	$TextureRect/ControlMenu/HBox/VBoxLeft/Accept.text = str("Confirm: ", join_input_strings(controls["Accept"]), " ")
 	$TextureRect/ControlMenu/HBox/VBoxLeft/Cancel.text = str("Cancel: ", join_input_strings(controls["Cancel"]), "")
 	$TextureRect/ControlMenu/HBox/VBoxLeft/MoveUp.text = str("Up: ", join_input_strings(controls["Move Up"]), "")
@@ -32,7 +40,7 @@ func change_control_layout():
 	$TextureRect/ControlMenu/HBox/VBoxRight/OpenMenu.text = str("Open Menu: ", join_input_strings(controls["Open Menu"]), " ")
 	$TextureRect/ControlMenu/HBox/VBoxRight/MoveDown.text = str("Down: ", join_input_strings(controls["Move Down"]), " ")
 	$TextureRect/ControlMenu/HBox/VBoxRight/MoveRight.text = str("Right: ", join_input_strings(controls["Move Right"]), " ")
-	$TextureRect/ControlMenu/HBox/VBoxRight/ToggleFullscreen.text = str("Fullscreen On/Off: ", join_input_strings(controls["Toggle Fullscreen"]), " ")
+	$TextureRect/ControlMenu/HBox/VBoxRight/ToggleFullscreen.text = str("Fullscreen On/Off: ", join_input_strings(controls["Fullscreen On/Off"]), " ")
 
 
 func adjust_margins(parent: Node):
@@ -66,36 +74,91 @@ func join_input_strings(inputs: Array):
 			joined_string = str(joined_string, ", ", string_input)
 	return joined_string
 
+	
+func remap_button(ui_control: String):
+	var command_to_remap = InputEngine.get_control_mapping()[ui_control]
+	uic = ui_control
+	$TextureRect/ControlMenu/RemappingText.text = "Press the new button to map to %s:" % command_to_remap
+	remapping = true
+	yield(self, "remapping_complete")
+	remapping = !remapping
+	change_control_layout()
+	$TextureRect/ControlMenu/RemappingText.text = "New button mapped! Escape this submenu or remap another button."
+	yield(get_tree().create_timer(1.0, false), "timeout")
+	
+	
+func remap(event: InputEvent):
+	if event is InputEventJoypadButton:
+		_modify_mapped_inputs(event, InputEventJoypadButton)
+	elif event is InputEventKey:
+		_modify_mapped_inputs(event, InputEventKey)
+	yield(get_tree().create_timer(1.0, false), "timeout")
+	emit_signal("remapping_complete")
+
+
+func _modify_mapped_inputs(new_input: InputEvent, input_type):
+	var prev_mapped_action = null
+	var all_actions = InputMap.get_actions()
+	for action in all_actions:
+		if InputMap.event_is_action(new_input, action):
+			prev_mapped_action = action 
+	if prev_mapped_action:
+		var uic_action_list = InputMap.get_action_list(uic)
+		InputMap.action_add_event(prev_mapped_action, uic_action_list[0])
+		InputMap.action_erase_event(prev_mapped_action, new_input)
+	for input in InputMap.get_action_list(uic):
+		if input is input_type:
+			InputMap.action_erase_event(uic, input)
+		InputMap.action_add_event(uic, new_input)
+	InputEngine.define_control_inputs(input_type)
+	uic = null
+	return
+
+
+func _input(event):
+	if remapping:
+		correct_input = !correct_input
+		if correct_input:
+			remap(event)
+	
 
 func up():
-	if submenu && !is_intro_screen:
-		submenu.up()
-		
+	if !is_intro_screen:
+		remap_button("ui_up")
 	
 func down():
-	if submenu && !is_intro_screen:
-		submenu.down()
-	else:
-		pass
-
+	if !is_intro_screen:
+		remap_button("ui_down")
+		
+				
 func left():
-	if submenu && !is_intro_screen:
-		submenu.left()
-	else:
-		pass
+	if !is_intro_screen:
+		remap_button("ui_left")
 	
 func right():
-	if submenu && !is_intro_screen:
-		submenu.right()
-	else:
-		pass
+	if !is_intro_screen:
+		remap_button("ui_right")
 		
 			
 func accept():
-	pass
+	if !is_intro_screen:
+		if confirm_cancel == -1:
+			remap_button("ui_accept")
+		elif confirm_cancel == 0:
+			remap_button("ui_cancel")
+		confirm_cancel = -1
 
 
 func back():
 	if !is_intro_screen:
+		confirm_cancel +=1
+		$TextureRect/ControlMenu/RemappingText.text = "Press Cancel again to exit submenu; otherwise, press Confirm to remap Cancel command."
+		if confirm_cancel == 0:
+			return
+		BgEngine.play_sound("MenuButtonReturn")		
 		queue_free()
 		
+		
+func open_menu():
+	if !is_intro_screen:
+		remap_button("ui_menu")

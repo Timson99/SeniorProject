@@ -40,6 +40,7 @@ func change_sfx_volume(new_db: float):
 	
 
 func back():
+	BgEngine.play_sound("MenuButtonReturn")		
 	reset_parent_button()
 	queue_free()
 		

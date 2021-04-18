@@ -7,10 +7,12 @@ const effects: Dictionary = {
 	# General
 	"OpenBox": "res://Assets/Audio/SFX/General/open_chest.wav",
 	"ItemJingle": "res://Assets/Audio/SFX/General/get_item.wav",
-	"OpenMenu": null,
-	"CloseMenu": null,
-	"MenuButtonSelect": null,
-	"MenuButtonReturn": null,
+	
+	# Menus
+	"OpenMenu": "res://Assets/Audio/SFX/General/Menus/menu_open_1.wav",
+	"CloseMenu": "res://Assets/Audio/SFX/General/Menus/menu_close_1.wav",
+	"MenuButtonSelect": "res://Assets/Audio/SFX/General/Menus/menu_confirm_1.wav",
+	"MenuButtonReturn": "res://Assets/Audio/SFX/General/Menus/menu_back_1.wav",
 	
 	
 	# Area 01
