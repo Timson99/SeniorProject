@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Scenes/General/ExploreEnvironment/Scripts/GeneralExploreRoot.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Area02/Locations/Area02_EntranceHall_ExploreRoot.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/General/Characters/Party.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Art/Environments/Area2/Area02_Props01.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Art/Environments/Area2/Area02_EntranceHall.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Art/Environments/Area2/Area02_Props02.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/General/Enemies/SpawningScenes/SpawnLocation.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 184 )
@@ -161,3 +162,17 @@ shape = SubResource( 8 )
 position = Vector2( 633, 73 )
 rotation = 1.5708
 shape = SubResource( 8 )
+
+[node name="Area Enemy Spawner" type="Node2D" parent="."]
+
+[node name="SpawnLocation" parent="Area Enemy Spawner" instance=ExtResource( 6 )]
+position = Vector2( 607.091, -16.0543 )
+
+[node name="SpawnLocation2" parent="Area Enemy Spawner" instance=ExtResource( 6 )]
+position = Vector2( 292.545, -13.6759 )
+
+[node name="SpawnLocation3" parent="Area Enemy Spawner" instance=ExtResource( 6 )]
+position = Vector2( 762.282, 266.977 )
+
+[node name="SpawnLocation4" parent="Area Enemy Spawner" instance=ExtResource( 6 )]
+position = Vector2( 390.655, 275.896 )
