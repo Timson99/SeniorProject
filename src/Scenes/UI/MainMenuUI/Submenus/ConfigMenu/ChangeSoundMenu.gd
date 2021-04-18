@@ -36,7 +36,7 @@ func change_music_volume(new_db: float):
 	
 func change_sfx_volume(new_db: float):
 	BgEngine.change_sfx_volume(new_db)
-	BgEngine.play_item_jingle()
+	BgEngine.play_jingle("ItemJingle")
 	
 
 func back():

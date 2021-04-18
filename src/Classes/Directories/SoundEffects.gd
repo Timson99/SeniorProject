@@ -7,6 +7,7 @@ const effects: Dictionary = {
 	# General
 	"OpenBox": "res://Assets/Audio/SFX/General/open_chest.wav",
 	"ItemJingle": "res://Assets/Audio/SFX/General/get_item.wav",
+	"LevelUp": "res://Assets/Audio/SFX/General/level_up.wav",
 	
 	# Menus
 	"OpenMenu": "res://Assets/Audio/SFX/General/Menus/menu_open_1.wav",

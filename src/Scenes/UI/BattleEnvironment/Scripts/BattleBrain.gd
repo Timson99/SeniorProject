@@ -187,6 +187,7 @@ func battle_victory():
 			character.stats = Game.leveling.level_up(id)
 			var char_name = character.screen_name
 			var new_level = character.stats.to_dict()["LEVEL"]
+			BgEngine.play_jingle("LevelUp")
 			dialogue_node.display_message(["%s grew to level %d!" % [char_name, new_level]], true, 0.1, 1)
 			yield(dialogue_node, "end")
 	BgEngine.return_from_battle()

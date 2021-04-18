@@ -143,11 +143,11 @@ func play_sound(sound_sample: String):
 	_sound_player.play()
 	
 
-func play_item_jingle():
+func play_jingle(jingle: String):
 	var temp_min = min_volume_value
 	min_volume_value = -30
 	fade_out()	
-	play_sound("ItemJingle")
+	play_sound(jingle)
 	fade_in()
 	min_volume_value = temp_min
 
