@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Area02/Locations/Area02_EntranceHall_ExploreRoot.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/General/Characters/Party.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/Art/Environments/Area2/Area02_EntranceHall.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Art/Environments/Area2/Area02_Props02.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/General/Enemies/SpawningScenes/SpawnLocation.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/General/ExploreEnvironment/Warp.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 184 )
@@ -176,3 +177,10 @@ position = Vector2( 762.282, 266.977 )
 
 [node name="SpawnLocation4" parent="Area Enemy Spawner" instance=ExtResource( 6 )]
 position = Vector2( 390.655, 275.896 )
+
+[node name="Entry" parent="." instance=ExtResource( 7 )]
+position = Vector2( 39.0851, 110.703 )
+warp_id = "Entry"
+warp_scene_id = "Area02_EntranceHall"
+exit_direction = 1
+one_way = true

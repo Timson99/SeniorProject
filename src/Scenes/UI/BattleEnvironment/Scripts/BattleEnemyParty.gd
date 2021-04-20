@@ -32,7 +32,7 @@ func _ready():
 			enemy_scene.stats = enemy_scene.ai.stats
 		enemy_scene.ai.battle_entity = enemy_scene
 		enemy_scene.party = self
-		enemy_scene.screen_name = e
+		enemy_scene.screen_name = enemy_scene.ai.screen_name
 		enemy_scene.selected_material = selected_material
 		enemy_container.add_child(enemy_scene)
 		xp_payout += enemy_scene.ai.base_xp

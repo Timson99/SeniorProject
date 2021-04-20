@@ -96,6 +96,7 @@ func accept():
 			submenu.parent = self
 		
 func up():
+	BgEngine.play_sound("MenuButtonSwitchFocus")
 	if submenu:
 		submenu.up()
 	else:
@@ -108,6 +109,7 @@ func up():
 		held_actions["up"] = OS.get_ticks_msec()
 	
 func down():
+	BgEngine.play_sound("MenuButtonSwitchFocus")
 	if submenu:
 		submenu.down()
 	else:
@@ -122,10 +124,12 @@ func down():
 func left():
 	if submenu:
 		submenu.left()
+		BgEngine.play_sound("MenuButtonSwitchFocus")
 	
 func right():
 	if submenu:
 		submenu.right()
+		BgEngine.play_sound("MenuButtonSwitchFocus")
 			
 func release_up():
 	held_actions.erase("up")

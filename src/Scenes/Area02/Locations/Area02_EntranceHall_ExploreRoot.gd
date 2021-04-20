@@ -6,4 +6,4 @@ export var enemy_variations = ["FoxEnemy"]
 
 func _ready():
 	if not BgEngine._music_player.is_playing():
-		BgEngine.request_playback("Foreign Hallways", true) # Fade-in blocked	
+		BgEngine.request_playback("Foreign Hallways")

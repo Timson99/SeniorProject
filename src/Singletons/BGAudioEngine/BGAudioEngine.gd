@@ -71,7 +71,7 @@ func request_playback(new_song: String, fadein_blocked=false, fadein_duration=1.
 func request_playback_paused(fadeout_blocked=false, fadeout_duration=1.0) -> void:
 	if not fadeout_blocked:
 		fade_out(fadeout_duration)
-	_music_player.stop()
+	#_music_player.stop()
 
 
 func fade_out(fadeout_time=2.0) -> void:

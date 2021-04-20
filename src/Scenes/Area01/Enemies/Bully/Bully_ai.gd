@@ -4,6 +4,7 @@ extends Object
 var battle_entity 
 var vary_stats := false
 var base_xp := 50
+var screen_name = "Gym Rat Bully"
 var is_boss = true
 
 var stats = EntityStats.new({
@@ -12,7 +13,7 @@ var stats = EntityStats.new({
 	"MAX_HP" : 10,
 	"SP" : 20,
 	"MAX_SP" : 20,
-	"ATTACK" : 6,
+	"ATTACK" : 4,
 	"DEFENSE" : 3,
 	"WAVE_ATTACK" : 8,
 	"WAVE_DEFENSE" : 5,

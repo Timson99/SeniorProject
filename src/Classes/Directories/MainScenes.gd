@@ -18,6 +18,10 @@ var explore_scenes := {
 	"Area01_House01" : "res://Scenes/Area01/Locations/Area01_House01.tscn",
 	"Area01_Outside01" : "res://Scenes/Area01/Locations/Area01_Outside01.tscn",
 	
+	#Area 2
+	"Demo_Transition": "res://Scenes/Area02/Locations/Demo_Transition.tscn",
+	"Area02_EntranceHall": "res://Scenes/Area02/Locations/Area02_EntranceHall.tscn",
+	
 	# Joe Overworld Test Scenes
 	"Joe_Outside_Test_Scene": "res://Scenes/Test_Scenes/Joe_Test_Scenes/Joe_Outside_Test_Scene.tscn",
 				

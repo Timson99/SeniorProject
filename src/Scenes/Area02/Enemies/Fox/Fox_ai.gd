@@ -2,7 +2,7 @@ extends "res://Scenes/General/Enemies/Scripts/BattleEnemy_ai.gd"
 # Fox enemy Spec
 
 var base_xp := 15
-
+var screen_name = "Jammin' Fox"
 
 var stats = EntityStats.new({
 	"LEVEL" : 1,
