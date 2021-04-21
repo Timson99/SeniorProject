@@ -65,31 +65,34 @@ func execute(moves_made : Array):
 		if !move.agent.alive || (move.target && !move.target.alive):
 			continue
 		
-		
-		dialogue_node.display_message(move.to_string(), false, 0.02, 2)
-		yield(dialogue_node, "page_complete")
+		var move_details = move.to_dict()	
 		
 		if move.type == "Defend":
 			move.agent.defending = true
 			
+			dialogue_node.display_message("%s assumes a defensive stance." % move.agent.screen_name, false, 0.02, 2)
+			yield(dialogue_node, "page_complete")
+			
 			
 		elif move.type == "Run":
+			
+			dialogue_node.display_message("%s tries to run..." % move.agent.screen_name, false, 0.04, 2)
+			yield(dialogue_node, "page_complete")
+			
 			if fighting_boss:
 				dialogue_node.display_message("You can't run from this strong of an opponent!", true, 0.05, 1)
-				yield(dialogue_node, "end")
+				yield(dialogue_node, "page_complete")
 			else:
 				escaped = calculate_escape_chance(move, enemies, moves_made)
 				if escaped:
-					dialogue_node.display_message("The party safely skedaddled!", true, 0.05, 1)
+					BgEngine.play_sound("BasicPlayerFleeing")
+					dialogue_node.display_message("...And the party safely skedaddled!", true, 0.05, 1)
 					yield(dialogue_node, "end")
 					break
-				elif fighting_boss:
-					dialogue_node.display_message("You can't run from this strong of an opponent!", true, 0.05, 1)
-					yield(dialogue_node, "end")
 				else:
 					attempted_escapes += 1
 					dialogue_node.display_message("Couldn't escape!", true, 0.01, 1)
-					yield(dialogue_node, "end")
+					yield(dialogue_node, "page_complete")
 			
 		elif move.type == "Items":
 			pass
@@ -97,6 +100,11 @@ func execute(moves_made : Array):
 			
 		elif move.type == "Skills":
 			
+			dialogue_node.display_message("%s uses %s on %s!" % \
+				[move.agent.screen_name, move.skill_id, move.target.screen_name], false, 0.02, 2)
+			yield(dialogue_node, "page_complete")
+			
+			move.agent.stats.SP -= move.skill_cost
 			
 			var agent_attack = move.agent.stats.ATTACK
 			var agent_willpower = move.agent.stats.WILLPOWER
@@ -119,15 +127,16 @@ func execute(moves_made : Array):
 				damage = int(damage/2 if move.target.defending else damage )
 				yield(move.target.take_damage(int(damage)), "completed")
 			else:
-				dialogue_node.display_message("Miss", false, 0.02, 2)
+				dialogue_node.display_message("%s's special attack missed!" % move.agent.screen_name, false, 0.02, 2)
 				yield(dialogue_node, "page_complete")
 				yield(get_tree().create_timer(1, false), "timeout")
 		
-		
-		
+			print(damage)
+			
 		elif move.type == "Attack":
 			
-			
+			dialogue_node.display_message("%s attacks %s!" % [move.agent.screen_name, move.target.screen_name], false, 0.02, 2)
+			yield(dialogue_node, "page_complete")
 			
 			var agent_attack = move.agent.stats.ATTACK
 			var agent_willpower = move.agent.stats.WILLPOWER
@@ -187,6 +196,7 @@ func battle_victory():
 			character.stats = Game.leveling.level_up(id)
 			var char_name = character.screen_name
 			var new_level = character.stats.to_dict()["LEVEL"]
+			BgEngine.play_jingle("LevelUp")
 			dialogue_node.display_message(["%s grew to level %d!" % [char_name, new_level]], true, 0.1, 1)
 			yield(dialogue_node, "end")
 	BgEngine.return_from_battle()

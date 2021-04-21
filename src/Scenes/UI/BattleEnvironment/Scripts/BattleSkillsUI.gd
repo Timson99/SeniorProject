@@ -120,12 +120,15 @@ func _move_scrollbar(direction):
 
 func _instantiate_items():
 	var current_character = battle_brain.character_party.active_player
+	print(current_character.stats.SP)
 	var current_skills = current_character.skills.keys()
 	for skill in current_skills:
-		if (current_character.skills[skill] >= data_source[skill]["LP"] 
-		|| skill == current_character.equipped_skill): 
+		print(data_source[skill]["Cost"])
+		if (current_character.stats.SP >= data_source[skill]["Cost"]
+		&& (current_character.skills[skill] >= data_source[skill]["LP"] 
+		|| skill == current_character.equipped_skill)): 
 			_add_item(skill)
-
+			
 func _add_item(item):
 	items.append(item)
 
@@ -133,7 +136,6 @@ func _update_buttons():
 	buttons= []
 	for i in range(btn_ctnr_size):
 		var item_ix = i+scroll_level
-#		print(item_ix)
 		if item_ix <len(items):
 			_add_item_button(items[item_ix])
 		else:
@@ -141,7 +143,6 @@ func _update_buttons():
 
 func _add_item_button(item):
 	var button = load(button_path).instance()
-	#print(item)
 	button._setup(item)
 	buttons.append(button)
 

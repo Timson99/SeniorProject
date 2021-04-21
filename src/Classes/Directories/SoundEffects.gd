@@ -13,7 +13,17 @@ const effects: Dictionary = {
 	"CloseMenu": "res://Assets/Audio/SFX/General/Menus/menu_close_1.wav",
 	"MenuButtonSelect": "res://Assets/Audio/SFX/General/Menus/menu_confirm_1.wav",
 	"MenuButtonReturn": "res://Assets/Audio/SFX/General/Menus/menu_back_1.wav",
+	"MenuButtonSwitchFocus": "res://Assets/Audio/SFX/General/Menus/menu_switch_focus.wav",
 	
+	# Battles
+	"BattleMenuSwitchFocus": "res://Assets/Audio/SFX/General/Battle/battle_menu_switch_focus.wav",
+	"BattleMenuButtonSelect": "res://Assets/Audio/SFX/General/Battle/battle_menu_confirm.wav",
+	"BattleMenuButtonReturn": "res://Assets/Audio/SFX/General/Battle/battle_menu_back.wav",
+	#Could add varying sounds for battle; just have baseline here
+	"BasicPlayerAttack1": "res://Assets/Audio/SFX/General/Battle/battle_basic_party_attack.wav",
+	"BasicPlayerTakeDamage1": "res://Assets/Audio/SFX/General/Battle/battle_basic_party_take_damge.wav",
+	"BasicPlayerFleeing": "res://Assets/Audio/SFX/General/Battle/battle_party_fleeing.wav",
+	"LevelUp": "res://Assets/Audio/SFX/General/Battle/level_up.wav",
 	
 	# Area 01
 	"EnterDoor01": "res://Assets/Audio/SFX/Area01/walk_transition_01.wav",

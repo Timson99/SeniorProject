@@ -23,7 +23,7 @@ func interact():
 		animations.play("open")
 		opened = true
 		if(item_id != ""):
-			BgEngine.play_item_jingle()
+			BgEngine.play_jingle("ItemJingle")
 			DialogueEngine.item_message(item_id)
 			if party.size() == 1:
 				party[0].items.append(item_id)

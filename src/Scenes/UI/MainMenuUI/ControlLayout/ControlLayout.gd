@@ -85,6 +85,7 @@ func remap_button(ui_control: String):
 	change_control_layout()
 	$TextureRect/ControlMenu/RemappingText.text = "New button mapped! Escape this submenu or remap another button."
 	yield(get_tree().create_timer(1.0, false), "timeout")
+	$TextureRect/ControlMenu/RemappingText.text = remapping_text
 	
 	
 func remap(event: InputEvent):
@@ -93,7 +94,6 @@ func remap(event: InputEvent):
 	elif event is InputEventKey:
 		_modify_mapped_inputs(event, InputEventKey)
 	yield(get_tree().create_timer(1.0, false), "timeout")
-	emit_signal("remapping_complete")
 
 
 func _modify_mapped_inputs(new_input: InputEvent, input_type):
@@ -120,6 +120,8 @@ func _input(event):
 		correct_input = !correct_input
 		if correct_input:
 			remap(event)
+			correct_input = true
+			emit_signal("remapping_complete")
 	
 
 func up():

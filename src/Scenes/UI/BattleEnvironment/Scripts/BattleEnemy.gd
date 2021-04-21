@@ -11,8 +11,8 @@ var ai
 var stats
 var selected_material : ShaderMaterial
 var party = null
-var screen_name
 var tween : Tween
+var screen_name
 onready var animation_player = $AnimationPlayer
 var defending = false
 
@@ -43,6 +43,7 @@ func make_move() -> BattleMove:
 	return move
 	
 func take_damage(damage):
+	BgEngine.play_sound("BasicPlayerAttack1")
 	animation_player.play("BattleHit")
 	yield(animation_player, "animation_finished")
 	stats.HP -= damage

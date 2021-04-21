@@ -43,16 +43,16 @@ func _physics_process(delta):
 	
 	
 func initiate_battle():
-	BgEngine.save_song()
-	BgEngine.play_battle_music()
 	EnemyHandler.freeze_all_nonplayers()
 	$CollisionBox.disabled = true
-	EnemyHandler.retain_enemy_data()
 	EnemyHandler.collect_battle_enemy_ids(data_id)
 	EnemyHandler.add_to_battle_queue(key)
 	for other_enemy in allies:
 		EnemyHandler.collect_battle_enemy_ids(other_enemy.data_id)
 		EnemyHandler.add_to_battle_queue(other_enemy.key)
+	EnemyHandler.retain_enemy_data()
+	BgEngine.save_song()
+	BgEngine.play_battle_music()
 	SceneManager.goto_scene("battle", "", true)	
 
 

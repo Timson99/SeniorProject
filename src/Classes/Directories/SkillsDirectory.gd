@@ -52,7 +52,7 @@ const skills = {
 		"Elemental" : null,
 	},
 	"Smack" : {
-		"LP" : INF,
+		"LP" : 1.0,
 		"Description" : "Just a light smack",
 		"Power" : Enums.SkillPower.Weak,
 		"Cost" : 10,
@@ -62,13 +62,23 @@ const skills = {
 		"Elemental" : null,
 	},
 	"Waste Time": {
-		"LP": INF,
+		"LP": 5,
 		"Description": "Sample Enemy move",
-		"Power": Enums.SkillPower.Weak,
-		"Cost": 0,
+		"Power": Enums.SkillPower.Strong,
+		"Cost": 5,
 		"Target_All": false,
 		"Hit_Rate": 1.0,
 		"Type": Enums.SkillType.Force,
 		"Elemental": null
 	},
+	"Ultimate Attack": {
+		"LP": 5,
+		"Description": "Seriously, this early in the game?? Geez, what have RPGs come to these days...",
+		"Power": Enums.SkillPower.Strong,
+		"Cost": 5,
+		"Target_All": false,
+		"Hit_Rate": 0.75,
+		"Type": Enums.SkillType.Force,
+		"Elemental": null
+	}
 }

@@ -64,6 +64,7 @@ func switch_characters():
 
 func cancel_previous_character_move():
 	if party_alive.size() > 1 && active_player != party_alive[0]:
+		BgEngine.play_sound("BattleMenuButtonReturn")
 		active_player.deactivate_player()
 		
 		yield(get_tree().create_timer(0.1, false), "timeout")

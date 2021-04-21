@@ -49,6 +49,8 @@ func execute_instructions(event):
 			
 		elif instruction.size() == 3 && instruction_type == "Signal":		
 			yield( signal_instruction(instruction[1], instruction[2]) , "completed")
+		elif instruction.size() == 2 && instruction_type == "EnemyClear":
+			yield( enemy_instruction(instruction[1]) , "completed")
 		else:
 			Debugger.dprint("Error: Instruction Not Valid")
 	end_control()		
@@ -151,4 +153,7 @@ func signal_instruction(obj_id : String, signal_name):
 	elif obj_id in ActorEngine.actors_dict.keys():
 		object_to_observe = ActorEngine.actors_dict[obj_id]
 	yield(object_to_observe, signal_name)
-
+	
+func enemy_instruction(empty_value):
+	yield(get_tree().create_timer(0, false), "timeout")
+	EnemyHandler.call_deferred("clear_existing_enemy_data")

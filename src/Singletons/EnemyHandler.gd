@@ -36,26 +36,9 @@ func _ready():
 	SceneManager.connect("scene_fully_loaded", self, "check_if_spawning_possible")
 	check_if_spawning_possible()
 
-
-# Enemies may be instanced apart from random spawning, i.e. patrolling enemies.
-# Preinstanced enemies need to be including in existing_enemy_data.
-func check_for_preinstanced_enemies():
-	pass
-#	var preinstanced_enemies = get_tree().get_nodes_in_group("Enemy")
-#	if !preinstanced_enemies.empty():
-#		for enemy in preinstanced_enemies:
-#			existing_enemy_data[generated_enemy_id] = {}
-#			existing_enemy_data[generated_enemy_id]["body"] = enemy
-#			existing_enemy_data[generated_enemy_id]["type"] = enemy.name
-#			existing_enemy_data[generated_enemy_id]["preinstanced"] = true
-#			enemy.key = enemy.name
-#			generated_enemy_id += 1
-
-
 # Called whenever a new scene is loaded; checks if explore root of the 
 # new scene permits enemy spawning (i.e. in exploration mode).	
 func check_if_spawning_possible():
-	check_for_preinstanced_enemies()
 	scene_node = SceneManager.current_scene
 	if scene_node.get("enemies_spawnable") != null:
 		can_spawn = scene_node.get("enemies_spawnable")
@@ -79,6 +62,7 @@ func initialize_spawner_info():
 			enemy_spawner_ratio = float(max_enemies) / spawn_locations.size()
 			for spawn_location_id in range(spawn_points.size()):
 				spawner_balancer[spawn_location_id] = 0
+		spawning_launched = false
 
 
 func block_spawning():
@@ -90,7 +74,6 @@ func enable_spawning():
 
 
 func spawn_enemy():
-	spawning_locked = true
 	random_num_generator.randomize()
 	var spawn_position = get_spawn_position() 
 	if spawn_position != null:
@@ -99,8 +82,8 @@ func spawn_enemy():
 		scene_node.add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
-		print("New enemy added")
-		print(spawner_balancer)
+		#print("New enemy added")
+		#print(spawner_balancer)
 	spawning_locked = false
 	return 
 	
@@ -136,6 +119,10 @@ func create_enemy_instance(id: int, enemy_type: String, spawn_position: Vector2,
 func add_enemy_data(id, enemy_obj):
 	existing_enemy_data[id] = {}
 	existing_enemy_data[id]["body"] = enemy_obj
+
+
+func clear_existing_enemy_data():
+	existing_enemy_data = {}
 
 
 func get_enemy_data(id: int):
@@ -222,7 +209,7 @@ func _physics_process(delta):
 		target_player = party[0].active_player
 		player_view = CameraManager.viewport_size
 		if !spawning_launched:
-			spawning_launched = !spawning_launched
+			spawning_launched = true
 			launch_spawning_loop()
 		
 			
@@ -233,5 +220,6 @@ func launch_spawning_loop():
 		var random_wait_time: int = random_num_generator.randf_range(0, 1)
 		yield(get_tree().create_timer(random_wait_time, false), "timeout")
 		if !spawning_locked && num_of_enemies < max_enemies:
+			spawning_locked = true
 			spawn_enemy()
 			
