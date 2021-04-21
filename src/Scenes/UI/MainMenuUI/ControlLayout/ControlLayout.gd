@@ -118,7 +118,6 @@ func _modify_mapped_inputs(new_input: InputEvent, input_type):
 func _input(event):
 	if remapping:
 		correct_input = !correct_input
-		print(correct_input)
 		if correct_input:
 			remap(event)
 			correct_input = true

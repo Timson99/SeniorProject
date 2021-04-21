@@ -13,8 +13,8 @@ export var actor_id := "PChar"
 export var alive := true
 var exploring := true
 
-var skills = {"Skill1" : 0} #"Skill" : Num_LP
-var equipped_skill = ""
+var skills = {"Ultimate Attack": 10} #"Skill" : Num_LP
+export var equipped_skill = ""
 var equipped_wpn
 var equipeed_arm 
 

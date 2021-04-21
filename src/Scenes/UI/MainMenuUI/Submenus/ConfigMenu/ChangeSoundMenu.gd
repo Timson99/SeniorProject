@@ -32,12 +32,10 @@ func _ready():
 
 
 func change_music_volume(new_db: float):
-	BgEngine.change_music_volume(new_db)	
+	BgEngine.change_music_volume(new_db)
 	
 func change_sfx_volume(new_db: float):
 	BgEngine.change_sfx_volume(new_db)
-	BgEngine.play_jingle("ItemJingle")
-	
 
 func back():
 	BgEngine.play_sound("MenuButtonReturn")		

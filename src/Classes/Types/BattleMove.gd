@@ -8,6 +8,7 @@ var target = null  #Object Ref to agent (has its stats, skills (for lookup) and 
 var type = ""  #Type of Move, can be Attack, Skill, Item, Run, Defend
 var skill_id = ""
 var item_id = ""
+var skill_cost = 0
 var skill_ref
 var item_ref
 
@@ -21,6 +22,7 @@ func _init(agent, type, target = null, special_id = ""):
 	if type == "Skills":
 		self.skill_id = special_id
 		self.skill_ref = SkillsDirectory.skills[self.skill_id]
+		self.skill_cost = SkillsDirectory.skills[self.skill_id]["Cost"]
 	elif type == "Item":
 		self.item_id = special_id
 		
@@ -31,6 +33,7 @@ func to_dict():
 		"type" : type,
 		"skill_id" : skill_id,
 		"item_id" : item_id,
+		"cost": self.skill_cost
 	}
 	
 func to_string():

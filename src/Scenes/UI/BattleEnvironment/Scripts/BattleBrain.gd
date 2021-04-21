@@ -104,6 +104,8 @@ func execute(moves_made : Array):
 				[move.agent.screen_name, move.skill_id, move.target.screen_name], false, 0.02, 2)
 			yield(dialogue_node, "page_complete")
 			
+			move.agent.stats.SP -= move.skill_cost
+			
 			var agent_attack = move.agent.stats.ATTACK
 			var agent_willpower = move.agent.stats.WILLPOWER
 			var agent_luck = move.agent.stats.LUCK
@@ -129,8 +131,8 @@ func execute(moves_made : Array):
 				yield(dialogue_node, "page_complete")
 				yield(get_tree().create_timer(1, false), "timeout")
 		
-		
-		
+			print(damage)
+			
 		elif move.type == "Attack":
 			
 			dialogue_node.display_message("%s attacks %s!" % [move.agent.screen_name, move.target.screen_name], false, 0.02, 2)
