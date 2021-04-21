@@ -82,8 +82,8 @@ func spawn_enemy():
 		scene_node.add_child(new_enemy)
 		generated_enemy_id += 1
 		num_of_enemies += 1
-		print("New enemy added")
-		print(spawner_balancer)
+		#print("New enemy added")
+		#print(spawner_balancer)
 	spawning_locked = false
 	return 
 	
@@ -121,6 +121,10 @@ func add_enemy_data(id, enemy_obj):
 	existing_enemy_data[id]["body"] = enemy_obj
 
 
+func clear_existing_enemy_data():
+	existing_enemy_data = {}
+
+
 func get_enemy_data(id: int):
 	return existing_enemy_data.get(id)	
 	
@@ -139,8 +143,6 @@ func collect_battle_enemy_ids(id: int):
 # whenever the player engages in a battle.	
 func retain_enemy_data():
 	for enemy in existing_enemy_data:
-		print(existing_enemy_data[enemy]["body"])
-		print(existing_enemy_data[enemy]["body"].position)
 		existing_enemy_data[enemy]["position"] = existing_enemy_data[enemy]["body"].position
 	block_spawning()
 

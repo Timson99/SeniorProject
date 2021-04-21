@@ -27,12 +27,12 @@ bbcode_text = "[center]Terry's story continues...on another day![/center]
 
 [center]That's all we have for the scripted demo. [/center]
 
-[center]Be sure to test out the battle system in a sneak peak of Area02! [/center]"
+[center]Be sure to test out the battle system in a sneak peek of Area02! [/center]"
 text = "Terry's story continues...on another day!
 
 That's all we have for the scripted demo. 
 
-Be sure to test out the battle system in a sneak peak of Area02! "
+Be sure to test out the battle system in a sneak peek of Area02! "
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false

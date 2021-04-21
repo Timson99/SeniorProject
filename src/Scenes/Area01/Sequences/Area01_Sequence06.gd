@@ -52,8 +52,9 @@ static func instructions():
 		["Actor-call", "Area01_Outside_Root", "hide"],
 		
 		
-		["Delay", 3.0],
+		["Delay", 2.0],
 		["Actor-set", "Party", "C2_in_party", true],
 		["Actor-set", "Party", "C3_in_party", true],
+		["EnemyClear", true],
 		["Scene", "Demo_Transition", ""]
   ]
