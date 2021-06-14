@@ -109,11 +109,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Directories/MusicTracks.gd"
 }, {
-"base": "Node",
-"class": "PriorityQueue",
-"language": "GDScript",
-"path": "res://Scenes/_Test_Scenes/Joe_Test_Scenes/Joe_Test_Scripts/PriorityQueue.gd"
-}, {
 "base": "Object",
 "class": "SkillsDirectory",
 "language": "GDScript",
@@ -150,7 +145,6 @@ _global_script_class_icons={
 "MainScenes": "",
 "MenuResourcePaths": "",
 "MusicTracks": "",
-"PriorityQueue": "",
 "SkillsDirectory": "",
 "SoundEffects": "",
 "TestPQ": ""
@@ -158,8 +152,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Cosmonarium"
-run/main_scene="res://Scenes/UI/MainMenuUI/ControlLayout/GameControlLayout.tscn"
+config/name="SeniorProject"
+run/main_scene="res://Scenes/General/SaveLoadMenu/LoadScreen.tscn"
 config/icon="res://Assets/Art/Test_Art/icon.png"
 
 [audio]
@@ -193,6 +187,11 @@ window/size/test_width=640
 window/size/test_height=480
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
+
+[global]
+
+pixel=false
+logging=false
 
 [input]
 
@@ -338,11 +337,13 @@ ui_test4={
 
 [logging]
 
+file_logging/enable_file_logging=true
 size/test_height=false
 
 [rendering]
 
-quality/2d/use_pixel_snap=true
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://_defaults/default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
+quality/2d/use_pixel_snap=true

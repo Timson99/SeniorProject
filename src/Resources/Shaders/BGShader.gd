@@ -8,8 +8,6 @@ extends Sprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#pass
-	print(scale)
 	material.set_shader_param("sprite_scale",scale)
 
 

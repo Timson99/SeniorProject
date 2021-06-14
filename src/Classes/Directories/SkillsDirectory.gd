@@ -22,7 +22,7 @@ class_name SkillsDirectory
 
 const skills = {
 	"Big Punch" : {
-		"LP" : INF,
+		"LP" : 10,
 		"Description" : "Test Description",
 		"Power" : Enums.SkillPower.Weak,
 		"Cost" : 10,
@@ -42,7 +42,7 @@ const skills = {
 		"Elemental" : Enums.Elementals.Ice,
 	},
 	"Minor Self-Heal": {
-		"LP" : INF,
+		"LP" : 20,
 		"Description" : "Phew, that's a little better",
 		"Power" : null,
 		"Cost" : 5,
