@@ -8,7 +8,7 @@ var stats = EntityStats.new()
 var moveset = null
 
 func _ready():
-	add_to_group("Persistence")
+	PersistentData.register(self)
 	
 func on_load():
 	var temp_battle_stats #= stats

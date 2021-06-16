@@ -12,7 +12,7 @@ export(Mode) var current_mode = Mode.Motionless
 
 func _ready():
 	ActorEngine.register_actor(self)
-	add_to_group("Persistent")
+	PersistentData.register(self)
 	interact_area.connect("body_entered", self, "allow_interaction")
 	interact_area.connect("body_exited", self, "restrict_interaction")
 	party = get_tree().get_nodes_in_group("Party")

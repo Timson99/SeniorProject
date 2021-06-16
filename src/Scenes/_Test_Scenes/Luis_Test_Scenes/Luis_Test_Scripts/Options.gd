@@ -12,10 +12,10 @@ func _process(delta):
 	pass
 
 func activate_menu():
-	add_to_group("Input_Reciever")	
+	InputEngine.activate_receiver(self)
 
 func deactivate_menu():
-	remove_from_group("Input_Reciever")
+	InputEngine.deactivate_receiver(self)
 
 func move_up():
 	menu_v_position+=1

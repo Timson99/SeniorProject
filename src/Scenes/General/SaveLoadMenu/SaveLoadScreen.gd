@@ -19,6 +19,7 @@ export (Mode) var current_mode
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	InputEngine.activate_receiver(self)
 	var save_file_names = SaveManager.save_files
 	"""
 	for file_name in save_file_names:

@@ -189,8 +189,8 @@ func change_scene():
 #Interactions with Interactables (Box Openings, Dialogue Starters)
 #Should add functionality to change direction toward thing being interacted with
 func interact():
-  if(interact_areas.size() != 0 and interact_areas.back().has_method("interact")):
-	  interact_areas.back().interact()
+	if(interact_areas.size() != 0 and interact_areas.back().has_method("interact")):
+		interact_areas.back().interact()
 	
 func change_follow(formation: String):
 	self.party_data["sequence_formation"] = formation

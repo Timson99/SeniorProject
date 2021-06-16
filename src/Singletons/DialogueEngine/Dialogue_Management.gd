@@ -202,7 +202,8 @@ func clear_options():
 	while totalOptions > 0:
 		var opName = "Option" + str(totalOptions)
 		var n = options_box.get_node(opName)
-		options_box.remove_child(n)
+		n.queue_free()
+		
 		totalOptions -= 1
 	options_box.hide()
 	totalOptions = 1

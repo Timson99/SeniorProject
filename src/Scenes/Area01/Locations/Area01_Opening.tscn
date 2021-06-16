@@ -3,7 +3,6 @@
 [ext_resource path="res://Scenes/Area01/Locations/Scripts/Area01_Opening.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/ChunkyPixelsNormal.tres" type="DynamicFont" id=2]
 
-
 [node name="Node2D" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0

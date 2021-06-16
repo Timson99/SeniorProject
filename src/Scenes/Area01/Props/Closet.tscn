@@ -20,9 +20,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 14, 10 )
 
-[node name="Closet" type="StaticBody2D" groups=[
-"Persistent",
-]]
+[node name="Closet" type="StaticBody2D"]
 position = Vector2( 56, 75 )
 script = ExtResource( 3 )
 

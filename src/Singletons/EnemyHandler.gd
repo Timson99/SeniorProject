@@ -191,7 +191,8 @@ func despawn_defeated_enemies():
 	for enemy_id in queued_battle_ids:
 		existing_enemy_data[enemy_id]["body"].post_battle()
 		#yield(get_tree().create_timer(2), "timeout")
-		scene_node.remove_child(existing_enemy_data[enemy_id]["body"])
+		#scene_node.remove_child(existing_enemy_data[enemy_id]["body"])
+		existing_enemy_data[enemy_id]["body"].queue_free()
 		if "spawn_locale" in existing_enemy_data[enemy_id]:
 			spawner_balancer[existing_enemy_data[enemy_id]["spawn_locale"]] -= 1
 		existing_enemy_data.erase(enemy_id)

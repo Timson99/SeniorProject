@@ -46,11 +46,11 @@ func _ready():
 func on_load():
 
 	if(!C2_in_party):
-		$YSort.remove_child($YSort/C2)
+		$YSort/C2.queue_free()
 	#else:
 		#$YSort/C2.show()
 	if(!C3_in_party):
-		$YSort.remove_child($YSort/C3)
+		$YSort/C3.queue_free()
 	#else:
 		#$YSort/C3.show()
 

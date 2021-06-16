@@ -33,8 +33,16 @@ func register(new_node):
 	# Prohibit Duplicate Nodes
 	for node in nodes:
 		if node.get(id_property_name) == new_node.get(id_property_name):
-			Debugger.dprint("ERROR: CAN'T REGISTER NODE - ID '%s' is a duplicate" % new_node.get(id_property_name))
+			Debugger.dprint("ERROR: CAN'T REGISTER NODE - %s '%s' is a duplicate" % [id_property_name, new_node.get(id_property_name)])
 	nodes.push_back(new_node)
+	
+	
+func deregister(exiting_node):
+	_update_nodes()
+	for i in range(nodes.size() - 1, -1, -1):
+		if nodes[i] == exiting_node:
+			nodes.remove(i)
+			
 	
 func fetch(id : String):
 	_update_nodes()

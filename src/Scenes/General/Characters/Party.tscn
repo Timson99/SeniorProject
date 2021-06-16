@@ -8,7 +8,6 @@
 [node name="Party" type="YSort" groups=[
 "Actor",
 "Party",
-"Persistent",
 ]]
 script = ExtResource( 3 )
 

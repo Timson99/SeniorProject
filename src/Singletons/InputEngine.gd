@@ -95,8 +95,8 @@ var pressed_held_commands = []
 var input_disabled := false
 var input_target = null
 var prev_input_target = null
-const group_name := "Input_Receiver"
-var curr_input_receivers = []
+var id_property_name = "input_id"
+var curr_input_receivers := NodeRegistry.new(id_property_name)
 
 var disabled = []
 
@@ -113,31 +113,27 @@ func _ready():
 	
 	
 func update_and_sort_receivers():
-	curr_input_receivers = get_tree().get_nodes_in_group(group_name)
-	if curr_input_receivers.size() > 1: 
-		curr_input_receivers.sort_custom(self, "sort_input_receivers")
+	if curr_input_receivers.nodes.size() > 1: 
+		curr_input_receivers.nodes.sort_custom(self, "sort_input_receivers")
 	
 	
 func activate_receiver(node):
-	if("input_id" in node and node.input_id in valid_receivers.keys()):
-		node.add_to_group(group_name)
+	if(id_property_name in node and node.get(id_property_name) in valid_receivers.keys()):
+		curr_input_receivers.register(node)
 		update_and_sort_receivers()
 	else: 
 		Debugger.dprint("Unable to register %s, not a Valid Input Receiver" % node.name)
 
 func deactivate_receiver(node):
-	node.remove_from_group(group_name)
+	curr_input_receivers.deregister(node)
 	update_and_sort_receivers()
 	
 
 func disable_input():
 	input_disabled = true
-	curr_input_receivers = []
-	set_process(false)
 	
 func enable_input():
 	input_disabled = false
-	set_process(true)
 	
 	
 func disable_player_input():
@@ -164,20 +160,21 @@ func _physics_process(_delta):
 	process_input("_physics_process")
 	
 func sort_input_receivers(a,b):
-	if (valid_receivers[a.input_id]["priority"] < valid_receivers[b.input_id]["priority"]):
+	if (valid_receivers[a.get(id_property_name)]["priority"] < 
+		valid_receivers[b.get(id_property_name)]["priority"]):
 		return true
 	return false
 	
 	
 func process_input(loop):
 	
-	var input_receivers = curr_input_receivers
+	var input_receivers = curr_input_receivers.nodes
 	if input_receivers.size() == 0: 
 		return
 		
 	input_target = input_receivers[0]
 
-	if input_disabled || input_target == null || input_target.input_id in disabled:
+	if input_disabled || input_target == null || input_target.get(id_property_name) in disabled:
 		return
 	
 	#Input Frame Delay prevents multiple inputs from two different sources when input target changes
@@ -187,8 +184,8 @@ func process_input(loop):
 	else:
 		prev_input_target = input_target
 		
-	if valid_receivers[input_target.input_id]["loop"] == loop:
-		translate_and_execute(valid_receivers[input_target.input_id]["translator"])
+	if valid_receivers[input_target.get(id_property_name)]["loop"] == loop:
+		translate_and_execute(valid_receivers[input_target.get(id_property_name)]["translator"])
 	
 			
 func translate_and_execute(input_translator):

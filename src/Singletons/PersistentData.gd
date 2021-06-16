@@ -16,7 +16,6 @@ extends Node
 var data : Dictionary = {} setget , get_data
 
 #Registered Persistent Nodes for a given scene
-#var registered_nodes := [] setget , get_registered_nodes
 var id_property_name = "persistence_id"
 var registry = NodeRegistry.new(id_property_name)
 
@@ -40,7 +39,7 @@ func _ready():
 """
 func register(node):
 	if !(id_property_name in node):
-		Debugger.dprint("ERROR REGISTERING PERSISTENT NODE - No persistent_id")
+		Debugger.dprint("ERROR REGISTERING PERSISTENT NODE - No %s" % id_property_name)
 		return
 	if !node.has_method("save"):
 		Debugger.dprint("ERROR REGISTERING PERSISTENT NODE - No save method")
@@ -114,14 +113,6 @@ func get_data():
 func print_data():
 	for key in data:
 		print(key + " -> " + str(data[key]))
-		
-# Gets registered nodes
-func get_registered_nodes():
-	return registry.get_nodes()
-		
-# Debug Print Persistent Nodes in the Scene
-func print_registered_nodes():
-	print(registry.get_nodes())
 		
 ##############
 #	Private

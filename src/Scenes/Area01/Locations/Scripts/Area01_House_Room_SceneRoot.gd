@@ -16,7 +16,7 @@ onready var tween = $Tween
 
 
 func _ready():
-	add_to_group("Persistent")
+	PersistentData.register(self)
 	ActorEngine.register_actor(self)
 	unshade()
 	if current_attempt == 1 && !BgEngine._music_player.is_playing():

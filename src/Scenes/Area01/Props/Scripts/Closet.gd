@@ -2,7 +2,7 @@ extends StaticBody2D
 
 onready var animations = $AnimationPlayer
 onready var interact_area = $Area2D
-onready var party = get_tree().get_nodes_in_group("Party")
+onready var party = ActorEngine.get_party()
 var used = false
 var persistence_id = "Area01_Closet"
 
@@ -10,22 +10,21 @@ signal used
 
 
 func _ready():
-	pass
+	PersistentData.register(self)
 	
 func interact():
-	if (party.size() == 1 and
-		party[0].active_player.has_method("change_skin") and
-		party[0].active_player.persistence_id == "C1"):
+	if (party.active_player.has_method("change_skin") and
+		party.active_player.persistence_id == "C1"):
 		BgEngine.play_sound("PutOnCoat01")
-		party[0].active_player.change_skin("default")
+		party.active_player.change_skin("default")
 	make_closet_used()
 	
 func body_entered(body):
-	if party.size() == 1 && body == party[0].active_player && !used:
+	if party && body == party.active_player && !used:
 		body.interact_areas.append(self)
 
 func body_exit(body):
-	if party.size() == 1 && body == party[0].active_player:
+	if party && body == party.active_player:
 			if self in body.interact_areas:
 				body.interact_areas.erase(self)
 		

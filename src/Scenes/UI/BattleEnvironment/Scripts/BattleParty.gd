@@ -89,11 +89,9 @@ func sort_alive(a,_b):
 func on_load():
 	if(!C2_in_party):
 		var ref = $C2_Module
-		remove_child(ref)
 		ref.queue_free()
 	if(!C3_in_party):
 		var ref = $C3_Module
-		remove_child(ref)
 		ref.queue_free()
 
 	party = get_children()
