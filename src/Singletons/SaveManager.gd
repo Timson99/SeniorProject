@@ -2,6 +2,9 @@
 	Save Manager:
 		Saves/Loads data between Files and PersistentData
 		Used primarily by the SaveLoadMenu and SaveFile Objects
+		
+		Dependencies:
+			PersistentData (Gives/Takes data resulting from saves and loads)
 """
 extends Node
 

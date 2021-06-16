@@ -115,6 +115,11 @@ _global_script_classes=[ {
 "path": "res://Classes/Directories/MusicTracks.gd"
 }, {
 "base": "Object",
+"class": "NodeRegistry",
+"language": "GDScript",
+"path": "res://Classes/Types/NodeRegistry.gd"
+}, {
+"base": "Object",
 "class": "SkillsDirectory",
 "language": "GDScript",
 "path": "res://Classes/Directories/SkillsDirectory.gd"
@@ -151,6 +156,7 @@ _global_script_class_icons={
 "MainScenes": "",
 "MenuResourcePaths": "",
 "MusicTracks": "",
+"NodeRegistry": "",
 "SkillsDirectory": "",
 "SoundEffects": "",
 "TestPQ": ""

@@ -214,6 +214,7 @@ func translate_and_execute(input_translator):
 """
 	Overrides of Input Checking Functions
 	Combines directional button input with directional action input
+	! ADD FUNCTIONALTY FOR MULTIPLE BUTTONS AT ONCE!
 """
 		
 func is_action_just_pressed(action):
