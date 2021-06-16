@@ -1,0 +1,17 @@
+{
+   "TileMapTest":"res://Scenes/_Test_Scenes/Tim_Test_Scenes/TestTileMap.tscn",
+   "Joe_Outside_Test_Scene":"res://Scenes/Test_Scenes/Joe_Test_Scenes/Joe_Outside_Test_Scene.tscn",
+   "Demo_Transition":"res://Scenes/Area02/Locations/Demo_Transition.tscn",
+   
+   "GameOver":"res://Scenes/General/Battle/GameOver.tscn",
+   "SaveScreen":"res://Scenes/General/SaveLoadMenu/SaveScreen.tscn",
+   "LoadScreen":"res://Scenes/General/SaveLoadMenu/LoadScreen.tscn",
+   
+   "battle" : "res://Scenes/UI/BattleEnvironment/Battle_UI.tscn",
+   
+   "Area01_Opening":"res://Scenes/Area01/Locations/Area01_Opening.tscn",
+   "Area01_House_Room":"res://Scenes/Area01/Locations/Area01_House_Room.tscn",
+   "Area01_House01":"res://Scenes/Area01/Locations/Area01_House01.tscn",
+   "Area01_Outside01":"res://Scenes/Area01/Locations/Area01_Outside01.tscn",
+   "Area02_EntranceHall":"res://Scenes/Area02/Locations/Area02_EntranceHall.tscn",
+}

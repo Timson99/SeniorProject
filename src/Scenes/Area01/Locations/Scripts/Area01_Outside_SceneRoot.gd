@@ -32,7 +32,7 @@ func _ready():
 func increment_attempt():
 	current_attempt += 1
 	current_attempt = min(current_attempt,3)
-	PersistentData.update_entry({"persistence_id" : "Area01_Closet","used" : false})
+	PersistentData.update_entry_property("Area01_Closet","used",false)
 
 signal glow_complete()
 func execute_glow():

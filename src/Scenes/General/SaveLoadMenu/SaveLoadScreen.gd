@@ -29,7 +29,7 @@ func _ready():
 	buttons = button_container.get_children()
 	
 	if current_mode == Mode.Save:
-		focused = SaveManager.current_save_index + 1
+		focused = SaveManager.last_used_save_index + 1
 		button_container.rect_position.y += max((-64 * (focused - 1)), min_y - max_y)
 	buttons[focused-1].get_node("AnimatedSprite").animation = "on"
 

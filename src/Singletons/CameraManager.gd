@@ -93,7 +93,7 @@ func _physics_process(_delta):
 	if state == State.Static:
 		return
 	elif state == State.OnParty:
-		if ActorEngine.get_party() == null:
+		if !ActorEngine.get_party():
 			return
 		var party_pos = party.active_player.get_global_position()	
 		position = Vector2(party_pos.x, party_pos.y)

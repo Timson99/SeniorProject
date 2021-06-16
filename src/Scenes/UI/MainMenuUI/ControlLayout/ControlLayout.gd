@@ -1,3 +1,4 @@
+""""
 extends CanvasLayer
 
 export var is_intro_screen := true
@@ -164,3 +165,4 @@ func back():
 func open_menu():
 	if !is_intro_screen:
 		remap_button("ui_menu")
+"""

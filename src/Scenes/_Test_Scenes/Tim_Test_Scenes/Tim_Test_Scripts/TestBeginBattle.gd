@@ -1,6 +1,5 @@
 extends Area2D
 
-var MainScenes = SceneManager.MainScenes
 export var scene_id : String
 export var persistence_id = "test_enemy"
 export var active = true

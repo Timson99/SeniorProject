@@ -22,11 +22,11 @@ onready var stats: EntityStats
 
 func _ready():
 	ActorEngine.register_actor(self)
-	add_to_group("Persistent")
-	if Game.leveling.stats[persistence_id]:
-		stats = Game.leveling.get_stats(persistence_id)
-	else:
-		stats = EntityStats.new(BaseStats.get_for(persistence_id))
+	PersistentData.register(self)
+	#if Game.leveling.stats[persistence_id]:
+	#	stats = Game.leveling.get_stats(persistence_id)
+	#else:
+	stats = EntityStats.new(BaseStats.get_for(persistence_id))
 
 
 onready var skins  = {
@@ -153,7 +153,7 @@ func move_right():
 	velocity.x += 1
 	current_dir = Enums.Dir.Right
 	
-func move_left():
+func move_left():	
 	velocity = Vector2(0,0)
 	velocity.x -= 1
 	current_dir = Enums.Dir.Left

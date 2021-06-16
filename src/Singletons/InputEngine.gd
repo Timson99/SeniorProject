@@ -1,7 +1,5 @@
 extends Node
 
-signal control_scheme_gathered()
-
 var to_player_commands := {
 	"pressed": 
 		{"ui_up" : "move_up",
@@ -40,8 +38,7 @@ var to_menu_commands: Dictionary = {
 		"ui_left": "left",
 		"ui_right": "right",
 		"ui_right_trigger":"r_trig",
-		"ui_left_trigger":"l_trig",
-		"ui_menu" : "open_menu",
+		"ui_left_trigger":"l_trig"
 		},
 	"just_released": {
 		"ui_up" : "release_up",
@@ -103,26 +100,12 @@ var curr_input_receivers = []
 
 var disabled = []
 
-var current_controls = {}
-var control_mapping = {
-	"ui_accept": "Accept",
-	"ui_cancel": "Cancel",
-	"ui_down": "Move Down",
-	"ui_up": "Move Up",
-	"ui_left": "Move Left",
-	"ui_right": "Move Right",
-	"ui_left_trigger": "Left Menu Shift",
-	"ui_right_trigger": "Right Menu Shift",
-	"ui_fullscreen": "Fullscreen On/Off",
-	"ui_menu": "Open Menu"	
-}
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	define_control_inputs(get_input_event_type())
-	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	SceneManager.connect("goto_called", self, "disable_input")
 	SceneManager.connect("scene_loaded", self, "update_and_sort_receivers")
 	SceneManager.connect("scene_fully_loaded", self, "enable_input")
@@ -172,10 +155,13 @@ func _process(_delta):
 	if(Input.is_action_just_pressed("ui_fullscreen")):
 		OS.window_fullscreen = !OS.window_fullscreen
 	################################################
+	########Escape Toggle for Testing###############
+	if(Input.is_action_just_pressed("ui_quit")):
+		get_tree().quit()
+	################################################
 
 func _physics_process(_delta):
 	process_input("_physics_process")
-	
 	
 func sort_input_receivers(a,b):
 	if (valid_receivers[a.input_id]["priority"] < valid_receivers[b.input_id]["priority"]):
@@ -208,54 +194,47 @@ func process_input(loop):
 func translate_and_execute(input_translator):
 	var commands = []
 	for action in input_translator["just_pressed"].keys():
-		if(Input.is_action_just_pressed(action)):
+		if(is_action_just_pressed(action)):
 			commands.append(input_translator["just_pressed"][action])
 
 	for action in input_translator["just_released"].keys():
 		#Check if action is array of actions, for potential multi-button input
-		if(Input.is_action_just_released(action)):
+		if(is_action_just_released(action)):
 			commands.append(input_translator["just_released"][action])
 
 	for action in input_translator["pressed"].keys():
-		if(Input.is_action_pressed(action)):
+		if(is_action_pressed(action)):
 			commands.append(input_translator["pressed"][action])
 
 	for command in commands:
 			if input_target.has_method(command):
 				input_target.call_deferred(command)
-
-
-func get_input_event_type():
-	var input_type
-	var external_controllers = Input.get_connected_joypads()
-	input_type = InputEventJoypadButton if external_controllers else InputEventKey
-	return input_type
-
+				
+				
+"""
+	Overrides of Input Checking Functions
+	Combines directional button input with directional action input
+"""
+		
+func is_action_just_pressed(action):
+	if action in ["ui_left","ui_right","ui_up","ui_down"]:
+		return ( Input.is_action_just_pressed(action + "_axis") || 
+				 Input.is_action_just_pressed(action) )
+	else:
+		return Input.is_action_just_pressed(action)
 	
-func define_control_inputs(input_type):
-	var actions = InputMap.get_actions()
-	for action in actions:
-		var list_of_inputs = InputMap.get_action_list(str(action))
-		var legal_current_inputs = []
-		for input in list_of_inputs:
-			if input is input_type:
-				legal_current_inputs.append(input)
-		if legal_current_inputs && action in control_mapping:
-			current_controls[control_mapping[action]] = legal_current_inputs
-	emit_signal("control_scheme_gathered")
+func is_action_just_released(action):
+	if action in ["ui_left","ui_right","ui_up","ui_down"]:
+		return ( Input.is_action_just_released(action + "_axis") || 
+				 Input.is_action_just_released(action) )
+	else:
+		return Input.is_action_just_released(action)
 	
-func get_current_controls():
-	return current_controls	
+# Combines action presses from directional axis and buttons into a single call
+func is_action_pressed(action):
+	if action in ["ui_left","ui_right","ui_up","ui_down"]:
+		return ( Input.is_action_pressed(action + "_axis") || 
+				 Input.is_action_pressed(action) )
+	else:
+		return Input.is_action_pressed(action)
 	
-func get_control_mapping():
-	return control_mapping
-
-func _on_joy_connection_changed(device_id, connected):
-	define_control_inputs(get_input_event_type())
-	
-# Placeholder for now...remapped control schemes should be persistent
-func save():
-	var save_dict = {
-		"current_controls" : current_controls,
-	}
-	return save_dict

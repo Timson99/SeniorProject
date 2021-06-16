@@ -20,16 +20,7 @@ func _ready():
 	closet.connect("used", self, "open_main_door")
 	
 func on_load():
-	"""
-	if !house_visited:
-		house_visited = true
-		PersistentData.update_entry(
-			{
-			"persistence_id" : "Area01_Closet",
-			"used" : false,
-			}
-		)
-	"""
+	pass
  
 
 func open_main_door():

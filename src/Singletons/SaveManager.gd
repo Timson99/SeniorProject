@@ -1,16 +1,33 @@
+"""
+	Save Manager:
+		Saves/Loads data between Files and PersistentData
+		Used primarily by the SaveLoadMenu and SaveFile Objects
+"""
 extends Node
-signal node_data_extracted(node_data)
 
+
+# Name of the Save Files, Appear in Menu and used when files saved to data folder
 const save_files = ["Save01", "Save02", "Save03", "DevSave01", "DevSave02", "DevSave03"]
-var current_save_index = 0
 
+# Whether or not to encript files 
 var encrypt = false
 
-func _ready():
-	SceneManager.connect("goto_called", self, "update_persistent_data")
+# Read by SaveLoadMenu.gd, updated by SaveFile.gd
+# Used in this script as a default save/load index
+var last_used_save_index = 0
+	
+##############
+#	Public
+##############
+	
+# Used by SaveFile to determine if a save file exists
+func has_save_file(save_name : String):
+	save_name = ("unencrypted_" if !encrypt else "") + save_name
+	return File.new().file_exists("user://" + save_name + ".save")
 
-func save_game( file_name = save_files[current_save_index] ):
-	update_persistent_data()
+# Saves PersistentData to specified file name in encrypted or text formats
+func save_game( file_name = save_files[last_used_save_index] ):
+	PersistentData.update_persistent_data()
 	var save_game = File.new()
 	var file_path = ""
 	##################################
@@ -31,22 +48,8 @@ func save_game( file_name = save_files[current_save_index] ):
 		save_game.store_line(to_json(persistent_data[node_id]))
 	save_game.close()
 	
-	
-func update_persistent_data():	
-	var save_nodes = get_tree().get_nodes_in_group("Persistent")
-	for node in save_nodes:
-		if !node.has_method("save"):
-			print("persistent node '%s' is missing a save() function, skipped" % node.name)
-			continue
-		var node_data = node.call("save")
-		if node_data.size() == 0:
-			print("persistent node '%s' save() returns no data, skipped" % node.name)
-			continue 
-		emit_signal("node_data_extracted", node_data)
-		#PersistentData.update_entry(node_data)
-
-
-func load_game( file_name = save_files[current_save_index]  ):
+# Loads encripted or text file formats into PersistentData object
+func load_game( file_name = save_files[last_used_save_index]  ):
 	var save_game = File.new()
 	var file_path = ""
 	##################################
@@ -67,11 +70,6 @@ func load_game( file_name = save_files[current_save_index]  ):
 	var destination =  parse_json(save_game.get_line())["current_scene"]
 	while save_game.get_position() < save_game.get_len():
 		var node_data = parse_json(save_game.get_line())
-		emit_signal("node_data_extracted", node_data)
-		#PersistentData.update_entry(node_data) 
+		PersistentData.update_entry(node_data) 
 	save_game.close()
 	SceneManager.goto_scene(destination)
-	
-func has_save_file(save_name : String):
-	save_name = ("unencrypted_" if !encrypt else "") + save_name
-	return File.new().file_exists("user://" + save_name + ".save")

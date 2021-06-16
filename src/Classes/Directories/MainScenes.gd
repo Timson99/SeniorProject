@@ -9,7 +9,7 @@ var explore_scenes := {
 	"LoadScreen" : "res://Scenes/General/SaveLoadMenu/LoadScreen.tscn",
 	
 	#Tim Test Articles
-	"TileMapTest" : "res://Scenes/Test_Scenes/Tim_Test_Scenes/TestTileMap.tscn",
+	"TileMapTest" : "res://Scenes/_Test_Scenes/Tim_Test_Scenes/TestTileMap.tscn",
 	
 	
 	#Area 1 	

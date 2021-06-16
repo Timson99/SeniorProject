@@ -18,18 +18,21 @@ func register_actor(actor):
 	ActorEngine.update_actors()
 	
 func get_party():
+	update_actors()
 	if ("Party" in actors_dict.keys()):
 		return actors_dict["Party"]
 	else:
 		return null
 	
 func update_actors():
+	actors_dict.clear()
 	actors_array = get_tree().get_nodes_in_group("Actor")
 	for actor_body in actors_array:
 		var key: String = actor_body.actor_id
 		actors_dict[key] = actor_body
 
 func call_command(id, func_name, params):
+	update_actors()
 	var actor = actors_dict[id]
 	if actor.has_method(func_name):
 		actor.call_deferred("callv", func_name, params)
@@ -37,6 +40,7 @@ func call_command(id, func_name, params):
 		Debugger.dprint("Actor %s does not have method %s" % [id, func_name])
 		
 func set_command(id : String, property : String, new_value):
+	update_actors()
 	var actor = actors_dict[id]
 	if property in actor:
 		actor.set_deferred(property, new_value)
@@ -44,6 +48,7 @@ func set_command(id : String, property : String, new_value):
 		Debugger.dprint("Invalid property %s on actor %s" % [property, actor.name])
 		
 func sync_command(id, func_name, params):
+	update_actors()
 	var actor = actors_dict[id]
 	if actor.has_method(func_name):
 		
@@ -57,6 +62,7 @@ func sync_command(id, func_name, params):
 
 	
 func async_command(id, func_name, params):
+	update_actors()
 	var actor = actors_dict[id]
 	if actor.has_method(func_name):
 		

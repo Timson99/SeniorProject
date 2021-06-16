@@ -24,5 +24,5 @@ func accept_save():
 	SceneManager.goto_saved()
 	
 func update_current_save():
-	SaveManager.current_save_index = SaveManager.save_files.find(save_file_name)
+	SaveManager.last_used_save_index = SaveManager.save_files.find(save_file_name)
 
