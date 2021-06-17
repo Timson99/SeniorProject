@@ -28,12 +28,12 @@ static func json_to_dict( path : String, int_cast_numerics := false) -> Dictiona
 # Save File Functions
 #########
 
-static func has_save_file(save_name : String) -> bool:
-	return ( File.new().file_exists("user://" + save_name + ".save") || 
-			 File.new().file_exists("user://" + "unencrypted_" + save_name + ".save") )
+static func save_file_exists(file_name : String) -> bool:
+	return ( File.new().file_exists("user://" + file_name + ".save") || 
+			 File.new().file_exists("user://" + "unencrypted_" + file_name + ".save") )
 
-# Saves SaveDataManager to specified file name in encrypted or text formats
-static func save_game_from_file( file_name : String, metadata := {}, encrypt := true) -> void:
+# Saves SaveManager to specified file name in encrypted or text formats
+static func save_game_from_file( file_name : String, metadata := {}, save_data := {}, encrypt := true) -> void:
 	var save_game = File.new()
 	var file_path = (( "user://" if encrypt else "user://unencrypted_") + file_name + ".save")
 	##################################
@@ -43,18 +43,17 @@ static func save_game_from_file( file_name : String, metadata := {}, encrypt := 
 		save_game.open(file_path, File.WRITE)
 	##################################
 	save_game.store_line(to_json(metadata))
-	var save_data = SaveDataManager.data
 	for node_id in save_data.keys():
 		save_game.store_line(to_json(save_data[node_id]))
 	save_game.close()
 	
-# Loads encripted or text file formats into SaveDataManager object
+# Loads encripted or text file formats into SaveManager object
 static func load_game_from_file( file_name : String, encrypt := true) -> Array:
 	var save_game = File.new()
 	var file_path = (( "user://" if encrypt else "user://unencrypted_") + file_name + ".save")
 	##################################
 	if not save_game.file_exists(file_path):
-		Debugger.dprint("ERROR: NO LOAD FILE OF THE GIVEN NAME")
+		Debugger.dprint("ERROR: NO LOAD FILE OF THE GIVEN NAME '%s'" % file_path)
 		return [] # Error! We don't have a save to load
 	##################################
 	if encrypt:

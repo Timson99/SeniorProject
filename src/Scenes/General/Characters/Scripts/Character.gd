@@ -22,7 +22,7 @@ onready var stats: EntityStats
 
 func _ready():
 	ActorEngine.register_actor(self)
-	SaveDataManager.register(self)
+	SaveManager.register(self)
 	#if Game.leveling.stats[save_id]:
 	#	stats = Game.leveling.get_stats(save_id)
 	#else:
@@ -177,7 +177,7 @@ func test_command3():
 
 	
 func save_game():
-	SceneManager.goto_scene("SaveScreen", "", true)
+	SceneManager.goto_scene_flag_current("SaveScreen")
 	
 ####################################################
 func change_scene():

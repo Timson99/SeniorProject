@@ -25,14 +25,14 @@ var first_post_fight = Vector2(-200,0)
 signal faded_out()
 
 func _ready():
-	SaveDataManager.register(self)
+	SaveManager.register(self)
 	ActorEngine.register_actor(self)
 
 
 func increment_attempt():
 	current_attempt += 1
 	current_attempt = min(current_attempt,3)
-	SaveDataManager.update_entry_property("Area01_Closet","used",false)
+	SaveManager.update_entry_property("Area01_Closet","used",false)
 
 signal glow_complete()
 func execute_glow():

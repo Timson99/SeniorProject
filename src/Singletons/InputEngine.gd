@@ -107,12 +107,12 @@ var disabled = []
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	SceneManager.connect("goto_called", self, "disable_input")
-	SceneManager.connect("scene_loaded", self, "update_and_sort_receivers")
+	SceneManager.connect("scene_loaded", self, "sort_receivers")
 	SceneManager.connect("scene_fully_loaded", self, "enable_input")
-	update_and_sort_receivers()
+	sort_receivers()
 	
 	
-func update_and_sort_receivers():
+func sort_receivers():
 	if curr_input_receivers.nodes.size() > 1: 
 		curr_input_receivers.nodes.sort_custom(self, "sort_input_receivers")
 	
@@ -120,14 +120,14 @@ func update_and_sort_receivers():
 func activate_receiver(node):
 	if(id_property_name in node and node.get(id_property_name) in valid_receivers.keys()):
 		curr_input_receivers.register(node)
-		update_and_sort_receivers()
+		sort_receivers()
 	else: 
 		Debugger.dprint("Unable to register %s, not a Valid Input Receiver" % node.name)
 
 
 func deactivate_receiver(node):
 	curr_input_receivers.deregister(node)
-	update_and_sort_receivers()
+	sort_receivers()
 	
 
 func disable_input():

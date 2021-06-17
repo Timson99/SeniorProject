@@ -103,7 +103,7 @@ func test_command():
 	Sequencer.execute_event("test_seq5")
 
 func save_game():
-	SaveFileManager.save_game()
+	SaveManager.save_game()
 
 func change_scene():
 	SceneManager.goto_scene(destination)

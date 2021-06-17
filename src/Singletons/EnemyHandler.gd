@@ -173,7 +173,7 @@ func readd_previously_instanced_enemies():
 	
 	
 
-# Called if goto_saved is used
+# Called if goto_flagged is used
 func despawn_on():
 	SceneManager.connect("scene_loaded", self, "despawn_defeated_enemies")
 func despawn_off():

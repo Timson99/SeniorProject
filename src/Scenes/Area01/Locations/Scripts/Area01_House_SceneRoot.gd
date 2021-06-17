@@ -13,7 +13,7 @@ onready var main_door_dialogue = $TileMap/Warp_Outside/MainDoorDialogue/Collisio
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	SaveDataManager.register(self)
+	SaveManager.register(self)
 	ActorEngine.register_actor(self)
 	
 	main_door_warp.monitoring = false

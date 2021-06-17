@@ -39,7 +39,7 @@ func refocus(to):
 
 func use_item():
 	print(item.item_name, " was used by character ", focused)
-	#item.affect(SaveDataManager.characters[focused]) something like this
+	#item.affect(SaveManager.characters[focused]) something like this
 	pass
 
 func reposition(new_pos):

@@ -10,7 +10,7 @@ signal used
 
 
 func _ready():
-	SaveDataManager.register(self)
+	SaveManager.register(self)
 	
 func interact():
 	if (party.active_player.has_method("change_skin") and

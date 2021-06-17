@@ -2,4 +2,4 @@ extends Button
 
 
 func _on_Load_pressed():
-	SceneManager.goto_saved()
+	SceneManager.goto_flagged()

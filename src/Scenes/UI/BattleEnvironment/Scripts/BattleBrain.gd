@@ -200,7 +200,7 @@ func battle_victory():
 			dialogue_node.display_message(["%s grew to level %d!" % [char_name, new_level]], true, 0.1, 1)
 			yield(dialogue_node, "end")
 	BgEngine.return_from_battle()
-	SceneManager.goto_saved()
+	SceneManager.goto_flagged()
 	
 func battle_failure():
 	dialogue_node.display_message("You Lose!", false, 0.1, 1)
@@ -211,7 +211,7 @@ func battle_failure():
 func battle_escape():
 	character_party.terminate_input()
 	BgEngine.return_from_battle()
-	SceneManager.goto_saved()
+	SceneManager.goto_flagged()
 	
 
 func calculate_escape_chance(move: BattleMove, enemies: Array, moves_made: Array):

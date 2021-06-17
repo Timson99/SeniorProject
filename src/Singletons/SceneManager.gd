@@ -1,6 +1,6 @@
 """
 	Scene Manager:
-		Changes Main Scene to a Specfied or Saved File Path
+		Changes Main Scene to a Specfied or Flagged File Path(s)
 		Loads Scenes via Background Loading
 """
 
@@ -12,8 +12,8 @@ onready var fade_screen = preload("res://Singletons/SceneManager/FadeScreen.tscn
 
 #  Current Scene Instance
 var current_scene = null
-#A previously visited path that has been saved. May be returned to with goto_saved()
-var saved_scene_path := ""
+#A previously visited path that has been flagged. May be returned to with goto_flagged()
+var flagged_scene_path := ""
 
 # Globally emitted signals about changes in the scene status
 signal goto_called()
@@ -62,30 +62,34 @@ func _process(_delta):
 ##############
 #	Public
 ###############
-	
+
 # Call this function from anywhere to change scene
 # Example: SceneManager.goto_scene(path_string, warp_destination_id) 
-func goto_scene(scene_id : String, warp_destination_id := "", save_path = false):
+func goto_scene(scene_id : String, warp_destination_id := "", flag_path := false):
 	emit_signal("goto_called")
 	var scene_path := ""
-	if save_path:
-		saved_scene_path = current_scene.filename
+	if flag_path:
+		flagged_scene_path = current_scene.filename
 	if scene_id.find_last(".") != -1 and scene_id.substr(scene_id.find_last("."), 5) == ".tscn": 
 		scene_path = scene_id
 	elif scene_id in main_scenes:
 		scene_path = main_scenes[scene_id]
 	else:
 		Debugger.dprint("ERROR: Scene Not Valid")
-	
 	call_deferred("_deferred_goto_scene", scene_path, warp_destination_id)
+	
+# Flags current scene before changing scenes
+func goto_scene_flag_current(scene_id : String, warp_destination_id := ""):
+	goto_scene(scene_id, warp_destination_id, true)
 
-# Will goto scene at location saved_scene_path
-func goto_saved(): 
-	if saved_scene_path == "":
-		Debugger.dprint("ERROR: No Scene has been saved")
+
+# Will goto scene at location flagged_scene_path
+func goto_flagged(): 
+	if flagged_scene_path == "":
+		Debugger.dprint("ERROR: No Scene has been flagged")
 	emit_signal("goto_called")
 	EnemyHandler.despawn_on()
-	call_deferred("_deferred_goto_scene", saved_scene_path, "")
+	call_deferred("_deferred_goto_scene", flagged_scene_path, "")
 
 
 ##############
@@ -157,9 +161,3 @@ func _start_new_scene(s):
 # Allows updates to be printed or displayed everytime scene section is polled by the loader
 func _update_progress():
 	pass
-		
-	
-	
-	
-	
-

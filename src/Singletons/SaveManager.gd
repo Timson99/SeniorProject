@@ -1,12 +1,13 @@
 """
-	SaveDataManager
-		Saves/Loads data between SaveDataManager and the World
+	SaveManager
+		Saves/Loads data between SaveManager and the World
 		Registers and Tracks Save Nodes
 			Loads data into GameObjects when a new scene is loaded
 			Saves/Collects data from GameObjects when a scene is about to change
 			
 		Dependencies
-			Scene Manager (To know when scene transitions occur to save and load scene data)
+			SceneManager (To know when scene transitions occur to save and load scene data)
+			FileLogger
 	
 """
 
@@ -41,7 +42,7 @@ func _ready():
 """
 	A SAVE NODE has data that may be saved from and loaded into a scene
 	To register as a SAVE NODE, is must:
-	- Call SaveDataManager.register(self)
+	- Call SaveManager.register(self)
 	- A save_id string
 	- A save method that returns a dictionary of data to save, including the save_id
 	-(optional) An on_load method to be called after data is loaded into the node
@@ -57,7 +58,7 @@ func register(node):
 		Debugger.dprint("ERROR REGISTERING SAVE NODE - No save method")
 		return
 	registry.register(node)
-	
+
 
 # For external public use - force updates an existing data point 
 func update_entry_property(id : String, prop : String, new_value):
@@ -66,13 +67,15 @@ func update_entry_property(id : String, prop : String, new_value):
 		new_value = var2str(new_value)
 	if (id in data) and (prop in data[id]):
 		data[id][prop] = new_value 
-		
+
+
 func save_game( file_name = save_files[last_used_save_index] ):
 	update_save_data()
 		
-	var metadata = {"current_scene" : SceneManager.saved_scene_path}
-	FileTools.save_game_from_file(file_name, metadata, encrypt)
-	
+	var metadata = {"current_scene" : SceneManager.flagged_scene_path}
+	FileTools.save_game_from_file(file_name, metadata, data, encrypt)
+
+
 func load_game( file_name = save_files[last_used_save_index] ):
 	var node_data_list = FileTools.load_game_from_file(file_name, encrypt)
 	
@@ -83,12 +86,12 @@ func load_game( file_name = save_files[last_used_save_index] ):
 	var destination = meta_data["current_scene"]
 	SceneManager.goto_scene(destination)
 
-	
+
 ##############
 #	Signal Callbacks 
 ##############
 
-# Loading SaveDataManager -> World:  Loads save data back into all save nodes
+# Loading SaveManager -> World:  Loads save data back into all save nodes
 # Calls on_load function in save data after data is loaded, to allow node to intialize with newly obtain data
 func restore_data():
 	for node in registry.get_nodes():
@@ -96,7 +99,7 @@ func restore_data():
 	_on_load_callback()
 
 
-# Saving World -> SaveDataManager: Saves data from world and save it in data dictionary
+# Saving World -> SaveManager: Saves data from world and save it in data dictionary
 # Save Data is updated whenever there is a change of scene or before the scene is saved
 # When updating, keys that do not exist in this scene are not updated and left alone
 func update_save_data():	
