@@ -1,39 +1,39 @@
 """
 	SaveManager
 		Saves/Loads data between SaveManager and the World
+		Read/Writes data between SaveManager and Filesystem
 		Registers and Tracks Save Nodes
 			Loads data into GameObjects when a new scene is loaded
 			Saves/Collects data from GameObjects when a scene is about to change
 			
-		Dependencies
-			SceneManager (To know when scene transitions occur to save and load scene data)
-			FileLogger
+	Dependencies
+		SceneManager (To know when scene transitions occur to save and load scene data)
 	
 """
 
 extends Node
 
-# Save Data 
+### PERSISTENT SAVE DATA ###
 var data : Dictionary = {} setget , get_data
 
-
+### SAVE NODE PROPERTIES ###
+# Variable name that nodes store their save id under
 var id_property_name = "save_id"
 #Registered Save Nodes for the current scene
 var registry = NodeRegistry.new(id_property_name)
 
-
+### SAVE FILE PROPERTIES ###
 # Name of the Save Files, Appear in Menu and used when files saved to data folder
 const save_files = ["Save01", "Save02", "Save03", "DevSave01", "DevSave02", "DevSave03"]
 # Whether or not to encript files 
 var encrypt = false
 # Read by SaveLoadMenu.gd, updated by SaveFile.gd
-# Used in this script as a default save/load index
 var last_used_save_index = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	SceneManager.connect("scene_loaded", self, "restore_data")
-	SceneManager.connect("goto_called", self, "update_save_data")
+	SceneManager.connect("scene_loaded", self, "restore_save_data")
+	SceneManager.connect("goto_called", self, "collect_save_data")
 	_deferred_on_load() # Calls restore data on first physics frame
 	
 ##############
@@ -45,9 +45,10 @@ func _ready():
 	To register as a SAVE NODE, it must:
 	1) Call SaveManager.register(self)
 	2) A save_id string
-	3) A save method that returns a dictionary of data to save, including the save_id
+	3) A save method that returns a dictionary of data to save
 	4) (optional) An on_load method to be called after data is loaded into the node
 """
+# Registers a node as a save node
 func register(node):
 	if !(id_property_name in node):
 		Debugger.dprint("ERROR REGISTERING SAVE NODE - No %s" % id_property_name)
@@ -63,28 +64,26 @@ func register(node):
 
 # For external public use - force updates an existing data point 
 func update_entry_property(id : String, prop : String, new_value):
-	update_save_data()
+	collect_save_data()
 	if typeof(new_value) != TYPE_STRING:
 		new_value = var2str(new_value)
 	if (id in data) and (prop in data[id]):
 		data[id][prop] = new_value 
 
-
+# Saves all registered Save Node's persistent data and Game metadata to a file 
 func save_game( file_name = save_files[last_used_save_index] ):
-	update_save_data()
-		
-	var metadata = {"current_scene" : SceneManager.flagged_scene_path}
-	FileTools.save_game_from_file(file_name, metadata, data, encrypt)
+	collect_save_data() 
+	data["__metadata__"] = {"current_scene" : SceneManager.flagged_scene_path}
+	FileTools.save_game_from_file(file_name, data, encrypt)
 
-
+# Load's data back into all Save Node's persistent data
+# Switches scenes to the destination indicated in save file's metadata
 func load_game( file_name = save_files[last_used_save_index] ):
-	var node_data_list = FileTools.load_game_from_file(file_name, encrypt)
-	
-	var meta_data = node_data_list.pop_front()
-	for node_data in node_data_list:
-		_update_entry(node_data)
-		
-	var destination = meta_data["current_scene"]
+	var load_data_dict = FileTools.load_game_from_file(file_name, encrypt)
+	for node_id in load_data_dict.keys():
+		_collect_from(load_data_dict[node_id], node_id )
+	var metadata = data["__metadata__"]
+	var destination = metadata["current_scene"]
 	SceneManager.goto_scene(destination)
 
 
@@ -93,17 +92,16 @@ func load_game( file_name = save_files[last_used_save_index] ):
 ##############
 
 # Loading SaveManager -> World:  Loads save data back into all save nodes
-# Calls on_load function in save data after data is loaded, to allow node to intialize with newly obtain data
-func restore_data():
+# Calls on_load function in save data after data is loaded, to allow node to intialize with newly obtained data
+func restore_save_data():
 	for node in registry.get_nodes():
-		_load_pdata(node)
+		_restore_to(node)
 	_on_load_callback()
 
-
-# Saving World -> SaveManager: Saves data from world and save it in data dictionary
+# Saving World -> SaveManager: Collects data from world and saves it in data dictionary
 # Save Data is updated whenever there is a change of scene or before the scene is saved
 # When updating, keys that do not exist in this scene are not updated and left alone
-func update_save_data():	
+func collect_save_data():	
 	var registered_nodes = registry.get_nodes()
 	for node in registered_nodes:
 		if !node.has_method("save"):
@@ -113,7 +111,10 @@ func update_save_data():
 		if node_data.size() == 0:
 			print("save node '%s' save() returns no data, skipped" % node.name)
 			continue 
-		_update_entry(node_data)
+		if !node_data.has(id_property_name):
+			print("save node '%s' does not have return '%s' within its save dictionary" % [node.name, id_property_name])
+			continue 
+		_collect_from(node_data, node.get(id_property_name))
 
 ##############
 #	Debug
@@ -132,32 +133,27 @@ func print_data():
 #	Private
 ##############
 
-# Updates a specific node entry in the Save Data with World
-# Does not remove or modify any data that is not being updated
-func _update_entry(node_data : Dictionary):
-	if(id_property_name in node_data):
-		var node_id = node_data[id_property_name]
-		# Stringifies data for file writing
-		for prop in node_data.keys():
-			if typeof(node_data[prop]) != TYPE_STRING:
-				node_data[prop] = var2str(node_data[prop])
-		# Creates new node entry if save node not yet logged into data
-		# Inserts modified node_data under the proper save id
-		for key in node_data.keys():			
-			if !(node_id in data):
-				data[node_id] = {}
-			data[node_id][key] = node_data[key] 
-	else: 
-		Debugger.dprint("No id in save node")
+# Takes node_data from Save File or World and stores in persistent save data under id
+# Update is done property by property, so existing properties 
+# 	not in node_data are neither modifed nor destroyed
+func _collect_from(node_data : Dictionary, node_id : String):
+	# Creates new node entry if save node not yet logged into data
+	if !(node_id in data):
+		data[node_id] = {}
+	# Stringifies nonstring data for file writing and
+	# inserts modified properties in key by key
+	for key in node_data.keys():
+		if typeof(node_data[key]) != TYPE_STRING:
+			node_data[key] = var2str(node_data[key])
+		data[node_id][key] = node_data[key] 
 
-# All save data file under the node id is loaded back into the node
-func _load_pdata(node : Object): 
+# All save data filed under the node id is loaded back into the node
+func _restore_to(node : Object): 
 	var id = node.get(id_property_name)
 	if(data.has(id)):
 		for i in data[id].keys():
 			node.set(i, str2var(data[id][i]))
 
-# Defers Data Restoration to next Physics Frame Call
 # Makes sure on_load callback is called when the game begins
 func _deferred_on_load():
 	yield(get_tree(), "physics_frame")

@@ -1,7 +1,6 @@
 """
 DATA LOADER
-	Contains Functions for Loading Text Data
-	Used for Scene Id's, Enemy Data,  
+	Contains Functions for Save/Loading Text Data
 """
 
 extends Object
@@ -31,41 +30,39 @@ static func json_to_dict( path : String, int_cast_numerics := false) -> Dictiona
 static func save_file_exists(file_name : String) -> bool:
 	return ( File.new().file_exists("user://" + file_name + ".save") || 
 			 File.new().file_exists("user://" + "unencrypted_" + file_name + ".save") )
-
+	
+	
 # Saves SaveManager to specified file name in encrypted or text formats
-static func save_game_from_file( file_name : String, metadata := {}, save_data := {}, encrypt := true) -> void:
+static func save_game_from_file( file_name : String, save_data := {}, encrypt := true) -> void:
+	# Generate Path
 	var save_game = File.new()
 	var file_path = (( "user://" if encrypt else "user://unencrypted_") + file_name + ".save")
-	##################################
+	# Open File
 	if encrypt:
 		save_game.open_encrypted_with_pass (file_path, File.WRITE, "gobblesser123")
 	else:
 		save_game.open(file_path, File.WRITE)
-	##################################
-	save_game.store_line(to_json(metadata))
-	for node_id in save_data.keys():
-		save_game.store_line(to_json(save_data[node_id]))
+	# Write to File
+	save_game.store_line(to_json(save_data))
 	save_game.close()
 	
 # Loads encripted or text file formats into SaveManager object
-static func load_game_from_file( file_name : String, encrypt := true) -> Array:
+static func load_game_from_file( file_name : String, encrypt := true) -> Dictionary:
+	# Generate Path
 	var save_game = File.new()
 	var file_path = (( "user://" if encrypt else "user://unencrypted_") + file_name + ".save")
-	##################################
-	if not save_game.file_exists(file_path):
+	if !save_game.file_exists(file_path):
 		Debugger.dprint("ERROR: NO LOAD FILE OF THE GIVEN NAME '%s'" % file_path)
-		return [] # Error! We don't have a save to load
-	##################################
+		return {} # Error! We don't have a save to load
+	# Open File
 	if encrypt:
 		save_game.open_encrypted_with_pass(file_path, File.READ, "gobblesser123")
 	else:
 		save_game.open(file_path, File.READ)
-	##################################
-	var metadata =  parse_json(save_game.get_line())
-	var load_data = [ metadata ]
-	while save_game.get_position() < save_game.get_len():
-		var node_data = parse_json(save_game.get_line())
-		load_data.push_back(node_data) 
+	# Fetch Data
+	var load_data = parse_json(save_game.get_line())
 	save_game.close()
+	if !load_data:
+		Debugger.dprint("!!! Error - Save file has invalid formatting : %s" % file_path)
 	return load_data
 	

@@ -1,25 +1,84 @@
+"""
+	Input Manager
+
+	
+"""
+
+
 extends Node
 
 
-var input_disabled := false
+# Whether or no Input Manager is forwarding input to input_reciever
+var frozen := false
+# Current input target at the top of the input stack
 var input_target = null
+#Input Receiver the previous frame
 var prev_input_target = null
+
+# Input Node properties
 var id_property_name = "input_id"
 var input_data_property_name = "input_data"
-
 # Registery of currently activate input receivers
-# Only the back most entry recieves input
+# Operates as an Input Stack
 var registry := NodeRegistry.new(id_property_name)
 
+# Nodes that request to recieve callbacks from the current input reciever
+var interceptors = {} # Id of itercepted node : intercepting node
+# List of nodes ids that are disabled in place within their stack
 var disabled = []
 
 
-# Called when the node enters the scene tree for the first time.
+########
+#	Callbacks
+########
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	SceneManager.connect("goto_called", self, "disable_input")
-	SceneManager.connect("scene_fully_loaded", self, "enable_input")
+	SceneManager.connect("goto_called", self, "freeze")
+	SceneManager.connect("scene_fully_loaded", self, "unfreeze")
 
+
+func _process(_delta):
+	_process_input("_process")
+	
+	####Fullscreen Toggle for Testing###############
+	if(Input.is_action_just_pressed("ui_fullscreen")):
+		OS.window_fullscreen = !OS.window_fullscreen
+	################################################
+	########Escape Toggle for Testing###############
+	if(Input.is_action_just_pressed("ui_quit")):
+		get_tree().quit()
+	################################################
+
+
+func _physics_process(_delta):
+	_process_input("_physics_process")
+	
+	
+########
+#	Public
+########
+	
+# Freezes input for current input nodes
+func freeze():
+	frozen = true
+
+# Unfreezes input for current input nodes
+func unfreeze():
+	frozen = false
+	
+# Disable input for specific input node by id (stays at top of stack, but not called to)
+func disable(input_id : String):
+	disabled.append(input_id)
+
+# Enables input for specific input node by id
+func enable(input_id : String):
+	disabled.erase(input_id)
+	
+# Enables all disabled nodes
+func enable_all():
+	disabled = []
+	
 """
 	A INPUT NODE may be activated and recieve input
 	To register as a INPUT NODE, it must:
@@ -27,19 +86,19 @@ func _ready():
 	2) Have an input_id property
 	3) Have an input_data dictionary with:
 		-A "loop" key to string that is _physics_process or _process 
-			(Specifies when input should be recieved)
+			(Specifies when callbacks should be called)
 		-Keys "just pressed", "just_released", and  "pressed" to dictionaries that
 			map valid InputMap actions to function names in the node to call back to
 		Example:	
-			const input_data := {
-				"loop": "_physics_process",
-				"pressed": {
-					"ui_up" : "move_up",
-					...
-				},
-				"just_pressed": { ... }.
-				"just_released": { ... },
-			}
+					const input_data := {
+						"loop": "_physics_process",
+						"pressed": {
+							"ui_up" : "move_up",
+							...
+						},
+						"just_pressed": { ... }.
+						"just_released": { ... },
+					}
 			
 	Valid InputMap actions are strings found in the InputMap
 		- If a dirctional input is used, it's callback will activate if 
@@ -48,6 +107,8 @@ func _ready():
 		- Inputs may be combine with a '+' to trigger call_back only if both are detected
 		(ui_left+ui_accept).  
 """
+
+# Activates a InputNode, which will grab the input focus
 func activate(node):
 	if !(id_property_name in node):
 		Debugger.dprint("ERROR REGISTERING INPUT NODE - No '%s' property" % id_property_name)
@@ -64,47 +125,19 @@ func activate(node):
 						\tMust contain keys loop, just_pressed, just_released, and pressed
 						\tThey keys must all have dictionary values""" % input_data_property_name)
 		return
-		
 	registry.register(node)
-
-
+	
+# Deactivates InputNode, shifting focus to last input reciever to have focus
 func deactivate(node):
 	registry.deregister(node)
-	
 
-func disable_input():
-	input_disabled = true
-	
-func enable_input():
-	input_disabled = false
-	
-	
-func disable_player_input():
-	disabled.append("Player")
-	
-func enable_all():
-	set_process(true)
-	disabled = []
-	
-	
-func _process(_delta):
-	process_input("_process")
-	
-	####Fullscreen Toggle for Testing###############
-	if(Input.is_action_just_pressed("ui_fullscreen")):
-		OS.window_fullscreen = !OS.window_fullscreen
-	################################################
-	########Escape Toggle for Testing###############
-	if(Input.is_action_just_pressed("ui_quit")):
-		get_tree().quit()
-	################################################
 
-func _physics_process(_delta):
-	process_input("_physics_process")
+########
+#	Private
+########
 
-	
-func process_input(loop):
-	
+# Picks which input_reciever will be given input
+func _process_input(loop):
 	var input_receiver_stack = registry.nodes
 	if input_receiver_stack.size() == 0: 
 		return
@@ -112,7 +145,7 @@ func process_input(loop):
 	# Fetches top of the Stack
 	input_target = input_receiver_stack.back()
 
-	if input_disabled || input_target == null || input_target.get(id_property_name) in disabled:
+	if frozen || input_target == null || input_target.get(id_property_name) in disabled:
 		return
 	
 	#Input Frame Delay prevents multiple inputs from two different sources when input target changes
@@ -124,47 +157,51 @@ func process_input(loop):
 		
 	var input_translator = input_target.get(input_data_property_name)
 	if input_translator["loop"] == loop:
-		translate_and_execute(input_translator)
+		_translate_and_execute(input_translator)
 	
-			
-func translate_and_execute(input_translator):
+# Executes callbacks for each actions in the input translator
+func _translate_and_execute(input_translator):
 	var commands = []
 	for action in input_translator["just_pressed"].keys():
-		if(is_action_just_pressed(action)):
+		if(_is_action_just_pressed(action)):
 			commands.append(input_translator["just_pressed"][action])
 
 	for action in input_translator["just_released"].keys():
-		#Check if action is array of actions, for potential multi-button input
-		if(is_action_just_released(action)):
+		if(_is_action_just_released(action)):
 			commands.append(input_translator["just_released"][action])
 
 	for action in input_translator["pressed"].keys():
-		if(is_action_pressed(action)):
+		if(_is_action_pressed(action)):
 			commands.append(input_translator["pressed"][action])
 
 	for command in commands:
-			if input_target.has_method(command):
-				input_target.call_deferred(command)
-			else:
-				Debugger.dprint(
-					"WARNING INPUT MANAGER -> Callback '%s' does not exist in node with id '%s'" 
-					% [command,input_target.get(id_property_name)])
+		if input_target.has_method(command):
+			input_target.call_deferred(command)
+		else:
+			Debugger.dprint(
+				"WARNING INPUT MANAGER -> Callback '%s' does not exist in node with id '%s'" 
+				% [command,input_target.get(id_property_name)])
 			
-"""
-	Overrides of Input Checking Functions
-	Combines directional button input with directional action input
-"""
-		
-func is_action_just_pressed(action):
+
+#######
+# 	Input Detection Overrides
+#		-Fixes bug when mapping Joystick/Button to the same action
+#		-Add simultaneous action functionality 
+#######
+
+func _is_action_just_pressed(action):
 	return _multiaction_detected_just_pressed_final_action(action)
 	
-func is_action_just_released(action):
+func _is_action_just_released(action):
 	return _multiaction_detected_just_released_first_action(action)
 	
-func is_action_pressed(action):
+func _is_action_pressed(action):
 	return _multiaction_detected(action, "is_action_pressed")
 	
-# Used to split input across buttons and joysticks and allow custom ui actions requiring multiple button presses
+# Fixes Joystick, allowing joystick and button directional input to be mapped
+#	to the same action.
+# Example -> ui_left has button input, ui_left_axis has joystick input
+#	When ui_left is checked, ui_left and ui_left_axis will both be checked
 func _action_detected(action : String, action_type : String) -> bool:
 	var action_detected = Input.call(action_type, action)
 	var axis_action_detected = ( 
@@ -172,7 +209,6 @@ func _action_detected(action : String, action_type : String) -> bool:
 		Input.call(action_type, action + "_axis") 
 	)
 	return action_detected || axis_action_detected
-	
 	
 # Multaction for just pressed -> Triggers frame that the final button in the sequence is just pressed
 # Example - ui_left+ui_right 
