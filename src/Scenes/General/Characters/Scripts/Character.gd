@@ -6,10 +6,10 @@ const pixel_per_frame := 1
 const default_speed := 60.0 * pixel_per_frame
 
 var speed := default_speed setget set_speed
-export var screen_name := "placeholder"
+export var screen_name : String
 export var save_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
-export var actor_id := "PChar"
+export var actor_id := "C1"
 export var alive := true
 var exploring := true
 
@@ -123,13 +123,13 @@ func explore(delta : float):
 	
 # When leader, player input is activate, 
 func activate_player():
-	InputEngine.activate_receiver(self)
+	InputManager.activate(self)
 	$CollisionBox.disabled = false
 
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
-	InputEngine.deactivate_receiver(self)
+	InputManager.deactivate(self)
 	$CollisionBox.disabled = true
 	
 	
@@ -138,6 +138,29 @@ func set_collision(is_enabled:bool):
 
 	
 #Input Receiver Methods
+const input_data := {
+	"loop": "_physics_process",
+	"pressed": {
+		"ui_up" : "move_up",
+		"ui_down" : "move_down",
+		"ui_left" : "move_left",
+		"ui_right" : "move_right",
+	},
+	"just_pressed": {
+		"ui_accept" : "interact",
+		"ui_cancel" : "change_scene",
+		"ui_menu" : "open_menu",
+		"ui_test1" : "test_command1",
+		"ui_test2" : "test_command2",
+		"ui_test3" : "test_command3",
+		"ui_test4" : "save_game",
+	},
+	"just_released": {
+		"ui_down" : "down_just_released",
+	},
+}
+
+
 func move_up():
 	velocity = Vector2(0,0)
 	velocity.y -= 1

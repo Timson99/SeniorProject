@@ -41,6 +41,18 @@ func scroll(direction):
 			scroll_level -=2
 			_update_buttons()
 			_repopulate_btn_container()
+			
+			
+const input_data: Dictionary = {
+	"loop": "_process",
+	"pressed":{},
+	"just_pressed": {
+		"ui_up": "up",
+		"ui_down": "down",
+		"ui_left": "left",
+		"ui_right": "right",
+	},
+}
 		
 
 func down():

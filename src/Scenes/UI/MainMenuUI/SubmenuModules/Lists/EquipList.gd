@@ -130,6 +130,22 @@ func _clear_btn_container():
 		#queue_free() is preferable for standards,
 		#but it makes the scrolling glitch out.
 		child.free()
+		
+const input_data: Dictionary = {
+	"loop": "_process",
+	"pressed":{},
+	"just_pressed": {
+		"ui_cancel": "back",
+		"ui_accept": "accept",
+		"ui_up": "up",
+		"ui_down": "down",
+		"ui_left": "left",
+		"ui_right": "right",
+		"ui_right_trigger":"r_trig",
+		"ui_left_trigger":"l_trig"
+	},
+	"just_released": {},
+}
 
 
 func back():

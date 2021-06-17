@@ -12,10 +12,10 @@ func _process(delta):
 	pass
 
 func activate_menu():
-	InputEngine.activate_receiver(self)
+	InputManager.activate(self)
 
 func deactivate_menu():
-	InputEngine.deactivate_receiver(self)
+	InputManager.deactivate(self)
 
 func move_up():
 	menu_v_position+=1

@@ -15,11 +15,11 @@ func _ready():
 	
 func assume_control():
 	in_control = true
-	InputEngine.disable_player_input()
+	InputManager.disable_player_input()
 	
 func end_control():
 	in_control = false
-	InputEngine.enable_all()
+	InputManager.enable_all()
 	
 func execute_instructions(event):
 	for instruction in event["instructions"]:

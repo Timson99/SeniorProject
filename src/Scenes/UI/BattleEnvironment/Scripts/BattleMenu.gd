@@ -83,7 +83,7 @@ func reset(reset_focused = true):
 	
 func left():
 	BgEngine.play_sound("BattleMenuSwitchFocus")
-	if submenu:
+	if is_instance_valid(submenu):
 		submenu.left()
 	else:
 		deselect_focused()
@@ -96,7 +96,7 @@ func left():
 	
 func right():
 	BgEngine.play_sound("BattleMenuSwitchFocus")
-	if submenu:
+	if is_instance_valid(submenu):
 		submenu.right()
 	else:
 		deselect_focused()

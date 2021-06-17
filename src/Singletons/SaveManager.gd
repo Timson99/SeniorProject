@@ -16,8 +16,9 @@ extends Node
 # Save Data 
 var data : Dictionary = {} setget , get_data
 
-#Registered Save Nodes for a given scene
+
 var id_property_name = "save_id"
+#Registered Save Nodes for the current scene
 var registry = NodeRegistry.new(id_property_name)
 
 
@@ -41,11 +42,11 @@ func _ready():
 
 """
 	A SAVE NODE has data that may be saved from and loaded into a scene
-	To register as a SAVE NODE, is must:
-	- Call SaveManager.register(self)
-	- A save_id string
-	- A save method that returns a dictionary of data to save, including the save_id
-	-(optional) An on_load method to be called after data is loaded into the node
+	To register as a SAVE NODE, it must:
+	1) Call SaveManager.register(self)
+	2) A save_id string
+	3) A save method that returns a dictionary of data to save, including the save_id
+	4) (optional) An on_load method to be called after data is loaded into the node
 """
 func register(node):
 	if !(id_property_name in node):

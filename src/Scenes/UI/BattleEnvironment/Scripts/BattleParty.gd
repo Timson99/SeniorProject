@@ -20,7 +20,7 @@ var front_player = null
 var active_player = null
 
 func _ready():
-	pass
+	SaveManager.register(self)
 
 func end_turn():
 	for c in party:

@@ -1,6 +1,6 @@
 extends Control
 
-#InputEngine
+#InputManager
 var input_id = "Battle_Dialogue"
 onready var text_node = $RichTextLabel
 	
@@ -16,7 +16,17 @@ var mode = null
 signal begin()
 signal page_complete()
 signal page_over()
-signal end()	
+signal end()
+
+const input_data : Dictionary = {
+	"loop" : "_process",
+	"pressed": {},
+	"just_pressed": {
+		 "ui_accept" : "ui_accept_pressed",
+		 "ui_cancel" : "ui_accept_pressed",
+	},
+	"just_released": {},
+}
 
 #either skips scroll, advances to next line, or selects option
 func ui_accept_pressed():
@@ -34,7 +44,7 @@ func display_message(message_param, input=false, scroll_time=0.0, character_jump
 	
 	if input:
 		mode = Mode.Input
-		InputEngine.activate_receiver(self)
+		InputManager.activate(self)
 
 	else:
 		mode = Mode.Display
@@ -81,7 +91,7 @@ func _advance_message():
 func clear():
 	text_node.set_visible_characters(0)	
 	if mode == Mode.Input:
-		InputEngine.deactivate_receiver(self)
+		InputManager.deactivate(self)
 	mode = null
 	message = null
 	scroll_time = 0.0

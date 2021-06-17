@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-#InputEngine
+#InputManager
 var input_id = "Dialogue"
 
 signal begin()
@@ -150,6 +150,19 @@ func parse_res_file():
 	#print(dialogueDictionary)
 	#print(speakerDictionary)
 	
+	
+const input_data : Dictionary = {
+	"loop" : "_process",
+	"pressed": {},
+	"just_pressed": {
+		 "ui_accept" : "ui_accept_pressed",
+		 "ui_cancel" : "ui_accept_pressed",
+		 "ui_up" : "ui_up_pressed",
+		 "ui_down" : "ui_down_pressed"
+	},
+	"just_released": {},
+}
+	
 
 #either skips scroll, advances to next line, or selects option
 func ui_accept_pressed():
@@ -209,12 +222,12 @@ func clear_options():
 	totalOptions = 1
 
 func _beginTransmit(var spID, var toSignal):
-	InputEngine.activate_receiver(self)
+	InputManager.activate(self)
 	finalWaltz = false
 	reactiveID = toSignal
 	if !speakerDictionary.has(spID):
 		Debugger.dprint("Could not find speaker ID: " + spID + " in dictionary!")
-		InputEngine.deactivate_receiver(self)
+		InputManager.deactivate(self)
 		return
 	currentspID = spID
 	dialogue_box.show()
@@ -229,7 +242,7 @@ func custom_message(message):
 	transmit_message(message)
 	
 func transmit_message(message_param):
-	InputEngine.activate_receiver(self)
+	InputManager.activate(self)
 	dialogue_box.show()
 	mode = Mode.Message
 	message = message_param if typeof(message_param) == TYPE_ARRAY else [message_param]
@@ -277,7 +290,7 @@ func exec_final_waltz():
 	parentBranchNodes = []
 	mode = null
 	message = null
-	InputEngine.deactivate_receiver(self)
+	InputManager.deactivate(self)
 	
 func _advance():
 	if dialogue_box.is_visible_in_tree():

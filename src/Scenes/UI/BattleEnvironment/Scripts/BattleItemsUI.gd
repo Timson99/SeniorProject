@@ -165,6 +165,20 @@ func get_focused():
 
 func _get_item(ix):
 	return data_source.get(buttons[ix].item_name)
+	
+	
+const input_data: Dictionary = {
+	"loop": "_process",
+	"pressed":{},
+	"just_pressed": {
+		"ui_cancel": "back",
+		"ui_accept": "accept",
+		"ui_up": "up",
+		"ui_down": "down",
+		"ui_left": "left",
+		"ui_right": "right",
+	},
+}
 
 func back():
 	if current_mode != Mode.Inactive:
@@ -179,6 +193,7 @@ func back():
 	else:
 		menu.show()
 		menu.reset(false)
+		parent.submenu = null
 		queue_free()
 #		parent.submenu = null
 

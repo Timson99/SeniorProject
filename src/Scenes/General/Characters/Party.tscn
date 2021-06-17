@@ -29,4 +29,3 @@ save_id = "C2"
 actor_id = "C2"
 
 [node name="C1" parent="YSort" instance=ExtResource( 2 )]
-actor_id = "C1"

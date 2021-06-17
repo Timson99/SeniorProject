@@ -44,6 +44,19 @@ func use_item():
 
 func reposition(new_pos):
 	$Control.set_position(new_pos)
+	
+const input_data: Dictionary = {
+	"loop": "_process",
+	"pressed":{},
+	"just_pressed": {
+		"ui_cancel": "back",
+		"ui_accept": "accept",
+		"ui_up": "up",
+		"ui_down": "down",
+		"ui_left": "left",
+		"ui_right": "right",
+	},
+}
 
 func up():
 	if submenu:

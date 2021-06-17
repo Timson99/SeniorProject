@@ -42,6 +42,23 @@ func refocus(to):
 		buttons[focused].get_node("AnimatedSprite").animation = "unfocused"
 		buttons[to].get_node("AnimatedSprite").animation = "focused"
 		focused = to
+		
+const input_data: Dictionary = {
+	"loop": "_process",
+	"pressed":{},
+	"just_pressed": {
+		"ui_cancel": "back",
+		"ui_accept": "accept",
+		"ui_up": "up",
+		"ui_down": "down",
+		"ui_left": "left",
+		"ui_right": "right",
+		"ui_right_trigger":"r_trig",
+		"ui_left_trigger":"l_trig"
+	},
+}
+
+
 func back():
 	if submenu:
 		submenu.back()

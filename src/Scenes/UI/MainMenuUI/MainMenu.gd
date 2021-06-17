@@ -44,12 +44,12 @@ const qscroll_after_msec = 500
 
 
 func _ready():
-	InputEngine.activate_receiver(self)
+	InputManager.activate(self)
 	buttons[focused]["anim"].animation = "on"
 	show_char_menu()
 	
 func _exit_tree():
-	InputEngine.deactivate_receiver(self)
+	InputManager.deactivate(self)
 	parent.deactivate()
 	
 func _process(_delta):
@@ -72,6 +72,26 @@ func show_char_menu():
 	call_deferred("add_child", choice_menu)
 	choice_menu.layer = layer + 1
 	choice_menu.focused = -1
+
+
+const input_data: Dictionary = {
+	"loop": "_process",
+	"pressed":{},
+	"just_pressed": {
+		"ui_cancel": "back",
+		"ui_accept": "accept",
+		"ui_up": "up",
+		"ui_down": "down",
+		"ui_left": "left",
+		"ui_right": "right",
+		"ui_right_trigger":"r_trig",
+		"ui_left_trigger":"l_trig"
+	},
+	"just_released": {
+		"ui_up" : "release_up",
+		"ui_down" : "release_down",
+	},
+}
 
 func back():
 	if submenu:

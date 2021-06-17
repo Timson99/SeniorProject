@@ -19,7 +19,7 @@ export (Mode) var current_mode
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	InputEngine.activate_receiver(self)
+	InputManager.activate(self)
 	var save_file_names = SaveManager.save_files
 	"""
 	for file_name in save_file_names:
@@ -33,6 +33,20 @@ func _ready():
 		focused = SaveManager.last_used_save_index + 1
 		button_container.rect_position.y += max((-64 * (focused - 1)), min_y - max_y)
 	buttons[focused-1].get_node("AnimatedSprite").animation = "on"
+	
+	
+const input_data: Dictionary = {
+	"loop": "_process",
+	"pressed":{},
+	"just_pressed": 
+		{
+		"ui_cancel": "back",
+		"ui_accept": "accept",
+		"ui_up": "up",
+		"ui_down": "down",
+		},
+	"just_released": {},
+}
 
 
 func up():

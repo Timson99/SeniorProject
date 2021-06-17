@@ -63,18 +63,45 @@ func explore(delta : float):
 	
 # When leader, player input is activate, 
 func activate_player():
-	InputEngine.activate_receiver(self)
+	InputManager.activate(self)
 	$CollisionBox.disabled = false
 	#$Area2D/InteractableArea.disabled = false
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
-	InputEngine.deactivate_receiver(self)
+	InputManager.deactivate(self)
 	$CollisionBox.disabled = true
 	#$Area2D/InteractableArea.disabled = true
 	
 	
 #Input Receiver Methods
+
+const input_data := {
+	"loop": "_physics_process",
+	"pressed": {
+		"ui_up" : "move_up",
+		"ui_down" : "move_down",
+		"ui_left" : "move_left",
+		"ui_right" : "move_right",
+	},
+	"just_pressed": {
+		"ui_up" : "up_just_pressed",
+		"ui_accept" : "interact",
+		"ui_cancel" : "change_scene",
+		"ui_menu" : "open_menu",
+		"ui_right_trigger":"r_trig",
+		"ui_left_trigger":"l_trig",
+
+		"ui_test1" : "test_command1",
+		"ui_test2" : "test_command2",
+		"ui_test3" : "test_command3",
+		"ui_test4" : "save_game",
+	},
+	"just_released": {
+		"ui_down" : "down_just_released",
+	},
+}
+
 func move_up():
 	velocity.y -= 1
 	current_dir = Enums.Dir.Up

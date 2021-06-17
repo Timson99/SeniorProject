@@ -35,7 +35,7 @@ var enemy_select_mode = false
 signal move(move)
 
 func _ready():	
-	pass
+	SaveManager.register(self)
 	
 func on_load():
 	menu = battle_brain.dialogue_node.get_node("Menu")
@@ -86,6 +86,27 @@ func _process(_delta):
 enum Mode {Inactive, Menu, Enemy_Select, Character_Select}
 var current_mode = Mode.Inactive
 
+
+const input_data : Dictionary = {
+	"loop": "_process",
+	"pressed": {},
+	"just_pressed": {
+		"ui_test1" : "test_command1",
+		"ui_up" : "up",
+		"ui_down" : "down",
+		"ui_left" : "left",
+		"ui_right" : "right",
+		"ui_accept" : "accept",
+		"ui_cancel": "back",
+	},
+	"just_released":{
+		"ui_left" : "release_left",
+		"ui_right" : "release_right",
+		"ui_up" : "release_up",
+		"ui_down" : "release_down",
+	},
+}
+
 	
 func test_command1():
 	pass
@@ -95,10 +116,10 @@ func back():
 		menu.back()
 	elif current_mode == Mode.Enemy_Select:
 		battle_brain.enemy_party.deselect_current()
-		InputEngine.deactivate_receiver(self)
+		InputManager.deactivate(self)
 		menu.show()
 		current_mode = Mode.Menu
-		InputEngine.activate_receiver(self)
+		InputManager.activate(self)
 		
 var saved_command
 
@@ -187,12 +208,12 @@ func activate_player():
 	$UI.position.y -= module_rise
 	menu.show()
 	current_mode = Mode.Menu
-	InputEngine.activate_receiver(self)
+	InputManager.activate(self)
 	
 	
 # When followed or incapacitated, player is an AI follower
 func deactivate_player():
-	InputEngine.deactivate_receiver(self)
+	InputManager.deactivate(self)
 	menu.hide()
 	menu.reset()
 	current_mode = Mode.Inactive

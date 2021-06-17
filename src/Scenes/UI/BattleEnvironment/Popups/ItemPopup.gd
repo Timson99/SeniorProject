@@ -37,6 +37,21 @@ func discard():
 	print(item.item_name," was discarded.")
 	#item.discard(1) something along these lines
 	pass
+	
+const input_data: Dictionary = {
+	"loop": "_process",
+	"pressed":{},
+	"just_pressed": 
+		{
+		"ui_cancel": "back",
+		"ui_accept": "accept",
+		"ui_up": "up",
+		"ui_down": "down",
+		"ui_left": "left",
+		"ui_right": "right",
+		},
+	"just_released": {},
+}
 
 func up():
 	if current_mode == Mode.Enemy_Select:

@@ -4,7 +4,7 @@ extends CanvasLayer
 export var is_intro_screen := true
 onready var dialogue_node = $CanvasLayer/Control
 onready var remapping_text = $TextureRect/ControlMenu/RemappingText.text
-onready var input_type = InputEngine.get_input_event_type()
+onready var input_type = InputManager.get_input_event_type()
 
 var submenu = null
 var parent = null
@@ -18,7 +18,7 @@ var confirm_cancel = -1
 signal remapping_complete()
 
 func _ready():
-	InputEngine.connect("control_scheme_gathered", self, "change_control_layout")
+	InputManager.connect("control_scheme_gathered", self, "change_control_layout")
 	change_control_layout()
 	if parent:
 		is_intro_screen = false
@@ -32,8 +32,8 @@ func _ready():
 
 
 func change_control_layout():
-	var mapping = InputEngine.get_control_mapping()
-	var controls = InputEngine.get_current_controls() 
+	var mapping = InputManager.get_control_mapping()
+	var controls = InputManager.get_current_controls() 
 	$TextureRect/ControlMenu/HBox/VBoxLeft/Accept.text = str("Confirm: ", join_input_strings(controls["Accept"]), " ")
 	$TextureRect/ControlMenu/HBox/VBoxLeft/Cancel.text = str("Cancel: ", join_input_strings(controls["Cancel"]), "")
 	$TextureRect/ControlMenu/HBox/VBoxLeft/MoveUp.text = str("Up: ", join_input_strings(controls["Move Up"]), "")
@@ -77,7 +77,7 @@ func join_input_strings(inputs: Array):
 
 	
 func remap_button(ui_control: String):
-	var command_to_remap = InputEngine.get_control_mapping()[ui_control]
+	var command_to_remap = InputManager.get_control_mapping()[ui_control]
 	uic = ui_control
 	$TextureRect/ControlMenu/RemappingText.text = "Press the new button to map to %s:" % command_to_remap
 	remapping = true
@@ -111,7 +111,7 @@ func _modify_mapped_inputs(new_input: InputEvent, input_type):
 		if input is input_type:
 			InputMap.action_erase_event(uic, input)
 		InputMap.action_add_event(uic, new_input)
-	InputEngine.define_control_inputs(input_type)
+	InputManager.define_control_inputs(input_type)
 	uic = null
 	return
 

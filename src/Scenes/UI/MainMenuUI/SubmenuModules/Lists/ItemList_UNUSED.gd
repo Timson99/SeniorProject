@@ -158,6 +158,21 @@ func accept():
 		submenu.item = current_btn
 		submenu.layer = layer + 1
 		submenu.parent = self
+	
+		
+const input_data: Dictionary = {
+	"loop": "_process",
+	"pressed":{},
+	"just_pressed": {
+		"ui_cancel": "back",
+		"ui_accept": "accept",
+		"ui_up": "up",
+		"ui_down": "down",
+		"ui_left": "left",
+		"ui_right": "right",
+	},
+	"just_released": {},
+}
 		
 	
 func up():
