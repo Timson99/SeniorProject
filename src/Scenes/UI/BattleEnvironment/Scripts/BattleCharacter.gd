@@ -1,7 +1,7 @@
 extends Control
 
 
-export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
+export var save_id := "C1" #Can't be a number or mistakeable for a non string type
 var input_id := "Battle_Menu"
 
 
@@ -20,8 +20,8 @@ var defending = false
 export (Dictionary) var skills #"Skill" : Num_LP
 export var equipped_skill := ""
 
-onready var stats := EntityStats.new(BaseStats.get_for(persistence_id))
-onready var battle_stats := EntityStats.new(BaseStats.get_for(persistence_id))
+onready var stats := EntityStats.new(BaseStats.get_for(save_id))
+onready var battle_stats := EntityStats.new(BaseStats.get_for(save_id))
 onready var screen_name = "placeholder"
 
 
@@ -200,7 +200,7 @@ func deactivate_player():
 	
 func save():
 	var save_dict = {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"stats" : stats,
 		"skills" : skills,
 		"alive" : alive

@@ -1,6 +1,6 @@
  extends ExploreRoot
 
-var persistence_id = "Area01_Data"
+var save_id = "Area01_Data"
 var actor_id = "Area01_Outside_Root"
 
 var event_trigger_scene = preload('res://Scenes/Area01/Triggers/BullyEventTrigger.tscn')
@@ -25,14 +25,14 @@ var first_post_fight = Vector2(-200,0)
 signal faded_out()
 
 func _ready():
-	PersistentData.register(self)
+	SaveDataManager.register(self)
 	ActorEngine.register_actor(self)
 
 
 func increment_attempt():
 	current_attempt += 1
 	current_attempt = min(current_attempt,3)
-	PersistentData.update_entry_property("Area01_Closet","used",false)
+	SaveDataManager.update_entry_property("Area01_Closet","used",false)
 
 signal glow_complete()
 func execute_glow():
@@ -104,7 +104,7 @@ func remove_vertical_event_trigger(id):
 		
 func save():
 	return {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"current_attempt" : current_attempt,
 	}
 

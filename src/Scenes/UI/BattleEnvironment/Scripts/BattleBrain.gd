@@ -190,7 +190,7 @@ func battle_victory():
 	for character in characters:
 		if !is_instance_valid(character):
 			continue
-		var id = character.persistence_id
+		var id = character.save_id
 		Game.leveling.give_xp(id, adjusted_xp_payout)
 		if Game.leveling.crossed_lv_xp_threshold(id):
 			character.stats = Game.leveling.level_up(id)

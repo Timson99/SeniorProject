@@ -1,6 +1,6 @@
 extends Control
 
-export var persistence_id = "Boss"
+export var save_id = "Boss"
 export var alive := true
 var stats = EntityStats.new()
 
@@ -8,7 +8,7 @@ var stats = EntityStats.new()
 var moveset = null
 
 func _ready():
-	PersistentData.register(self)
+	SaveDataManager.register(self)
 	
 func on_load():
 	var temp_battle_stats #= stats
@@ -20,6 +20,6 @@ func deactivate_enemy():
 	
 func save():
 	return {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"alive" : alive, 
 	}

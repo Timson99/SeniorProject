@@ -164,7 +164,6 @@ position = Vector2( 792, 46 )
 
 [node name="Chest" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 434, 216 )
-persistence_id = "Area01_Chest01"
 item_id = "Bomb"
 
 [node name="BossBully" parent="YSort" groups=[

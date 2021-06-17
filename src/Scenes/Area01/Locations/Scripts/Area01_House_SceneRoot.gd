@@ -1,7 +1,7 @@
 extends ExploreRoot
 
 
-var persistence_id = "Area01_Data"
+var save_id = "Area01_Data"
 var actor_id = "Area01_House"
 export var current_attempt = 1
 
@@ -13,7 +13,7 @@ onready var main_door_dialogue = $TileMap/Warp_Outside/MainDoorDialogue/Collisio
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	PersistentData.register(self)
+	SaveDataManager.register(self)
 	ActorEngine.register_actor(self)
 	
 	main_door_warp.monitoring = false

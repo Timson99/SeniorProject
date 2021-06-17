@@ -43,7 +43,7 @@ func post_battle():
 
 func save():
 	var save_dict = {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"position" : position, 
 		"current_dir" : current_dir,
 		"alive" : alive,

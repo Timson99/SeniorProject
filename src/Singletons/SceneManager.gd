@@ -7,7 +7,7 @@
 extends Node
 
 # Data Resources
-onready var main_scenes = DataLoader.json_to_dict("res://Classes/Directories/MainScenes.json")
+onready var main_scenes = FileTools.json_to_dict("res://Classes/Directories/MainScenes.json")
 onready var fade_screen = preload("res://Singletons/SceneManager/FadeScreen.tscn")
 
 #  Current Scene Instance

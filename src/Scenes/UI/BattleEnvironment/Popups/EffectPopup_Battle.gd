@@ -30,7 +30,7 @@ func _populate_party():
 	if len(party_group)>0:
 		curr_party = []
 		for x in party_group[0].party:
-			curr_party.append(x.persistence_id)
+			curr_party.append(x.save_id)
 func refocus(to):
 	if to >=0 and to < len(buttons):
 		buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 
@@ -39,7 +39,7 @@ func refocus(to):
 
 func use_item():
 	print(item.item_name, " was used by character ", focused)
-	#item.affect(PersistentData.characters[focused]) something like this
+	#item.affect(SaveDataManager.characters[focused]) something like this
 	pass
 
 func reposition(new_pos):

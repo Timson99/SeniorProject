@@ -1,11 +1,12 @@
 """
-	Save Manager:
-		Saves/Loads data between Files and PersistentData
+	SaveFileManager:
+		Saves/Loads data between Files and SaveDataManager
 		Used primarily by the SaveLoadMenu and SaveFile Objects
 		
 		Dependencies:
-			PersistentData (Gives/Takes data resulting from saves and loads)
+			SaveDataManager (Gives/Takes data resulting from saves and loads)
 """
+
 extends Node
 
 
@@ -28,9 +29,9 @@ func has_save_file(save_name : String):
 	save_name = ("unencrypted_" if !encrypt else "") + save_name
 	return File.new().file_exists("user://" + save_name + ".save")
 
-# Saves PersistentData to specified file name in encrypted or text formats
+# Saves SaveDataManager to specified file name in encrypted or text formats
 func save_game( file_name = save_files[last_used_save_index] ):
-	PersistentData.update_persistent_data()
+	SaveDataManager.update_save_data()
 	var save_game = File.new()
 	var file_path = ""
 	##################################
@@ -46,12 +47,12 @@ func save_game( file_name = save_files[last_used_save_index] ):
 		save_game.open(file_path, File.WRITE)
 	##################################
 	save_game.store_line(to_json({"current_scene" : SceneManager.saved_scene_path}))
-	var persistent_data = PersistentData.data
-	for node_id in persistent_data.keys():
-		save_game.store_line(to_json(persistent_data[node_id]))
+	var save_data = SaveDataManager.data
+	for node_id in save_data.keys():
+		save_game.store_line(to_json(save_data[node_id]))
 	save_game.close()
 	
-# Loads encripted or text file formats into PersistentData object
+# Loads encripted or text file formats into SaveDataManager object
 func load_game( file_name = save_files[last_used_save_index]  ):
 	var save_game = File.new()
 	var file_path = ""
@@ -73,6 +74,6 @@ func load_game( file_name = save_files[last_used_save_index]  ):
 	var destination =  parse_json(save_game.get_line())["current_scene"]
 	while save_game.get_position() < save_game.get_len():
 		var node_data = parse_json(save_game.get_line())
-		PersistentData.update_entry(node_data) 
+		SaveDataManager._update_entry(node_data) 
 	save_game.close()
 	SceneManager.goto_scene(destination)

@@ -7,7 +7,7 @@ const default_speed := 60.0 * pixel_per_frame
 
 var speed := default_speed setget set_speed
 export var screen_name := "placeholder"
-export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
+export var save_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
@@ -22,11 +22,11 @@ onready var stats: EntityStats
 
 func _ready():
 	ActorEngine.register_actor(self)
-	PersistentData.register(self)
-	#if Game.leveling.stats[persistence_id]:
-	#	stats = Game.leveling.get_stats(persistence_id)
+	SaveDataManager.register(self)
+	#if Game.leveling.stats[save_id]:
+	#	stats = Game.leveling.get_stats(save_id)
 	#else:
-	stats = EntityStats.new(BaseStats.get_for(persistence_id))
+	stats = EntityStats.new(BaseStats.get_for(save_id))
 
 
 onready var skins  = {
@@ -39,7 +39,7 @@ onready var skins  = {
 }
 
 onready var current_skin = "default"
-onready var animations = skins[persistence_id][current_skin]
+onready var animations = skins[save_id][current_skin]
 
 #Array oof objects that are currently interactable
 var interact_areas := []
@@ -78,7 +78,7 @@ func play_anim(anim_str):
 	if animations.frames.has_animation(anim_str):
 		animations.play(anim_str)
 	else:
-		print("Character Error: Does not have Animation for play_anim() in " + str(persistence_id))
+		print("Character Error: Does not have Animation for play_anim() in " + str(save_id))
 	
 	
 func set_anim(anim_str):
@@ -208,15 +208,15 @@ func restore_anim_speed():
 	animations.set_speed_scale(1) 
 	
 func change_skin(skin_id):
-	if(skin_id in skins[persistence_id].keys()):
+	if(skin_id in skins[save_id].keys()):
 		current_skin = skin_id
 		animations.hide()
-		var new_animations = skins[persistence_id][skin_id]
+		var new_animations = skins[save_id][skin_id]
 		new_animations.play(dir_anims[current_dir][0])
 		new_animations.show()
 		animations = new_animations
 	else:
-		Debugger.dprint("Skin id %s not found in Character %s" % [skin_id, persistence_id])
+		Debugger.dprint("Skin id %s not found in Character %s" % [skin_id, save_id])
 		
 		
 		
@@ -242,13 +242,10 @@ func move_to_position(new_position: Vector2, global = true):
 			else:
 				move_right()
 
-		
-	
 
-#Persistent Object Method
 func save():
 	var save_dict = {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"position" : position, 
 		"current_dir" : current_dir,
 		"stats" : stats,
@@ -257,14 +254,9 @@ func save():
 		"current_skin" : current_skin,
 	}	
 	return save_dict
-	
-"""
-Persistent Objects need three things:
-	1. Add to the 'Persistent' group
-	2. A persistence id (Must have at least one letter).
-	3. Have a save function with an an id attribute and all other attributes to save.
-"""
-	
+
+
+
 func follow(delta : float): 
 	var line_position : int = party_data["num"]
 	var leader = party_data["party"][line_position - 1]

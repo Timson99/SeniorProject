@@ -40,11 +40,6 @@ _global_script_classes=[ {
 "path": "res://Scenes/General/Enemies/Scripts/BossEnemy.gd"
 }, {
 "base": "Object",
-"class": "DataLoader",
-"language": "GDScript",
-"path": "res://Classes/StaticClasses/DataLoader.gd"
-}, {
-"base": "Object",
 "class": "Debugger",
 "language": "GDScript",
 "path": "res://Classes/StaticClasses/Global_Debug.gd"
@@ -83,6 +78,11 @@ _global_script_classes=[ {
 "class": "Explore_Root",
 "language": "GDScript",
 "path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/Tim_Test_Scripts/TestSceneRoot.gd"
+}, {
+"base": "Object",
+"class": "FileTools",
+"language": "GDScript",
+"path": "res://Classes/StaticClasses/FileTools.gd"
 }, {
 "base": "Control",
 "class": "Item",
@@ -141,7 +141,6 @@ _global_script_class_icons={
 "BattleMove": "",
 "BattleResourcePaths": "",
 "BossEnemy": "",
-"DataLoader": "",
 "Debugger": "",
 "DialogueFiles": "",
 "EnemyTypes": "",
@@ -150,6 +149,7 @@ _global_script_class_icons={
 "EventSequences": "",
 "ExploreRoot": "",
 "Explore_Root": "",
+"FileTools": "",
 "Item": "",
 "ItemsDirectory": "",
 "LevelUpSystem": "",
@@ -176,8 +176,8 @@ default_bus_layout="res://_defaults/default_bus_layout.tres"
 
 Game="*res://Singletons/Game.gd"
 SceneManager="*res://Singletons/SceneManager.gd"
-PersistentData="*res://Singletons/PersistentData.gd"
-SaveManager="*res://Singletons/SaveManager.gd"
+SaveDataManager="*res://Singletons/SaveDataManager.gd"
+SaveFileManager="*res://Singletons/SaveFileManager.gd"
 InputEngine="*res://Singletons/InputEngine.gd"
 CameraManager="*res://Singletons/CameraManager.gd"
 ActorEngine="*res://Singletons/ActorEngine.gd"

@@ -1,7 +1,7 @@
  extends ExploreRoot
 
 
-var persistence_id = "Area01_Data"
+var save_id = "Area01_Data"
 var actor_id = "Area01_House_Room"
 export var current_attempt = 1
 
@@ -16,7 +16,7 @@ onready var tween = $Tween
 
 
 func _ready():
-	PersistentData.register(self)
+	SaveDataManager.register(self)
 	ActorEngine.register_actor(self)
 	unshade()
 	if current_attempt == 1 && !BgEngine._music_player.is_playing():

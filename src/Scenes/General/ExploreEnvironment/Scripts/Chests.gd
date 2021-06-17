@@ -5,7 +5,7 @@ onready var animations = $AnimatedSprite
 onready var interact_area = $Area2D
 var party = []
 
-export var persistence_id = "" 
+export var save_id = "" 
 export var item_id = ""
 export var opened = false
 
@@ -38,9 +38,9 @@ func body_exit(body):
 				body.interact_areas.erase(self)
 				
 func save():
-	if(persistence_id != ""):
+	if(save_id != ""):
 		return {
-			"persistence_id" : persistence_id,
+			"save_id" : save_id,
 			"opened" : opened
 		}
 	else:

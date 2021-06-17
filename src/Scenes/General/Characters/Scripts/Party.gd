@@ -14,7 +14,7 @@ var items := []
 var money : int = 0
 
 var spacing := 16.0
-var persistence_id := "main_party"
+var save_id := "main_party"
 onready var tween = $Tween
 
 
@@ -40,7 +40,7 @@ func init_in_party(condition, character_scene, name):
 
 func _ready():
 	ActorEngine.register_actor(self)
-	PersistentData.register(self)
+	SaveDataManager.register(self)
 
 # Called when the node enters the scene tree for the first time.
 func on_load():
@@ -99,7 +99,7 @@ func tween_pos_relative(mod, duration):
 
 func save():
 	var save_dict = {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"position" : position,
 		#"C1_in_party" : C1_in_party,
 		"C2_in_party" : C2_in_party,

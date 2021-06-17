@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 export var speed := 60
-export var persistence_id := "C1" #Can't be a number or mistakeable for a non string type
+export var save_id := "C1" #Can't be a number or mistakeable for a non string type
 export var input_id := "Player" #Don't overwrite in UI
 export var actor_id := "PChar"
 export var alive := true
@@ -103,7 +103,7 @@ func test_command():
 	Sequencer.execute_event("test_seq5")
 
 func save_game():
-	SaveManager.save_game()
+	SaveFileManager.save_game()
 
 func change_scene():
 	SceneManager.goto_scene(destination)
@@ -129,21 +129,14 @@ func move_to_position(new_position: Vector2):
 			move_right()
 	
 
-#Persistent Object Method
 func save():
 	var save_dict = {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"position" : position, 
 		"current_dir" : current_dir
 	}	
 	return save_dict
 	
-"""
-Persistent Objects need three things:
-	1. Add to the 'Persistent' group
-	2. A persistence id (Must have at least one letter).
-	3. Have a save function with an an id attribute and all other attributes to save.
-"""
 	
 func follow(delta : float): 
 	var line_position : int = party_data["num"]

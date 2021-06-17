@@ -4,17 +4,17 @@ onready var animations = $AnimationPlayer
 onready var interact_area = $Area2D
 onready var party = ActorEngine.get_party()
 var used = false
-var persistence_id = "Area01_Closet"
+var save_id = "Area01_Closet"
 
 signal used
 
 
 func _ready():
-	PersistentData.register(self)
+	SaveDataManager.register(self)
 	
 func interact():
 	if (party.active_player.has_method("change_skin") and
-		party.active_player.persistence_id == "C1"):
+		party.active_player.save_id == "C1"):
 		BgEngine.play_sound("PutOnCoat01")
 		party.active_player.change_skin("default")
 	make_closet_used()
@@ -29,9 +29,9 @@ func body_exit(body):
 				body.interact_areas.erase(self)
 		
 func save():
-	if(persistence_id != ""):
+	if(save_id != ""):
 		return {
-			"persistence_id" : persistence_id,
+			"save_id" : save_id,
 			"used" : used
 		}
 	else:

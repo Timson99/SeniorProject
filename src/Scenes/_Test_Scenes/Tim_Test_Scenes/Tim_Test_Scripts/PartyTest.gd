@@ -7,7 +7,7 @@ var party : Array = []
 var incapacitated : Array = []
 var items = null
 var spacing : float = 16
-var persistence_id = "main_party"
+var save_id = "main_party"
 
 
 func sort_characters(a,b):
@@ -53,7 +53,7 @@ func reposition(new_position : Vector2, new_direction):
 	
 func save():
 	var save_dict = {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"position" : position, 
 	}	
 	return save_dict

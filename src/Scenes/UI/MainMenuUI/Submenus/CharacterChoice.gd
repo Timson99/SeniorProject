@@ -15,7 +15,7 @@ const condition_stats = ["HP", "MAX_HP", "SP", "MAX_SP"]
 const gen_stats = ["ATTACK","DEFENSE","LUCK","WILLPOWER","SPEED","WAVE_ATTACK","WAVE_DEFENSE"]
 onready var button_container = $CharacterSelection
 var stats ={}
-#the character ids here are persistence ids
+#the character ids here are save ids
 onready var party_group := get_tree().get_nodes_in_group("Party")
 var curr_party = ["C1","C2","C3"]
 var curr_party_names := []
@@ -47,7 +47,7 @@ func _populate_party():
 		curr_party_names = []
 		curr_party_stats = []
 		for x in party_group[0].party:
-			curr_party.append(x.persistence_id)
+			curr_party.append(x.save_id)
 			curr_party_names.append(x.screen_name)
 			curr_party_stats.append(x.stats)
 			

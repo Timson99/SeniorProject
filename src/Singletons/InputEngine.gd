@@ -124,6 +124,7 @@ func activate_receiver(node):
 	else: 
 		Debugger.dprint("Unable to register %s, not a Valid Input Receiver" % node.name)
 
+
 func deactivate_receiver(node):
 	curr_input_receivers.deregister(node)
 	update_and_sort_receivers()

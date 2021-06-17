@@ -1,7 +1,7 @@
 extends Area2D
 
 export var scene_id : String
-export var persistence_id = "test_enemy"
+export var save_id = "test_enemy"
 export var active = true
 
 func _ready():
@@ -17,7 +17,7 @@ func _on_WarpBlock_body_entered(body):
 		
 func save():
 	var save_dict = {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"active" : active
 	}
 	return save_dict

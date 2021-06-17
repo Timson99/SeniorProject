@@ -4,7 +4,7 @@ var save_file_scene = preload("res://Scenes/General/SaveLoadMenu/SaveFile.tscn")
 onready var button_container = $Control/VBoxContainer
 onready var tween = $Tween
 
-var save_files_num = SaveManager.save_files.size()
+var save_files_num = SaveFileManager.save_files.size()
 var input_id = "Menu"
 var default_focused = 1
 var focused = default_focused 
@@ -20,7 +20,7 @@ export (Mode) var current_mode
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	InputEngine.activate_receiver(self)
-	var save_file_names = SaveManager.save_files
+	var save_file_names = SaveFileManager.save_files
 	"""
 	for file_name in save_file_names:
 		var save_file = save_file_scene.instance()
@@ -30,7 +30,7 @@ func _ready():
 	buttons = button_container.get_children()
 	
 	if current_mode == Mode.Save:
-		focused = SaveManager.last_used_save_index + 1
+		focused = SaveFileManager.last_used_save_index + 1
 		button_container.rect_position.y += max((-64 * (focused - 1)), min_y - max_y)
 	buttons[focused-1].get_node("AnimatedSprite").animation = "on"
 

@@ -2,7 +2,7 @@ extends "res://Scenes/General/Non-Player (Both Enemies & NPCs)/Non-Player.gd"
 
 onready var interact_area = $Area2D
 
-export var persistence_id := "NPC1" 
+export var save_id := "NPC1" 
 export var actor_id := "NPC_name"
 export var present_in_scene = true
 
@@ -12,7 +12,7 @@ export(Mode) var current_mode = Mode.Motionless
 
 func _ready():
 	ActorEngine.register_actor(self)
-	PersistentData.register(self)
+	SaveDataManager.register(self)
 	interact_area.connect("body_entered", self, "allow_interaction")
 	interact_area.connect("body_exited", self, "restrict_interaction")
 	party = get_tree().get_nodes_in_group("Party")
@@ -83,9 +83,9 @@ func move_to_position(new_position: Vector2, global = true):
 
 
 func save():
-	if(persistence_id != ""):
+	if(save_id != ""):
 		return {
-			"persistence_id" : persistence_id,
+			"save_id" : save_id,
 			"position": position,
 			"current_dir": current_dir,
 			"present_in_scene" : present_in_scene,

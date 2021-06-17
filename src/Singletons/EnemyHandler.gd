@@ -139,7 +139,7 @@ func collect_battle_enemy_ids(id: int):
 		existing_enemy_data[id]["alive"] = !existing_enemy_data[id]["body"].alive 
 	
 	
-# Non-boss enemies are not persistent; existing enemies must be preserved 
+# Non-boss enemies are not save; existing enemies must be preserved 
 # whenever the player engages in a battle.	
 func retain_enemy_data():
 	for enemy in existing_enemy_data:
@@ -160,7 +160,7 @@ func unfreeze_all_nonplayers():
 func readd_previously_instanced_enemies():
 	scene_node = SceneManager.current_scene
 	for enemy_id in existing_enemy_data:
-		if existing_enemy_data[enemy_id]["body"] && "persistence_id" in existing_enemy_data[enemy_id]["body"]:
+		if existing_enemy_data[enemy_id]["body"] && "save_id" in existing_enemy_data[enemy_id]["body"]:
 			continue
 		var enemy_type = (existing_enemy_data[enemy_id]["type"])
 		var saved_position = existing_enemy_data[enemy_id]["position"]

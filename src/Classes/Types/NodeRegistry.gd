@@ -11,8 +11,8 @@ var nodes = [] setget set_nodes,get_nodes
 var id_property_name := ""
 
 # Variable name used to identify the registered node
-func _init(id_property_name : String):
-	self.id_property_name = id_property_name
+func _init(id_name := "id"):
+	self.id_property_name = id_name
 
 func get_nodes():
 	_update_nodes()

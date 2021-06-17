@@ -3,7 +3,7 @@ extends HBoxContainer
 #Carry Overs
 onready var battle_brain = SceneManager.current_scene
 
-export var persistence_id := "main_party"
+export var save_id := "main_party"
 export var C2_in_party = false
 export var C3_in_party = false
 #export var items := ["Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea"]
@@ -118,7 +118,7 @@ func begin_turn():
 
 func save():
 	var save_dict = {
-		"persistence_id" : persistence_id,
+		"save_id" : save_id,
 		"items" : items,
 	}
 	return save_dict
