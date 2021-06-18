@@ -91,6 +91,7 @@ func move_to_position(new_position: Vector2, global = true):
 
 	
 func _ready():
+	ActorManager.register_actor(self)
 	EnemyHandler.add_enemy_data(save_id, self)
 	
 func flip_horizontal(flip : bool):
@@ -132,7 +133,6 @@ func move_left():
 
 func save():
 	var save_dict = {
-		"save_id" : save_id,
 		"position" : position, 
 		"current_dir" : current_dir,
 		"alive" : alive,

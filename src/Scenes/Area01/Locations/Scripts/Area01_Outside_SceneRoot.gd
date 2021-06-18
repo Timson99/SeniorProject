@@ -104,7 +104,6 @@ func remove_vertical_event_trigger(id):
 		
 func save():
 	return {
-		"save_id" : save_id,
 		"current_attempt" : current_attempt,
 	}
 

@@ -50,16 +50,12 @@ func _ready():
 """
 # Registers a node as a save node
 func register(node):
-	if !(id_property_name in node):
-		Debugger.dprint("ERROR REGISTERING SAVE NODE - No %s" % id_property_name)
-		return
-	if node.get(id_property_name) == "":
-		Debugger.dprint("ERROR EMPTY STRING ID")
-		return
-	if !node.has_method("save"):
-		Debugger.dprint("ERROR REGISTERING SAVE NODE - No save method")
-		return
 	registry.register(node)
+	# Needs a save method
+	if !node.has_method("save"):
+		Debugger.dprint("ERROR REGISTERING SAVE NODE - No save method FOR NODE '%s'" % node.name)
+		registry.deregister(node)
+		return
 
 
 # For external public use - force updates an existing data point 
@@ -112,9 +108,6 @@ func collect_save_data():
 		var node_data = node.call("save")
 		if node_data.size() == 0:
 			print("save node '%s' save() returns no data, skipped" % node.name)
-			continue 
-		if !node_data.has(id_property_name):
-			print("save node '%s' does not have return '%s' within its save dictionary" % [node.name, id_property_name])
 			continue 
 		_collect_from(node_data, node.get(id_property_name))
 

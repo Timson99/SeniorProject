@@ -1,6 +1,8 @@
 """
 	Wrapper for a List/Stack/Dictionary/PQueue holding scene nodes
 	An object to catalogue to nodes that register themselves and want to be tracked
+	
+	Prohibits -> Nodes without specified id property, empty string id's, duplicate id's
 """
 
 extends Object
@@ -28,12 +30,20 @@ func register(new_node):
 	_update_nodes()
 	# Prohibit Nodes without proper identifier
 	if !(id_property_name in new_node):
-		Debugger.dprint("ERROR: CAN'T REGISTER NODE - No '%s' property in Node" % id_property_name)
+		Debugger.dprint("ERROR: CAN'T REGISTER NODE - No '%s' property in Node '%s'" 
+						% [id_property_name, new_node.name])
+		return
+	# Prohibit Nodes without empty string id
+	if new_node.get(id_property_name) == "":
+		Debugger.dprint("ERROR: CAN'T REGISTER NODE '%s' WITH EMPTY STRING FOR ID '%s'" 
+						% [new_node.name, id_property_name])
 		return
 	# Prohibit Duplicate Nodes
 	for node in nodes:
 		if node.get(id_property_name) == new_node.get(id_property_name):
-			Debugger.dprint("ERROR: CAN'T REGISTER NODE - %s '%s' is a duplicate" % [id_property_name, new_node.get(id_property_name)])
+			Debugger.dprint("ERROR: CAN'T REGISTER NODE - %s '%s' is a duplicate in node '%s'" 
+							% [id_property_name, new_node.get(id_property_name), new_node.name])
+			return
 	nodes.push_back(new_node)
 	
 	

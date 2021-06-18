@@ -20,6 +20,5 @@ func deactivate_enemy():
 	
 func save():
 	return {
-		"save_id" : save_id,
 		"alive" : alive, 
 	}

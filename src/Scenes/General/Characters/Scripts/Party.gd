@@ -99,7 +99,6 @@ func tween_pos_relative(mod, duration):
 
 func save():
 	var save_dict = {
-		"save_id" : save_id,
 		"position" : position,
 		#"C1_in_party" : C1_in_party,
 		"C2_in_party" : C2_in_party,

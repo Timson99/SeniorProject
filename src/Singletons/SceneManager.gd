@@ -2,6 +2,8 @@
 	Scene Manager:
 		Changes Main Scene to a Specfied or Flagged File Path(s)
 		Loads Scenes via Background Loading
+		
+	Dependencies - ActorManager
 """
 
 extends Node
@@ -14,6 +16,10 @@ onready var fade_screen = preload("res://Singletons/SceneManager/FadeScreen.tscn
 var current_scene = null
 #A previously visited path that has been flagged. May be returned to with goto_flagged()
 var flagged_scene_path := ""
+
+#Warp Registry
+var id_property_name = "warp_id"
+var warp_registry = NodeRegistry.new(id_property_name)
 
 # Globally emitted signals about changes in the scene status
 signal goto_called()
@@ -62,6 +68,14 @@ func _process(_delta):
 ###############
 #	Public
 ###############
+
+func register_warp(node):
+	warp_registry.register(node)
+	# Needs Entrance Point and Exit Direction Properties
+	if !("entrance_point" in node && "exit_direction" in node):
+		Debugger.dprint("ERROR REGISTERING SAVE NODE - No 'entrance_point' or 'exit_direction' properties in node '%s'" % node.name)
+		warp_registry.deregister(node)
+		return
 
 # Call this function from anywhere to change scene
 # Example: SceneManager.goto_scene(path_string, warp_destination_id) 
@@ -121,7 +135,6 @@ func _deferred_goto_scene(path, warp_destination_id):
 	fade_animation.play("Fade")
 	yield(fade_animation, "animation_finished")
 	
-	
 	ticks = OS.get_ticks_msec()
 	current_scene.queue_free() # Get rid of the old scene.
 	
@@ -139,22 +152,19 @@ func _start_new_scene(s):
 	current_scene = s.instance() # Instance the new scene.
 	get_tree().get_root().add_child(current_scene) # Add as child of root
 	emit_signal("scene_loaded")
-	var warps : Array = get_tree().get_nodes_in_group("Warp")
-	var party : Array = get_tree().get_nodes_in_group("Party")
 	
-	if (warp_dest != "" && party.size() == 1 && warps.size() >= 1):
-		for warp in warps:		
-			if ("warp_destination_id" in warp && 
-			warp.warp_id == warp_dest):	
-				party[0].reposition(warp.entrance_point, warp.exit_direction)
-				break
+	var warps : Array = warp_registry.nodes
+	var party = ActorManager.get_party()
+	if (warp_dest != "" && party && warps.size() > 0):
+		var warp = warp_registry.fetch(warp_dest)
+		party.reposition(warp.entrance_point, warp.exit_direction)
+	warp_dest = ""
 	
 	var fade_animation = fade.get_node("TextureRect/AnimationPlayer")
 	fade_animation.play_backwards("Fade")
-
 	yield(fade_animation, "animation_finished")
 	fade.queue_free()
-	warp_dest = ""
+	
 	emit_signal("scene_fully_loaded")
 	
 	

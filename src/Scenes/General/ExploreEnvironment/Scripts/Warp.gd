@@ -2,8 +2,8 @@ extends Area2D
 
 signal play_sound_effect()
 
-export(String) var warp_id = "None"
-export(String) var warp_destination_id = "None"
+export(String) var warp_id = ""
+export(String) var warp_destination_id = ""
 export(String) var warp_scene_id = ""
 export(Enums.Dir) var exit_direction
 export(bool) var one_way
@@ -23,6 +23,7 @@ const player_relative_box = {
 
 func _ready():
 	entrance_point = calculate_exit()
+	SceneManager.register_warp(self)
 	self.connect("body_entered", self, "_on_WarpBlock_body_entered")
 
 
@@ -41,8 +42,8 @@ func calculate_exit():
 	return exit
 
 func _on_WarpBlock_body_entered(body):
-	var party = get_tree().get_nodes_in_group("Party")
-	if party.size() == 1 && body == party[0].active_player and !one_way:
+	var party = ActorManager.get_party()
+	if party && body == party.active_player and !one_way:
 		SceneManager.goto_scene(warp_scene_id, warp_destination_id)
 		emit_signal("play_sound_effect")
 		

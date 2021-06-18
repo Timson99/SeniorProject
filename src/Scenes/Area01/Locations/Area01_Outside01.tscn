@@ -164,6 +164,7 @@ position = Vector2( 792, 46 )
 
 [node name="Chest" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 434, 216 )
+save_id = "Chest"
 item_id = "Bomb"
 
 [node name="BossBully" parent="YSort" groups=[
@@ -171,6 +172,7 @@ item_id = "Bomb"
 ] instance=ExtResource( 6 )]
 position = Vector2( -160, 242 )
 is_boss = false
+save_id = "Bully"
 
 [node name="ExitDoor" parent="YSort" instance=ExtResource( 12 )]
 position = Vector2( -24, 168 )

@@ -221,7 +221,6 @@ func deactivate_player():
 	
 func save():
 	var save_dict = {
-		"save_id" : save_id,
 		"stats" : stats,
 		"skills" : skills,
 		"alive" : alive

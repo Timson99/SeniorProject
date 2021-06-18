@@ -83,12 +83,9 @@ func move_to_position(new_position: Vector2, global = true):
 
 
 func save():
-	if(save_id != ""):
-		return {
-			"save_id" : save_id,
-			"position": position,
-			"current_dir": current_dir,
-			"present_in_scene" : present_in_scene,
-		}
-	else:
-		return {}
+	return {
+		"position": position,
+		"current_dir": current_dir,
+		"present_in_scene" : present_in_scene,
+	}
+

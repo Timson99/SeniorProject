@@ -10,7 +10,7 @@ var faint_pos_attempt2 = Vector2(10, 254)
 
 
 func _ready():
-	._ready()
+	pass
 	
 func reload():
 	#Only For When Backtracking from House
@@ -43,7 +43,6 @@ func post_battle():
 
 func save():
 	var save_dict = {
-		"save_id" : save_id,
 		"position" : position, 
 		"current_dir" : current_dir,
 		"alive" : alive,

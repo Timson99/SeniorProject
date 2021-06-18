@@ -26,10 +26,5 @@ func body_exit(body: KinematicBody2D):
 				body.interact_areas.erase(self)
 				
 func save():
-	if(save_id != ""):
-		return {
-			"save_id" : save_id
-		}
-	else:
-		return {}
+	return {}
 		

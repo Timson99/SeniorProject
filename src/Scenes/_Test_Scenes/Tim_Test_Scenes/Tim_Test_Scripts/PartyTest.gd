@@ -53,7 +53,6 @@ func reposition(new_position : Vector2, new_direction):
 	
 func save():
 	var save_dict = {
-		"save_id" : save_id,
 		"position" : position, 
 	}	
 	return save_dict

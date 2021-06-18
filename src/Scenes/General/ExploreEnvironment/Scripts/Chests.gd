@@ -3,7 +3,7 @@ extends Node
 # member variables
 onready var animations = $AnimatedSprite
 onready var interact_area = $Area2D
-var party = []
+var party
 
 export var save_id = "" 
 export var item_id = ""
@@ -13,7 +13,8 @@ export var opened = false
 func _ready():
 	interact_area.connect("body_entered", self, "body_entered")
 	interact_area.connect("body_exited", self, "body_exit")
-	party = get_tree().get_nodes_in_group("Party")
+	party = ActorManager.get_party()
+	SaveManager.register(self)
 	
 func interact():
 	if !opened:
@@ -25,26 +26,23 @@ func interact():
 		if(item_id != ""):
 			BgEngine.play_jingle("ItemJingle")
 			DialogueEngine.item_message(item_id)
-			if party.size() == 1:
-				party[0].items.append(item_id)
+			if party:
+				party.items.append(item_id)
 
 func body_entered(body):
-	if party.size() == 1 && body == party[0].active_player && !opened:
+	if party && body == party.active_player && !opened:
 		body.interact_areas.append(self)
 
 func body_exit(body):
-	if party.size() == 1 && body == party[0].active_player:
+	if party && body == party.active_player:
 			if self in body.interact_areas:
 				body.interact_areas.erase(self)
 				
 func save():
-	if(save_id != ""):
-		return {
-			"save_id" : save_id,
-			"opened" : opened
-		}
-	else:
-		return {}
+	return {
+		"opened" : opened
+	}
+
 	
 func on_load():
 	if opened:

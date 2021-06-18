@@ -3,12 +3,9 @@
 		Manages Input Nodes and sends them input signals via method callbacks
 		Sends input signals to a single node at a time (node at top of input stack)
 		ncludes interface for disabling input for specific/all active input nodes
+		Can register interceptors to intercept input from a given id
 		Handles any meta-game input (Pausing Game Globally, Exiting Game)
 			! Add this functionality !
-		
-		* Does not handle input mimicry or sending input to multiple recievers,
-		This should achieved by a mimic obbject listening signals emitted from the node
-		whose input needs to be copied -or-- having them be children to a input recieving parent *
 		
 	Dependencies:
 		SceneManager (for knowing when to globally freeze and unfreeze input)
@@ -31,6 +28,8 @@ var input_data_property_name = "input_data"
 # Registery of currently activate input receivers
 # Operates as an Input Stack
 var registry := NodeRegistry.new(id_property_name)
+# Dictionary of interceptors - intercepted_node_id : Registry of Nodes to Intercept
+var interceptors = {}
 
 # List of nodes ids that are disabled in place within their stack
 var disabled = []
@@ -121,27 +120,47 @@ func enable_all():
 
 # Activates a InputNode, which will grab the input focus
 func activate(node):
+	registry.register(node)
+	# Needs input data
+	if !(input_data_property_name in node):
+		Debugger.dprint("ERROR REGISTERING INPUT NODE - No '%s' property in node '%s'" 
+		% [node.name, input_data_property_name])
+		registry.deregister(node)
+		return
+	# Needs properly formatted input data
+	if !node.get(input_data_property_name).has_all(["loop","just_pressed", "just_released", "pressed"]):
+		Debugger.dprint("""ERROR REGISTERING INPUT NODE '%s' - Improperly Formatted %s :
+			\tMust contain keys loop, just_pressed, just_released, and pressed
+			\tThey keys must all have dictionary values""" % [node.name, input_data_property_name])
+		registry.deregister(node)
+		return
+	
+# Deactivates InputNode, shifting focus to last input reciever to have focus
+func deactivate(node):
+	registry.deregister(node)
+	
+	
+# Activates a Interceptor
+func activate_interceptor(node, intercepted_id):
+	# Clean Interceptors of old ids
+	for key in interceptors.keys():
+		if !registry.nodes.has(key):
+			interceptors.erase(key)
+	
 	if !(id_property_name in node):
 		Debugger.dprint("ERROR REGISTERING INPUT NODE - No '%s' property" % id_property_name)
 		return
 	if node.get(id_property_name) == "":
 		Debugger.dprint("ERROR REGISTERING INPUT NODE - EMPTY STRING ID")
 		return
-	if !(input_data_property_name in node):
-		Debugger.dprint("ERROR REGISTERING INPUT NODE - No '%s' property" %
-			input_data_property_name)
-		return
-	if !node.get(input_data_property_name).has_all(["loop","just_pressed", "just_released", "pressed"]):
-		Debugger.dprint("""ERROR REGISTERING INPUT NODE - Improperly Formatted %s :
-			\tMust contain keys loop, just_pressed, just_released, and pressed
-			\tThey keys must all have dictionary values""" % input_data_property_name)
-		return
-	registry.register(node)
+	# Add to Interceptors
+	if !interceptors.has(intercepted_id):
+		interceptors[intercepted_id] = NodeRegistry.new(id_property_name)
+	interceptors[intercepted_id].nodes.register(node)
 	
-# Deactivates InputNode, shifting focus to last input reciever to have focus
-func deactivate(node):
-	registry.deregister(node)
-
+# Deactivates a Interceptor
+func deactivate_interceptor(node, intercepted_id):
+	interceptors[intercepted_id].deregister(node)
 
 ########
 #	Private
@@ -156,8 +175,10 @@ func _process_input(loop):
 	# Fetches top of the Stack
 	input_target = input_receiver_stack.back()
 
+
 	if frozen || input_target == null || input_target.get(id_property_name) in disabled:
 		return
+	
 	
 	#Input Frame Delay prevents multiple inputs from two different sources when input target changes
 	if input_target != prev_input_target and prev_input_target != null:
@@ -166,9 +187,13 @@ func _process_input(loop):
 	else:
 		prev_input_target = input_target
 		
+		
 	var input_translator = input_target.get(input_data_property_name)
 	if input_translator["loop"] == loop:
 		_translate_and_execute(input_translator)
+		if interceptors.has(input_target.get(id_property_name)):
+			for interceptor in interceptors[id_property_name]:
+				_translate_and_execute(input_translator)
 	
 # Executes callbacks for each actions in the input translator
 func _translate_and_execute(input_translator):

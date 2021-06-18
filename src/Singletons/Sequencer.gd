@@ -15,11 +15,11 @@ func _ready():
 	
 func assume_control():
 	in_control = true
-	InputManager.freeze()
+	InputManager.disable("Party")
 	
 func end_control():
 	in_control = false
-	InputManager.unfreeze()
+	InputManager.enable("Party")
 	
 func execute_instructions(event):
 	for instruction in event["instructions"]:

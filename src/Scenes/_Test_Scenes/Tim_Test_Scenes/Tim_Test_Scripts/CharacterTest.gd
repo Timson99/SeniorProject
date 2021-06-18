@@ -158,7 +158,6 @@ func move_to_position(new_position: Vector2):
 
 func save():
 	var save_dict = {
-		"save_id" : save_id,
 		"position" : position, 
 		"current_dir" : current_dir
 	}	

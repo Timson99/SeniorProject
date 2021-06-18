@@ -29,14 +29,10 @@ func body_exit(body):
 				body.interact_areas.erase(self)
 		
 func save():
-	if(save_id != ""):
-		return {
-			"save_id" : save_id,
-			"used" : used
-		}
-	else:
-		return {}
-		
+	return {
+		"used" : used
+	}
+
 func make_closet_used():
 	animations.play("Empty")
 	interact_area.disconnect("body_entered", self, "body_entered")

@@ -118,7 +118,6 @@ func begin_turn():
 
 func save():
 	var save_dict = {
-		"save_id" : save_id,
 		"items" : items,
 	}
 	return save_dict
