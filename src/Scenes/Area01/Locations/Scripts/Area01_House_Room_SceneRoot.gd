@@ -17,7 +17,7 @@ onready var tween = $Tween
 
 func _ready():
 	SaveManager.register(self)
-	ActorEngine.register_actor(self)
+	ActorManager.register_actor(self)
 	unshade()
 	if current_attempt == 1 && !BgEngine._music_player.is_playing():
 		BgEngine.facilitate_track_changes(track_1)

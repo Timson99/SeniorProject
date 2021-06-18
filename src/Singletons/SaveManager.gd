@@ -70,11 +70,13 @@ func update_entry_property(id : String, prop : String, new_value):
 	if (id in data) and (prop in data[id]):
 		data[id][prop] = new_value 
 
+
 # Saves all registered Save Node's persistent data and Game metadata to a file 
 func save_game( file_name = save_files[last_used_save_index] ):
 	collect_save_data() 
 	data["__metadata__"] = {"current_scene" : SceneManager.flagged_scene_path}
 	FileTools.save_game_from_file(file_name, data, encrypt)
+
 
 # Load's data back into all Save Node's persistent data
 # Switches scenes to the destination indicated in save file's metadata

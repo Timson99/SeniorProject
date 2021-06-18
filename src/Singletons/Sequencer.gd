@@ -80,18 +80,18 @@ func actor_async_instruction(params: Array):
 	var command_type = params[0]
 	if command_type == "Actor-set":
 		if params.size() == 4:
-			ActorEngine.set_command(params[1], params[2], params[3])
+			ActorManager.set_command(params[1], params[2], params[3])
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
 			
 	elif command_type == "Actor-call":
 		if params.size() >= 3:
-			ActorEngine.call_command(params[1], params[2], params.slice(3, params.size()))
+			ActorManager.call_command(params[1], params[2], params.slice(3, params.size()))
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
 	elif command_type == "Actor-async":
 		if params.size() >= 3:
-			ActorEngine.async_command(params[1], params[2], params.slice(3, params.size()))
+			ActorManager.async_command(params[1], params[2], params.slice(3, params.size()))
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
 			
@@ -101,7 +101,7 @@ func actor_sync_instruction(params: Array):
 	var command_type = params[0]
 	if command_type == "Actor-sync":
 		if params.size() >= 3:
-			yield(ActorEngine.sync_command(params[1], params[2], params.slice(3, params.size())), "completed")
+			yield(ActorManager.sync_command(params[1], params[2], params.slice(3, params.size())), "completed")
 		else:
 			Debugger.dprint("Invalid Arg count on following instruction: %s" % str(params))
 
@@ -150,8 +150,8 @@ func signal_instruction(obj_id : String, signal_name):
 	}
 	if obj_id in observed_objects.keys():
 		object_to_observe = observed_objects[obj_id]
-	elif obj_id in ActorEngine.actors_dict.keys():
-		object_to_observe = ActorEngine.actors_dict[obj_id]
+	elif obj_id in ActorManager.actors_dict.keys():
+		object_to_observe = ActorManager.actors_dict[obj_id]
 	yield(object_to_observe, signal_name)
 	
 func enemy_instruction(empty_value):

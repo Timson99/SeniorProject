@@ -39,7 +39,7 @@ func init_in_party(condition, character_scene, name):
 
 
 func _ready():
-	ActorEngine.register_actor(self)
+	ActorManager.register_actor(self)
 	SaveManager.register(self)
 
 # Called when the node enters the scene tree for the first time.

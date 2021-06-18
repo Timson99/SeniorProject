@@ -15,7 +15,7 @@ func _ready():
 	
 func register_actor(actor):
 	actor.add_to_group("Actor")
-	ActorEngine.update_actors()
+	ActorManager.update_actors()
 	
 func get_party():
 	update_actors()

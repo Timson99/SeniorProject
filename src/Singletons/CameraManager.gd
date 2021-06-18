@@ -29,7 +29,7 @@ func _ready():
 	#Disbale if Fullscreen Stretch is allowed
 	screen_resize()
 	get_tree().connect("screen_resized", self, "screen_resize")
-	ActorEngine.register_actor(self)
+	ActorManager.register_actor(self)
 
 
 func screen_resize():
@@ -83,7 +83,7 @@ func screen_resize():
 #Run camera movement in physics process?
 # Use signals for state changes rather than process constant checks
 func _physics_process(_delta):
-	var party = ActorEngine.get_party()
+	var party = ActorManager.get_party()
 	if !party:
 		if state != State.Static and state != State.Sequenced: state_to_static()
 	else:
@@ -93,7 +93,7 @@ func _physics_process(_delta):
 	if state == State.Static:
 		return
 	elif state == State.OnParty:
-		if !ActorEngine.get_party():
+		if !ActorManager.get_party():
 			return
 		var party_pos = party.active_player.get_global_position()	
 		position = Vector2(party_pos.x, party_pos.y)

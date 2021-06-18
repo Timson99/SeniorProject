@@ -15,7 +15,7 @@ func _ready():
 
 func activate():	
 
-	party = ActorEngine.get_party()
+	party = ActorManager.get_party()
 	EnemyHandler.freeze_all_nonplayers()
 	
 	BgEngine.play_sound("OpenMenu")

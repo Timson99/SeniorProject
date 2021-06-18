@@ -2,7 +2,7 @@ extends StaticBody2D
 
 onready var animations = $AnimationPlayer
 onready var interact_area = $Area2D
-onready var party = ActorEngine.get_party()
+onready var party = ActorManager.get_party()
 var used = false
 var save_id = "Area01_Closet"
 

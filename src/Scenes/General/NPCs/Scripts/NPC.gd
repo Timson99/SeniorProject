@@ -11,7 +11,7 @@ export(Mode) var current_mode = Mode.Motionless
 
 
 func _ready():
-	ActorEngine.register_actor(self)
+	ActorManager.register_actor(self)
 	SaveManager.register(self)
 	interact_area.connect("body_entered", self, "allow_interaction")
 	interact_area.connect("body_exited", self, "restrict_interaction")

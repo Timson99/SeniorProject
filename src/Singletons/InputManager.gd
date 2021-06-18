@@ -1,12 +1,22 @@
 """
 	Input Manager
+		Manages Input Nodes and sends them input signals via method callbacks
+		Sends input signals to a single node at a time (node at top of input stack)
+		ncludes interface for disabling input for specific/all active input nodes
+		Handles any meta-game input (Pausing Game Globally, Exiting Game)
+			! Add this functionality !
+		
+		* Does not handle input mimicry or sending input to multiple recievers,
+		This should achieved by a mimic obbject listening signals emitted from the node
+		whose input needs to be copied -or-- having them be children to a input recieving parent *
+		
+	Dependencies:
+		SceneManager (for knowing when to globally freeze and unfreeze input)
 
 	
 """
 
-
 extends Node
-
 
 # Whether or no Input Manager is forwarding input to input_reciever
 var frozen := false
@@ -22,8 +32,6 @@ var input_data_property_name = "input_data"
 # Operates as an Input Stack
 var registry := NodeRegistry.new(id_property_name)
 
-# Nodes that request to recieve callbacks from the current input reciever
-var interceptors = {} # Id of itercepted node : intercepting node
 # List of nodes ids that are disabled in place within their stack
 var disabled = []
 
@@ -41,6 +49,9 @@ func _ready():
 func _process(_delta):
 	_process_input("_process")
 	
+	##### GLOBAL INPUT #############################
+	##### Used for pausing, exiting, 
+	####  screen adjustments, etc from anywhere
 	####Fullscreen Toggle for Testing###############
 	if(Input.is_action_just_pressed("ui_fullscreen")):
 		OS.window_fullscreen = !OS.window_fullscreen
@@ -85,27 +96,27 @@ func enable_all():
 	1) Call InputManager.activate(self)
 	2) Have an input_id property
 	3) Have an input_data dictionary with:
-		-A "loop" key to string that is _physics_process or _process 
+		-A "loop" key to string that is _physics_process or _process
 			(Specifies when callbacks should be called)
 		-Keys "just pressed", "just_released", and  "pressed" to dictionaries that
 			map valid InputMap actions to function names in the node to call back to
-		Example:	
-					const input_data := {
-						"loop": "_physics_process",
-						"pressed": {
-							"ui_up" : "move_up",
-							...
-						},
-						"just_pressed": { ... }.
-						"just_released": { ... },
-					}
+		Example:
+			const input_data := {
+				"loop": "_physics_process",
+				"pressed": {
+					"ui_up" : "move_up",
+					...
+				},
+				"just_pressed": { ... }.
+				"just_released": { ... },
+			}
 			
 	Valid InputMap actions are strings found in the InputMap
-		- If a dirctional input is used, it's callback will activate if 
-		<action_name> or or <action_name>_axis is detected 
+		- If a dirctional input is used, it's callback will activate if
+		<action_name> or or <action_name>_axis is detected
 		(Ex, ui_left callback is called if ui_left or ui_left_axis is detected by Input )
 		- Inputs may be combine with a '+' to trigger call_back only if both are detected
-		(ui_left+ui_accept).  
+		(ui_left+ui_accept).
 """
 
 # Activates a InputNode, which will grab the input focus
@@ -117,13 +128,13 @@ func activate(node):
 		Debugger.dprint("ERROR REGISTERING INPUT NODE - EMPTY STRING ID")
 		return
 	if !(input_data_property_name in node):
-		Debugger.dprint("ERROR REGISTERING INPUT NODE - No '%s' property" % 
-						input_data_property_name)
+		Debugger.dprint("ERROR REGISTERING INPUT NODE - No '%s' property" %
+			input_data_property_name)
 		return
 	if !node.get(input_data_property_name).has_all(["loop","just_pressed", "just_released", "pressed"]):
 		Debugger.dprint("""ERROR REGISTERING INPUT NODE - Improperly Formatted %s :
-						\tMust contain keys loop, just_pressed, just_released, and pressed
-						\tThey keys must all have dictionary values""" % input_data_property_name)
+			\tMust contain keys loop, just_pressed, just_released, and pressed
+			\tThey keys must all have dictionary values""" % input_data_property_name)
 		return
 	registry.register(node)
 	
@@ -139,7 +150,7 @@ func deactivate(node):
 # Picks which input_reciever will be given input
 func _process_input(loop):
 	var input_receiver_stack = registry.nodes
-	if input_receiver_stack.size() == 0: 
+	if input_receiver_stack.size() == 0:
 		return
 		
 	# Fetches top of the Stack
@@ -179,7 +190,7 @@ func _translate_and_execute(input_translator):
 			input_target.call_deferred(command)
 		else:
 			Debugger.dprint(
-				"WARNING INPUT MANAGER -> Callback '%s' does not exist in node with id '%s'" 
+				"WARNING INPUT MANAGER -> Callback '%s' does not exist in node with id '%s'"
 				% [command,input_target.get(id_property_name)])
 			
 
@@ -204,9 +215,9 @@ func _is_action_pressed(action):
 #	When ui_left is checked, ui_left and ui_left_axis will both be checked
 func _action_detected(action : String, action_type : String) -> bool:
 	var action_detected = Input.call(action_type, action)
-	var axis_action_detected = ( 
-		action in ["ui_left","ui_right","ui_up","ui_down"] && 
-		Input.call(action_type, action + "_axis") 
+	var axis_action_detected = (
+		action in ["ui_left","ui_right","ui_up","ui_down"] &&
+		Input.call(action_type, action + "_axis")
 	)
 	return action_detected || axis_action_detected
 	
@@ -219,7 +230,7 @@ func _multiaction_detected_just_pressed_final_action(action : String):
 		var just_pressed_action = _action_detected(action, "is_action_just_pressed")
 		var pressed_action = _action_detected(action, "is_action_pressed")
 		if just_pressed_action:
-			final_action_just_pressed = true	
+			final_action_just_pressed = true
 		if !pressed_action:
 			return false
 	return final_action_just_pressed
@@ -235,7 +246,7 @@ func _multiaction_detected_just_released_first_action(action : String):
 		var just_released_action = _action_detected(action, "is_action_just_released")
 		var unpressed_action = !_action_detected(action, "is_action_pressed")
 		if just_released_action:
-			first_action_just_released = true	
+			first_action_just_released = true
 		if unpressed_action && !just_released_action:
 			return false
 	return first_action_just_released
