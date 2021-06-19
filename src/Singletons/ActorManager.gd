@@ -25,7 +25,7 @@ var async_actors = []
 #	Public
 #######
 	
-# Register a actor with a nonempty string id
+# Register a actor with a nonempty string id 
 func register_actor(node):
 	actor_registry.register(node)
 	
