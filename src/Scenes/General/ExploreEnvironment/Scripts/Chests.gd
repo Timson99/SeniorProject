@@ -12,7 +12,7 @@ export var opened = false
 func _ready():
 	interact_area.connect("body_entered", self, "body_entered")
 	interact_area.connect("body_exited", self, "body_exit")
-	party = ActorManager.get_party()
+	party = ActorManager.get_actor("Party")
 	SaveManager.register(self)
 	
 func interact():

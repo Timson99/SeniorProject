@@ -121,6 +121,7 @@ func explore(delta : float):
 # When leader, player input is activate, 
 func activate_player():
 	InputManager.activate(self)
+	CameraManager.track(self)
 	$CollisionBox.disabled = false
 
 	

@@ -31,11 +31,11 @@ func _ready():
 	
 func assume_control():
 	in_control = true
-	InputManager.disable(ActorManager.get_party().active_player.id)
+	InputManager.disable(ActorManager.get_actor("Party").active_player.id)
 	
 func end_control():
 	in_control = false
-	InputManager.enable(ActorManager.get_party().active_player.id)
+	InputManager.enable(ActorManager.get_actor("Party").active_player.id)
 	
 func execute_instructions(event):
 	for instruction in event["instructions"]:

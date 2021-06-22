@@ -28,14 +28,6 @@ var async_actors = []
 # Register a actor with a nonempty string id 
 func register_actor(node):
 	actor_registry.register(node)
-	
-# Check if actor registry has an party by id
-func has_party(id) -> bool:
-	return (actor_registry.fetch("Party") == null)
-	
-# Get actor with the id Party
-func get_party():
-	return actor_registry.fetch("Party")
 
 # Check if actor registry has an actor by id
 func has_actor(id) -> bool:

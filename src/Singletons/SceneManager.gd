@@ -155,7 +155,7 @@ func _start_new_scene(s):
 	
 	# Reposition Party to Warp Spot
 	var warps : Array = warp_registry.nodes
-	var party = ActorManager.get_party()
+	var party = ActorManager.get_actor("Party")
 	if (warp_dest != "" && party && warps.size() > 0):
 		var warp = warp_registry.fetch(warp_dest)
 		party.reposition(warp.entrance_point, warp.exit_direction)

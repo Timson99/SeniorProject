@@ -1,1 +1,4 @@
 extends Node
+"""
+	IMPLETMENTING PAUSING (SEE GODOT DOCS)
+"""

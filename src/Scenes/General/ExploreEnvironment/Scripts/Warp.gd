@@ -41,7 +41,7 @@ func calculate_exit():
 	return exit
 
 func _on_WarpBlock_body_entered(body):
-	var party = ActorManager.get_party()
+	var party = ActorManager.get_actor("Party")
 	if party && body == party.active_player and !one_way:
 		SceneManager.goto_scene(warp_scene_id, warp_destination_id)
 		emit_signal("play_sound_effect")

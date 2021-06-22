@@ -2,7 +2,7 @@ extends StaticBody2D
 
 onready var animations = $AnimationPlayer
 onready var interact_area = $Area2D
-onready var party = ActorManager.get_party()
+onready var party = ActorManager.get_actor("Party")
 var used = false
 
 signal used
