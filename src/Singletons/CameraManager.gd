@@ -4,20 +4,22 @@ extends Node2D
 	CameraManager
 	
 	Dependencies
-		ActorManager ( To register self and find the party )
+		SceneManager ( To know when to reset boundary and camera position info  )
+		ActorManager ( To register self and find the actors to follow and track )
+		
 		
 """
 
 # Create the 2D Camera Node
 onready var camera : Camera2D = Camera2D.new()
-# Create the tween node for interpolation
+# Create the Tween Node for interpolation
 var tween = Tween.new()
 
 # Returns global viewport object
 onready var viewport = get_viewport()
 # Vector2 of viewert x and y size in pixels
 onready var viewport_size = viewport.size
-# lines cutoff at top and bottom of screen
+# Total y viewport lines cutoff by window
 var y_cutoff : int
 # How much the original viewport dimensions are scaled to fit the window
 var vp_scale : int
@@ -39,7 +41,6 @@ const default_boundaries := {
 var boundaries = default_boundaries
 
 
-
 ######
 # Callbacks
 ######
@@ -49,7 +50,6 @@ func _ready():
 	SceneManager.connect("scene_loaded", self, "reset_camera")
 	SceneManager.connect("goto_called", self, "reset_boundaries")
 	
-	#Disable if Fullscreen Stretch is allowed
 	resize_screen()
 	ActorManager.register_actor(self)
 	
@@ -65,7 +65,6 @@ func _ready():
 
 
 func _physics_process(_delta):
-
 	# Stop following if tracked actor is no longer trackable	
 	var trackable = ( tracked_actor && is_instance_valid(tracked_actor) )
 	if	following && !trackable:
@@ -75,46 +74,18 @@ func _physics_process(_delta):
 	# Track a actor within the specified boundaries
 	if following:
 		var party_pos = tracked_actor.get_global_position()
-		var camera_pos = camera.get_global_position()
-		
-		camera.position = Vector2(round(party_pos.x), round(party_pos.y))
+		camera.position = Vector2(party_pos.x, party_pos.y)
+		_clamp_camera_to_boundaries()
 
-		
-		var cuttoff_in_viewport = floor((y_cutoff/2) / float(vp_scale))
-		
-		var screen_offset_y_min = (
-			boundaries["y_min"] + (viewport_size.y/2 - cuttoff_in_viewport)
-		)
-		var screen_offset_y_max = (
-			boundaries["y_max"] - (viewport_size.y/2 - cuttoff_in_viewport)
-		)
-		
-		if ( boundaries["x_min"] + viewport_size.x/2 
-			<= boundaries["x_max"] - viewport_size.x/2 ):
-			camera.position.x = (
-				clamp(camera.position.x, boundaries["x_min"] + 
-					  viewport_size.x/2, boundaries["x_max"] - viewport_size.x/2
-				)
-			)
-		if  screen_offset_y_min <= screen_offset_y_max:
-			camera.position.y = ( 
-				clamp(camera.position.y, screen_offset_y_min, screen_offset_y_max)
-			)
-		
-		print(screen_offset_y_max)
-		print(screen_offset_y_min)
-		print(camera.position.y)
-		print()
-		
 	camera.position = Vector2(round(camera.position.x), round(camera.position.y))
 	camera.align()
 
 
-####
+########
 #	Public
-####
+########
 	
-# Track actor node
+# Track actor node with camera
 func track(node):
 	tracked_actor = node
 	following = true
@@ -149,7 +120,7 @@ func move_to_position(destination : Vector2, seconds := 60.0):
 	tween.start()
 	yield(tween, "tween_completed")
 
-# COROUTINE -> Moves camera to Party in seconds
+# COROUTINE -> Moves camera to actor in seconds
 func move_to_actor(actor_id : String, seconds : float):
 	var destination = Vector2(0,0)
 	var actor = ActorManager.get_actor(actor_id)
@@ -157,16 +128,6 @@ func move_to_actor(actor_id : String, seconds : float):
 		Debugger.dprint("CAMERA ERROR - Cannot move to actor with id '%s', not found in scene" % actor_id)
 	destination = actor.get_global_position()
 	yield(move_to_position(destination, seconds), "completed")
-
-# COROUTINE -> Moves camera to Party in seconds
-func move_to_party(seconds : float):
-	var destination = Vector2(0,0)
-	var party = ActorManager.get_actor("Party")
-	if !party:
-		Debugger.dprint("CAMERA ERROR - Cannot move to party, party not found")
-	destination = party.active_player.get_global_position()
-	yield(move_to_position(destination, seconds), "completed")
-
 
 #######
 # Signal Callbacks
@@ -221,7 +182,7 @@ func resize_screen():
 	)
 	
 	# Sets CameraManager members for this new configuration
-	y_cutoff = abs(min(0, int(diff.y))) # pixels cutoff at top and bottom of screen
+	y_cutoff = abs(min(0, int(diff.y))) # Total y viewport lines cutoff by window
 	vp_scale = scale
 	
 	# Debug Suite
@@ -229,5 +190,27 @@ func resize_screen():
 	#print("Viewport Scaled To: %s"  % str(viewport.size * scale))
 	#print("Scale X: %s , Scale Y: %s" % [  str(scale_x), str(scale_y)]   )
 	#print(y_cutoff)
+	
+######
+#	Private
+######
+
+func _clamp_camera_to_boundaries():
+	# Distance from center of viewport to x viewport border at 1x scale 
+	var center_to_x_border = viewport_size.x/2
+	var camera_x_min = boundaries["x_min"] + center_to_x_border
+	var camera_x_max = boundaries["x_max"] - center_to_x_border
+	if camera_x_min <= camera_x_max:
+		camera.position.x = clamp(camera.position.x, camera_x_min, camera_x_max)
+		
+	# Pixels cutoff at both top and bottom of screen in unscaled viewport
+	var y_half_cutoff_in_viewport = floor((y_cutoff/2) / float(vp_scale))
+	# Distance from center of viewport to y viewport border at 1x scale 
+	var center_to_y_border = viewport_size.y/2 - y_half_cutoff_in_viewport
+	var camera_y_min = boundaries["y_min"] + center_to_y_border
+	var camera_y_max = boundaries["y_max"] - center_to_y_border
+	if camera_y_min <= camera_y_max:
+		camera.position.y = clamp(camera.position.y, camera_y_min, camera_y_max)
+	
 
 

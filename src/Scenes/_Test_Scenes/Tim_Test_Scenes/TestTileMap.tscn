@@ -80,7 +80,7 @@ extents = Vector2( 8, 8 )
 script = ExtResource( 3 )
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 160, 16 )
+position = Vector2( 160, 24 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 3 )
@@ -115,7 +115,6 @@ exit_direction = 1
 position = Vector2( 112, 126 )
 
 [node name="BattleStarter" type="StaticBody2D" parent="."]
-position = Vector2( 0, -64 )
 
 [node name="EnemyStandIn" type="Area2D" parent="BattleStarter" groups=[
 "Persistent",
@@ -178,8 +177,9 @@ __meta__ = {
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 margin_left = 152.0
+margin_top = 8.0
 margin_right = 168.0
-margin_bottom = 16.0
+margin_bottom = 24.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
