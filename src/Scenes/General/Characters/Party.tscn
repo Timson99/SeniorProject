@@ -20,12 +20,10 @@ __meta__ = {
 
 [node name="C3" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 0, -2 )
-save_id = "C3"
-actor_id = "C3"
+id = "C3"
 
 [node name="C2" parent="YSort" instance=ExtResource( 1 )]
 position = Vector2( 0, -1 )
-save_id = "C2"
-actor_id = "C2"
+id = "C2"
 
 [node name="C1" parent="YSort" instance=ExtResource( 2 )]

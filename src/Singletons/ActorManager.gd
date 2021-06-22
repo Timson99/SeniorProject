@@ -11,8 +11,8 @@
 """
 extends Node
 
-#var actors_dict: Dictionary = {}
-var id_property_name = "actor_id"
+# Registry based on node scene tree names to identify actors
+var id_property_name = "name"
 var actor_registry = NodeRegistry.new(id_property_name)
 
 # Notfies coroutine that currently acting actors may have changed
@@ -29,13 +29,22 @@ var async_actors = []
 func register_actor(node):
 	actor_registry.register(node)
 	
+# Check if actor registry has an party by id
+func has_party(id) -> bool:
+	return (actor_registry.fetch("Party") == null)
+	
 # Get actor with the id Party
 func get_party():
 	return actor_registry.fetch("Party")
+
+# Check if actor registry has an actor by id
+func has_actor(id) -> bool:
+	return (actor_registry.fetch(id) == null)
 	
 # Get any registered actor by id
 func get_actor(id):
 	return actor_registry.fetch(id)
+
 
 #########
 # Sequencer Functions

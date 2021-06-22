@@ -2,8 +2,6 @@ extends "res://Scenes/General/Non-Player (Both Enemies & NPCs)/Non-Player.gd"
 
 onready var interact_area = $Area2D
 
-export var save_id := "NPC1" 
-export var actor_id := "NPC_name"
 export var present_in_scene = true
 
 enum Mode {Wandering, Pathing, Motionless, Interacting}

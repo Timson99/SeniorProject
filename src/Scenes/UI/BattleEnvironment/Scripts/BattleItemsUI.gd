@@ -8,7 +8,6 @@ onready var button_container = $Control/Battle_UI_v2_04/ItemList/GridContainer
 onready var description_container = $Control/Battle_UI_v2_04/ItemList/InfoPanel/RichDescription
 onready var scrollbar = $Control/Battle_UI_v2_04/ItemList/Scrollbar
 
-var input_id = "Menu"
 var default_focused = 0
 var focused = default_focused
 var buttons = []

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Scenes/Area01/Props/House01.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Area01/Props/House01.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Art/Environments/Area1/Props_05.png" type="Texture" id=2]
 
 

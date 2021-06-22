@@ -190,7 +190,7 @@ func battle_victory():
 	for character in characters:
 		if !is_instance_valid(character):
 			continue
-		var id = character.save_id
+		"""
 		Game.leveling.give_xp(id, adjusted_xp_payout)
 		if Game.leveling.crossed_lv_xp_threshold(id):
 			character.stats = Game.leveling.level_up(id)
@@ -199,6 +199,7 @@ func battle_victory():
 			BgEngine.play_jingle("LevelUp")
 			dialogue_node.display_message(["%s grew to level %d!" % [char_name, new_level]], true, 0.1, 1)
 			yield(dialogue_node, "end")
+		"""
 	BgEngine.return_from_battle()
 	SceneManager.goto_flagged()
 	

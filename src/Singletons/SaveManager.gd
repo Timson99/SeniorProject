@@ -18,17 +18,17 @@ var data : Dictionary = {} setget , get_data
 
 ### SAVE NODE PROPERTIES ###
 # Variable name that nodes store their save id under
-var id_property_name = "save_id"
+var id_property_name = "name"
 #Registered Save Nodes for the current scene
 var registry = NodeRegistry.new(id_property_name)
 
 ### SAVE FILE PROPERTIES ###
-# Name of the Save Files, Appear in Menu and used when files saved to data folder
-const save_files = ["Save01", "Save02", "Save03", "DevSave01", "DevSave02", "DevSave03"]
 # Whether or not to encript files 
 var encrypt = false
+
 # Read by SaveLoadMenu.gd, updated by SaveFile.gd
-var last_used_save_index = 0
+# !!Should eventually be saved itself in a config file or in all files metadata!!
+var last_used_save_file := ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,7 +44,7 @@ func _ready():
 	A SAVE NODE has data that may be saved from and loaded into a scene
 	To register as a SAVE NODE, it must:
 	1) Call SaveManager.register(self)
-	2) A save_id string
+	2) A unique node name for identification
 	3) A save method that returns a dictionary of data to save
 	4) (optional) An on_load method to be called after data is loaded into the node
 """
@@ -59,16 +59,16 @@ func register(node):
 
 
 # For external public use - force updates an existing data point 
-func update_entry_property(id : String, prop : String, new_value):
+func update_entry_property(node_id : String, prop : String, new_value):
 	collect_save_data()
 	if typeof(new_value) != TYPE_STRING:
 		new_value = var2str(new_value)
-	if (id in data) and (prop in data[id]):
-		data[id][prop] = new_value 
+	if (node_id in data) and (prop in data[node_id]):
+		data[node_id][prop] = new_value 
 
 
 # Saves all registered Save Node's persistent data and Game metadata to a file 
-func save_game( file_name = save_files[last_used_save_index] ):
+func save_game( file_name : String ):
 	collect_save_data() 
 	data["__metadata__"] = {"current_scene" : SceneManager.flagged_scene_path}
 	FileTools.save_game_from_file(file_name, data, encrypt)
@@ -76,7 +76,7 @@ func save_game( file_name = save_files[last_used_save_index] ):
 
 # Load's data back into all Save Node's persistent data
 # Switches scenes to the destination indicated in save file's metadata
-func load_game( file_name = save_files[last_used_save_index] ):
+func load_game( file_name : String):
 	var load_data_dict = FileTools.load_game_from_file(file_name, encrypt)
 	for node_id in load_data_dict.keys():
 		_collect_from(load_data_dict[node_id], node_id )
@@ -144,10 +144,10 @@ func _collect_from(node_data : Dictionary, node_id : String):
 
 # All save data filed under the node id is loaded back into the node
 func _restore_to(node : Object): 
-	var id = node.get(id_property_name)
-	if(data.has(id)):
-		for i in data[id].keys():
-			node.set(i, str2var(data[id][i]))
+	var node_id = node.get(id_property_name)
+	if(data.has(node_id)):
+		for i in data[node_id].keys():
+			node.set(i, str2var(data[node_id][i]))
 
 # Makes sure on_load callback is called when the game begins
 func _deferred_on_load():

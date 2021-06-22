@@ -7,7 +7,7 @@ onready var button_container = $Categories
 
 var list_path = "res://Scenes/UI/MainMenuUI/SubmenuModules/Lists/EquipList.tscn"
 
-var input_id = "Menu"
+
 var curr_char = "C1"
 var char_params = {}
 var sprite = null

@@ -37,7 +37,7 @@ func _physics_process(delta):
 	animate_movement()
 	
 	var collision = move_and_collide(velocity * delta)
-	if collision && target_player && collision.collider.name == target_player.save_id:
+	if collision && target_player && collision.collider.name == target_player.id:
 		initiate_battle()
 	velocity = pause_movement()
 	
@@ -74,13 +74,13 @@ func move_toward_player():
 	
 	
 func begin_chasing(body: Node):
-	if target_player && body.name == target_player.save_id:
+	if target_player && body.name == target_player.id:
 		player_party = body
 		current_mode = Mode.Chase
 	
 	
 func stop_chasing(body: Node):
-	if target_player && body.name == target_player.save_id:
+	if target_player && body.name == target_player.id:
 		player_party = null
 		current_mode = initial_mode
 

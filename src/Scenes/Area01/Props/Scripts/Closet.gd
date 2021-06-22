@@ -4,7 +4,6 @@ onready var animations = $AnimationPlayer
 onready var interact_area = $Area2D
 onready var party = ActorManager.get_party()
 var used = false
-var save_id = "Area01_Closet"
 
 signal used
 
@@ -14,7 +13,7 @@ func _ready():
 	
 func interact():
 	if (party.active_player.has_method("change_skin") and
-		party.active_player.save_id == "C1"):
+		party.active_player.id == "C1"):
 		BgEngine.play_sound("PutOnCoat01")
 		party.active_player.change_skin("default")
 	make_closet_used()

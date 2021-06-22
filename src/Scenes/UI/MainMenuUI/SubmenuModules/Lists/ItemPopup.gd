@@ -1,5 +1,5 @@
 extends CanvasLayer
-var input_id = "Menu" 
+
 var submenu = null
 var parent = null
 

@@ -1,7 +1,7 @@
 extends Control
 
 
-export var save_file_name = "Save01"
+export var save_file_name := "SaveName"
 onready var name_label = $SaveName
 onready var availability_label = $DataAvailable
 
@@ -24,5 +24,5 @@ func accept_save():
 	SceneManager.goto_flagged()
 	
 func update_current_save():
-	SaveManager.last_used_save_index = SaveManager.save_files.find(save_file_name)
+	SaveManager.last_used_save_file = save_file_name
 

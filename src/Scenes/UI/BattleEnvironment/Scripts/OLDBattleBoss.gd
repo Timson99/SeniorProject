@@ -1,6 +1,5 @@
 extends Control
 
-export var save_id = "Boss"
 export var alive := true
 var stats = EntityStats.new()
 

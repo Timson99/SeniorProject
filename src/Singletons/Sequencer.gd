@@ -1,5 +1,21 @@
 extends Node
 
+"""
+	Sequencer
+		Used for creating Events
+		
+	Dependencies
+		InputManager
+		ActorManager
+		SceneManager
+		DialogueManager
+		BackgroundAudio
+		CameraManager
+		EnemyHander?
+		
+"""
+
+# Indicates if the Sequencer is currently executing a event
 var in_control = false
 
 
@@ -15,11 +31,11 @@ func _ready():
 	
 func assume_control():
 	in_control = true
-	InputManager.disable("Party")
+	InputManager.disable(ActorManager.get_party().active_player.id)
 	
 func end_control():
 	in_control = false
-	InputManager.enable("Party")
+	InputManager.enable(ActorManager.get_party().active_player.id)
 	
 func execute_instructions(event):
 	for instruction in event["instructions"]:
@@ -58,18 +74,17 @@ func execute_instructions(event):
 
 func execute_event(event_id : String):
 	if not event_id in Events :
-		Debugger.dprint("ERROR: Invalid Event")
+		Debugger.dprint("SEQUENCER ERROR: Invalid Event id '%s'" % event_id)
 		return
-		
 	if in_control == true:
-		Debugger.dprint("ERROR: Event Alredy Running")
+		Debugger.dprint("SEQUENCER ERROR: Event Already Running, can't run event_id '%s'" % event_id)
 		return
 	
 	var event = load(Events[event_id])
 	var instructions = event.instructions()
 	active_event = {"event_id" : event_id, 
-						  "instructions" : instructions,
-						  "current_instruction" : null }
+					"instructions" : instructions,
+					"current_instruction" : null }
 	assume_control()			
 	yield(execute_instructions(active_event), "completed")
 	end_control()
@@ -150,8 +165,8 @@ func signal_instruction(obj_id : String, signal_name):
 	}
 	if obj_id in observed_objects.keys():
 		object_to_observe = observed_objects[obj_id]
-	elif obj_id in ActorManager.actors_dict.keys():
-		object_to_observe = ActorManager.actors_dict[obj_id]
+	elif ActorManager.actor_registry.has(obj_id):
+		object_to_observe = ActorManager.actor_registry.fetch(obj_id)
 	yield(object_to_observe, signal_name)
 	
 func enemy_instruction(empty_value):

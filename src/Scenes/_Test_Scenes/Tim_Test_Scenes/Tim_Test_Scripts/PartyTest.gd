@@ -1,13 +1,10 @@
 extends Node2D
 
-export var actor_id: String = "Party"
-
 var active_player = null
 var party : Array = []
 var incapacitated : Array = []
 var items = null
 var spacing : float = 16
-var save_id = "main_party"
 
 
 func sort_characters(a,b):

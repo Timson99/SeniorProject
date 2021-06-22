@@ -160,7 +160,7 @@ func unfreeze_all_nonplayers():
 func readd_previously_instanced_enemies():
 	scene_node = SceneManager.current_scene
 	for enemy_id in existing_enemy_data:
-		if existing_enemy_data[enemy_id]["body"] && "save_id" in existing_enemy_data[enemy_id]["body"]:
+		if existing_enemy_data[enemy_id]["body"] && "id" in existing_enemy_data[enemy_id]["body"]:
 			continue
 		var enemy_type = (existing_enemy_data[enemy_id]["type"])
 		var saved_position = existing_enemy_data[enemy_id]["position"]
@@ -192,7 +192,7 @@ func despawn_defeated_enemies():
 		existing_enemy_data[enemy_id]["body"].post_battle()
 		#yield(get_tree().create_timer(2), "timeout")
 		#scene_node.remove_child(existing_enemy_data[enemy_id]["body"])
-		existing_enemy_data[enemy_id]["body"].queue_free()
+		#existing_enemy_data[enemy_id]["body"].queue_free()
 		if "spawn_locale" in existing_enemy_data[enemy_id]:
 			spawner_balancer[existing_enemy_data[enemy_id]["spawn_locale"]] -= 1
 		existing_enemy_data.erase(enemy_id)

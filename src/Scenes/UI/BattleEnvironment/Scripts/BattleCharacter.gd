@@ -1,11 +1,5 @@
 extends Control
 
-
-export var save_id := "C1" #Can't be a number or mistakeable for a non string type
-var input_id := "Battle_Menu"
-
-
-
 onready var battle_brain = SceneManager.current_scene
 onready var menu = null
 onready var animated_sprite = $UI/AnimatedSprite
@@ -20,8 +14,8 @@ var defending = false
 export (Dictionary) var skills #"Skill" : Num_LP
 export var equipped_skill := ""
 
-onready var stats := EntityStats.new(BaseStats.get_for(save_id))
-onready var battle_stats := EntityStats.new(BaseStats.get_for(save_id))
+onready var stats := EntityStats.new(BaseStats.get_for(name))
+onready var battle_stats := EntityStats.new(BaseStats.get_for(name))
 onready var screen_name = "placeholder"
 
 

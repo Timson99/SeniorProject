@@ -12,8 +12,8 @@ static func instructions():
 		["BG_Audio", "command", "audio_id"],
 		#Battle, scene_id
 		["Battle", "scnen_id"],
-		#Scene, scene_id, optional warp_id
-		["Scene", "scene_id", "warp_id"],
+		#Scene, scene_id, optional id
+		["Scene", "scene_id", "id"],
 		#Camera, command, time in seconds
 		["Camera", "move_up", 3],
 		#Delay, time in seconds,

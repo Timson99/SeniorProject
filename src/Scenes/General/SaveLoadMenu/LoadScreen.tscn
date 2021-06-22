@@ -51,6 +51,7 @@ __meta__ = {
 }
 
 [node name="Control" parent="Control/VBoxContainer" instance=ExtResource( 3 )]
+save_file_name = "Save01"
 
 [node name="Control2" parent="Control/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 64.0

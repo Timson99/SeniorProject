@@ -2,7 +2,7 @@ extends Control
 onready var button_container = $GridContainer
 onready var description_container = $InfoPanel/RichDescription
 
-var input_id = "Menu"
+
 var default_focused = 0
 var focused = default_focused 
 var buttons = []

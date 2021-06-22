@@ -1,8 +1,15 @@
 """
-	Wrapper for a List/Stack/Dictionary/PQueue holding scene nodes
+	NodeRegistry Object
+		
+	Wrapper for a Array holding scene nodes
+	Underlying Array may be sorted or modified to act like a Stack/Queue/Priority Queue
 	An object to catalogue to nodes that register themselves and want to be tracked
+	Automatically removes all deleted nodes when object is used
 	
-	Prohibits -> Nodes without specified id property, empty string id's, duplicate id's
+	Prohibits -> 
+		Nodes without the specified id property
+		Empty string id's
+		Duplicate id's
 """
 
 extends Object
@@ -13,7 +20,7 @@ var nodes = [] setget set_nodes,get_nodes
 var id_property_name := ""
 
 # Variable name used to identify the registered node
-func _init(id_name := "id"):
+func _init(id_name := "name"):
 	self.id_property_name = id_name
 
 func get_nodes():
@@ -21,8 +28,8 @@ func get_nodes():
 	return nodes
 	
 func set_nodes(new_nodes : Array):
-	_update_nodes()
 	nodes = new_nodes
+	_update_nodes()
 	
 # makes sure it has the identifier
 # Checks for duplicates and prevents them
@@ -53,13 +60,19 @@ func deregister(exiting_node):
 		if nodes[i] == exiting_node:
 			nodes.remove(i)
 			
-	
+# Fetch node by id or return null
 func fetch(id : String):
-	_update_nodes()
 	for node in nodes:
-		if id == node.get(id_property_name):
+		if is_instance_valid(node) && id == node.get(id_property_name):
 			return node
 	return null
+	
+# Returns true if registry has node by id
+func has(id : String) -> bool:
+	for node in nodes:
+		if is_instance_valid(node) && id == node.get(id_property_name):
+			return true
+	return false
 
 # Removed invalid instances that may have been deleted
 func _update_nodes():

@@ -179,12 +179,12 @@ ActorManager="*res://Singletons/ActorManager.gd"
 SceneManager="*res://Singletons/SceneManager.gd"
 SaveManager="*res://Singletons/SaveManager.gd"
 InputManager="*res://Singletons/InputManager.gd"
-Sequencer="*res://Singletons/Sequencer.gd"
 CameraManager="*res://Singletons/CameraManager.gd"
 MenuManager="*res://Singletons/MenuManager.gd"
 DialogueEngine="*res://Singletons/DialogueEngine.tscn"
 BgEngine="*res://Singletons/BGEngine.tscn"
 EnemyHandler="*res://Singletons/EnemyHandler.gd"
+Sequencer="*res://Singletons/Sequencer.gd"
 
 [debug]
 

@@ -9,7 +9,7 @@ var faint_pos_attempt2 = Vector2(10, 254)
 
 
 
-func _ready():
+func _ready():	
 	pass
 	
 func reload():

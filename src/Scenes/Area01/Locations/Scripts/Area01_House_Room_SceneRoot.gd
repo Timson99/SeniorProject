@@ -1,8 +1,6 @@
  extends ExploreRoot
 
 
-var save_id = "Area01_Data"
-var actor_id = "Area01_House_Room"
 export var current_attempt = 1
 
 export var track_1 = "No Place Like Home"

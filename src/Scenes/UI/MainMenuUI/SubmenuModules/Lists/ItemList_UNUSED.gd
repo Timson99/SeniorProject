@@ -7,7 +7,6 @@ onready var button_container = $ItemList/GridContainer
 onready var description_container = $ItemList/InfoPanel/RichDescription
 onready var scrollbar = $ItemList/Scrollbar
 
-var input_id = "Menu"
 var default_focused = 0
 var focused = default_focused
 var buttons = []

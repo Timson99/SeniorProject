@@ -1,8 +1,5 @@
  extends ExploreRoot
 
-var save_id = "Area01_Data"
-var actor_id = "Area01_Outside_Root"
-
 var event_trigger_scene = preload('res://Scenes/Area01/Triggers/BullyEventTrigger.tscn')
 var event_triggers := {}
 

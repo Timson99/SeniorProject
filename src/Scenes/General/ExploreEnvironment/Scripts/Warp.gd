@@ -2,7 +2,6 @@ extends Area2D
 
 signal play_sound_effect()
 
-export(String) var warp_id = ""
 export(String) var warp_destination_id = ""
 export(String) var warp_scene_id = ""
 export(Enums.Dir) var exit_direction

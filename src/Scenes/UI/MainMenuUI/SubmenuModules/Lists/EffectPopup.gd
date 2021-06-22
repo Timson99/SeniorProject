@@ -1,5 +1,5 @@
 extends CanvasLayer
-var input_id = "Menu" 
+
 var submenu = null
 var parent = null
 
@@ -30,7 +30,7 @@ func _populate_party():
 	if len(party_group)>0:
 		curr_party = []
 		for x in party_group[0].party:
-			curr_party.append(x.save_id)
+			curr_party.append(x.id)
 func refocus(to):
 	if to >=0 and to < len(buttons):
 		buttons[focused].get_node("AnimatedSprite").animation = "unfocused" 

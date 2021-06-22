@@ -23,7 +23,7 @@ var input_target = null
 var prev_input_target = null
 
 # Input Node properties
-var id_property_name = "input_id"
+var id_property_name = "name"
 var input_data_property_name = "input_data"
 # Registery of currently activate input receivers
 # Operates as an Input Stack
@@ -93,7 +93,7 @@ func enable_all():
 	A INPUT NODE may be activated and recieve input
 	To register as a INPUT NODE, it must:
 	1) Call InputManager.activate(self)
-	2) Have an input_id property
+	2) Have an id property (name in this case)
 	3) Have an input_data dictionary with:
 		-A "loop" key to string that is _physics_process or _process
 			(Specifies when callbacks should be called)
@@ -146,13 +146,7 @@ func activate_interceptor(node, intercepted_id):
 	for key in interceptors.keys():
 		if !registry.nodes.has(key):
 			interceptors.erase(key)
-	
-	if !(id_property_name in node):
-		Debugger.dprint("ERROR REGISTERING INPUT NODE - No '%s' property" % id_property_name)
-		return
-	if node.get(id_property_name) == "":
-		Debugger.dprint("ERROR REGISTERING INPUT NODE - EMPTY STRING ID")
-		return
+
 	# Add to Interceptors
 	if !interceptors.has(intercepted_id):
 		interceptors[intercepted_id] = NodeRegistry.new(id_property_name)
@@ -168,6 +162,7 @@ func deactivate_interceptor(node, intercepted_id):
 
 # Picks which input_reciever will be given input
 func _process_input(loop):
+	
 	var input_receiver_stack = registry.nodes
 	if input_receiver_stack.size() == 0:
 		return
@@ -190,13 +185,15 @@ func _process_input(loop):
 		
 	var input_translator = input_target.get(input_data_property_name)
 	if input_translator["loop"] == loop:
-		_translate_and_execute(input_translator)
+		_translate_and_execute(input_translator, input_target)
+		# Executes Input Translator on the Interceptor
 		if interceptors.has(input_target.get(id_property_name)):
 			for interceptor in interceptors[id_property_name]:
-				_translate_and_execute(input_translator)
+				if is_instance_valid(interceptor):
+					_translate_and_execute(input_translator, interceptor)
 	
-# Executes callbacks for each actions in the input translator
-func _translate_and_execute(input_translator):
+# Executes callbacks for each actions in the input translator on the target
+func _translate_and_execute(input_translator, target):
 	var commands = []
 	for action in input_translator["just_pressed"].keys():
 		if(_is_action_just_pressed(action)):
@@ -211,12 +208,12 @@ func _translate_and_execute(input_translator):
 			commands.append(input_translator["pressed"][action])
 
 	for command in commands:
-		if input_target.has_method(command):
-			input_target.call_deferred(command)
+		if target.has_method(command):
+			target.call_deferred(command)
 		else:
 			Debugger.dprint(
 				"WARNING INPUT MANAGER -> Callback '%s' does not exist in node with id '%s'"
-				% [command,input_target.get(id_property_name)])
+				% [command,target.get(id_property_name)])
 			
 
 #######

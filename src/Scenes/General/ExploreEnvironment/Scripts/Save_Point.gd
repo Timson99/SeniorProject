@@ -5,7 +5,6 @@ onready var animations = $AnimatedSprite
 onready var interact_area = $Area2D
 var party = []
 
-export var save_id = "" 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

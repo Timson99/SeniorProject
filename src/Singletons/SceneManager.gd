@@ -3,7 +3,7 @@
 		Changes Main Scene to a Specfied or Flagged File Path(s)
 		Loads Scenes via Background Loading
 		
-	Dependencies - ActorManager
+	Dependencies - ActorManager (To move party after scene change)
 """
 
 extends Node
@@ -18,7 +18,7 @@ var current_scene = null
 var flagged_scene_path := ""
 
 #Warp Registry
-var id_property_name = "warp_id"
+var id_property_name = "name"
 var warp_registry = NodeRegistry.new(id_property_name)
 
 # Globally emitted signals about changes in the scene status
@@ -153,13 +153,15 @@ func _start_new_scene(s):
 	get_tree().get_root().add_child(current_scene) # Add as child of root
 	emit_signal("scene_loaded")
 	
+	# Reposition Party to Warp Spot
 	var warps : Array = warp_registry.nodes
 	var party = ActorManager.get_party()
 	if (warp_dest != "" && party && warps.size() > 0):
 		var warp = warp_registry.fetch(warp_dest)
 		party.reposition(warp.entrance_point, warp.exit_direction)
-	warp_dest = ""
+	warp_dest == ""
 	
+	# Unfade Animation
 	var fade_animation = fade.get_node("TextureRect/AnimationPlayer")
 	fade_animation.play_backwards("Fade")
 	yield(fade_animation, "animation_finished")

@@ -1,7 +1,5 @@
 extends StaticBody2D
 
-export var actor_id = "exit_door"
-
 onready var anim = $AnimatedSprite
 
 # Declare member variables here. Examples:

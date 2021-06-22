@@ -7,7 +7,6 @@ onready var button_container = $TextureRect/ItemList/GridContainer
 onready var description_container = $TextureRect/ItemList/InfoPanel/RichDescription
 onready var scrollbar = $TextureRect/ItemList/Scrollbar
 
-var input_id = "Menu"
 
 var data_source = MenuManager.skill_data
 var data=MenuManager.skill_data

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/Art/Environments/Area1/Props_16.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Art/Environments/Area1/Props_17.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Area01/Triggers/Scripts/ExitDoor.gd" type="Script" id=3]
+[ext_resource path="res://Area01/Triggers/Scripts/ExitDoor.gd" type="Script" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

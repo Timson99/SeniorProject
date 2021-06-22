@@ -1,6 +1,5 @@
 extends Node2D
 
-export var actor_id := "Party"
 #export var C1_in_party = true
 export var C2_in_party = true
 export var C3_in_party = true
@@ -14,7 +13,6 @@ var items := []
 var money : int = 0
 
 var spacing := 16.0
-var save_id := "main_party"
 onready var tween = $Tween
 
 

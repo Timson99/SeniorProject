@@ -4,15 +4,14 @@ var save_file_scene = preload("res://Scenes/General/SaveLoadMenu/SaveFile.tscn")
 onready var button_container = $Control/VBoxContainer
 onready var tween = $Tween
 
-var save_files_num = SaveManager.save_files.size()
-var input_id = "Menu"
+var save_files_num : int
 var default_focused = 1
 var focused = default_focused 
 var buttons = []
 
 var scroll_time = 0.15
 var max_y = 32
-var min_y = max_y + ((save_files_num - 3) * (-64))
+var min_y : int
 
 enum Mode {Load, Save}
 export (Mode) var current_mode
@@ -20,17 +19,25 @@ export (Mode) var current_mode
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	InputManager.activate(self)
-	var save_file_names = SaveManager.save_files
-	"""
+	"""" For auto generation, shouldn't use since it makes UI tweaks difficult
 	for file_name in save_file_names:
 		var save_file = save_file_scene.instance()
 		save_file.save_file_name = file_name
 		button_container.add_child(save_file)
 	"""
+	
 	buttons = button_container.get_children()
+	save_files_num = buttons.size()
+	min_y = max_y + ((save_files_num - 3) * (-64))
+	
+	var last_used_save_index = 0
+	for i in range(0, buttons.size()):
+		if buttons[i].save_file_name == SaveManager.last_used_save_file:
+			last_used_save_index = i
+		
 	
 	if current_mode == Mode.Save:
-		focused = SaveManager.last_used_save_index + 1
+		focused = last_used_save_index + 1
 		button_container.rect_position.y += max((-64 * (focused - 1)), min_y - max_y)
 	buttons[focused-1].get_node("AnimatedSprite").animation = "on"
 	

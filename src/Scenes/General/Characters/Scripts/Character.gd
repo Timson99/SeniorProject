@@ -7,9 +7,6 @@ const default_speed := 60.0 * pixel_per_frame
 
 var speed := default_speed setget set_speed
 export var screen_name : String
-export var save_id := "C1" #Can't be a number or mistakeable for a non string type
-export var input_id := "Player" #Don't overwrite in UI
-export var actor_id := "C1"
 export var alive := true
 var exploring := true
 
@@ -20,13 +17,13 @@ var equipeed_arm
 
 onready var stats: EntityStats 
 
-func _ready():
+func _ready():	
 	ActorManager.register_actor(self)
 	SaveManager.register(self)
-	#if Game.leveling.stats[save_id]:
-	#	stats = Game.leveling.get_stats(save_id)
+	#if Game.leveling.stats[id]:
+	#	stats = Game.leveling.get_stats(id)
 	#else:
-	stats = EntityStats.new(BaseStats.get_for(save_id))
+	stats = EntityStats.new(BaseStats.get_for(name))
 
 
 onready var skins  = {
@@ -39,7 +36,7 @@ onready var skins  = {
 }
 
 onready var current_skin = "default"
-onready var animations = skins[save_id][current_skin]
+onready var animations = skins[name][current_skin]
 
 #Array oof objects that are currently interactable
 var interact_areas := []
@@ -78,7 +75,7 @@ func play_anim(anim_str):
 	if animations.frames.has_animation(anim_str):
 		animations.play(anim_str)
 	else:
-		print("Character Error: Does not have Animation for play_anim() in " + str(save_id))
+		print("Character Error: Does not have Animation for play_anim() in " + str(name))
 	
 	
 func set_anim(anim_str):
@@ -231,15 +228,15 @@ func restore_anim_speed():
 	animations.set_speed_scale(1) 
 	
 func change_skin(skin_id):
-	if(skin_id in skins[save_id].keys()):
+	if(skin_id in skins[name].keys()):
 		current_skin = skin_id
 		animations.hide()
-		var new_animations = skins[save_id][skin_id]
+		var new_animations = skins[name][skin_id]
 		new_animations.play(dir_anims[current_dir][0])
 		new_animations.show()
 		animations = new_animations
 	else:
-		Debugger.dprint("Skin id %s not found in Character %s" % [skin_id, save_id])
+		Debugger.dprint("Skin id %s not found in Character %s" % [skin_id, name])
 		
 		
 		

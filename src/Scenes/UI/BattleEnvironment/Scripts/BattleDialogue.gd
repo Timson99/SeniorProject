@@ -1,7 +1,6 @@
 extends Control
 
 #InputManager
-var input_id = "Battle_Dialogue"
 onready var text_node = $RichTextLabel
 	
 var message = []

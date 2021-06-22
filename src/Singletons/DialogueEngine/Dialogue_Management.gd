@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-#InputManager
-var input_id = "Dialogue"
 
 signal begin()
 signal page_over()

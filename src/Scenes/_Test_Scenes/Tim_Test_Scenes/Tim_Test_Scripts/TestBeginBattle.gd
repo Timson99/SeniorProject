@@ -1,7 +1,7 @@
 extends Area2D
 
 export var scene_id : String
-export var save_id = "test_enemy"
+
 export var active = true
 
 func _ready():

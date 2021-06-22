@@ -5,7 +5,6 @@ onready var animations = $AnimatedSprite
 onready var interact_area = $Area2D
 var party
 
-export var save_id = "" 
 export var item_id = ""
 export var opened = false
 

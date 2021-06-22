@@ -47,7 +47,7 @@ func _populate_party():
 		curr_party_names = []
 		curr_party_stats = []
 		for x in party_group[0].party:
-			curr_party.append(x.save_id)
+			curr_party.append(x.id)
 			curr_party_names.append(x.screen_name)
 			curr_party_stats.append(x.stats)
 			

@@ -30,7 +30,6 @@ onready var buttons = {
 }
 
 
-var input_id = "Menu" 
 var submenu = null
 var parent = null
 

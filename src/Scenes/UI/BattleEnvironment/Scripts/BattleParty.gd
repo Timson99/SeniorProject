@@ -3,7 +3,6 @@ extends HBoxContainer
 #Carry Overs
 onready var battle_brain = SceneManager.current_scene
 
-export var save_id := "main_party"
 export var C2_in_party = false
 export var C3_in_party = false
 #export var items := ["Bomb", "Crappy Spatula", "Leaf Bag", "Milk Carton", "Peach Iced Tea"]
@@ -53,7 +52,7 @@ func switch_characters():
 	
 	yield(get_tree().create_timer(0.1, false), "timeout")
 	for i in range(party_alive.find(active_player) + 1 , party_alive.size()):
-		if(!party_alive[i].alive):
+		if(!is_instance_valid(party_alive[i]) || !party_alive[i].alive):
 			continue
 		active_player = party_alive[i]
 		active_player.activate_player()
@@ -98,6 +97,7 @@ func on_load():
 	party.sort_custom(self, "sort_alive")
 	party.sort_custom(self, "sort_characters")
 	party_alive = party.duplicate()
+	
 	for i in range(len(party)):
 		party[i].screen_name = party[i].get_node("UI/Name").text
 
