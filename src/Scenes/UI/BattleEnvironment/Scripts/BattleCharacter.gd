@@ -46,7 +46,7 @@ func kill_character():
 
 
 func take_damage(damage):
-	BgEngine.play_sound("BasicPlayerTakeDamage1")
+	AudioManager.play_sound("BasicPlayerTakeDamage1")
 	animation_player.play("BattleHit")
 	yield(animation_player, "animation_finished")
 	stats.HP -= damage
@@ -118,7 +118,7 @@ func back():
 var saved_command
 
 func accept():
-	BgEngine.play_sound("BattleMenuButtonSelect")
+	AudioManager.play_sound("BattleMenuButtonSelect")
 	if current_mode == Mode.Menu:
 		var command = menu.accept()
 		#If accept didn't just open another submenu, and returned a command

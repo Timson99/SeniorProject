@@ -43,7 +43,7 @@ func make_move() -> BattleMove:
 	return move
 	
 func take_damage(damage):
-	BgEngine.play_sound("BasicPlayerAttack1")
+	AudioManager.play_sound("BasicPlayerAttack1")
 	animation_player.play("BattleHit")
 	yield(animation_player, "animation_finished")
 	stats.HP -= damage

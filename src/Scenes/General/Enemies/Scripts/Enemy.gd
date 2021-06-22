@@ -37,7 +37,7 @@ func _physics_process(delta):
 	animate_movement()
 	
 	var collision = move_and_collide(velocity * delta)
-	if collision && target_player && collision.collider.name == target_player.id:
+	if collision && target_player && collision.collider.name == target_player.name:
 		initiate_battle()
 	velocity = pause_movement()
 	
@@ -51,8 +51,8 @@ func initiate_battle():
 		EnemyHandler.collect_battle_enemy_ids(other_enemy.data_id)
 		EnemyHandler.add_to_battle_queue(other_enemy.key)
 	EnemyHandler.retain_enemy_data()
-	BgEngine.save_song()
-	BgEngine.play_battle_music()
+	AudioManager.save_song()
+	AudioManager.play_battle_music()
 	SceneManager.goto_scene("battle", "", true)	
 
 
@@ -74,13 +74,13 @@ func move_toward_player():
 	
 	
 func begin_chasing(body: Node):
-	if target_player && body.name == target_player.id:
+	if target_player && body.name == target_player.name:
 		player_party = body
 		current_mode = Mode.Chase
 	
 	
 func stop_chasing(body: Node):
-	if target_player && body.name == target_player.id:
+	if target_player && body.name == target_player.name:
 		player_party = null
 		current_mode = initial_mode
 

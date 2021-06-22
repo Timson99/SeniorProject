@@ -183,7 +183,7 @@ CameraManager="*res://Singletons/CameraManager.gd"
 MenuManager="*res://Singletons/MenuManager.gd"
 DialogueEngine="*res://Singletons/DialogueEngine.tscn"
 Sequencer="*res://Singletons/Sequencer.gd"
-BgEngine="*res://Singletons/BGEngine.tscn"
+AudioManager="*res://Singletons/AudioManager.tscn"
 EnemyHandler="*res://Singletons/EnemyHandler.gd"
 
 [debug]

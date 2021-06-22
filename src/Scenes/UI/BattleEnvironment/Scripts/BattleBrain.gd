@@ -85,7 +85,7 @@ func execute(moves_made : Array):
 			else:
 				escaped = calculate_escape_chance(move, enemies, moves_made)
 				if escaped:
-					BgEngine.play_sound("BasicPlayerFleeing")
+					AudioManager.play_sound("BasicPlayerFleeing")
 					dialogue_node.display_message("...And the party safely skedaddled!", true, 0.05, 1)
 					yield(dialogue_node, "end")
 					break
@@ -183,7 +183,7 @@ func calculate_xp_payout(base_xp: int):
 			
 func battle_victory():
 	character_party.terminate_input()
-	BgEngine.play_battle_victory()
+	AudioManager.play_battle_victory()
 	var adjusted_xp_payout = calculate_xp_payout(enemy_party.xp_payout)
 	dialogue_node.display_message(["You Win!", "%d Exp Earned." % adjusted_xp_payout], true, 0.1, 1)
 	yield(dialogue_node, "end")
@@ -196,22 +196,22 @@ func battle_victory():
 			character.stats = Game.leveling.level_up(id)
 			var char_name = character.screen_name
 			var new_level = character.stats.to_dict()["LEVEL"]
-			BgEngine.play_jingle("LevelUp")
+			AudioManager.play_jingle("LevelUp")
 			dialogue_node.display_message(["%s grew to level %d!" % [char_name, new_level]], true, 0.1, 1)
 			yield(dialogue_node, "end")
 		"""
-	BgEngine.return_from_battle()
+	AudioManager.return_from_battle()
 	SceneManager.goto_flagged()
 	
 func battle_failure():
 	dialogue_node.display_message("You Lose!", false, 0.1, 1)
 	SceneManager.goto_scene("GameOver")
-	BgEngine.play_game_over()
+	AudioManager.play_game_over()
 	
 	
 func battle_escape():
 	character_party.terminate_input()
-	BgEngine.return_from_battle()
+	AudioManager.return_from_battle()
 	SceneManager.goto_flagged()
 	
 

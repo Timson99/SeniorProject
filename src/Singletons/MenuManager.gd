@@ -1,9 +1,11 @@
 extends Node2D
 
-var active = false 
+
 
 const main_menu_scene = preload("res://Scenes/UI/MainMenuUI/MainMenu.tscn")
+
 var main_menu = null
+var active = false 
 
 var item_data
 var skill_data
@@ -18,7 +20,7 @@ func activate():
 	party = ActorManager.get_actor("Party")
 	EnemyHandler.freeze_all_nonplayers()
 	
-	BgEngine.play_sound("OpenMenu")
+	AudioManager.play_sound("OpenMenu")
 	main_menu = main_menu_scene.instance()
 	call_deferred("add_child", main_menu)
 	main_menu.parent = self
@@ -28,7 +30,7 @@ func deactivate():
 	party = null
 	main_menu = null
 	active = false
-	BgEngine.play_sound("CloseMenu")
+	AudioManager.play_sound("CloseMenu")
 	EnemyHandler.unfreeze_all_nonplayers()
 	
 	

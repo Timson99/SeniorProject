@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Singletons/BGAudioEngine/BGAudioEngine.gd" type="Script" id=1]
+[ext_resource path="res://Singletons/BGAudioEngine/AudioManager.gd" type="Script" id=1]
 
 [node name="BGEngine" type="Node"]
 script = ExtResource( 1 )
@@ -9,10 +9,8 @@ script = ExtResource( 1 )
 bus = "Music"
 
 [node name="SoundEffects" type="AudioStreamPlayer" parent="."]
-volume_db = -10.0
 bus = "SFX"
 
 [node name="FadeOut" type="Tween" parent="."]
 
 [node name="FadeIn" type="Tween" parent="."]
-[connection signal="tween_completed" from="FadeOut" to="." method="_on_FadeOut_tween_completed"]

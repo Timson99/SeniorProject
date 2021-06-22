@@ -11,7 +11,7 @@ func _ready():
 	
 func interact():
 	if interact_sound:
-		BgEngine.play_sound(interact_sound)
+		AudioManager.play_sound(interact_sound)
 	DialogueEngine._beginTransmit(speakerID, "")
 
 func body_entered(body):

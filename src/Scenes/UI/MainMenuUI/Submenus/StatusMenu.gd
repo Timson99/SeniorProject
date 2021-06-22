@@ -41,7 +41,7 @@ func back():
 	if submenu:
 		submenu.back()
 	else:
-		BgEngine.play_sound("MenuButtonReturn")		
+		AudioManager.play_sound("MenuButtonReturn")		
 		queue_free()
 		
 func accept():

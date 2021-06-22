@@ -23,4 +23,4 @@ func change_to_same_scene():
 
 
 func change_song_midscene():
-	BgEngine.swap_songs_midscene(song_change)
+	AudioManager.swap_songs_midscene(song_change)

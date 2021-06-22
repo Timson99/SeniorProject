@@ -16,8 +16,8 @@ export var enemy_variations = ["FoxEnemy"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not BgEngine._music_player.is_playing():
-		BgEngine.facilitate_track_changes("Foreign Hallways")
+	if not AudioManager._music_player.is_playing():
+		AudioManager.facilitate_track_changes("Foreign Hallways")
 
 	
 

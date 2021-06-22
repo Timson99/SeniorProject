@@ -180,7 +180,6 @@ position = Vector2( 390.655, 275.896 )
 
 [node name="Entry" parent="." instance=ExtResource( 7 )]
 position = Vector2( 39.0851, 110.703 )
-warp_id = "Entry"
 warp_scene_id = "Area02_EntranceHall"
 exit_direction = 1
 one_way = true

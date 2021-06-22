@@ -158,7 +158,7 @@ func back():
 		$TextureRect/ControlMenu/RemappingText.text = "Press Cancel again to exit submenu; otherwise, press Confirm to remap Cancel command."
 		if confirm_cancel == 0:
 			return
-		BgEngine.play_sound("MenuButtonReturn")		
+		AudioManager.play_sound("MenuButtonReturn")		
 		queue_free()
 		
 		

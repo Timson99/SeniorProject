@@ -18,10 +18,10 @@ onready var sliders = {
 	}
 }
 
-onready var db_range = abs(BgEngine.max_volume_value-BgEngine.min_volume_value)
+onready var db_range = abs(AudioManager.max_volume_value-AudioManager.min_volume_value)
 onready var db_change = floor(db_range / sliders[focused]["slider"].tick_count)
-onready var starting_music_vol = BgEngine.baseline_music_volume
-onready var starting_sfx_vol = BgEngine.baseline_se_volume
+onready var starting_music_vol = AudioManager.baseline_music_volume
+onready var starting_sfx_vol = AudioManager.baseline_se_volume
 
 func _ready():
 	sliders[Slider.Music]["slider"].value = starting_music_vol
@@ -32,13 +32,13 @@ func _ready():
 
 
 func change_music_volume(new_db: float):
-	BgEngine.change_music_volume(new_db)
+	AudioManager.change_music_volume(new_db)
 	
 func change_sfx_volume(new_db: float):
-	BgEngine.change_sfx_volume(new_db)
+	AudioManager.change_sfx_volume(new_db)
 
 func back():
-	BgEngine.play_sound("MenuButtonReturn")		
+	AudioManager.play_sound("MenuButtonReturn")		
 	reset_parent_button()
 	queue_free()
 		

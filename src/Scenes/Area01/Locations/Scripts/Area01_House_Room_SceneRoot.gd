@@ -17,8 +17,8 @@ func _ready():
 	SaveManager.register(self)
 	ActorManager.register_actor(self)
 	unshade()
-	if current_attempt == 1 && !BgEngine._music_player.is_playing():
-		BgEngine.facilitate_track_changes(track_1)
+	if current_attempt == 1 && !AudioManager._music_player.is_playing():
+		AudioManager.facilitate_track_changes(track_1)
 	
 	
 func shade():

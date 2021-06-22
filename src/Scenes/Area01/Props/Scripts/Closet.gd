@@ -14,7 +14,7 @@ func _ready():
 func interact():
 	if (party.active_player.has_method("change_skin") and
 		party.active_player.id == "C1"):
-		BgEngine.play_sound("PutOnCoat01")
+		AudioManager.play_sound("PutOnCoat01")
 		party.active_player.change_skin("default")
 	make_closet_used()
 	

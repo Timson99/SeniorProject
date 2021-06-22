@@ -82,7 +82,7 @@ func reset(reset_focused = true):
 	
 	
 func left():
-	BgEngine.play_sound("BattleMenuSwitchFocus")
+	AudioManager.play_sound("BattleMenuSwitchFocus")
 	if is_instance_valid(submenu):
 		submenu.left()
 	else:
@@ -95,7 +95,7 @@ func left():
 		held_actions["left"] = OS.get_ticks_msec()
 	
 func right():
-	BgEngine.play_sound("BattleMenuSwitchFocus")
+	AudioManager.play_sound("BattleMenuSwitchFocus")
 	if is_instance_valid(submenu):
 		submenu.right()
 	else:
@@ -117,7 +117,7 @@ func release_down():
 	pass
 	
 func accept():
-	BgEngine.play_sound("BattleMenuButtonSelect")
+	AudioManager.play_sound("BattleMenuButtonSelect")
 	if submenu:
 		submenu.accept()
 	else:
@@ -127,20 +127,20 @@ func accept():
 func back():
 	if submenu:
 		submenu.back()
-		BgEngine.play_sound("BattleMenuButtonReturn")
+		AudioManager.play_sound("BattleMenuButtonReturn")
 	else:
 		var battle_party = SceneManager.current_scene.character_party
 		battle_party.cancel_previous_character_move()
 		
 func up():
 	if submenu:
-		BgEngine.play_sound("BattleMenuSwitchFocus")
+		AudioManager.play_sound("BattleMenuSwitchFocus")
 		submenu.up()
 	
 func down():
 	if submenu:
 		submenu.down()
-		BgEngine.play_sound("BattleMenuSwitchFocus")
+		AudioManager.play_sound("BattleMenuSwitchFocus")
 		
 			
 

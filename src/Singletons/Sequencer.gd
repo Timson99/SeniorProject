@@ -125,11 +125,11 @@ func actor_sync_instruction(params: Array):
 func bg_audio_instruction(params: Array):
 	yield(get_tree().create_timer(0, false), "timeout")
 	if params.size() == 2:
-		BgEngine.call_deferred(params[1])
+		AudioManager.call_deferred(params[1])
 	elif params.size() == 3:
-		BgEngine.call_deferred(params[1], params[2])
+		AudioManager.call_deferred(params[1], params[2])
 	elif params.size() == 4:
-		BgEngine.call_deferred(params[1], params[2], params[3])
+		AudioManager.call_deferred(params[1], params[2], params[3])
 	
 	
 # Open Dialogue, No Coroutine

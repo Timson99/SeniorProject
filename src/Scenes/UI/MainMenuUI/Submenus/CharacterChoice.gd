@@ -47,7 +47,7 @@ func _populate_party():
 		curr_party_names = []
 		curr_party_stats = []
 		for x in party_group[0].party:
-			curr_party.append(x.id)
+			curr_party.append(x.name)
 			curr_party_names.append(x.screen_name)
 			curr_party_stats.append(x.stats)
 			
@@ -73,7 +73,7 @@ func back():
 		else:
 			submenu.back()
 	else:
-		BgEngine.play_sound("MenuButtonReturn")
+		AudioManager.play_sound("MenuButtonReturn")
 		unfocus()
 		parent.submenu = null
 #		queue_free()
@@ -82,7 +82,7 @@ func accept():
 	if submenu:
 		submenu.accept()
 	else:
-		BgEngine.play_sound("MenuButtonSelect")
+		AudioManager.play_sound("MenuButtonSelect")
 		submenu = forward.instance()
 		call_deferred("add_child", submenu)
 		submenu.curr_char = curr_party_names[focused]
