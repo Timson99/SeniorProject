@@ -2,7 +2,7 @@
 	ActorManager
 		Provides an interfeace for fetching any registered actor in a scene
 		Allows registeration of an id'd node
-		Provides Sequencer a actor interface for setting and calling actors
+		Provides EventManager a actor interface for setting and calling actors
 			Includes async and sync commands for calling methods that are coroutines
 		
 	Dependencies
@@ -39,7 +39,7 @@ func get_actor(id):
 
 
 #########
-# Sequencer Functions
+# EventManager Functions
 ########
 
 # Calls a function on a registered actor by id
@@ -64,8 +64,8 @@ func set_command(id : String, property : String, new_value):
 
 # Calls a syncronous function on a registered actor by id
 # Prevents further commands until this one is finished 
-# (Sequencer doesnt call next command till this function finishes)
-# (Sequencer doesnt call next command till this function finishes)
+# (EventManager doesnt call next command till this function finishes)
+# (EventManager doesnt call next command till this function finishes)
 func sync_command(id, func_name, params):
 	var actor = actor_registry.fetch(id)
 	if !actor:

@@ -27,7 +27,7 @@ func display():
 	tween.start()
 	yield(tween, "tween_completed")
 	yield(get_tree().create_timer(2, false), "timeout")
-	Sequencer.execute_event("Area01_Sequence01")
+	EventManager.execute_event("Area01_Sequence01")
 	
 	
 	

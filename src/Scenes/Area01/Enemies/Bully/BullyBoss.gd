@@ -31,13 +31,13 @@ func post_battle():
 		attempt_one_alive = false
 		position = faint_pos_attempt1
 		flip_horizontal(true)
-		Sequencer.execute_event("Area01_Sequence04")
+		EventManager.execute_event("Area01_Sequence04")
 	elif attempt == 2:
 		outside_root.remove_vertical_event_trigger("pre_fight")
 		attempt_two_alive = false
 		position = faint_pos_attempt2
 		flip_horizontal(true)
-		Sequencer.execute_event("Area01_Sequence05")
+		EventManager.execute_event("Area01_Sequence05")
 	else:
 		Debugger.dprint("Error in Bully Boss Script")
 

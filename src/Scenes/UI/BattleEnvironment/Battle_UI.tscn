@@ -93,19 +93,19 @@ __meta__ = {
 C2_in_party = true
 C3_in_party = true
 
-[node name="C1_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 4 )]
+[node name="C1" parent="BattleModules/Party_Modules" instance=ExtResource( 4 )]
 skills = {
 "Lil' Ice": 6
 }
 
-[node name="C2_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 1 )]
+[node name="C2" parent="BattleModules/Party_Modules" instance=ExtResource( 1 )]
 margin_left = 96.0
 margin_right = 96.0
 skills = {
 "Lil' Ice": 6
 }
 
-[node name="C3_Module" parent="BattleModules/Party_Modules" instance=ExtResource( 3 )]
+[node name="C3" parent="BattleModules/Party_Modules" instance=ExtResource( 3 )]
 margin_left = 192.0
 margin_right = 192.0
 skills = {

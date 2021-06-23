@@ -169,10 +169,6 @@ item_id = "Bomb"
 "Persistent",
 ] instance=ExtResource( 6 )]
 position = Vector2( -160, 242 )
-pathing_coordinates = [  ]
-current_mode = 2
-data_id = 1
-alive = true
 is_boss = false
 
 [node name="ExitDoor" parent="YSort" instance=ExtResource( 12 )]

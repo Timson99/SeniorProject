@@ -1,7 +1,7 @@
 extends Node
 
 """
-	Sequencer
+	EventManager
 		Used for creating Events
 		
 	Dependencies
@@ -15,7 +15,7 @@ extends Node
 		
 """
 
-# Indicates if the Sequencer is currently executing a event
+# Indicates if the EventManager is currently executing a event
 var in_control = false
 
 
@@ -74,10 +74,10 @@ func execute_instructions(event):
 
 func execute_event(event_id : String):
 	if not event_id in Events :
-		Debugger.dprint("SEQUENCER ERROR: Invalid Event id '%s'" % event_id)
+		Debugger.dprint("EventManager ERROR: Invalid Event id '%s'" % event_id)
 		return
 	if in_control == true:
-		Debugger.dprint("SEQUENCER ERROR: Event Already Running, can't run event_id '%s'" % event_id)
+		Debugger.dprint("EventManager ERROR: Event Already Running, can't run event_id '%s'" % event_id)
 		return
 	
 	var event = load(Events[event_id])

@@ -13,7 +13,7 @@ func _ready():
 	
 func trigger_event():
 	if event_key != "":
-		Sequencer.execute_event(event_key)
+		EventManager.execute_event(event_key)
 
 func body_entered(body):
 	var party = get_tree().get_nodes_in_group("Party")

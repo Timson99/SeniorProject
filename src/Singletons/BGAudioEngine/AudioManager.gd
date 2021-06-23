@@ -2,6 +2,9 @@
 	AudioManager
 		Busses adjust SFX and Music relative to each other ( User Configurable )
 		StreamPlayer volume adjust volume relative to other tracks ( Developer )
+		
+	Dependencies:
+		ActorManager ( So AudioManager is registered and EventManager callable)
 
 """
 extends Node
