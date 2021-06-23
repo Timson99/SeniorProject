@@ -26,7 +26,7 @@ var async_actors = []
 #######
 	
 # Register a actor with a nonempty string id 
-func register_actor(node):
+func register(node):
 	actor_registry.register(node)
 
 # Check if actor registry has an actor by id

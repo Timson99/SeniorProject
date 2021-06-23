@@ -9,7 +9,7 @@ onready var anim = $AnimatedSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ActorManager.register_actor(self)
+	ActorManager.register(self)
 	anim.play("closed")
 	
 func close():

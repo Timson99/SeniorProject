@@ -52,7 +52,6 @@ func initiate_battle():
 		EnemyHandler.add_to_battle_queue(other_enemy.key)
 	EnemyHandler.retain_enemy_data()
 	AudioManager.save_song()
-	AudioManager.play_battle_music()
 	SceneManager.goto_scene("battle", "", true)	
 
 

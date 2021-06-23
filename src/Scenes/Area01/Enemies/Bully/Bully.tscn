@@ -13,7 +13,7 @@
 [ext_resource path="res://Assets/Art/Enemy_Art/Bully/Bully_07.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Art/Enemy_Art/Bully/Bully_10.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Art/Enemy_Art/Bully/Bully_08.png" type="Texture" id=13]
-[ext_resource path="res://Area01/Enemies/Bully/BullyBoss.gd" type="Script" id=14]
+[ext_resource path="res://Scenes/Area01/Enemies/Bully/BullyBoss.gd" type="Script" id=14]
 [ext_resource path="res://Assets/Art/Enemy_Art/Bully/Bully_14.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Art/Enemy_Art/Bully/Bully_13.png" type="Texture" id=16]
 

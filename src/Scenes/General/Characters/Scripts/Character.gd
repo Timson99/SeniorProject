@@ -18,7 +18,7 @@ var equipeed_arm
 onready var stats: EntityStats 
 
 func _ready():	
-	ActorManager.register_actor(self)
+	ActorManager.register(self)
 	SaveManager.register(self)
 	#if Game.leveling.stats[id]:
 	#	stats = Game.leveling.get_stats(id)

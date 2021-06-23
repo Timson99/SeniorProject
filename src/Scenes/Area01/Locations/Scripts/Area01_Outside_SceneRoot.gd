@@ -23,7 +23,7 @@ signal faded_out()
 
 func _ready():
 	SaveManager.register(self)
-	ActorManager.register_actor(self)
+	ActorManager.register(self)
 
 
 func increment_attempt():

@@ -196,7 +196,7 @@ func battle_victory():
 			character.stats = Game.leveling.level_up(id)
 			var char_name = character.screen_name
 			var new_level = character.stats.to_dict()["LEVEL"]
-			AudioManager.play_jingle("LevelUp")
+			AudioManager.play_sound("LevelUp")
 			dialogue_node.display_message(["%s grew to level %d!" % [char_name, new_level]], true, 0.1, 1)
 			yield(dialogue_node, "end")
 		"""

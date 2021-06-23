@@ -18,12 +18,12 @@ func _ready():
 func interact():
 	if !opened:
 		animations.play("closed_to_open")
-		AudioManager.play_sound("OpenBox")
 		yield(animations, "animation_finished")
+		AudioManager.play_sound("OpenBox")
 		animations.play("open")
 		opened = true
 		if(item_id != ""):
-			AudioManager.play_jingle("ItemJingle")
+			AudioManager.play_sound("ItemJingle")
 			DialogueEngine.item_message(item_id)
 			if party:
 				party.items.append(item_id)

@@ -51,7 +51,7 @@ func _ready():
 	SceneManager.connect("goto_called", self, "reset_boundaries")
 	
 	resize_screen()
-	ActorManager.register_actor(self)
+	ActorManager.register(self)
 	
 	#Initialize Camera2D
 	camera.process_mode = Camera2D.CAMERA2D_PROCESS_PHYSICS

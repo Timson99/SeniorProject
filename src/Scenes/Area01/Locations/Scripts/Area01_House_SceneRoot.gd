@@ -12,7 +12,7 @@ onready var main_door_dialogue = $TileMap/Warp_Outside/MainDoorDialogue/Collisio
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SaveManager.register(self)
-	ActorManager.register_actor(self)
+	ActorManager.register(self)
 	
 	main_door_warp.monitoring = false
 	closet.connect("used", self, "open_main_door")

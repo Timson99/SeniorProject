@@ -15,7 +15,7 @@ onready var tween = $Tween
 
 func _ready():
 	SaveManager.register(self)
-	ActorManager.register_actor(self)
+	ActorManager.register(self)
 	unshade()
 	if current_attempt == 1 && !AudioManager._music_player.is_playing():
 		AudioManager.facilitate_track_changes(track_1)

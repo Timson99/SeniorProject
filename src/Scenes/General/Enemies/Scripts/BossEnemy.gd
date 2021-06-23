@@ -15,7 +15,7 @@ onready var skins  = {
 }
 onready var animations = skins["Boss"]["default"]
 
-onready var data = EnemyHandler.Enemies[id]
+onready var data = EnemyHandler.Enemies["Bully"]
 onready var battle_id = "battle"
 
 
@@ -89,15 +89,15 @@ func move_to_position(new_position: Vector2, global = true):
 
 	
 func _ready():
-	EnemyHandler.add_enemy_data(id, self)
-	ActorManager.register_actor(self)
+	EnemyHandler.add_enemy_data(name, self)
+	ActorManager.register(self)
 	
 func flip_horizontal(flip : bool):
 	animations.flip_h = flip
 	
 func initiate_battle():	
-	EnemyHandler.queued_battle_enemies.append(id)
-	EnemyHandler.queued_battle_ids.append(id)
+	EnemyHandler.queued_battle_enemies.append(name)
+	EnemyHandler.queued_battle_ids.append(name)
 	SceneManager.goto_scene(battle_id, "", true)
 
 # Physics process kept in just in case we want to sequence boss movement prior
