@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Directories/DialogueFiles.gd"
 }, {
+"base": "Node",
+"class": "DialogueParser",
+"language": "GDScript",
+"path": "res://Classes/StaticClasses/DialogueParser.gd"
+}, {
 "base": "Object",
 "class": "EnemyTypes",
 "language": "GDScript",
@@ -114,11 +119,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Directories/MusicTracks.gd"
 }, {
-"base": "Node",
-"class": "NewDialogueManager",
-"language": "GDScript",
-"path": "res://Singletons/DialogueManager/NewDialogueManager.gd"
-}, {
 "base": "Object",
 "class": "NodeRegistry",
 "language": "GDScript",
@@ -148,6 +148,7 @@ _global_script_class_icons={
 "BossEnemy": "",
 "Debugger": "",
 "DialogueFiles": "",
+"DialogueParser": "",
 "EnemyTypes": "",
 "EntityStats": "",
 "Enums": "",
@@ -161,7 +162,6 @@ _global_script_class_icons={
 "MainScenes": "",
 "MenuResourcePaths": "",
 "MusicTracks": "",
-"NewDialogueManager": "",
 "NodeRegistry": "",
 "SkillsDirectory": "",
 "SoundEffects": "",

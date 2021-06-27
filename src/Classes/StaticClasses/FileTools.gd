@@ -11,6 +11,7 @@ class_name FileTools
 # Data File Functions
 #########
 
+# Converts a file to a raw string
 static func file_to_string( path : String) -> String:
 	var file = File.new()
 	if !file.file_exists(path):
@@ -22,6 +23,7 @@ static func file_to_string( path : String) -> String:
 		Debugger.dprint("!!! Error - File could not be retrieved as text : %s" % path)
 	return text
 
+# Convers a json file to a dictionary
 static func json_to_dict( path : String, int_cast_numerics := false) -> Dictionary:
 	var file = File.new()
 	if !file.file_exists(path):
@@ -33,6 +35,17 @@ static func json_to_dict( path : String, int_cast_numerics := false) -> Dictiona
 	if !dict:
 		Debugger.dprint("!!! Error - JSON at path has invalid formatting : %s" % path)
 	return dict
+	
+# Convers Array/Dictionary type to a file
+static func data_to_json( data, path : String, overwrite := false) -> bool:
+	var file = File.new()
+	if file.file_exists(path) && !overwrite:
+		Debugger.dprint("!!! Error - Overwriting existing file disabled : %s" % path)
+		return false
+	file.open(path, file.WRITE)
+	file.store_line(to_json(data))
+	file.close()
+	return true
 	
 #########
 # Save File Functions

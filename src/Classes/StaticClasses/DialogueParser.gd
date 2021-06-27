@@ -1,10 +1,12 @@
 extends Node
 
-class_name NewDialogueManager
+class_name DialogueParser
 
 
-
-func parse(dialogue_src : String):
+########
+# Public
+########
+static func parse(dialogue_src : String):
 	
 	var splitted : Array = dialogue_src.split("\n", false)
 	var stack = [ [] ]
@@ -15,9 +17,9 @@ func parse(dialogue_src : String):
 		if indent_level != 2 && line.strip_edges().length() == 0:
 			continue
 			
-		var content = line
-		if indent_level != 2: content = line.dedent()
-		else: content = line.substr(2) if line[0] == "\t" else line.substr(8)
+		var content = line.strip_edges(false, true)
+		if indent_level != 2: content = content.dedent()
+		else: content = content.substr(2) if content[0] == "\t" else content.substr(8)
 		
 		var line_dict = {"content" : content, "children" : [], "indent" : indent_level}
 		
@@ -62,12 +64,16 @@ func parse(dialogue_src : String):
 		if !dialogue_dictionary[id].has("MAIN"):
 			Debugger.dprint("CONTEXT ERROR: NO 'MAIN' CONTEXT UNDER ID '%s'" % id)
 
-		
-	print(dialogue_dictionary)
+	#print(dialogue_dictionary)
+	return dialogue_dictionary
 	
-	return stack[0]
+
+
+########
+# Private
+########	
 	
-func parse_indent_level(line : String):
+static func parse_indent_level(line : String):
 	var indent_level = 0
 	var char_index = 0
 	while true:
@@ -81,11 +87,13 @@ func parse_indent_level(line : String):
 	return min(2, indent_level)
 	
 
-func parse_context(line_list : Array):
+static func parse_context(line_list : Array):
 	var context_list : Array = []
 	
+	var last_speaker = ""
 	
 	for speaker_line in line_list:
+		
 		var content = speaker_line["content"]
 		if content == "OPTION":
 			var result = {"type" : "OPTION", "options" : []}
@@ -103,11 +111,22 @@ func parse_context(line_list : Array):
 			var result = {"type" : "QUEUE", "queued_context" : queued_context}
 			context_list.push_back(result)
 			continue
+			
+		var event_id = validate_execute_declaration(content)
+		if event_id:
+			var result = {"type" : "EXECUTE", "event_id" : event_id}
+			context_list.push_back(result)
+			continue
 		
 		var speaker_parsed = validate_speaker_declaration(content)
 		if speaker_parsed:
 			var speaker = speaker_parsed[0]
 			var speaker_flags = speaker_parsed[1]
+			
+			if speaker == "-":
+				speaker = last_speaker
+			last_speaker = speaker
+			
 			var result = {"type" : "TEXT", "speaker" : speaker, "text" : "", "VAR" : speaker_flags["VAR"]}
 			for child in speaker_line["children"]:
 				var connector_type = "\n" if speaker_flags["RAW"] else " "
@@ -122,7 +141,7 @@ func parse_context(line_list : Array):
 	
 	
 	
-func validate_option_declaration(content):
+static func validate_option_declaration(content):
 	var option_re = RegEx.new()
 	option_re.compile("^\\s*((\\s*[^\\s~]+)*)\\s+->\\s+(\\S+)\\s*$")
 	var result = option_re.search(content)
@@ -135,7 +154,7 @@ func validate_option_declaration(content):
 		return null
 
 
-func validate_speaker_declaration(content):
+static func validate_speaker_declaration(content):
 	var speaker_re = RegEx.new()
 	speaker_re.compile("^\\s*((\\s*[^\\s~]+)*)(\\s+~(RAW|VAR))?(\\s+~(RAW|VAR))?\\s*$")
 	var result = speaker_re.search(content)
@@ -151,7 +170,7 @@ func validate_speaker_declaration(content):
 		return null
 		
 		
-func validate_queue_declaration(content):
+static func validate_queue_declaration(content):
 	var queue_re = RegEx.new()
 	queue_re.compile("^\\s*QUEUE\\s+(\\S+)\\s*$")
 	var result = queue_re.search(content)
@@ -160,9 +179,19 @@ func validate_queue_declaration(content):
 		return queued_context
 	else:
 		return null
+		
+static func validate_execute_declaration(content):
+	var queue_re = RegEx.new()
+	queue_re.compile("^\\s*EXECUTE\\s+(\\S+)\\s*$")
+	var result = queue_re.search(content)
+	if result:
+		var queued_context = result.get_string(1)
+		return queued_context
+	else:
+		return null
 
 	
-func validate_id_declaration(content):
+static func validate_id_declaration(content):
 	var id_re = RegEx.new()
 	id_re.compile("^d_id\\s*=\\s*(\\S+)\\s*$")
 	var result = id_re.search(content)
@@ -171,7 +200,7 @@ func validate_id_declaration(content):
 	else: 
 		return null
 	
-func validate_context_declaration(content):
+static func validate_context_declaration(content):
 	var context_re = RegEx.new()
 	context_re.compile("^CONTEXT\\s+(\\S+)\\s*$") 
 	var result = context_re.search(content)
@@ -184,12 +213,12 @@ func validate_context_declaration(content):
 	
 
 	
-func no_id_declared(context_name):
+static func no_id_declared(context_name):
 	Debugger.dprint(
 		"CONTEXT ERROR: d_id has not been declared before context '%s'" % context_name 
 	)
 	
-func no_duplicate_context(context_name, current_id):
+static func no_duplicate_context(context_name, current_id):
 	Debugger.dprint(
 		"CONTEXT ERROR: CONTEXT '%s' duplicate in id '%s'" 
 					% [context_name, current_id] 
