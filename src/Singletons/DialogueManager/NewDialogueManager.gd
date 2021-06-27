@@ -98,9 +98,9 @@ func parse_context(line_list : Array):
 			context_list.push_back(result)
 			continue
 			
-		if content == "QUEUE":
-			var result = {"type" : "QUEUE", "context_dest" : ""}
-			# TODO
+		var queued_context = validate_queue_declaration(content)
+		if queued_context:
+			var result = {"type" : "QUEUE", "queued_context" : queued_context}
 			context_list.push_back(result)
 			continue
 		
@@ -152,8 +152,14 @@ func validate_speaker_declaration(content):
 		
 		
 func validate_queue_declaration(content):
-	# TODO
-	pass
+	var queue_re = RegEx.new()
+	queue_re.compile("^\\s*QUEUE\\s+(\\S+)\\s*$")
+	var result = queue_re.search(content)
+	if result:
+		var queued_context = result.get_string(1)
+		return queued_context
+	else:
+		return null
 
 	
 func validate_id_declaration(content):

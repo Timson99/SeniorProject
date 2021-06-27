@@ -12,12 +12,12 @@ func _ready():
 	#CameraManager.set_scene_boundaries(63, 393, 23, 273)
 	var ndm = NewDialogueManager.new()
 	ndm.parse("""
-d_id = "123"
+d_id = 123
 
 CONTEXT MAIN
 	PLAYER
 		Hello You
-	Jenny 
+	Jenny ~RAW ~VAR
 		That's 
 		  Sexual 
 		   Harrasment
@@ -26,6 +26,7 @@ CONTEXT MAIN
 		I love you -> Path2
 	PLAYER
 		GUESS I'LL DIE
+	QUEUE PATH1
 	
 CONTEXT PATH1
 	Jenny
