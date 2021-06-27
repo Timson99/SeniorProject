@@ -40,6 +40,9 @@ margin_top = -25.007
 margin_right = 141.934
 margin_bottom = 19.993
 custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "That's Sexual Harrasment, you sick pervert who has no care in the world for women or women's issues. You should be ashamed of yourself."
+text = "That's Sexual Harrasment, you sick pervert who has no care in the world for women or women's issues. You should be ashamed of yourself."
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false

@@ -17,8 +17,10 @@ d_id = "123"
 CONTEXT MAIN
 	PLAYER
 		Hello You
-	Jenny
-		That's Sexual Harrasment
+	Jenny 
+		That's 
+		  Sexual 
+		   Harrasment
 	OPTION
 		You Are a Ho -> Path1  
 		I love you -> Path2

@@ -8,15 +8,17 @@ func parse(dialogue_src : String):
 	
 	var splitted : Array = dialogue_src.split("\n", false)
 	var stack = [ [] ]
-	
-	
 	var last_indent = 0
 	while splitted.size() > 0:
 		var line = splitted.pop_front()
-		if line.strip_edges().length() == 0:
-			continue
 		var indent_level = parse_indent_level(line)
-		var content = line.dedent().strip_edges()
+		if indent_level != 2 && line.strip_edges().length() == 0:
+			continue
+			
+		var content = line
+		if indent_level != 2: content = line.dedent()
+		else: content = line.substr(2) if line[0] == "\t" else line.substr(8)
+		
 		var line_dict = {"content" : content, "children" : [], "indent" : indent_level}
 		
 		if last_indent < indent_level:
@@ -35,15 +37,13 @@ func parse(dialogue_src : String):
 		
 		
 	var parsed_lines = stack[0]
-		
 	var current_id = ""
 	var dialogue_dictionary = {}
 	
 	
 	for line in parsed_lines:
-		
 		var content = line["content"]
-		
+	
 		var d_id = validate_id_declaration(content)
 		if d_id:
 			current_id = d_id
@@ -57,15 +57,13 @@ func parse(dialogue_src : String):
 			
 		Debugger.dprint("INDENT ERROR: Unexpected line at Indent Level 0:  %s" % content )
 
-
-
 	# Makes sure every dialogue has a MAIN default context
 	for id in dialogue_dictionary.keys():
 		if !dialogue_dictionary[id].has("MAIN"):
 			Debugger.dprint("CONTEXT ERROR: NO 'MAIN' CONTEXT UNDER ID '%s'" % id)
+
 		
-		
-	#print(dialogue_dictionary)
+	print(dialogue_dictionary)
 	
 	return stack[0]
 	
@@ -80,21 +78,16 @@ func parse_indent_level(line : String):
 			indent_level+=1
 			char_index+=1
 		else: break
-	return indent_level
+	return min(2, indent_level)
 	
 
 func parse_context(line_list : Array):
 	var context_list : Array = []
 	
+	
 	for speaker_line in line_list:
-		var speaker = speaker_line["content"]
-		if speaker != "OPTION" and speaker_line["children"]:
-			var result = {"type" : "TEXT", "speaker" : speaker,"text" : ""}
-			for child in speaker_line["children"]:
-				var space : String = " " if result["text"].length() > 0 else ""
-				result["text"] += space + child["content"]
-			context_list.push_back(result)
-		elif speaker == "OPTION":
+		var content = speaker_line["content"]
+		if content == "OPTION":
 			var result = {"type" : "OPTION", "options" : []}
 			for child in speaker_line["children"]:
 				var option_data = validate_option_declaration(child["content"])
@@ -103,21 +96,64 @@ func parse_context(line_list : Array):
 						{"text" : option_data[0], "destination" : option_data[1]} 
 					)
 			context_list.push_back(result)
+			continue
+			
+		if content == "QUEUE":
+			var result = {"type" : "QUEUE", "context_dest" : ""}
+			# TODO
+			context_list.push_back(result)
+			continue
+		
+		var speaker_parsed = validate_speaker_declaration(content)
+		if speaker_parsed:
+			var speaker = speaker_parsed[0]
+			var speaker_flags = speaker_parsed[1]
+			var result = {"type" : "TEXT", "speaker" : speaker, "text" : "", "VAR" : speaker_flags["VAR"]}
+			for child in speaker_line["children"]:
+				var connector_type = "\n" if speaker_flags["RAW"] else " "
+				var connector = connector_type if result["text"].length() > 0 else ""
+				result["text"] += connector + child["content"]
+			context_list.push_back(result)
+			continue
+		
+		Debugger.dprint("INDENT ERROR: Unexpected line at Indent Level 1:  %s" % speaker_line["content"]  )
+			
 	return context_list
 	
 	
 	
 func validate_option_declaration(content):
 	var option_re = RegEx.new()
-	option_re.compile("^\\s*(.+)\\s+->\\s+(\\S+)\\s*$")
+	option_re.compile("^\\s*((\\s*[^\\s~]+)*)\\s+->\\s+(\\S+)\\s*$")
 	var result = option_re.search(content)
 	if result:
 		var text = result.get_string(1)
-		var destination = result.get_string(2)
+		var destination = result.get_string(3)
 		return [text, destination]
 	else:
 		Debugger.dprint("COULD NOT VALIDATE OPTION") 
 		return null
+
+
+func validate_speaker_declaration(content):
+	var speaker_re = RegEx.new()
+	speaker_re.compile("^\\s*((\\s*[^\\s~]+)*)(\\s+~(RAW|VAR))?(\\s+~(RAW|VAR))?\\s*$")
+	var result = speaker_re.search(content)
+	if result:
+		var speaker = result.get_string(1)
+		var flags = [result.get_string(4), result.get_string(6)]
+		var flag_dict = {"RAW" : false, "VAR" : false}
+		for flag in flags:
+			if   flag == "RAW": flag_dict["RAW"] = true
+			elif flag == "VAR": flag_dict["VAR"] = true
+		return [speaker, flag_dict]
+	else:
+		return null
+		
+		
+func validate_queue_declaration(content):
+	# TODO
+	pass
 
 	
 func validate_id_declaration(content):
