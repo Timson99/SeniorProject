@@ -68,6 +68,6 @@ static func instructions():
 		["Actor-call", "C1", "set_collision", true],
 		["BG_Audio", "request_playback","No Place Like Home"],
 		["Dialogue", "Monologue"],
-		["Signal", "DialogueEngine", "end"],
+		["Signal", "DialogueManager", "end"],
   ]
 

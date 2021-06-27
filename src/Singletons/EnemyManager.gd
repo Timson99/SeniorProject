@@ -29,12 +29,28 @@ var spawning_locked := false
 var enemy_spawner_ratio: float
 
 
+########################
+#	Callbacks
+########################
 
 func _ready():
 	spawning_launched = false
 	SceneManager.connect("goto_called", self, "block_spawning")
 	SceneManager.connect("scene_fully_loaded", self, "check_if_spawning_possible")
 	check_if_spawning_possible()
+	
+func _physics_process(delta):
+	var party := get_tree().get_nodes_in_group("Party")
+	if scene_node != null && party.size() == 1:
+		target_player = party[0].active_player
+		player_view = CameraManager.viewport_size
+		if !spawning_launched:
+			spawning_launched = true
+			launch_spawning_loop()
+			
+########################
+#	Public
+########################
 
 # Called whenever a new scene is loaded; checks if explore root of the 
 # new scene permits enemy spawning (i.e. in exploration mode).	
@@ -203,15 +219,6 @@ func despawn_defeated_enemies():
 	yield(SceneManager, "scene_fully_loaded")
 	launch_spawning_loop()
 
-
-func _physics_process(delta):
-	var party := get_tree().get_nodes_in_group("Party")
-	if scene_node != null && party.size() == 1:
-		target_player = party[0].active_player
-		player_view = CameraManager.viewport_size
-		if !spawning_launched:
-			spawning_launched = true
-			launch_spawning_loop()
 		
 			
 # If enemies can be spawned and the target player character has been located,

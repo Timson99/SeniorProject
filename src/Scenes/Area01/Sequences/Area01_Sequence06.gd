@@ -15,9 +15,9 @@ static func instructions():
 		["Delay", 0.5],
 
 		["Dialogue", "Bully_Attempt3_1"],
-		["Signal", "DialogueEngine", "page_over"],
+		["Signal", "DialogueManager", "page_over"],
 		["Actor-call", "C1", "play_anim", "Idle_Up"],
-		["Signal", "DialogueEngine", "end"],
+		["Signal", "DialogueManager", "end"],
 		["Actor-call", "C1", "set_speed", 120],
 		["Actor-call", "Bully","set_speed", 120],
 		

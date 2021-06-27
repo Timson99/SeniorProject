@@ -12,7 +12,7 @@ func _ready():
 	connect("body_exited", self, "body_exit")
 	
 func interact():
-	DialogueEngine._beginTransmit(speakerID, "")
+	DialogueManager._beginTransmit(speakerID, "")
 
 func body_entered(body):
 	var party = get_tree().get_nodes_in_group("Party")

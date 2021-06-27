@@ -35,7 +35,7 @@ func interact():
 	print("Interacted")
 	current_mode = Mode.Interacting
 	# Dialogue Engine code here, I assume, based on NPC 
-	# DialogueEngine.custom_message(message) ?
+	# DialogueManager.custom_message(message) ?
 	# yield until interaction finishes
 	yield(get_tree().create_timer(2.0, false), "timeout")
 	current_mode = initial_mode

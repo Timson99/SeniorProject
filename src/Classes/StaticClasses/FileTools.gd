@@ -11,6 +11,17 @@ class_name FileTools
 # Data File Functions
 #########
 
+static func file_to_string( path : String) -> String:
+	var file = File.new()
+	if !file.file_exists(path):
+		Debugger.dprint("!!! Error - File path does not exist : %s" % path)
+	file.open(path, file.READ)
+	var text = file.get_as_text()
+	file.close()
+	if !text:
+		Debugger.dprint("!!! Error - File could not be retrieved as text : %s" % path)
+	return text
+
 static func json_to_dict( path : String, int_cast_numerics := false) -> Dictionary:
 	var file = File.new()
 	if !file.file_exists(path):

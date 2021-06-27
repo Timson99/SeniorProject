@@ -96,13 +96,12 @@ func goto_scene(scene_id : String, warp_destination_id := "", flag_path := false
 func goto_scene_flag_current(scene_id : String, warp_destination_id := ""):
 	goto_scene(scene_id, warp_destination_id, true)
 
-
 # Will goto scene at location flagged_scene_path
 func goto_flagged(): 
 	if flagged_scene_path == "":
 		Debugger.dprint("ERROR: No Scene has been flagged")
 	emit_signal("goto_called")
-	EnemyHandler.despawn_on()
+	EnemyManager.despawn_on()
 	call_deferred("_deferred_goto_scene", flagged_scene_path, "")
 
 

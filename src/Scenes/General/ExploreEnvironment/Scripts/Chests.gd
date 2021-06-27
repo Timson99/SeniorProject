@@ -25,7 +25,7 @@ func interact():
 		if(item_id != ""):
 			AudioManager.play_sound("ItemJingle")
 			print("AFTER")
-			DialogueEngine.item_message(item_id)
+			DialogueManager.item_message(item_id)
 			if party:
 				party.items.append(item_id)
 

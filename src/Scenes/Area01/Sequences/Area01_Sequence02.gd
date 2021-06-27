@@ -15,8 +15,8 @@ static func instructions():
 		["BG_Audio", "save_song", "No Place Like Home"],
 		["BG_Audio", "swap_songs_abrupt", "Bully Encounter"],
 		["Dialogue", "Bully_Attempt1_1"],
-		["Signal", "DialogueEngine", "page_over"],
-		["Signal", "DialogueEngine", "page_over"],
+		["Signal", "DialogueManager", "page_over"],
+		["Signal", "DialogueManager", "page_over"],
 		
 		#Circle Around Player
 		["Actor-call", "Bully","set_speed", 30],
@@ -27,9 +27,9 @@ static func instructions():
 		["Actor-async", "Bully", "move_to_position", Vector2(0, -20), false],
 		["Actor-async", "Bully", "move_to_position", Vector2(1, 0), false],
 		
-		["Signal", "DialogueEngine", "page_over"],
+		["Signal", "DialogueManager", "page_over"],
 		
-		["Signal", "DialogueEngine", "end"],
+		["Signal", "DialogueManager", "end"],
 		["Actor-call", "Bully","set_speed", 60],
 		["Actor-sync", "Bully", "move_to_position", Vector2(8, 0), false],
 		["Actor-call", "Bully", "initiate_battle"],

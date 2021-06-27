@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Singletons/DialogueEngine/Dialogue_Management.gd" type="Script" id=1]
+[ext_resource path="res://Singletons/DialogueManager/DialogueManager.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Art/Test_Art/Christian_Test_Assets/Text_Scroll_SFX (1).wav" type="AudioStream" id=2]
 [ext_resource path="res://Assets/UI/Dialogue/Dialogue_Box_Mockup_02.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/ChunkyPixels.ttf" type="DynamicFontData" id=4]

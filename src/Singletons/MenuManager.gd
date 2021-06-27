@@ -18,7 +18,7 @@ func _ready():
 func activate():	
 
 	party = ActorManager.get_actor("Party")
-	EnemyHandler.freeze_all_nonplayers()
+	EnemyManager.freeze_all_nonplayers()
 	
 	AudioManager.play_sound("OpenMenu")
 	main_menu = main_menu_scene.instance()
@@ -31,7 +31,8 @@ func deactivate():
 	main_menu = null
 	active = false
 	AudioManager.play_sound("CloseMenu")
-	EnemyHandler.unfreeze_all_nonplayers()
+	EnemyManager.unfreeze_all_nonplayers()
+	
 	
 	
 #Loads Item Data on Game Start, Accessed MenuManager.item_data

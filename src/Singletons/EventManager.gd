@@ -135,7 +135,7 @@ func bg_audio_instruction(params: Array):
 # Open Dialogue, No Coroutine
 func dialogue_instruction(dialogue_id : String):
 	yield(get_tree().create_timer(0, false), "timeout")
-	DialogueEngine._beginTransmit(dialogue_id, "")
+	DialogueManager._beginTransmit(dialogue_id, "")
 
 #Begin Battle, No Coroutine, Last Instruction
 func battle_instruction(scene_id : String):
@@ -160,7 +160,7 @@ func signal_instruction(obj_id : String, signal_name):
 	var observed_objects = {
 		#"Dialogue" : DialogueManager,
 		"SceneManager" : SceneManager,
-		"DialogueEngine" : DialogueEngine,
+		"DialogueManager" : DialogueManager,
 		"CameraManager" : CameraManager,
 	}
 	if obj_id in observed_objects.keys():
@@ -171,4 +171,4 @@ func signal_instruction(obj_id : String, signal_name):
 	
 func enemy_instruction(empty_value):
 	yield(get_tree().create_timer(0, false), "timeout")
-	EnemyHandler.call_deferred("clear_existing_enemy_data")
+	EnemyManager.call_deferred("clear_existing_enemy_data")

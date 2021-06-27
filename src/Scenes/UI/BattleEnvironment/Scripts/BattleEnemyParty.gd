@@ -15,7 +15,7 @@ var selected_material = preload("res://Resources/Shaders/Illumination.tres")
 
 func _ready():
 	$HBoxContainer.rect_size = Vector2(0,0)
-	var enemy_keys = EnemyHandler.queued_battle_enemies 
+	var enemy_keys = EnemyManager.queued_battle_enemies 
 
 	if enemy_keys.size() == 0 and enemies_debug_keys.size() != 0:
 		enemy_keys = enemies_debug_keys
@@ -23,7 +23,7 @@ func _ready():
 		return
 
 	for e in enemy_keys:
-		var enemy_data = EnemyHandler.Enemies[e]
+		var enemy_data = EnemyManager.Enemies[e]
 		var enemy_scene = load(enemy_data["battle_sprite_scene"]).instance()
 		enemy_scene.ai = load(enemy_data["ai"]).new()
 		if enemy_scene.ai.vary_stats:

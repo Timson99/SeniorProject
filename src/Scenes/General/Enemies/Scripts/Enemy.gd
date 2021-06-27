@@ -1,7 +1,7 @@
 extends "res://Scenes/General/Non-Player (Both Enemies & NPCs)/Non-Player.gd"
 
 onready var player_party = null
-onready var target_player = EnemyHandler.target_player
+onready var target_player = EnemyManager.target_player
 
 enum Mode {Stationary, Chase, Wander, Patrol, Battle, Defeated}
 
@@ -24,7 +24,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	target_player = EnemyHandler.target_player
+	target_player = EnemyManager.target_player
 	if current_mode == Mode.Stationary:
 		velocity = velocity.normalized() * 0
 	elif player_party && current_mode == Mode.Chase:
@@ -43,14 +43,14 @@ func _physics_process(delta):
 	
 	
 func initiate_battle():
-	EnemyHandler.freeze_all_nonplayers()
+	EnemyManager.freeze_all_nonplayers()
 	$CollisionBox.disabled = true
-	EnemyHandler.collect_battle_enemy_ids(data_id)
-	EnemyHandler.add_to_battle_queue(key)
+	EnemyManager.collect_battle_enemy_ids(data_id)
+	EnemyManager.add_to_battle_queue(key)
 	for other_enemy in allies:
-		EnemyHandler.collect_battle_enemy_ids(other_enemy.data_id)
-		EnemyHandler.add_to_battle_queue(other_enemy.key)
-	EnemyHandler.retain_enemy_data()
+		EnemyManager.collect_battle_enemy_ids(other_enemy.data_id)
+		EnemyManager.add_to_battle_queue(other_enemy.key)
+	EnemyManager.retain_enemy_data()
 	AudioManager.save_song()
 	SceneManager.goto_scene("battle", "", true)	
 
