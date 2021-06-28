@@ -12,7 +12,7 @@ func _ready():
 func interact():
 	if interact_sound:
 		AudioManager.play_sound(interact_sound)
-	DialogueManager._beginTransmit(speakerID, "")
+	DialogueManager.transmit_dialogue(speakerID)
 
 func body_entered(body):
 	var party = get_tree().get_nodes_in_group("Party")

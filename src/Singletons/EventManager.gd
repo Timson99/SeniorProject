@@ -31,11 +31,11 @@ func _ready():
 	
 func assume_control():
 	in_control = true
-	InputManager.disable(ActorManager.get_actor("Party").active_player.id)
+	InputManager.disable(ActorManager.get_actor("Party").active_player.name)
 	
 func end_control():
 	in_control = false
-	InputManager.enable(ActorManager.get_actor("Party").active_player.id)
+	InputManager.enable(ActorManager.get_actor("Party").active_player.name)
 	
 func execute_instructions(event):
 	for instruction in event["instructions"]:
@@ -135,7 +135,7 @@ func bg_audio_instruction(params: Array):
 # Open Dialogue, No Coroutine
 func dialogue_instruction(dialogue_id : String):
 	yield(get_tree().create_timer(0, false), "timeout")
-	DialogueManager._beginTransmit(dialogue_id, "")
+	DialogueManager.transmit_dialogue(dialogue_id)
 
 #Begin Battle, No Coroutine, Last Instruction
 func battle_instruction(scene_id : String):

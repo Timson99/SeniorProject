@@ -1,3 +1,244 @@
+
+extends CanvasLayer
+
+
+signal begin()
+signal page_over()
+signal end()
+
+var current_area = "Area01"
+
+
+var dialogue_areas = {}
+var dialogue_files = {
+	"Area01" : ["res://Resources/Dialogue/Area01_NEW.res"],
+	"Area02" : ["res://Resources/Dialogue/Area02.res"],
+}
+
+
+# CONFIGURABLE GLOBAL SCROLL OPTIONS -> CHANGE THROUGH FUNCTION CALLS
+var scroll_time := 0.02 #Can't be faster than a frame, 1/60
+var character_jump = 2
+var breath_pause = 0.5
+var breath_char = "`"
+
+# Dilogue Specific members
+var message = []
+var current_d_id = "" #For queueing to a specific d_id
+
+# Variables for dialogue options
+var inOptions = false
+var inOptionTree = false
+var selectedOption = 1
+var totalOptions = 1
+var parentBranchNodes = []
+
+#	TREE NODE ACCESS
+onready var scrollAudio = get_node("TextAudio")
+onready var optionAudio = get_node("OptionAudio")
+onready var dialogue_box = $"Control/Dialogue Box"
+onready var options_box = $"Control/Options Box"
+onready var textNode = dialogue_box.get_node("RichTextLabel")
+onready var textTimer = get_node("Timer")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+		
+	for area_name in dialogue_files:
+		var dialogue_src = ""
+		for path in dialogue_files[current_area]:
+			dialogue_src += "\n" + FileTools.file_to_string(path)
+		var dialogue_dict = DialogueParser.parse(dialogue_src)
+		
+		var file_path = dialogue_files[area_name]
+		dialogue_areas[area_name] = {
+			"id_context_queue" : {},
+			"dialogueDictionary" : dialogue_dict,
+		}
+	dialogue_box.hide()
+	options_box.hide()
+	
+
+
+
+func clear_options():
+	inOptions = false
+	while totalOptions > 0:
+		var opName = "Option" + str(totalOptions)
+		var n = options_box.get_node(opName)
+		n.queue_free()
+		
+		totalOptions -= 1
+	options_box.hide()
+	totalOptions = 1
+
+
+func item_message(itemId):
+	transmit_message("You recieved " + itemId + "!")
+	
+func custom_message(message):
+	transmit_message(message)
+
+
+#####################################################################
+
+func transmit_dialogue(var d_id):
+	var dialogue_info = dialogue_areas[current_area]
+	if !dialogue_info["dialogueDictionary"].has(d_id):
+		Debugger.dprint("Could not find speaker ID: " + d_id + " in dictionary!")
+		return
+	if dialogue_info["id_context_queue"].has(d_id):
+		var context = dialogue_info["id_context_queue"][d_id]
+		message = dialogue_info["dialogueDictionary"][d_id][context].duplicate()
+	elif dialogue_info["dialogueDictionary"][d_id].has("MAIN"):
+		message = dialogue_info["dialogueDictionary"][d_id]["MAIN"].duplicate()
+	else:
+		Debugger.dprint("No MAIN Context for d_id %s" % d_id)
+		return
+		
+	InputManager.activate(self)
+	dialogue_box.show()
+	emit_signal("begin")
+	_advance()
+	
+	
+####################################################################
+	
+func transmit_message(input_message):
+	InputManager.activate(self)
+	dialogue_box.show()
+	var message_array = input_message.duplicate() if typeof(input_message) == TYPE_ARRAY else [input_message]
+	for str_message in message_array:
+		message.push_back({"type" : "TEXT", "text" : str_message})
+		
+	InputManager.activate(self)
+	dialogue_box.show()
+	emit_signal("begin")
+	_advance()
+
+	
+######################################################################################
+	
+	
+func _advance():
+	if dialogue_box.is_visible_in_tree():
+		textNode.set_visible_characters(0)
+		
+	if(message.size() == 0):
+		close_dialogue_box()
+		return
+		
+	var line_dict = message.pop_front()
+	
+	if   line_dict["type"] == "OPTION":
+		pass
+	elif line_dict["type"] == "QUEUE":
+		pass
+		#dialogue_areas[current_area]["id_context_queue"][d_id] = line_dict["queued_context"]
+	elif line_dict["type"] == "EXECUTE":
+		EventManager.execute_event(line_dict["event_id"])
+	
+	elif line_dict["type"] == "TEXT":
+		text_scroll( line_dict["text"] )
+	else:
+		Debugger.dprint("Unrecognized Line Dict Type: %s" % line_dict)
+	
+	
+func text_scroll(text):
+	textNode.text = text
+	#begin text scroll
+	while true:
+		if(textNode.get_visible_characters() >= textNode.get_text().length()):
+			break
+		#scrollAudio.play()
+		var new_scroll_time = scroll_time
+		var initial_visible = textNode.get_visible_characters()
+		textNode.set_visible_characters(initial_visible+character_jump)
+		var char_chunk = textNode.text.substr(initial_visible, textNode.get_visible_characters())
+		if (textNode.get_visible_characters() < textNode.get_text().length() and
+			breath_char in char_chunk):
+			
+			var first_breath_index = char_chunk.find(breath_char)
+			new_scroll_time += breath_pause
+			####
+			var tempText = textNode.text
+			tempText.erase(initial_visible + first_breath_index, 1)
+			textNode.text = tempText
+			####
+			textNode.set_visible_characters(initial_visible+first_breath_index)
+			
+		yield(get_tree().create_timer(new_scroll_time, false), "timeout")
+		#scrollAudio.stop()
+	
+	
+	
+func close_dialogue_box():
+	InputManager.deactivate(self)
+	dialogue_box.hide()
+	emit_signal("end")
+	parentBranchNodes = [] # ?????????????????
+	message = []
+	
+########################################################################################
+
+
+
+const input_data : Dictionary = {
+	"loop" : "_process",
+	"pressed": {},
+	"just_pressed": {
+		 "ui_accept" : "ui_accept_pressed",
+		 "ui_cancel" : "ui_accept_pressed",
+		 "ui_up" : "ui_up_pressed",
+		 "ui_down" : "ui_down_pressed"
+	},
+	"just_released": {},
+}
+	
+
+#either skips scroll, advances to next line, or selects option
+func ui_accept_pressed():
+	if inOptions:
+		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Selected.wav")
+		optionAudio.play()
+		#parentBranchNodes.append(displayedID)
+		clear_options()
+		_advance()
+	elif textNode.get_visible_characters() < textNode.get_text().length():
+		var string_stripped = textNode.text.replace("`", "")
+		textNode.text = string_stripped
+		textNode.set_visible_characters(string_stripped.length())
+	else:
+		_advance()
+		emit_signal("page_over")
+
+#move up and down in an option
+func ui_down_pressed():
+	if inOptions:
+		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Arrow_Key_Pressed.wav")
+		optionAudio.play()
+		var opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).hide()
+		selectedOption += 1
+		if selectedOption > totalOptions:
+			selectedOption = 1
+		opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).show()
+
+#move up and down in an option
+func ui_up_pressed():
+	if inOptions:
+		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Arrow_Key_Pressed.wav")
+		optionAudio.play()
+		var opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).hide()
+		selectedOption -= 1
+		if selectedOption < 1:
+			selectedOption = totalOptions
+		opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).show()
+
+"""
 extends CanvasLayer
 
 
@@ -386,3 +627,4 @@ func _advance():
 				opCount += 1
 			totalOptions = opCount - 1
 			selectedOption = 1
+"""

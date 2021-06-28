@@ -19,7 +19,7 @@ func _set_reactive(body):
 # Call the Dialogue Manager using the SpeakerID
 func interact():
 	print("SpeakerID: " + speakerID)
-	DialogueManager._beginTransmit(speakerID, sendSignal)
+	DialogueManager.transmit_dialogue(speakerID)
 
 func _NPC_body_entered(body):
 	var party = get_tree().get_nodes_in_group("Party")

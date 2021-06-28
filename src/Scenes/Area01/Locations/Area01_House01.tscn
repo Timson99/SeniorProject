@@ -71,26 +71,26 @@ warp_destination_id = "Room_to_House"
 warp_scene_id = "Area01_House_Room"
 exit_direction = 1
 
-[node name="Warp_Outside" parent="TileMap" instance=ExtResource( 4 )]
+[node name="House_to_Outside" parent="TileMap" instance=ExtResource( 4 )]
 position = Vector2( 152, 55 )
 script = ExtResource( 11 )
 warp_destination_id = "Outside_to_House"
 warp_scene_id = "Area01_Outside01"
 exit_direction = 1
 
-[node name="MainDoor" type="StaticBody2D" parent="TileMap/Warp_Outside"]
+[node name="MainDoor" type="StaticBody2D" parent="TileMap/House_to_Outside"]
 position = Vector2( -152, -55 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Warp_Outside/MainDoor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/House_to_Outside/MainDoor"]
 position = Vector2( 152, 62 )
 shape = SubResource( 2 )
 disabled = true
 
-[node name="MainDoorDialogue" type="Area2D" parent="TileMap/Warp_Outside"]
+[node name="MainDoorDialogue" type="Area2D" parent="TileMap/House_to_Outside"]
 script = ExtResource( 10 )
 speakerID = "Main_Door"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Warp_Outside/MainDoorDialogue"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/House_to_Outside/MainDoorDialogue"]
 position = Vector2( 0, 5 )
 shape = SubResource( 3 )
 

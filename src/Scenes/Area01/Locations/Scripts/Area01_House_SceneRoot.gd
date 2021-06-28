@@ -5,7 +5,7 @@ export var current_attempt = 1
 
 
 onready var closet = $TileMap/YSort/Closet
-onready var main_door_warp = $TileMap/Warp_Outside
+onready var main_door_warp = $TileMap/House_to_Outside
 onready var main_door_dialogue = $TileMap/Warp_Outside/MainDoorDialogue/CollisionShape2D
 
 

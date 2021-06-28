@@ -13,7 +13,7 @@ func _ready():
 	
 func interact():
 	if (party.active_player.has_method("change_skin") and
-		party.active_player.id == "C1"):
+		party.active_player.name == "C1"):
 		AudioManager.play_sound("PutOnCoat01")
 		party.active_player.change_skin("default")
 	make_closet_used()

@@ -5,7 +5,7 @@ onready var text_node = $RichTextLabel
 	
 var message = []
 
-var scroll_time := 0.0 #Can't be faster than a frame, 1/60
+var scroll_time := 0.0 #In secs Can't be faster than a frame, 1/60 secs
 var character_jump = 1
 var breath_pause = 0.25
 var breath_char = "`"

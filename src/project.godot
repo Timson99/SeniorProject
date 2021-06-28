@@ -44,11 +44,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/StaticClasses/Global_Debug.gd"
 }, {
-"base": "Object",
-"class": "DialogueFiles",
-"language": "GDScript",
-"path": "res://Classes/Directories/DialogueFiles.gd"
-}, {
 "base": "Node",
 "class": "DialogueParser",
 "language": "GDScript",
@@ -147,7 +142,6 @@ _global_script_class_icons={
 "BattleResourcePaths": "",
 "BossEnemy": "",
 "Debugger": "",
-"DialogueFiles": "",
 "DialogueParser": "",
 "EnemyTypes": "",
 "EntityStats": "",
