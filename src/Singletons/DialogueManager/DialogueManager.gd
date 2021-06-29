@@ -25,6 +25,7 @@ var breath_char = "`"
 var transmitting = false
 var message = []
 var current_d_id = "" #For queueing to a specific d_id
+var message_counter = 0
 
 # Variables for dialogue options
 var inOptions = false
@@ -79,40 +80,58 @@ func transmit_dialogue(var d_id):
 		return
 		
 	current_d_id = d_id
+	message_counter = 0
 	InputManager.activate(self)
 	dialogue_box.show()
 	emit_signal("begin")
 	_advance()
 	
-	
-
-	
+# Display a message or an array of messages
 func transmit_message(input_message):
 	var message_array = input_message.duplicate() if typeof(input_message) == TYPE_ARRAY else [input_message]
 	for str_message in message_array:
 		message.push_back({"type" : "TEXT", "text" : str_message})
-		
+	
+	message_counter = 0
 	InputManager.activate(self)
 	dialogue_box.show()
 	emit_signal("begin")
 	_advance()
 
-	
 ######################################################################################
 	
-	
+# Advance dialogue to next message and scroll out text
 func _advance():
-	if dialogue_box.is_visible_in_tree():
-		textNode.set_visible_characters(0)
-		
-	if(message.size() == 0):
-		close_dialogue_box()
-		return
-		
-	var line_dict = message.pop_front()
-	
-	if line_dict["type"] == "OPTION":
-		"""
+
+	while true:
+		# FETCH MESSAGE
+		################
+		if(message.size() == 0):
+			_close_dialogue_box()
+			return	
+		var line_dict = message.pop_front()
+		# INTERPRET MESSAGE TYPE
+		########################
+		if line_dict["type"] == "QUEUE":
+			dialogue_areas[current_area]["id_context_queue"][current_d_id] = line_dict["queued_context"]
+		elif line_dict["type"] == "EXECUTE":
+			EventManager.execute_event(line_dict["event_id"])
+		elif line_dict["type"] == "OPTION":
+			_display_options( line_dict["options"] )
+			return
+		elif line_dict["type"] == "TEXT":
+			message_counter += 1
+			_text_scroll( line_dict["text"], message_counter )
+			return
+		else:
+			Debugger.dprint("Unrecognized Line Dict Type: %s" % line_dict)
+
+
+# Show options an initialize ui interaction
+func _display_options(options : Array):
+	textNode.set_visible_characters(0)
+	pass
+	"""
 		inOptions = true
 			options_box.show()
 			var opCount = 1
@@ -131,39 +150,38 @@ func _advance():
 			totalOptions = opCount - 1
 			selectedOption = 1
 		"""
-	elif line_dict["type"] == "QUEUE":
-		pass
-		#dialogue_areas[current_area]["id_context_queue"][d_id] = line_dict["queued_context"]
-	elif line_dict["type"] == "EXECUTE":
-		EventManager.execute_event(line_dict["event_id"])
-	
-	elif line_dict["type"] == "TEXT":
-		text_scroll( line_dict["text"] )
-	else:
-		Debugger.dprint("Unrecognized Line Dict Type: %s" % line_dict)
-	
-	
-func text_scroll(text):
+
+# Display text letter by letter, speed of character_jump characters per scroll_time
+# NOTE: Scroll time cannot be faster than a frame (1/60 seconds per frame)
+# Adds a breath delay for each breath mark
+# messages num ensures that a coroutine instance ends as soon as there is a competeing instance
+func _text_scroll(text, call_number):
+	textNode.set_visible_characters(0)
 	textNode.text = text
+	
 	#begin text scroll
 	while true:
-		if(textNode.get_visible_characters() >= textNode.get_text().length()):
-			break
+		# WHETHER OR NOT TO SCROLL TO NEXT LETTER
+		if(textNode.get_visible_characters() >= textNode.get_text().length() or 
+			call_number != message_counter):
+			return
+		# PRINT character_jump MORE CHARACTERS
 		#scrollAudio.play()
-		var new_scroll_time = scroll_time
 		var initial_visible = textNode.get_visible_characters()
 		textNode.set_visible_characters(initial_visible+character_jump)
-		var char_chunk = textNode.text.substr(initial_visible, textNode.get_visible_characters())
-		if (textNode.get_visible_characters() < textNode.get_text().length() and
-			breath_char in char_chunk):
-			
+		
+		# PARSE BREATH MARKERS AND DETERMINE WAIT TIME TILL NEXT SCROLL
+		var new_scroll_time = scroll_time
+		var char_chunk = textNode.text.substr(initial_visible, character_jump)
+		if (breath_char in char_chunk):
+			# Add breath pause to scroll time
 			var first_breath_index = char_chunk.find(breath_char)
 			new_scroll_time += breath_pause
-			####
+			#Erase breath character
 			var tempText = textNode.text
 			tempText.erase(initial_visible + first_breath_index, 1)
 			textNode.text = tempText
-			####
+			# Display all characters before the breath character
 			textNode.set_visible_characters(initial_visible+first_breath_index)
 			
 		yield(get_tree().create_timer(new_scroll_time, false), "timeout")
@@ -171,12 +189,13 @@ func text_scroll(text):
 	
 	
 	
-func close_dialogue_box():
+func _close_dialogue_box():
 	InputManager.deactivate(self)
 	dialogue_box.hide()
 	emit_signal("end")
 	current_d_id = ""
 	message = []
+	message_counter = 0
 	
 	
 	
