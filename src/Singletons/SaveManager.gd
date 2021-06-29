@@ -13,6 +13,9 @@
 
 extends Node
 
+# Enabled for all scenes within a save file context
+var enabled = true
+
 ### PERSISTENT SAVE DATA ###
 var data : Dictionary = {} setget , get_data
 
@@ -34,6 +37,8 @@ var last_used_save_file := ""
 func _ready():
 	SceneManager.connect("scene_loaded", self, "restore_save_data")
 	SceneManager.connect("goto_called", self, "collect_save_data")
+	
+	enabled = SceneManager.in_save_enabled_scene() 
 	_deferred_on_load() # Calls restore data on first physics frame
 	
 ##############
@@ -47,6 +52,8 @@ func _ready():
 	2) A unique node name for identification
 	3) A save method that returns a dictionary of data to save
 	4) (optional) An on_load method to be called after data is loaded into the node
+	
+	Save Data will be saved/loaded on scene changes ONLY IF the scene is in a save file context
 """
 # Registers a node as a save node
 func register(node):
@@ -80,6 +87,7 @@ func load_game( file_name : String):
 	var load_data_dict = FileTools.load_game_from_file(file_name, encrypt)
 	for node_id in load_data_dict.keys():
 		_collect_from(load_data_dict[node_id], node_id )
+		
 	var metadata = data["__metadata__"]
 	var destination = metadata["current_scene"]
 	SceneManager.goto_scene(destination)
@@ -92,6 +100,9 @@ func load_game( file_name : String):
 # Loading SaveManager -> World:  Loads save data back into all save nodes
 # Calls on_load function in save data after data is loaded, to allow node to intialize with newly obtained data
 func restore_save_data():
+	enabled = SceneManager.in_save_enabled_scene() 
+	if !enabled: return
+	
 	for node in registry.get_nodes():
 		_restore_to(node)
 	_on_load_callback()
@@ -99,16 +110,15 @@ func restore_save_data():
 # Saving World -> SaveManager: Collects data from world and saves it in data dictionary
 # Save Data is updated whenever there is a change of scene or before the scene is saved
 # When updating, keys that do not exist in this scene are not updated and left alone
-func collect_save_data():	
+func collect_save_data():
+	if !enabled: return
+		
 	var registered_nodes = registry.get_nodes()
 	for node in registered_nodes:
 		if !node.has_method("save"):
 			print("save node '%s' is missing a save() function, skipped" % node.name)
 			continue
 		var node_data = node.call("save")
-		if node_data.size() == 0:
-			print("save node '%s' save() returns no data, skipped" % node.name)
-			continue 
 		_collect_from(node_data, node.get(id_property_name))
 
 ##############
@@ -128,13 +138,14 @@ func print_data():
 #	Private
 ##############
 
-# Takes node_data from Save File or World and stores in persistent save data under id
+# Takes node_data from Loaded File or World and stores in persistent save data under id
 # Update is done property by property, so existing properties 
 # 	not in node_data are neither modifed nor destroyed
 func _collect_from(node_data : Dictionary, node_id : String):
 	# Creates new node entry if save node not yet logged into data
 	if !(node_id in data):
 		data[node_id] = {}
+		
 	# Stringifies nonstring data for file writing and
 	# inserts modified properties in key by key
 	for key in node_data.keys():
@@ -145,6 +156,7 @@ func _collect_from(node_data : Dictionary, node_id : String):
 # All save data filed under the node id is loaded back into the node
 func _restore_to(node : Object): 
 	var node_id = node.get(id_property_name)
+	
 	if(data.has(node_id)):
 		for i in data[node_id].keys():
 			node.set(i, str2var(data[node_id][i]))

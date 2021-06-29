@@ -69,6 +69,9 @@ func _process(_delta):
 #	Public
 ###############
 
+func in_save_enabled_scene():
+	return current_scene.filename in main_scenes["game_scenes"].values() 
+
 func register_warp(node):
 	warp_registry.register(node)
 	# Needs Entrance Point and Exit Direction Properties
@@ -82,14 +85,17 @@ func register_warp(node):
 func goto_scene(scene_id : String, warp_destination_id := "", flag_path := false):
 	emit_signal("goto_called")
 	var scene_path := ""
-	if flag_path:
-		flagged_scene_path = current_scene.filename
+		
 	if scene_id.find_last(".") != -1 and scene_id.substr(scene_id.find_last("."), 5) == ".tscn": 
 		scene_path = scene_id
-	elif scene_id in main_scenes:
-		scene_path = main_scenes[scene_id]
 	else:
-		Debugger.dprint("ERROR: Scene Not Valid")
+		for category in main_scenes.values():
+			if category.has(scene_id):
+				scene_path = category[scene_id]
+
+	if scene_id == "":  Debugger.dprint("ERROR: Scene Not Valid")	
+	if flag_path: flagged_scene_path = current_scene.filename
+		
 	call_deferred("_deferred_goto_scene", scene_path, warp_destination_id)
 	
 # Flags current scene before changing scenes

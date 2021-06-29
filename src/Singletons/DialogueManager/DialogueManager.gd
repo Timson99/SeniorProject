@@ -3,6 +3,11 @@
 """
 extends CanvasLayer
 
+# TODO Clean code
+# TODO Clean Option Code
+# TODO Make a save node and save the queued contexts
+# TODO? make Dialogue Box and standalone instantiable object by the Dialogue Manager/UI Manager
+
 # SIGNALS
 signal begin()
 signal page_over()
@@ -24,6 +29,7 @@ var message_counter = 0 # Counts how many messages this object has displayed
 var transmitting = false
 var message = []
 var current_d_id = "" #For queueing to a specific d_id
+var current_options = []
 
 # Variables for dialogue options
 var inOptions = false
@@ -46,6 +52,8 @@ func _ready():
 		dialogue_master_file += "\n" + FileTools.file_to_string(file_path)
 	dialogue_dictionary = DialogueParser.parse(dialogue_master_file)
 	
+	SaveManager.register(self)
+	ActorManager.register(self)
 
 	dialogue_box.hide()
 	options_box.hide()
@@ -120,7 +128,6 @@ func _advance():
 
 # Show options an initialize ui interaction
 func _display_options(options : Array):
-	inOptions = true
 	options_box.show()
 	var opCount = 1
 	$"Control/Options Box/Option0".get_node("Selected").hide()
@@ -138,6 +145,9 @@ func _display_options(options : Array):
 		opCount += 1
 	totalOptions = opCount - 1
 	selectedOption = 1
+	
+	current_options = options
+	inOptions = true
 
 # Display text letter by letter, speed of character_jump characters per scroll_time
 # NOTE: Scroll time cannot be faster than a frame (1/60 seconds per frame)
@@ -195,6 +205,7 @@ func clear_options():
 		totalOptions -= 1
 	options_box.hide()
 	totalOptions = 1
+	current_options = []
 	
 	
 
@@ -221,6 +232,11 @@ func ui_accept_pressed():
 	if inOptions:
 		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Selected.wav")
 		optionAudio.play()
+		
+		var selected_option = current_options[selectedOption - 1]
+		var selected_context = selected_option["destination"]
+		message = dialogue_dictionary[current_d_id][selected_context] + message
+		
 		clear_options()
 		_advance()
 	elif textNode.get_visible_characters() < textNode.get_text().length():
@@ -256,3 +272,12 @@ func ui_up_pressed():
 			selectedOption = totalOptions
 		opName = "Option" + str(selectedOption) + "/Selected"
 		options_box.get_node(opName).show()
+		
+##########################
+
+
+func save():
+	return  {
+		"queued_contexts" : queued_contexts 
+	}
+

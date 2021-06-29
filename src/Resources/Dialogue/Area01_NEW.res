@@ -120,6 +120,11 @@ CONTEXT MAIN
     -
         Hi, I am [color=#FF0000]Red[/color] and I am [color=#0000FF]Blue[/color]
     OPTIONS
-        Hide -> MAIN
-        Run -> MAIN
+        Hide -> NEW
+        Run -> NEW
+    QUEUE NEW
+
+CONTEXT NEW
+    Player
+        Queueing worked
 
