@@ -1,20 +1,19 @@
-
+"""
+	DialogueManager
+"""
 extends CanvasLayer
-
 
 signal begin()
 signal page_over()
 signal end()
 
+# Dialogue Filing System (Reform?)
 var current_area = "Area01"
-
-
 var dialogue_areas = {}
 var dialogue_files = {
 	"Area01" : ["res://Resources/Dialogue/Area01_NEW.res"],
-	"Area02" : ["res://Resources/Dialogue/Area02.res"],
+	#"Area02" : ["res://Resources/Dialogue/Area02.res"],
 }
-
 
 # CONFIGURABLE GLOBAL SCROLL OPTIONS -> CHANGE THROUGH FUNCTION CALLS
 var scroll_time := 0.02 #Can't be faster than a frame, 1/60
@@ -23,6 +22,7 @@ var breath_pause = 0.5
 var breath_char = "`"
 
 # Dilogue Specific members
+var transmitting = false
 var message = []
 var current_d_id = "" #For queueing to a specific d_id
 
@@ -31,7 +31,6 @@ var inOptions = false
 var inOptionTree = false
 var selectedOption = 1
 var totalOptions = 1
-var parentBranchNodes = []
 
 #	TREE NODE ACCESS
 onready var scrollAudio = get_node("TextAudio")
@@ -46,7 +45,7 @@ func _ready():
 		
 	for area_name in dialogue_files:
 		var dialogue_src = ""
-		for path in dialogue_files[current_area]:
+		for path in dialogue_files[area_name]:
 			dialogue_src += "\n" + FileTools.file_to_string(path)
 		var dialogue_dict = DialogueParser.parse(dialogue_src)
 		
@@ -58,30 +57,13 @@ func _ready():
 	dialogue_box.hide()
 	options_box.hide()
 	
-
-
-
-func clear_options():
-	inOptions = false
-	while totalOptions > 0:
-		var opName = "Option" + str(totalOptions)
-		var n = options_box.get_node(opName)
-		n.queue_free()
-		
-		totalOptions -= 1
-	options_box.hide()
-	totalOptions = 1
-
-
-func item_message(itemId):
-	transmit_message("You recieved " + itemId + "!")
-	
-func custom_message(message):
-	transmit_message(message)
-
-
 #####################################################################
 
+# Sends an item message
+func item_message(itemId):
+	transmit_message("You recieved " + itemId + "!")
+
+# Trasmits a dialogue stream from a d_id
 func transmit_dialogue(var d_id):
 	var dialogue_info = dialogue_areas[current_area]
 	if !dialogue_info["dialogueDictionary"].has(d_id):
@@ -96,17 +78,16 @@ func transmit_dialogue(var d_id):
 		Debugger.dprint("No MAIN Context for d_id %s" % d_id)
 		return
 		
+	current_d_id = d_id
 	InputManager.activate(self)
 	dialogue_box.show()
 	emit_signal("begin")
 	_advance()
 	
 	
-####################################################################
+
 	
 func transmit_message(input_message):
-	InputManager.activate(self)
-	dialogue_box.show()
 	var message_array = input_message.duplicate() if typeof(input_message) == TYPE_ARRAY else [input_message]
 	for str_message in message_array:
 		message.push_back({"type" : "TEXT", "text" : str_message})
@@ -130,8 +111,26 @@ func _advance():
 		
 	var line_dict = message.pop_front()
 	
-	if   line_dict["type"] == "OPTION":
-		pass
+	if line_dict["type"] == "OPTION":
+		"""
+		inOptions = true
+			options_box.show()
+			var opCount = 1
+			#create node for each option
+			for val in dialogueDictionary[displayedID]["-o"]:
+				var opNode = $"Control/Options Box/Option0".duplicate()
+				opNode.get_node("msg").text = dialogueDictionary[val]["msg"]
+				var marginSize = abs(opNode.get_node("msg").margin_top - opNode.get_node("msg").margin_bottom)
+				opNode.position.y += opCount * marginSize
+				opNode.set_owner(options_box)
+				opNode.show()
+				if (opCount != 1):
+					opNode.get_node("Selected").hide()
+				options_box.add_child(opNode, true)
+				opCount += 1
+			totalOptions = opCount - 1
+			selectedOption = 1
+		"""
 	elif line_dict["type"] == "QUEUE":
 		pass
 		#dialogue_areas[current_area]["id_context_queue"][d_id] = line_dict["queued_context"]
@@ -176,8 +175,24 @@ func close_dialogue_box():
 	InputManager.deactivate(self)
 	dialogue_box.hide()
 	emit_signal("end")
-	parentBranchNodes = [] # ?????????????????
+	current_d_id = ""
 	message = []
+	
+	
+	
+func clear_options():
+	inOptions = false
+	while totalOptions > 0:
+		var opName = "Option" + str(totalOptions)
+		var n = options_box.get_node(opName)
+		n.queue_free()
+		
+		totalOptions -= 1
+	options_box.hide()
+	totalOptions = 1
+	
+	
+
 	
 ########################################################################################
 
@@ -201,7 +216,6 @@ func ui_accept_pressed():
 	if inOptions:
 		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Selected.wav")
 		optionAudio.play()
-		#parentBranchNodes.append(displayedID)
 		clear_options()
 		_advance()
 	elif textNode.get_visible_characters() < textNode.get_text().length():
@@ -477,7 +491,7 @@ func _beginTransmit(var spID, var toSignal):
 func item_message(itemId):
 	transmit_message("You recieved " + itemId + "!")
 	
-func custom_message(message):
+func transmit_message(message):
 	transmit_message(message)
 	
 func transmit_message(message_param):

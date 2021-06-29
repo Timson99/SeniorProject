@@ -49,7 +49,7 @@ func register(new_node):
 	for node in nodes:
 		if node.get(id_property_name) == new_node.get(id_property_name):
 			Debugger.dprint("ERROR: CAN'T REGISTER NODE - %s '%s' is a duplicate in node '%s'" 
-							% [id_property_name, new_node.get(id_property_name), new_node.name])
+							% [id_property_name, new_node.get(id_property_name), new_node.name], 5)
 			return
 	nodes.push_back(new_node)
 	

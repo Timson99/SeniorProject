@@ -26,7 +26,7 @@ func _ready():
 	elif is_intro_screen:
 		$TextureRect/ControlMenu/RemappingText.visible = false
 		yield(get_tree().create_timer(5.0, false), "timeout")
-		DialogueManager.custom_message("Please press 'Confirm' or 'Cancel' when you are ready to continue.")
+		DialogueManager.transmit_message("Please press 'Confirm' or 'Cancel' when you are ready to continue.")
 		yield(DialogueManager, "end")
 		SceneManager.goto_scene("LoadScreen", "", false)
 
