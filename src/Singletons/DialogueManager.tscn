@@ -19,9 +19,6 @@ stream = ExtResource( 2 )
 [node name="OptionAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.016
-
 [node name="Control" type="Control" parent="."]
 anchor_left = 0.5
 anchor_top = 0.8
@@ -41,8 +38,10 @@ margin_right = 141.934
 margin_bottom = 19.993
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "That's Sexual Harrasment, you sick pervert who has no care in the world for women or women's issues. You should be ashamed of yourself."
-text = "That's Sexual Harrasment, you sick pervert who has no care in the world for women or women's issues. You should be ashamed of yourself."
+bbcode_text = "Hi, I am [color=#FF0000]Red[/color] and I am [color=#0000FF]Blue[/color]"
+visible_characters = 27
+percent_visible = 1.03846
+text = "Hi, I am Red and I am Blue"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
