@@ -4,8 +4,7 @@
 extends CanvasLayer
 
 # TODO Clean code
-# TODO Clean Option Code
-# TODO Make a save node and save the queued contexts
+# TODO Clean Option UI
 # TODO? make Dialogue Box and standalone instantiable object by the Dialogue Manager/UI Manager
 
 # SIGNALS

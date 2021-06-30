@@ -69,8 +69,16 @@ func _process(_delta):
 #	Public
 ###############
 
+# True if SaveManager should be collecting data from/restoring data to the current scene
 func in_save_enabled_scene():
-	return current_scene.filename in main_scenes["game_scenes"].values() 
+	return !( current_scene.filename in main_scenes["meta_game_scenes"].values() )
+
+# Returns the category of the current scene as designated in the MainScenes.json
+func get_current_scene_category():
+	for category in main_scenes.keys():
+		if main_scenes[category].values().has(current_scene.filename):
+			print(category)
+			return category 
 
 func register_warp(node):
 	warp_registry.register(node)

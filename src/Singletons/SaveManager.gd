@@ -8,6 +8,9 @@
 			
 	Dependencies
 		SceneManager (To know when scene transitions occur to save and load scene data)
+		
+	IMPORTANT! Will only collect from and restore data to scenes that are save enabled
+		( See SceneManager..in_save_enabled_scene() )
 	
 """
 

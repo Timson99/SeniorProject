@@ -43,6 +43,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	SceneManager.connect("goto_called", self, "freeze")
 	SceneManager.connect("scene_fully_loaded", self, "unfreeze")
+	pause_mode = Node.PAUSE_MODE_PROCESS
 
 
 func _process(_delta):

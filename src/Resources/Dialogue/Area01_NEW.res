@@ -104,7 +104,9 @@ CONTEXT MAIN
 d_id = Test1
 CONTEXT MAIN
     P1
-        Hello this is a Test
+        Hello
+              [tornado radius=50 freq=2]this is a[/tornado] 
+                        Test
     - 
         LONG MESSAGE LONG MESSAGE LONG MESSAGE LONG MESSAGE```
         LONG MESSAGE LONG MESSAGE LONG MESSAGE LONG MESSAGE
