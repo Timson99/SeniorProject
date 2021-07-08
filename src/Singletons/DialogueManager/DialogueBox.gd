@@ -1,15 +1,6 @@
 """
-	DialogueManager
-		Manager for a global Dialogue System
-		
-	Features
-		Display a Dialogue Stream from a Dialogue Parse Result (See Dialogue Parser)
-		Display a array of strings
-		Scroll out text at a given speed/char interval, stopping at breath marks
-		
-	Dependencies
-		SaveManager ( to save queued contexts )
-		ActorManager ( to register self as an actor )
+	Dialogue Box
+		Generalized Dialogue Box
 		
 """
 extends CanvasLayer
@@ -79,7 +70,6 @@ func _ready():
 	dialogue_dictionary = DialogueParser.parse(dialogue_master_file)
 	
 	# Registrations
-	SaveManager.register(self)
 	ActorManager.register(self)
 	
 	# Initial Node Settings
@@ -260,10 +250,8 @@ func _close_options_box():
 func _close_dialogue_box():
 	InputManager.deactivate(self)
 	dialogue_box.hide()
-	current_d_id = ""
-	dialogue_stream = []
 	emit_signal("end")
-	transmitting = false
+	queue_free()
 	
 	
 ###################
@@ -327,6 +315,8 @@ func ui_down_pressed():
 			selectedOption = 1
 		opName = "Option" + str(selectedOption) + "/Selected"
 		options_box.get_node(opName).show()
+
+
 
 
 
