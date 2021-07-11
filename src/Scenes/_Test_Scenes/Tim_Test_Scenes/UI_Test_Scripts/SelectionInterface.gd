@@ -31,16 +31,13 @@ enum Format {
 	#CUSTOM_GIRD # Container that organizes enemies in a customizes grid with row offsets
 }
 
-onready var container_node = $VBoxContainer
-
+var container_node = null
+# Arrangment of selectable items
+var selection_format = Format.VERTICAL
 
 # Child index of selected child under the container node
 var default_selected_index = 0
 var selected_index = null
-
-
-# Arrangment of selectable items
-export (Format) var selection_format = Format.VERTICAL
 
 # Wrap around to beginning
 export var wrap_around = false
@@ -71,18 +68,17 @@ func _ready():
 		if child.is_class("VBoxContainer"):   
 			container_node = child
 			selection_format = Format.VERTICAL
-		if child.is_class("HBoxContainer"): 
+			break
+		elif child.is_class("HBoxContainer"): 
 			container_node = child
 			selection_format = Format.HORIZONTAL
-		if child.is_class("GridContainer"): 	  
+			break
+		elif child.is_class("GridContainer"): 	  
 			container_node = child
 			selection_format == Format.GRID
-		
-	"""
-	if selection_format == Format.VERTICAL:   container_node = $VBoxContainer
-	if selection_format == Format.HORIZONTAL: container_node = $HBoxContainer
-	if selection_format == Format.GRID: 	  container_node = $GridContainer
-	"""
+			break
+	if container_node == null:
+		Debugger.dprint("SelectionInterface Violation: List Scene has no valid Container")
 		
 	
 func deactivate():

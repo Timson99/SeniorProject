@@ -26,7 +26,6 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-selection_format = 1
 hide_on_cancel = true
 hide_on_accept = true
 
@@ -59,75 +58,72 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectablePrototype" type="Control" parent="SelectionList/HBoxContainer"]
-margin_bottom = 40.0
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/HBoxContainer/SelectablePrototype"]
-position = Vector2( 50, 53 )
-frames = SubResource( 1 )
-animation = "selected"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/HBoxContainer/SelectablePrototype"]
-margin_left = 6.0
-margin_right = 134.0
-margin_bottom = 16.0
-text = "Item1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SelectablePrototype2" type="Control" parent="SelectionList/HBoxContainer"]
-margin_left = 70.0
-margin_right = 70.0
-margin_bottom = 40.0
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/HBoxContainer/SelectablePrototype2"]
-position = Vector2( 50, 53 )
-frames = SubResource( 1 )
-animation = "selected"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/HBoxContainer/SelectablePrototype2"]
-margin_left = 6.0
-margin_right = 134.0
-margin_bottom = 16.0
-text = "Item1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SelectablePrototype3" type="Control" parent="SelectionList/HBoxContainer"]
-margin_left = 140.0
-margin_right = 140.0
-margin_bottom = 40.0
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/HBoxContainer/SelectablePrototype3"]
-position = Vector2( 50, 53 )
-frames = SubResource( 1 )
-animation = "selected"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/HBoxContainer/SelectablePrototype3"]
-margin_left = 6.0
-margin_right = 134.0
-margin_bottom = 16.0
-text = "Item1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="VBoxContainer" type="VBoxContainer" parent="SelectionList"]
 custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectablePrototype" type="Control" parent="SelectionList/VBoxContainer"]
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/VBoxContainer/SelectablePrototype"]
+position = Vector2( 50, 53 )
+frames = SubResource( 1 )
+animation = "selected"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/VBoxContainer/SelectablePrototype"]
+margin_left = 6.0
+margin_right = 134.0
+margin_bottom = 16.0
+text = "Item1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectablePrototype2" type="Control" parent="SelectionList/VBoxContainer"]
+margin_top = 10.0
+margin_bottom = 10.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/VBoxContainer/SelectablePrototype2"]
+position = Vector2( 50, 53 )
+frames = SubResource( 1 )
+animation = "selected"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/VBoxContainer/SelectablePrototype2"]
+margin_left = 6.0
+margin_right = 134.0
+margin_bottom = 16.0
+text = "Item1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectablePrototype3" type="Control" parent="SelectionList/VBoxContainer"]
+margin_top = 20.0
+margin_bottom = 20.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/VBoxContainer/SelectablePrototype3"]
+position = Vector2( 50, 53 )
+frames = SubResource( 1 )
+animation = "selected"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/VBoxContainer/SelectablePrototype3"]
+margin_left = 6.0
+margin_right = 134.0
+margin_bottom = 16.0
+text = "Item1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
