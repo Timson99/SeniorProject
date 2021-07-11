@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/UI/Menu/Menu_Element_05.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/AutoSelection.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/DiscreteSelection.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/UI_Test01.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/Selectable.gd" type="Script" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -25,9 +26,13 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+selection_format = 1
+hide_on_cancel = true
+hide_on_accept = true
 
 [node name="SelectablePrototype" type="Control" parent="SelectionList"]
 visible = false
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -54,18 +59,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="1" type="Control" parent="SelectionList/HBoxContainer"]
+[node name="SelectablePrototype" type="Control" parent="SelectionList/HBoxContainer"]
 margin_bottom = 40.0
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/HBoxContainer/1"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/HBoxContainer/SelectablePrototype"]
 position = Vector2( 50, 53 )
 frames = SubResource( 1 )
 animation = "selected"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/HBoxContainer/1"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/HBoxContainer/SelectablePrototype"]
 margin_left = 6.0
 margin_right = 134.0
 margin_bottom = 16.0
@@ -74,20 +80,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="2" type="Control" parent="SelectionList/HBoxContainer"]
+[node name="SelectablePrototype2" type="Control" parent="SelectionList/HBoxContainer"]
 margin_left = 70.0
 margin_right = 70.0
 margin_bottom = 40.0
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/HBoxContainer/2"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/HBoxContainer/SelectablePrototype2"]
 position = Vector2( 50, 53 )
 frames = SubResource( 1 )
 animation = "selected"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/HBoxContainer/2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/HBoxContainer/SelectablePrototype2"]
 margin_left = 6.0
 margin_right = 134.0
 margin_bottom = 16.0
@@ -96,20 +103,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="3" type="Control" parent="SelectionList/HBoxContainer"]
+[node name="SelectablePrototype3" type="Control" parent="SelectionList/HBoxContainer"]
 margin_left = 140.0
 margin_right = 140.0
 margin_bottom = 40.0
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/HBoxContainer/3"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="SelectionList/HBoxContainer/SelectablePrototype3"]
 position = Vector2( 50, 53 )
 frames = SubResource( 1 )
 animation = "selected"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/HBoxContainer/3"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SelectionList/HBoxContainer/SelectablePrototype3"]
 margin_left = 6.0
 margin_right = 134.0
 margin_bottom = 16.0

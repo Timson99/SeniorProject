@@ -3,6 +3,8 @@ extends SelectionInterface
 class_name AutoSelection
 
 
+onready var prototype_item = $SelectablePrototype
+
 # Removes visual aids used to create UI in scene view
 func _ready():
 	for node in [$VBoxContainer, $HBoxContainer, $GridContainer]:
@@ -11,14 +13,15 @@ func _ready():
 	prototype_item.get_node("AnimatedSprite").play("deselected")
 	prototype_item.hide()
 	
-	
-# Creates selection list from a list of strings
-func create(str_list : Array ):
-	InputManager.activate(self)
-	
 	if selection_format == Format.VERTICAL:   container_node = $VBoxContainer
 	if selection_format == Format.HORIZONTAL: container_node = $HBoxContainer
 	if selection_format == Format.GRID: 	  container_node = $GridContainer
+	
+	
+# Creates selection list from a list of strings
+func activate(str_list : Array ):
+	show()
+	InputManager.activate(self)
 	
 	for i in range( 0, str_list.size() ):
 		var new_item = prototype_item.duplicate()
@@ -30,6 +33,8 @@ func create(str_list : Array ):
 	if !no_initial_selection:
 		selected_index = default_selected_index
 		select()
+	else: 
+		selected_index = null
 			
 			
 ################################################################

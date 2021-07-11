@@ -59,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/DiscreteSelection.gd"
 }, {
+"base": "SelectionInterface",
+"class": "EnemySelectionList",
+"language": "GDScript",
+"path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/EnemySelection.gd"
+}, {
 "base": "Object",
 "class": "EnemyTypes",
 "language": "GDScript",
@@ -129,11 +134,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Types/NodeRegistry.gd"
 }, {
-"base": "SelectionInterface",
-"class": "ProgrammaticSelectionList",
-"language": "GDScript",
-"path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/EnemySelection.gd"
-}, {
 "base": "Control",
 "class": "SelectionInterface",
 "language": "GDScript",
@@ -170,6 +170,7 @@ _global_script_class_icons={
 "Debugger": "",
 "DialogueParser": "",
 "DiscreteSelection": "",
+"EnemySelectionList": "",
 "EnemyTypes": "",
 "EntityStats": "",
 "Enums": "",
@@ -184,7 +185,6 @@ _global_script_class_icons={
 "MenuResourcePaths": "",
 "MusicTracks": "",
 "NodeRegistry": "",
-"ProgrammaticSelectionList": "",
 "SelectionInterface": "",
 "SelectionList": "",
 "SkillsDirectory": "",

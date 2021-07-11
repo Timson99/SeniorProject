@@ -31,7 +31,6 @@ enum Format {
 	#CUSTOM_GIRD # Container that organizes enemies in a customizes grid with row offsets
 }
 
-onready var prototype_item = $SelectablePrototype
 onready var container_node = $VBoxContainer
 
 
@@ -50,10 +49,10 @@ export var wrap_around = false
 export var no_initial_selection = false 
 
 # Whether the cancel input will delete this submenu
-export var delete_on_cancel = false
+export var hide_on_cancel = false
 
 # Whether the accept input will delete this submenu
-export var delete_on_accept = false
+export var hide_on_accept = false
 
 # Whether or not input scrolls quickly when held after a duration
 export var quick_scroll_enabled = false
@@ -69,10 +68,10 @@ var quick_scrolling = [] # Actions that are currently quick scrolling
 func _ready():
 	pass
 		
-		
-func delete():
+	
+func deactivate():
 	InputManager.deactivate(self)
-	queue_free()
+	hide()
 	
 	
 func quick_scroll(action, start_time):
@@ -106,7 +105,6 @@ func change_selected(direction):
 		select()
 		return
 
-	var items = container_node.get_children()
 	var new_index = selected_index
 	
 	deselect()
@@ -125,14 +123,18 @@ func change_selected(direction):
 	elif direction == "right":
 		if selection_format != Format.VERTICAL: new_index += 1
 		
+	set_selected_index(new_index)
+		
+	select()
+	
+func set_selected_index(new_index):
+	var items = container_node.get_children()
 	if wrap_around:
 		if new_index > items.size()-1: selected_index = 0
 		elif new_index < 0: selected_index = items.size()-1
 		else: selected_index = new_index
 	else:
 		selected_index = clamp(new_index, 0, items.size()-1)
-		
-	select()	
 	
 	
 
@@ -156,12 +158,12 @@ func accept():
 		
 	emit_signal("selection_made", get_current_value())
 	
-	if delete_on_accept: delete()
+	if hide_on_accept: deactivate()
 
 
 func cancel():
 	#AudioManager.play_sound("BattleMenuButtonReturn")
-	if delete_on_cancel: delete()
+	if hide_on_cancel: deactivate()
 	
 	
 func right():
