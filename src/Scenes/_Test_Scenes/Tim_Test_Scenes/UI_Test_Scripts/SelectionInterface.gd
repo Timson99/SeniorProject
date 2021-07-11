@@ -66,7 +66,23 @@ var quick_scrolling = [] # Actions that are currently quick scrolling
 
 
 func _ready():
-	pass
+	# First child container object found is assumed to be selection list
+	for child in get_children():
+		if child.is_class("VBoxContainer"):   
+			container_node = child
+			selection_format = Format.VERTICAL
+		if child.is_class("HBoxContainer"): 
+			container_node = child
+			selection_format = Format.HORIZONTAL
+		if child.is_class("GridContainer"): 	  
+			container_node = child
+			selection_format == Format.GRID
+		
+	"""
+	if selection_format == Format.VERTICAL:   container_node = $VBoxContainer
+	if selection_format == Format.HORIZONTAL: container_node = $HBoxContainer
+	if selection_format == Format.GRID: 	  container_node = $GridContainer
+	"""
 		
 	
 func deactivate():

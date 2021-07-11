@@ -5,21 +5,18 @@ class_name AutoSelection
 
 onready var prototype_item = $SelectablePrototype
 
-# Removes visual aids used to create UI in scene view
-func _ready():
+	
+	
+# Creates selection list from a list of strings
+func activate(str_list : Array ):
+	
+	# Removes Visual Aids and/or previous lists
 	for node in [$VBoxContainer, $HBoxContainer, $GridContainer]:
 		for n in node.get_children():
 			n.free() # Must free stand-ins immediately
 	prototype_item.get_node("AnimatedSprite").play("deselected")
 	prototype_item.hide()
 	
-	if selection_format == Format.VERTICAL:   container_node = $VBoxContainer
-	if selection_format == Format.HORIZONTAL: container_node = $HBoxContainer
-	if selection_format == Format.GRID: 	  container_node = $GridContainer
-	
-	
-# Creates selection list from a list of strings
-func activate(str_list : Array ):
 	show()
 	InputManager.activate(self)
 	
