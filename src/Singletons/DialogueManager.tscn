@@ -39,8 +39,6 @@ margin_bottom = 19.993
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "Hi, I am [color=#FF0000]Red[/color] and I am [color=#0000FF]Blue[/color]"
-visible_characters = 27
-percent_visible = 1.03846
 text = "Hi, I am Red and I am Blue"
 scroll_active = false
 __meta__ = {
@@ -53,6 +51,7 @@ scale = Vector2( 1.00207, 1 )
 texture = ExtResource( 3 )
 
 [node name="Option0" type="Node2D" parent="Control/Options Box"]
+visible = false
 position = Vector2( 0, 5 )
 
 [node name="msg" type="RichTextLabel" parent="Control/Options Box/Option0"]
