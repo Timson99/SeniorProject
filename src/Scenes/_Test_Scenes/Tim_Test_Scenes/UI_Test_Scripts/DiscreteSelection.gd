@@ -4,17 +4,13 @@ class_name DiscreteSelection
 
 		
 func activate():
-	show()
-	InputManager.activate(self)
+	var container_children = container_node.get_children()
+	assert(container_children.size() != 0, "DiscreteSelection must have nonzero children")
 	
-	for node in container_node.get_children():
+	for node in container_children:
 		node.deselect()
 		
-	if !no_initial_selection:
-		selected_index = default_selected_index
-		select()
-	else: 
-		selected_index = null
+	initialize()
 	
 	
 			

@@ -63,23 +63,36 @@ var quick_scrolling = [] # Actions that are currently quick scrolling
 
 
 func _ready():
+	hide()
 	# First child container object found is assumed to be selection list
-	for child in get_children():
-		if child.is_class("VBoxContainer"):   
-			container_node = child
-			selection_format = Format.VERTICAL
-			break
-		elif child.is_class("HBoxContainer"): 
-			container_node = child
-			selection_format = Format.HORIZONTAL
-			break
-		elif child.is_class("GridContainer"): 	  
-			container_node = child
-			selection_format == Format.GRID
-			break
-	if container_node == null:
-		Debugger.dprint("SelectionInterface Violation: List Scene has no valid Container")
+	
+	var children = get_children()
+	assert(children.size()==1, 
+		"SelectableInterface Error: Must have a single container child")
+	var container = children[0]
+	
+	if container.is_class("VBoxContainer"):   
+		container_node = container
+		selection_format = Format.VERTICAL
+	elif container.is_class("HBoxContainer"): 
+		container_node = container
+		selection_format = Format.HORIZONTAL
+	elif container.is_class("GridContainer"): 	  
+		container_node = container
+		selection_format = Format.GRID
 		
+	assert(container_node != null, 
+		"SelectionInterface Violation: List Scene has no valid Container")
+	
+func initialize():
+	if !no_initial_selection:
+		selected_index = default_selected_index
+		select()
+	else: selected_index = null
+		
+	InputManager.activate(self)
+	show()
+	
 	
 func deactivate():
 	InputManager.deactivate(self)
@@ -116,46 +129,44 @@ func change_selected(direction):
 		selected_index = default_selected_index
 		select()
 		return
-
-	var new_index = selected_index
 	
 	deselect()
 	if direction == "up":
 		if selection_format == Format.VERTICAL: 
-			new_index -= 1
+			selected_index -= 1
 		if selection_format == Format.GRID:
-			new_index -= $GridContainer.columns
+			selected_index -= $GridContainer.columns
 	elif direction == "down":
 		if selection_format == Format.VERTICAL: 
-			new_index += 1
+			selected_index += 1
 		if selection_format == Format.GRID:
-			new_index += $GridContainer.columns
+			selected_index += $GridContainer.columns
 	elif direction == "left":
-		if selection_format != Format.VERTICAL: new_index -= 1
+		if selection_format != Format.VERTICAL: selected_index -= 1
 	elif direction == "right":
-		if selection_format != Format.VERTICAL: new_index += 1
+		if selection_format != Format.VERTICAL: selected_index += 1
 		
-	set_selected_index(new_index)
-		
+	validify_selected_index()
 	select()
 	
-func set_selected_index(new_index):
+func validify_selected_index():
 	var items = container_node.get_children()
 	if wrap_around:
-		if new_index > items.size()-1: selected_index = 0
-		elif new_index < 0: selected_index = items.size()-1
-		else: selected_index = new_index
+		if selected_index > items.size()-1: selected_index = 0
+		elif selected_index < 0: selected_index = items.size()-1
+		else: selected_index = selected_index
 	else:
-		selected_index = clamp(new_index, 0, items.size()-1)
+		selected_index = clamp(selected_index, 0, items.size()-1)
 	
 	
-
 func select():
 	var items = container_node.get_children()
+	if items.size() == 0: return
 	items[selected_index].select()
 	
 func deselect():
 	var items = container_node.get_children()
+	if items.size() == 0: return
 	items[selected_index].deselect()
 	
 func get_current_value():
