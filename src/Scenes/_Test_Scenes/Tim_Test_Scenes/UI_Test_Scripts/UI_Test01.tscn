@@ -25,6 +25,10 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+selection_format = 1
+wrap_around = true
+no_initial_selection = true
+quick_scroll_enabled = true
 
 [node name="SelectablePrototype" type="Control" parent="SelectionList"]
 __meta__ = {
@@ -126,6 +130,9 @@ __meta__ = {
 [node name="GridContainer" type="GridContainer" parent="SelectionList"]
 margin_right = 40.0
 margin_bottom = 40.0
+custom_constants/vseparation = 100
+custom_constants/hseparation = 100
+columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -1,5 +1,7 @@
 extends Control
 
+signal selection_made(selection)
+
 const input_data : Dictionary = {
 	"loop": "_process",
 	"pressed": {},
@@ -10,7 +12,7 @@ const input_data : Dictionary = {
 		"ui_left" : "left",
 		"ui_right" : "right",
 		"ui_accept" : "accept",
-		"ui_cancel": "back",
+		"ui_cancel": "cancel",
 	},
 	"just_released":{
 		"ui_left" : "release_left",
@@ -27,20 +29,31 @@ enum Format {
 }
 
 onready var prototype_item = $SelectablePrototype
+onready var container_node = $VBoxContainer
 
-# reference to node currently focused item in list
-var selected = null
-# Default 
-var default_selected = null
+
+# Child index of selected child under the container node
+var default_selected_index = 0
+var selected_index = null
+
 
 # Arrangment of selectable items
 export (Format) var selection_format = Format.VERTICAL
 
-# Whether or not to select the default beofre any input is received
-export var select_before_input = false 
+# Wrap around to beginning
+export var wrap_around = false
 
-# Whether the back button will delete this submenu
+# Whether or not to select the default beofre any input is received
+export var no_initial_selection = false 
+
+# Whether or not input scrolls quickly when held after a duration
+export var quick_scroll_enabled = false
+
+# Whether the cancel input will delete this submenu
 export var delete_on_cancel = false
+
+# Whether the accept input will delete this submenu
+export var delete_on_accept = false
 
 # Quick Scrolling properties
 var held_actions = {} # Actions mapped to msecs they have been held
@@ -48,29 +61,38 @@ var quick_scrolling = [] # Actions that are currently quick scrolling
 const quick_scroll_sec = 0.07  # Time before next scroll
 const qscroll_after_msec = 500 # msecs to hold action before quickscrolling
 
+
+
 # Removes visual aids used to create UI in scene view
 func _ready():
 	for node in [$VBoxContainer, $HBoxContainer, $GridContainer]:
 		for n in node.get_children():
 			n.queue_free()
+	prototype_item.get_node("AnimatedSprite").animation = "deselected"
 	prototype_item.hide()
 	
 	
 # Creates selection list from a list of strings
 func create(str_list : Array ):
 	InputManager.activate(self)
-	var counter = 0
-	for str_item in str_list:
-		counter+=1 
+	
+	if selection_format == Format.VERTICAL:   container_node = $VBoxContainer
+	if selection_format == Format.HORIZONTAL: container_node = $HBoxContainer
+	if selection_format == Format.GRID: 	  container_node = $GridContainer
+	
+	for i in range( 0, str_list.size() ):
 		var new_item = prototype_item.duplicate()
-		new_item.name = str(counter)
-		$VBoxContainer.add_child(new_item)
-		new_item.get_node("RichTextLabel").text = str_item
+		new_item.name = str(i)
+		container_node.add_child(new_item)
+		new_item.get_node("RichTextLabel").text = str_list[i]
 		new_item.show()
 		
+	if !no_initial_selection:
+		selected_index = default_selected_index
+		select()
 		
-	
-func destroy():
+		
+func delete():
 	InputManager.deactivate(self)
 	queue_free()
 	
@@ -85,50 +107,101 @@ func quick_scroll(action, start_time):
 
 
 func _process(_delta):
-	for action in held_actions.keys():
-		if(!(action in quick_scrolling) and 
-		abs(held_actions[action] - OS.get_ticks_msec()) > qscroll_after_msec):
-			quick_scrolling.append(action)
-			quick_scroll(action, held_actions[action])
+	if quick_scroll_enabled:
+		for action in held_actions.keys():
+			if(!(action in quick_scrolling) and 
+			abs(held_actions[action] - OS.get_ticks_msec()) > qscroll_after_msec):
+				quick_scrolling.append(action)
+				quick_scroll(action, held_actions[action])
 			
 			
 ################################################################
 
+func change_selected(direction):
+	
+	if(!(direction in held_actions)):
+		held_actions.clear() # Only 1 action allowed at a time
+		held_actions[direction] = OS.get_ticks_msec() # When first pressed
+	
+	
+	if no_initial_selection and selected_index == null:
+		selected_index = default_selected_index
+		select()
+		return
+
+	var items = container_node.get_children()
+	var new_index = selected_index
+	deselect()
+	if direction == "up":
+		if selection_format == Format.VERTICAL: 
+			new_index -= 1
+		if selection_format == Format.GRID:
+			new_index -= $GridContainer.columns
+	elif direction == "down":
+		if selection_format == Format.VERTICAL: 
+			new_index += 1
+		if selection_format == Format.GRID:
+			new_index += $GridContainer.columns
+	elif direction == "left":
+		if selection_format == Format.HORIZONTAL: new_index -= 1
+	elif direction == "right":
+		if selection_format == Format.HORIZONTAL: new_index += 1
+		
+	if wrap_around:
+		if new_index > items.size()-1: selected_index = 0
+		elif new_index < 0: selected_index = items.size()-1
+		else: selected_index = new_index
+	else:
+		selected_index = clamp(new_index, 0, items.size()-1)
+	select()	
+		
+		
 func select():
-	pass
+	var items = container_node.get_children()
+	items[selected_index].get_node("AnimatedSprite").animation = "selected"
 	
 func deselect():
-	pass
+	var items = container_node.get_children()
+	items[selected_index].get_node("AnimatedSprite").animation = "deselected"
 	
 func reset(reset_focused = true):
-	if select_before_input:
+	if no_initial_selection:
 		deselect()
-	selected = default_selected if reset_focused else selected
+	selected_index = default_selected_index if reset_focused else selected_index
 	select()
 	
 	
 func left():
-	#AudioManager.play_sound("BattleMenuSwitchFocus")
-	deselect()
-	#focused -= 1
-	#focused = Button.Run if focused < Button.Attack else focused
-	#select_focused()
-	
-	if(!("left" in held_actions)):
-		held_actions["left"] = OS.get_ticks_msec()
+	change_selected("left")
 	
 func right():
-	#AudioManager.play_sound("BattleMenuSwitchFocus")
-	#if is_instance_valid(submenu):
-	#	submenu.right()
-	#else:
-	#	deselect_focused()
-	#	focused += 1
-	#	focused = Button.Attack if focused > Button.Run else focused
-	#	select_focused()
+	change_selected("right")
 	
-		if(!("right" in held_actions)):
-			held_actions["right"] = OS.get_ticks_msec()
+func up():
+	#AudioManager.play_sound("BattleMenuSwitchFocus")
+	change_selected("up")
+	
+func down():
+	#AudioManager.play_sound("BattleMenuSwitchFocus")
+	change_selected("down")
+	
+	
+func accept():
+	#AudioManager.play_sound("BattleMenuButtonSelect")
+	
+	if selected_index == null:
+		return
+	
+	# Emit Item selection as a signal
+	
+	if delete_on_accept: delete()
+
+func cancel():
+	#AudioManager.play_sound("BattleMenuButtonReturn")
+	
+	if delete_on_cancel: delete()
+
+	
 	
 func release_right():
 	held_actions.erase("right")
@@ -141,21 +214,6 @@ func release_up():
 	
 func release_down():
 	held_actions.erase("down")
-	
-	
-func accept():
-	AudioManager.play_sound("BattleMenuButtonSelect")
-	# Emit Item selection as a signal
-
-func back():
-	AudioManager.play_sound("BattleMenuButtonReturn")
-
-		
-func up():
-	AudioManager.play_sound("BattleMenuSwitchFocus")
-	
-func down():
-	AudioManager.play_sound("BattleMenuSwitchFocus")
 
 	
 
