@@ -62,10 +62,13 @@ var quick_scrolling = [] # Actions that are currently quick scrolling
 
 
 
+#############
+#	Callbacks 
+#############
+
 func _ready():
 	hide()
 	# First child container object found is assumed to be selection list
-	
 	var children = get_children()
 	assert(children.size()==1, 
 		"SelectableInterface Error: Must have a single container child")
@@ -83,43 +86,61 @@ func _ready():
 		
 	assert(container_node != null, 
 		"SelectionInterface Violation: List Scene has no valid Container")
-	
-func initialize():
-	if !no_initial_selection:
-		selected_index = default_selected_index
-		select()
-	else: selected_index = null
 		
-	InputManager.activate(self)
-	show()
-	
-	
-func deactivate():
-	InputManager.deactivate(self)
-	hide()
-	
-	
-func quick_scroll(action, start_time):
-	call_deferred(action)
-	yield(get_tree().create_timer(quick_scroll_sec, false), "timeout")
-	if(action in held_actions and held_actions[action] == start_time):
-		quick_scroll(action, start_time)
-	else:
-		quick_scrolling.erase(action)
-
-
+		
 func _process(_delta):
 	if quick_scroll_enabled:
 		for action in held_actions.keys():
 			if(!(action in quick_scrolling) and 
 			abs(held_actions[action] - OS.get_ticks_msec()) > qscroll_after_msec):
 				quick_scrolling.append(action)
-				quick_scroll(action, held_actions[action])
-			
-			
-################################################################
+				_quick_scroll(action, held_actions[action])
 
-func change_selected(direction):
+
+
+#############
+#	Public 
+#############
+	
+func deactivate():
+	InputManager.deactivate(self)
+	hide()
+	
+	
+#############
+#	Private 
+#############
+
+# Shows a selection, assuming the list has already been initialized with "activate"
+# Called by children at the end of their "activate" function
+func _show_selection():
+	
+	for child in container_node.get_children():
+		print(child.get_class())
+		#assert(child.is_class("Selectable"), 
+		#"Selection Error: Selectables must inherit from the Selectable Interface")
+	
+	if !no_initial_selection:
+		selected_index = default_selected_index
+		_select_current()
+	else: selected_index = null
+		
+	InputManager.activate(self)
+	show()
+	
+# Calls an action repeatedly while it is being held
+# Start time ensures prevents out of date coroutines fro running
+func _quick_scroll(action, start_time):
+	call_deferred(action)
+	yield(get_tree().create_timer(quick_scroll_sec, false), "timeout")
+	if(action in held_actions and held_actions[action] == start_time):
+		_quick_scroll(action, start_time)
+	else:
+		quick_scrolling.erase(action)
+
+
+# Visually changes the currently selected index based on a input direction
+func _change_selected(direction):
 	#AudioManager.play_sound("BattleMenuSwitchFocus")
 	if(!(direction in held_actions)):
 		held_actions.clear() # Only 1 action allowed at a time
@@ -127,10 +148,10 @@ func change_selected(direction):
 	
 	if no_initial_selection and selected_index == null:
 		selected_index = default_selected_index
-		select()
+		_select_current()
 		return
 	
-	deselect()
+	_deselect_current()
 	if direction == "up":
 		if selection_format == Format.VERTICAL: 
 			selected_index -= 1
@@ -146,10 +167,13 @@ func change_selected(direction):
 	elif direction == "right":
 		if selection_format != Format.VERTICAL: selected_index += 1
 		
-	validify_selected_index()
-	select()
+	_validify_selected_index()
+	_select_current()
+	emit_signal("selection_changed", _get_current_value())
 	
-func validify_selected_index():
+	
+# Takes the selected_index and changes it to match selection constraints
+func _validify_selected_index():
 	var items = container_node.get_children()
 	if wrap_around:
 		if selected_index > items.size()-1: selected_index = 0
@@ -158,29 +182,34 @@ func validify_selected_index():
 	else:
 		selected_index = clamp(selected_index, 0, items.size()-1)
 	
-	
-func select():
+# Calls the select method on the selected entry	
+func _select_current():
 	var items = container_node.get_children()
 	if items.size() == 0: return
 	items[selected_index].select()
-	
-func deselect():
+
+# Calls the deselect method on the selected entry	
+func _deselect_current():
 	var items = container_node.get_children()
 	if items.size() == 0: return
 	items[selected_index].deselect()
-	
-func get_current_value():
+
+# Gets the value of the selected entry	
+func _get_current_value():
 	var items = container_node.get_children()
 	return items[selected_index].get_value()
 	
+	
+####################
+#	Action Mappings 
+#####################
 
 func accept():
 	#AudioManager.play_sound("BattleMenuButtonSelect")
 	if selected_index == null:
 		return
 		
-	emit_signal("selection_made", get_current_value())
-	
+	emit_signal("selection_made", _get_current_value())
 	if hide_on_accept: deactivate()
 
 
@@ -190,16 +219,16 @@ func cancel():
 	
 	
 func right():
-	change_selected("right")	
+	_change_selected("right")	
 
 func left():
-	change_selected("left")
+	_change_selected("left")
 	
 func up():
-	change_selected("up")
+	_change_selected("up")
 	
 func down():
-	change_selected("down")
+	_change_selected("down")
 	
 
 func release_right():
