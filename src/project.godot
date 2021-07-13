@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "SelectionInterface",
 "class": "AutoSelection",
 "language": "GDScript",
-"path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/AutoSelection.gd"
+"path": "res://Scenes/UI/SelectionUI/AutoSelection.gd"
 }, {
 "base": "Object",
 "class": "BaseStats",
@@ -57,12 +57,12 @@ _global_script_classes=[ {
 "base": "SelectionInterface",
 "class": "DiscreteSelection",
 "language": "GDScript",
-"path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/DiscreteSelection.gd"
+"path": "res://Scenes/UI/SelectionUI/DiscreteSelection.gd"
 }, {
 "base": "SelectionInterface",
 "class": "EnemySelectionList",
 "language": "GDScript",
-"path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/EnemySelection.gd"
+"path": "res://Scenes/UI/SelectionUI/EnemySelection.gd"
 }, {
 "base": "Object",
 "class": "EnemyTypes",
@@ -135,14 +135,9 @@ _global_script_classes=[ {
 "path": "res://Classes/Types/NodeRegistry.gd"
 }, {
 "base": "Control",
-"class": "Selectable",
-"language": "GDScript",
-"path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/SelectableInterface.gd"
-}, {
-"base": "Control",
 "class": "SelectionInterface",
 "language": "GDScript",
-"path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/SelectionInterface.gd"
+"path": "res://Scenes/UI/SelectionUI/SelectionInterface.gd"
 }, {
 "base": "Control",
 "class": "SelectionList",
@@ -159,10 +154,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Directories/SoundEffects.gd"
 }, {
-"base": "Selectable",
-"class": "StandardSelectable",
+"base": "Control",
+"class": "SpriteSelectable",
 "language": "GDScript",
-"path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/StandardSelectable.gd"
+"path": "res://Scenes/UI/SelectionUI/SelectableSprite.gd"
 }, {
 "base": "Node",
 "class": "TestPQ",
@@ -195,12 +190,11 @@ _global_script_class_icons={
 "MenuResourcePaths": "",
 "MusicTracks": "",
 "NodeRegistry": "",
-"Selectable": "",
 "SelectionInterface": "",
 "SelectionList": "",
 "SkillsDirectory": "",
 "SoundEffects": "",
-"StandardSelectable": "",
+"SpriteSelectable": "",
 "TestPQ": ""
 }
 

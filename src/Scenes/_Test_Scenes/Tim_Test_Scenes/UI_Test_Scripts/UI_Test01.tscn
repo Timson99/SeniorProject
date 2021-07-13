@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/SelectableParent.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/DiscreteSelection.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/SelectableTest.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/UI/SelectionUI/DiscreteSelection.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/UI_Test01.gd" type="Script" id=3]
-[ext_resource path="res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/AutoSelection.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/UI/SelectionUI/AutoSelection.gd" type="Script" id=4]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_04.png" type="Texture" id=5]
 
 [node name="TestEnvironment" type="Node2D"]
 script = ExtResource( 3 )
@@ -104,3 +105,20 @@ margin_bottom = 50.0
 [node name="SelectablePrototype5" parent="SelectionList3/GridContainer" instance=ExtResource( 1 )]
 margin_top = 100.0
 margin_bottom = 100.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_left = 80.0
+margin_top = 100.0
+margin_right = 86.0
+margin_bottom = 106.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 61, 52 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}

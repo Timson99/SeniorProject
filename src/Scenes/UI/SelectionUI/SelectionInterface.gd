@@ -114,11 +114,11 @@ func deactivate():
 # Shows a selection, assuming the list has already been initialized with "activate"
 # Called by children at the end of their "activate" function
 func _show_selection():
-	
 	for child in container_node.get_children():
-		print(child.get_class())
-		#assert(child.is_class("Selectable"), 
-		#"Selection Error: Selectables must inherit from the Selectable Interface")
+		for required_method in ["select","deselect","get_value","set_value"]:
+			assert(child.has_method(required_method), 
+			"Selectable Node '%s' does not have required method '%s'" % 
+			[child.name, required_method])
 	
 	if !no_initial_selection:
 		selected_index = default_selected_index

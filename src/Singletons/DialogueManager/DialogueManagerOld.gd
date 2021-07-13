@@ -14,7 +14,8 @@
 """
 extends CanvasLayer
 
-
+# TODO Clean code
+# TODO Clean Option UI
 # TODO? make Dialogue Box and standalone instantiable object by the Dialogue Manager/UI Manager
 
 # SIGNALS
@@ -49,13 +50,20 @@ var transmitting := false
 var dialogue_stream := []
 var current_d_id := "" #For queueing to a specific d_id
 
+# Current list of parsed options 
+var current_options := []
+# Options screen currently being displayed
+var inOptions := false
+# Current selected option (Begins at 1)
+var selectedOption := 1
+# Number of options
+var totalOptions := 1
 
 #	TREE NODE ACCESS
 onready var scrollAudio := get_node("TextAudio")
 onready var optionAudio := get_node("OptionAudio")
 onready var dialogue_box := $"Control/Dialogue Box"
-onready var options_box := $Control/OptionsBox
-onready var options_selection := $Control/OptionsBox/OptionList
+onready var options_box := $"Control/Options Box"
 onready var textNode := dialogue_box.get_node("RichTextLabel")
 
 
@@ -64,9 +72,6 @@ onready var textNode := dialogue_box.get_node("RichTextLabel")
 ##############
 
 func _ready():
-	
-	options_selection.connect("selection_made", self, "option_picked")
-	
 	# Parse master dialogue file
 	var dialogue_master_file = ""
 	for file_path in dialogue_files:
@@ -169,8 +174,7 @@ func _advance():
 		elif line_dict["type"] == "EXECUTE":
 			EventManager.execute_event(line_dict["event_id"])
 		elif line_dict["type"] == "OPTIONS":
-			options_box.show()
-			options_selection.activate(line_dict["options"])
+			_display_options( line_dict["options"] )
 			return
 		elif line_dict["type"] == "TEXT":
 			message_counter += 1
@@ -178,15 +182,30 @@ func _advance():
 			return
 		else:
 			Debugger.dprint("Unrecognized Line Dict Type: %s" % line_dict)
-			
-			
-func option_picked(option_dict):
-	var selected_context = option_dict["destination"]
-	dialogue_stream = dialogue_dictionary[current_d_id][selected_context] + dialogue_stream
-	options_box.hide()
-	_advance()
 
 
+# Show options an initialize ui interaction
+func _display_options(options : Array):
+	options_box.show()
+	var opCount = 1
+	$"Control/Options Box/Option0".get_node("Selected").hide()
+
+	for option in options:
+		var opNode = $"Control/Options Box/Option0".duplicate()
+		opNode.get_node("msg").text = option["text"]
+		var marginSize = abs(opNode.get_node("msg").margin_top - opNode.get_node("msg").margin_bottom)
+		opNode.position.y += opCount * marginSize
+		opNode.set_owner(options_box)
+		opNode.show()
+		if (opCount == 1):
+			opNode.get_node("Selected").show()
+		options_box.add_child(opNode, true)
+		opCount += 1
+	totalOptions = opCount - 1
+	selectedOption = 1
+	
+	current_options = options
+	inOptions = true
 
 # Display text letter by letter, speed of character_jump characters per scroll_time
 # NOTE: Scroll time cannot be faster than a frame (1/60 seconds per frame)
@@ -224,6 +243,19 @@ func _text_scroll(text, call_number):
 		yield(get_tree().create_timer(new_scroll_time, false), "timeout")
 		#scrollAudio.stop()
 	
+# Terminate Options box and reset settings
+func _close_options_box():
+	inOptions = false
+	while totalOptions > 0:
+		var opName = "Option" + str(totalOptions)
+		var n = options_box.get_node(opName)
+		n.queue_free()
+		
+		totalOptions -= 1
+	options_box.hide()
+	totalOptions = 1
+	current_options = []
+	
 # Terminate Dialogue Stream and reset settings
 func _close_dialogue_box():
 	InputManager.deactivate(self)
@@ -252,13 +284,49 @@ const input_data : Dictionary = {
 	
 #When accept: Skips scroll, Advances to next line, or Selects Option
 func ui_accept_pressed():
-	if textNode.get_visible_characters() < textNode.get_text().length():
+	if inOptions:
+		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Selected.wav")
+		optionAudio.play()
+		
+		var selected_option = current_options[selectedOption - 1]
+		var selected_context = selected_option["destination"]
+		dialogue_stream = dialogue_dictionary[current_d_id][selected_context] + dialogue_stream
+		
+		_close_options_box()
+		_advance()
+	elif textNode.get_visible_characters() < textNode.get_text().length():
 		var string_stripped = textNode.bbcode_text.replace("`", "")
 		textNode.bbcode_text = string_stripped
 		textNode.set_visible_characters(string_stripped.length())
 	else:
 		_advance()
 		emit_signal("page_over")
+
+# Choose an option (Up)
+func ui_up_pressed():
+	if inOptions:
+		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Arrow_Key_Pressed.wav")
+		optionAudio.play()
+		var opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).hide()
+		selectedOption -= 1
+		if selectedOption < 1:
+			selectedOption = totalOptions
+		opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).show()
+
+# Choose an option (Down)
+func ui_down_pressed():
+	if inOptions:
+		optionAudio.stream = load("res://Assets/Christian_Test_Assets/Option_Arrow_Key_Pressed.wav")
+		optionAudio.play()
+		var opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).hide()
+		selectedOption += 1
+		if selectedOption > totalOptions:
+			selectedOption = 1
+		opName = "Option" + str(selectedOption) + "/Selected"
+		options_box.get_node(opName).show()
 
 
 

@@ -21,7 +21,6 @@ func activate(str_list : Array ):
 	# Removes Visual Aids and/or previous lists
 	for n in container_node.get_children():
 		n.free() # Must free stand-ins immediately
-	prototype_selectable.deselect()
 	prototype_selectable.hide()
 	
 	# Initialiize group
@@ -30,6 +29,7 @@ func activate(str_list : Array ):
 		new_item.name = str(i)
 		container_node.add_child(new_item)
 		new_item.set_value(str_list[i])
+		new_item.deselect()
 		new_item.show()
 		
 	prototype_selectable.queue_free()

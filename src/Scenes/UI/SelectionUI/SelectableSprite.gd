@@ -1,6 +1,6 @@
-extends Selectable
+extends Control
 
-class_name StandardSelectable
+class_name SpriteSelectable
 
 func select():
 	$AnimatedSprite.play("selected")

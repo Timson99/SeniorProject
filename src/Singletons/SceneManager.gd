@@ -77,7 +77,6 @@ func in_save_enabled_scene():
 func get_current_scene_category():
 	for category in main_scenes.keys():
 		if main_scenes[category].values().has(current_scene.filename):
-			print(category)
 			return category 
 
 func register_warp(node):
