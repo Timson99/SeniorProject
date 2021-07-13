@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Fonts/ChunkyPixels.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Singletons/DialogueManager/DialogueOption.gd" type="Script" id=2]
+[ext_resource path="res://Assets/UI/Menu/Menu_Element_05.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -14,10 +15,17 @@ __meta__ = {
 }
 
 [node name="msg" type="RichTextLabel" parent="."]
-margin_right = 280.0
+margin_left = 12.0
+margin_right = 292.0
 margin_bottom = 15.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
+bbcode_text = "Option 1"
+text = "Option 1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 55, 54 )
+texture = ExtResource( 3 )

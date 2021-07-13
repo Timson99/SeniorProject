@@ -3,10 +3,10 @@ extends Control
 var option_data : Dictionary 
 
 func select():
-	$msg.bbcode_text = "[color=#00ff00]" + option_data["text"] + "[/color]"
+	$Sprite.show()
 	
 func deselect():
-	$msg.bbcode_text = option_data["text"]
+	$Sprite.hide()
 	
 func get_value():
 	return option_data
