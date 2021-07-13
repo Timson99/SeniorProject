@@ -72,14 +72,14 @@ func _ready():
 	hide()
 	
 	if container:
-		container_node = container
+		container_node = get_node(container)
 	else: # First child container object found is assumed to be selection list
 		var children = get_children()
 		assert(children.size()==1, 
 			"SelectableInterface Error: Must have a single container child")
 		container_node = children[0]
 	
-	if container_node.is_class("VBoxContainer"):   
+	if container_node.is_class("VBoxContainer"):
 		selection_format = Format.VERTICAL
 	elif container_node.is_class("HBoxContainer"): 
 		selection_format = Format.HORIZONTAL
@@ -107,6 +107,24 @@ func _process(_delta):
 func deactivate():
 	InputManager.deactivate(self)
 	hide()
+	
+func set_selected_index(new_index):
+	var initial_selected_index = selected_index
+	if selected_index != null:
+		_deselect_current()
+	selected_index = _clamp_selected_index(new_index)
+	_select_current()
+	
+	if selected_index != initial_selected_index:
+		emit_signal("selection_changed", _get_current_value())
+
+# Returns first child index with a given value
+func index_with_value(value):
+	var items = container_node.get_children()
+	for i in range(0, items.size()):
+		if items[i].get_value() == value:
+			return i
+	return 0
 	
 	
 #############
@@ -144,45 +162,53 @@ func _quick_scroll(action, start_time):
 # Visually changes the currently selected index based on a input direction
 func _change_selected(direction):
 	#AudioManager.play_sound("BattleMenuSwitchFocus")
+	
+	# Save input for the purposes of quick scrolling
 	if(!(direction in held_actions)):
 		held_actions.clear() # Only 1 action allowed at a time
 		held_actions[direction] = OS.get_ticks_msec() # When first pressed
 	
+	# Select default if nothing currently selected
 	if no_initial_selection and selected_index == null:
 		selected_index = default_selected_index
 		_select_current()
 		return
-	
-	_deselect_current()
+		
+	var next_index = _get_next_index(direction, selected_index)
+	set_selected_index(next_index)
+		
+
+# Takes a direction and calculates what the next index with be
+func _get_next_index(direction, index):
+	var new_index = index
 	if direction == "up":
 		if selection_format == Format.VERTICAL: 
-			selected_index -= 1
+			new_index -= 1
 		if selection_format == Format.GRID:
-			selected_index -= $GridContainer.columns
+			new_index -= $GridContainer.columns
 	elif direction == "down":
 		if selection_format == Format.VERTICAL: 
-			selected_index += 1
+			new_index += 1
 		if selection_format == Format.GRID:
-			selected_index += $GridContainer.columns
+			new_index += $GridContainer.columns
 	elif direction == "left":
-		if selection_format != Format.VERTICAL: selected_index -= 1
+		if selection_format != Format.VERTICAL: new_index -= 1
 	elif direction == "right":
-		if selection_format != Format.VERTICAL: selected_index += 1
+		if selection_format != Format.VERTICAL: new_index += 1
 		
-	_validify_selected_index()
-	_select_current()
-	emit_signal("selection_changed", _get_current_value())
+	return _clamp_selected_index(new_index)
 	
 	
-# Takes the selected_index and changes it to match selection constraints
-func _validify_selected_index():
+# Takes a index and returns and clamps it to the boundaries
+func _clamp_selected_index(index):
 	var items = container_node.get_children()
 	if wrap_around:
-		if selected_index > items.size()-1: selected_index = 0
-		elif selected_index < 0: selected_index = items.size()-1
-		else: selected_index = selected_index
+		if index > items.size()-1: index = 0
+		elif index < 0: index = items.size()-1
+		else: index = index
 	else:
-		selected_index = clamp(selected_index, 0, items.size()-1)
+		index = clamp(index, 0, items.size()-1)
+	return index
 	
 # Calls the select method on the selected entry	
 func _select_current():

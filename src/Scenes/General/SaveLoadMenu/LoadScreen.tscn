@@ -14,6 +14,8 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+container = NodePath("Control/VBoxContainer")
+selectable_scene = ExtResource( 3 )
 
 [node name="SaveDataHeader" type="RichTextLabel" parent="."]
 anchor_right = 0.255
@@ -51,29 +53,23 @@ __meta__ = {
 }
 
 [node name="Control" parent="Control/VBoxContainer" instance=ExtResource( 3 )]
-save_file_name = "Save01"
 
 [node name="Control2" parent="Control/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 64.0
 margin_bottom = 64.0
-save_file_name = "Save02"
 
 [node name="Control3" parent="Control/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 128.0
 margin_bottom = 128.0
-save_file_name = "Save03"
 
 [node name="Control4" parent="Control/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 192.0
 margin_bottom = 192.0
-save_file_name = "DevSave01"
 
 [node name="Control5" parent="Control/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 256.0
 margin_bottom = 256.0
-save_file_name = "DevSave02"
 
 [node name="Control6" parent="Control/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 320.0
 margin_bottom = 320.0
-save_file_name = "DevSave03"

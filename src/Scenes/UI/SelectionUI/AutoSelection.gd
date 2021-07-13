@@ -40,7 +40,7 @@ func update_selection(str_list : Array):
 	deactivate()
 	activate(str_list)
 	selected_index = saved_selected_index
-	_validify_selected_index()
+	selected_index = _clamp_selected_index(selected_index)
 	_select_current()
 
 
