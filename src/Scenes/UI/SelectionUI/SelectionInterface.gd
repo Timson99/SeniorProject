@@ -31,7 +31,7 @@ enum Format {
 	#CUSTOM_GIRD # Container that organizes enemies in a customizes grid with row offsets
 }
 
-var container_node = null
+var container_node
 # Arrangment of selectable items
 var selection_format = Format.VERTICAL
 
@@ -54,6 +54,8 @@ export var hide_on_accept = false
 # Whether or not input scrolls quickly when held after a duration
 export var quick_scroll_enabled = false
 
+export (NodePath) var container
+
 # Quick Scrolling properties
 var quick_scroll_sec = 0.07  # Time before next scroll
 var qscroll_after_msec = 500 # msecs to hold action before quickscrolling
@@ -68,23 +70,23 @@ var quick_scrolling = [] # Actions that are currently quick scrolling
 
 func _ready():
 	hide()
-	# First child container object found is assumed to be selection list
-	var children = get_children()
-	assert(children.size()==1, 
-		"SelectableInterface Error: Must have a single container child")
-	var container = children[0]
 	
-	if container.is_class("VBoxContainer"):   
+	if container:
 		container_node = container
+	else: # First child container object found is assumed to be selection list
+		var children = get_children()
+		assert(children.size()==1, 
+			"SelectableInterface Error: Must have a single container child")
+		container_node = children[0]
+	
+	if container_node.is_class("VBoxContainer"):   
 		selection_format = Format.VERTICAL
-	elif container.is_class("HBoxContainer"): 
-		container_node = container
+	elif container_node.is_class("HBoxContainer"): 
 		selection_format = Format.HORIZONTAL
-	elif container.is_class("GridContainer"): 	  
-		container_node = container
+	elif container_node.is_class("GridContainer"): 	  
 		selection_format = Format.GRID
-		
-	assert(container_node != null, 
+	else:
+		assert(false,
 		"SelectionInterface Violation: List Scene has no valid Container")
 		
 		

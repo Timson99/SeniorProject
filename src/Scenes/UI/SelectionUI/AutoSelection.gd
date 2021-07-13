@@ -4,11 +4,10 @@ class_name AutoSelection
 
 
 export (PackedScene) var selectable_scene
-var prototype_selectable
 
 
 func _ready():
-	prototype_selectable = selectable_scene.instance()
+	pass
 	
 
 #############
@@ -22,6 +21,7 @@ func activate(str_list : Array ):
 	for n in container_node.get_children():
 		n.free() # Must free stand-ins immediately
 	
+	var prototype_selectable = selectable_scene.instance()
 	# Initialiize group
 	for i in range( 0, str_list.size() ):
 		var new_item = prototype_selectable.duplicate()
