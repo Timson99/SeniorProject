@@ -55,11 +55,6 @@ _global_script_classes=[ {
 "path": "res://Classes/StaticClasses/DialogueParser.gd"
 }, {
 "base": "SelectionInterface",
-"class": "DiscreteSelection",
-"language": "GDScript",
-"path": "res://Scenes/UI/SelectionUI/DiscreteSelection.gd"
-}, {
-"base": "SelectionInterface",
 "class": "EnemySelectionList",
 "language": "GDScript",
 "path": "res://Scenes/UI/SelectionUI/EnemySelection.gd"
@@ -135,11 +130,6 @@ _global_script_classes=[ {
 "path": "res://Classes/Types/NodeRegistry.gd"
 }, {
 "base": "Control",
-"class": "SelectionInterface",
-"language": "GDScript",
-"path": "res://Scenes/UI/SelectionUI/SelectionInterface.gd"
-}, {
-"base": "Control",
 "class": "SelectionList",
 "language": "GDScript",
 "path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/TestGenerativeSelectionList.gd"
@@ -162,7 +152,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "SpriteSelectable",
 "language": "GDScript",
-"path": "res://Scenes/UI/SelectionUI/SelectableSprite.gd"
+"path": "res://Scenes/UI/SelectionUI/StandardSelectable.gd"
 }, {
 "base": "Node",
 "class": "TestPQ",
@@ -179,7 +169,6 @@ _global_script_class_icons={
 "BossEnemy": "",
 "Debugger": "",
 "DialogueParser": "",
-"DiscreteSelection": "",
 "EnemySelectionList": "",
 "EnemyTypes": "",
 "EntityStats": "",
@@ -195,7 +184,6 @@ _global_script_class_icons={
 "MenuResourcePaths": "",
 "MusicTracks": "",
 "NodeRegistry": "",
-"SelectionInterface": "",
 "SelectionList": "",
 "SelectionMenu": "",
 "SkillsDirectory": "",
