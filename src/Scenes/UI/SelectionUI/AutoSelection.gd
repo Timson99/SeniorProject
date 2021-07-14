@@ -1,4 +1,5 @@
-extends SelectionInterface
+#extends SelectionInterface
+extends SelectionMenu
 
 class_name AutoSelection
 
@@ -15,7 +16,7 @@ func _ready():
 #############
 
 # Creates selection list from a list of strings
-func activate(str_list : Array ):
+func create_and_activate(str_list : Array ):
 	
 	# Removes Visual Aids and/or previous lists
 	for n in container_node.get_children():
@@ -32,15 +33,15 @@ func activate(str_list : Array ):
 		new_item.show()
 		
 	prototype_selectable.queue_free()
-	_show_selection()
+	activate()
 	
 # Update the selection while keeping the same entry focused
 func update_selection(str_list : Array):
 	var saved_selected_index = selected_index
 	deactivate()
-	activate(str_list)
+	create_and_activate(str_list)
 	selected_index = saved_selected_index
-	selected_index = _clamp_selected_index(selected_index)
-	_select_current()
+	selected_index = validify_index(selected_index)
+	select_current()
 
 

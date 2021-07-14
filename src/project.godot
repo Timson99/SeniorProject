@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "SelectionInterface",
+"base": "SelectionMenu",
 "class": "AutoSelection",
 "language": "GDScript",
 "path": "res://Scenes/UI/SelectionUI/AutoSelection.gd"
@@ -144,6 +144,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/_Test_Scenes/Tim_Test_Scenes/UI_Test_Scripts/TestGenerativeSelectionList.gd"
 }, {
+"base": "Control",
+"class": "SelectionMenu",
+"language": "GDScript",
+"path": "res://Scenes/UI/SelectionUI/SelectionMenu.gd"
+}, {
 "base": "Object",
 "class": "SkillsDirectory",
 "language": "GDScript",
@@ -192,6 +197,7 @@ _global_script_class_icons={
 "NodeRegistry": "",
 "SelectionInterface": "",
 "SelectionList": "",
+"SelectionMenu": "",
 "SkillsDirectory": "",
 "SoundEffects": "",
 "SpriteSelectable": "",

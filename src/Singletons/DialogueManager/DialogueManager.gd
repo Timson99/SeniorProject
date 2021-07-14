@@ -170,7 +170,7 @@ func _advance():
 			EventManager.execute_event(line_dict["event_id"])
 		elif line_dict["type"] == "OPTIONS":
 			options_box.show()
-			options_selection.activate(line_dict["options"])
+			options_selection.create_and_activate(line_dict["options"])
 			return
 		elif line_dict["type"] == "TEXT":
 			message_counter += 1

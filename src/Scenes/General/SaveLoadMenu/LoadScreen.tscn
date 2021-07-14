@@ -14,6 +14,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+quick_scroll_enabled = true
 container = NodePath("Control/VBoxContainer")
 selectable_scene = ExtResource( 3 )
 
